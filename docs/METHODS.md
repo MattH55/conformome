@@ -2,7 +2,7 @@
 
 ## What a page is
 
-One page per protein, keyed on its UniProt accession. A page lists the **states** a protein is curated to have, the **evidence** from each technique that has probed it, how each evidence item maps to a state, the **conflicts** between comparable measurements, and the **models** exported for observed states.
+One page per molecule. Proteins are keyed on their UniProt accession (with an isoform suffix when a page is about one isoform). The schema also defines RNA pages (RNAcentral URS, with the Rfam family), DNA structure pages (`DNA-` plus 12 hex digits of the SHA-256 of the sequence, with NAKB and PDB identifiers) and complex pages (`CPX-`, linking component pages); only protein pages are built so far. A page lists the **states** a protein is curated to have, the **evidence** from each technique that has probed it, how each evidence item maps to a state, the **conflicts** between comparable measurements, and the **models** exported for observed states.
 
 
 The proteins built are listed in `targets.yaml`. A protein with no curation file still gets a page with all its evidence, labelled "states not yet curated"; nothing on it is mapped until a curator defines states.
@@ -16,6 +16,18 @@ Every state and every model carries one of two labels.
 - Computational predictions (AlphaFold DB models, molecular dynamics, Markov state models, AlphaFold-based ensembles) are inferred and also flagged as predictions.
 
 An inferred state or model must list its assumptions. The pipeline refuses to build one without them, and the page shows them one click away.
+
+## Nucleic-acid states, vocabularies, mutational effects and kinetics
+
+These are in the schema; no source fills them yet.
+
+- **Secondary structure**: an RNA or DNA state may carry a dot-bracket string (`()`, with `[]`, `{}`, `<>` and letter pairs for pseudoknots, `+` for G-quadruplex tetrad guanines). The validator checks that brackets balance, that the string fits the sequence, and that every pair is Watson-Crick or G-U.
+- **Profiles**: per-residue or per-nucleotide data (SHAPE and DMS reactivities, protection factors) are stored as one profile on the evidence item, not one item per position. Φ-values are a profile on the transition.
+- **Populations**: when one dataset resolves several states (DREEM or DRACO clustering, cryo-EM classes), each state records its population and the method.
+- **Family vocabularies** (`taxonomy/state_vocabularies/`): kinases (KLIFS), GPCRs (GPCRdb), secondary transporters, ion channels, riboswitches and G-quadruplexes, each citing its source. A state may carry a `family_label` (one term per axis, for example DFG-in and alphaC-out) alongside its free name; the validator checks every term exists.
+- **Mutational effects** (`mutational_effect` records): a variant in HGVS notation, or a per-residue summary of a large dataset that is linked, not copied; the shift (ΔΔG of folding or of a state equilibrium, ΔTm or a functional score); the state pair it refers to; method and conditions; ClinVar ID when there is one.
+- **Kinetics** on transitions: forward and reverse rate constants, m-values, distance to the transition state, activation energy, Φ-values, and the measuring method.
+- **Ions**: conditions list ions with concentrations (Mg²⁺ for nucleic acids) next to the total salt.
 
 ## Evidence
 

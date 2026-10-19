@@ -1,0 +1,17 @@
+# Alternating-access states of secondary transporters.
+id: transporter
+name: Secondary transporters
+applies_to: Secondary active transporters and uniporters that work by alternating access.
+source:
+  - citation: "Jardetzky O (1966) Simple allosteric model for membrane pumps. Nature 211:969-970."
+    doi: 10.1038/211969a0
+    url: null
+axes:
+  - id: access
+    name: Access state
+    terms:
+      - {id: outward_open, name: outward-open, definition: "Substrate site open to the extracellular (or periplasmic) side, closed to the cytoplasm."}
+      - {id: outward_occluded, name: outward-occluded, definition: "Substrate bound with the outer gate closed, before the inner gate opens."}
+      - {id: occluded, name: occluded, definition: "Substrate site closed to both sides."}
+      - {id: inward_occluded, name: inward-occluded, definition: "Inner side nearly open; substrate still enclosed."}
+      - {id: inward_open, name: inward-open, definition: "Substrate site open to the cytoplasm, closed to the outside."}

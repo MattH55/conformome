@@ -2,22 +2,150 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://conformome.org/schema/state.schema.json",
   "title": "State",
-  "description": "A named conformational state of one protein. Substates nest through parent_state. Inferred states must list their assumptions.",
+  "description": "A named conformational state of one molecule. Substates nest through parent_state. Inferred states must list their assumptions. Nucleic-acid states may carry their secondary structure.",
   "type": "object",
-  "required": ["state_id", "uniprot", "name", "parent_state", "basis", "representative_model", "description", "assumptions", "status", "provenance"],
+  "required": [
+    "state_id",
+    "molecule_id",
+    "name",
+    "parent_state",
+    "basis",
+    "representative_model",
+    "description",
+    "assumptions",
+    "status",
+    "provenance"
+  ],
   "additionalProperties": false,
   "properties": {
-    "state_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"},
-    "uniprot": {"$ref": "common.schema.json#/$defs/uniprot"},
-    "name": {"type": "string", "minLength": 1},
-    "parent_state": {"type": ["string", "null"], "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"},
-    "basis": {"$ref": "common.schema.json#/$defs/basis"},
-    "representative_model": {"type": ["string", "null"]},
-    "description": {"type": "string"},
-    "assumptions": {"type": "array", "items": {"type": "string", "minLength": 1}},
-    "status": {"enum": ["draft", "reviewed"]},
-    "provenance": {"$ref": "common.schema.json#/$defs/provenance"}
+    "state_id": {
+      "$ref": "common.schema.json#/$defs/state_id"
+    },
+    "molecule_id": {
+      "$ref": "common.schema.json#/$defs/molecule_id"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "parent_state": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "common.schema.json#/$defs/state_id"
+        }
+      ]
+    },
+    "basis": {
+      "$ref": "common.schema.json#/$defs/basis"
+    },
+    "representative_model": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "description": {
+      "type": "string"
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "reviewed"
+      ]
+    },
+    "provenance": {
+      "$ref": "common.schema.json#/$defs/provenance"
+    },
+    "secondary_structure": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "common.schema.json#/$defs/secondary_structure"
+        }
+      ]
+    },
+    "family_label": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "common.schema.json#/$defs/family_label"
+        }
+      ]
+    },
+    "population": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "required": [
+            "value",
+            "uncertainty",
+            "method",
+            "evidence_ids"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "value": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "uncertainty": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "method": {
+              "type": "string",
+              "minLength": 1,
+              "description": "For example DREEM or DRACO clustering, cryo-EM classification, NMR dispersion fit."
+            },
+            "evidence_ids": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "string",
+                "pattern": "^EV-[A-Za-z0-9_-]+$"
+              }
+            }
+          }
+        }
+      ],
+      "description": "Fraction of the ensemble in this state, when one dataset resolves several states (clustering of probing reads, cryo-EM classes)."
+    }
   },
-  "if": {"properties": {"basis": {"const": "inferred"}}, "required": ["basis"]},
-  "then": {"properties": {"assumptions": {"minItems": 1}}}
+  "if": {
+    "properties": {
+      "basis": {
+        "const": "inferred"
+      }
+    },
+    "required": [
+      "basis"
+    ]
+  },
+  "then": {
+    "properties": {
+      "assumptions": {
+        "minItems": 1
+      }
+    }
+  }
 }

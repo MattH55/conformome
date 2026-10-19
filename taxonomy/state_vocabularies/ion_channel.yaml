@@ -1,0 +1,16 @@
+# Gating states of voltage- and ligand-gated ion channels.
+id: ion_channel
+name: Ion channels
+applies_to: Voltage-gated and ligand-gated ion channels.
+source:
+  - citation: "Hodgkin AL, Huxley AF (1952) A quantitative description of membrane current and its application to conduction and excitation in nerve. J Physiol 117:500-544."
+    doi: 10.1113/jphysiol.1952.sp004764
+    url: null
+axes:
+  - id: gating
+    name: Gating state
+    terms:
+      - {id: closed, name: closed, definition: "Pore gate closed; the channel is ready to open (resting)."}
+      - {id: open, name: open, definition: "Pore gate open and conducting."}
+      - {id: inactivated, name: inactivated, definition: "Non-conducting state reached from the open state, distinct from closed; recovery requires return to rest."}
+      - {id: desensitized, name: desensitized, definition: "Ligand-gated channels: agonist bound but non-conducting."}

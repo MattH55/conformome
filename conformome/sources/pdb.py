@@ -199,7 +199,7 @@ def parse(raw: dict, accession: str, retrieved: str) -> list[dict]:
             chains = ",".join(ident.get("auth_asym_ids") or [])
             records.append({
                 "evidence_id": f"EV-PDB-{pdb_id}-{entity}",
-                "uniprot": accession,
+                "molecule_id": accession,
                 "technique": technique,
                 "source_kind": "deposit",
                 "title": (entry.get("struct") or {}).get("title"),
@@ -210,6 +210,7 @@ def parse(raw: dict, accession: str, retrieved: str) -> list[dict]:
                     "ph": _ph(entry),
                     "buffer": None,
                     "salt_mM": None,
+                    "ions": [],
                     "ligands": ligands,
                     "applied_force_pn": None,
                     "notes": "Entry-level ligand list; oligosaccharides appear as branched entities. pH and temperature are null when not deposited in machine-readable fields.",

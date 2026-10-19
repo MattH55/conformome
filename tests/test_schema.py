@@ -7,13 +7,13 @@ from conformome.validate import schema_errors, taxonomy_errors
 def valid_evidence():
     return {
         "evidence_id": "EV-TEST-1",
-        "uniprot": "P69441",
+        "molecule_id": "P69441",
         "technique": "xray",
         "source_kind": "deposit",
         "title": None,
         "construct": {"description": "test", "labels": []},
         "conditions": {"environment": "in_vitro", "temperature_c": None, "ph": None, "buffer": None,
-                       "salt_mM": None, "ligands": [], "applied_force_pn": None, "notes": None},
+                       "salt_mM": None, "ions": [], "ligands": [], "applied_force_pn": None, "notes": None},
         "observable": {"type": "resolution", "value": 2.0, "unit": "Å", "uncertainty": None},
         "mappings": [],
         "data_link": None,
@@ -27,7 +27,7 @@ def valid_evidence():
 
 def valid_state():
     return {
-        "state_id": "S-open", "uniprot": "P69441", "name": "open", "parent_state": None, "basis": "observed",
+        "state_id": "S-open", "molecule_id": "P69441", "name": "open", "parent_state": None, "basis": "observed",
         "representative_model": None, "description": "", "assumptions": [], "status": "draft",
         "provenance": {"source": "test", "doi": None, "deposit_id": None, "retrieved": "2026-01-01",
                        "url": "https://example.org", "licence": "CC0 1.0"},
@@ -81,7 +81,7 @@ def test_inferred_state_requires_assumptions(repo_paths):
 def test_inferred_model_requires_assumptions(repo_paths):
     validators = load_validators(repo_paths.schema)
     model = {
-        "model_id": "M-1", "uniprot": "P69441", "state_id": "S-open", "format": "mmCIF", "file": "models/x.cif",
+        "model_id": "M-1", "molecule_id": "P69441", "state_id": "S-open", "format": "mmCIF", "file": "models/x.cif",
         "basis": "inferred", "constraints_used": [], "assumptions": None,
         "provenance": {"source": "test", "doi": None, "deposit_id": None, "retrieved": "2026-01-01",
                        "url": "https://example.org", "licence": "CC0 1.0"},
@@ -106,12 +106,12 @@ def test_mapping_needs_who_confidence_and_justification(repo_paths):
 def test_uniprot_accession_pattern(repo_paths):
     validators = load_validators(repo_paths.schema)
     ev = valid_evidence()
-    ev["uniprot"] = "not-an-accession"
+    ev["molecule_id"] = "not-an-accession"
     assert check(validators["evidence"], ev)
 
 
 def test_one_validator_per_record_type(repo_paths):
-    assert {"protein", "state", "evidence", "transition", "model"} <= set(load_validators(repo_paths.schema))
+    assert {"molecule", "state", "evidence", "transition", "model", "mutational_effect", "state_vocabulary"} <= set(load_validators(repo_paths.schema))
 
 
 def test_data_level_is_required_and_constrained(repo_paths):

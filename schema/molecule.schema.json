@@ -1,0 +1,331 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://conformome.org/schema/molecule.schema.json",
+  "title": "Molecule",
+  "description": "One page per molecule: a protein (keyed on UniProt, isoform-aware), an RNA (RNAcentral URS, with its Rfam family), a DNA structure (sequence hash plus NAKB/PDB identifiers) or a complex, which links the pages of its components.",
+  "type": "object",
+  "required": [
+    "molecule_id",
+    "molecule_type",
+    "identifiers",
+    "name",
+    "gene",
+    "organism",
+    "sequence_length",
+    "sequence",
+    "modifications",
+    "domains",
+    "ligands",
+    "components",
+    "provenance"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "molecule_id": {
+      "$ref": "common.schema.json#/$defs/molecule_id"
+    },
+    "molecule_type": {
+      "enum": [
+        "protein",
+        "rna",
+        "dna",
+        "complex"
+      ]
+    },
+    "identifiers": {
+      "type": "object",
+      "required": [
+        "uniprot",
+        "isoform",
+        "rnacentral",
+        "rfam",
+        "genbank",
+        "nakb",
+        "pdb"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "uniprot": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^([OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9]([A-Z][A-Z0-9]{2}[0-9]){1,2})$"
+        },
+        "isoform": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[A-Z0-9]{6,10}-[0-9]+$"
+        },
+        "rnacentral": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^URS[0-9A-F]{10}(_[0-9]+)?$"
+        },
+        "rfam": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^RF[0-9]{5}$"
+        },
+        "genbank": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "nakb": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pdb": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[0-9][A-Za-z0-9]{3}$"
+          },
+          "description": "PDB entries that define a DNA or RNA structure page (anchor entries)."
+        }
+      }
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "gene": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "organism": {
+      "oneOf": [
+        {
+          "type": "null",
+          "description": "Synthetic constructs and complexes across species."
+        },
+        {
+          "type": "object",
+          "required": [
+            "name",
+            "taxon_id"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "taxon_id": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        }
+      ]
+    },
+    "sequence_length": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "0 for complexes, whose sequences are on the component pages."
+    },
+    "sequence": {
+      "type": "string",
+      "description": "One-letter sequence. Protein: amino acids. RNA: ACGU (T allowed for DNA-RNA hybrids, N for unknown). DNA: ACGT. Complex: empty."
+    },
+    "modifications": {
+      "type": "array",
+      "description": "Post-translational modifications and modified nucleotides.",
+      "items": {
+        "type": "object",
+        "required": [
+          "position",
+          "kind",
+          "name",
+          "source"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "position": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "kind": {
+            "enum": [
+              "ptm",
+              "modified_nucleotide",
+              "other"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "For example Phosphoserine, N6-methyladenosine (m6A), pseudouridine."
+          },
+          "source": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "domains": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "start",
+          "end"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "start": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "end": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      },
+      "description": "Protein domains, or RNA elements (helices, aptamer, expression platform)."
+    },
+    "ligands": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "components": {
+      "type": "array",
+      "description": "Component molecules of a complex, each with its own page. Empty for other molecule types.",
+      "items": {
+        "type": "object",
+        "required": [
+          "molecule_id",
+          "copies"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "molecule_id": {
+            "$ref": "common.schema.json#/$defs/molecule_id"
+          },
+          "copies": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 1
+          }
+        }
+      }
+    },
+    "provenance": {
+      "$ref": "common.schema.json#/$defs/provenance"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "molecule_type": {
+            "const": "protein"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "sequence": {
+            "pattern": "^[A-Z]+$"
+          },
+          "identifiers": {
+            "properties": {
+              "uniprot": {
+                "type": "string"
+              }
+            }
+          },
+          "components": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "molecule_type": {
+            "const": "rna"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "sequence": {
+            "pattern": "^[ACGUTN]+$"
+          },
+          "identifiers": {
+            "properties": {
+              "rnacentral": {
+                "type": "string"
+              }
+            }
+          },
+          "components": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "molecule_type": {
+            "const": "dna"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "sequence": {
+            "pattern": "^[ACGTN]+$"
+          },
+          "components": {
+            "maxItems": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "molecule_type": {
+            "const": "complex"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "sequence": {
+            "maxLength": 0
+          },
+          "components": {
+            "minItems": 2
+          }
+        }
+      }
+    }
+  ]
+}

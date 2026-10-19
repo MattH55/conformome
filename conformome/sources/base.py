@@ -46,7 +46,7 @@ def load_raw(paths, key: str, accession: str) -> dict | None:
 
 
 def conditions(environment: str = "in_vitro", *, temperature_c=None, ph=None, buffer=None, salt_mM=None,
-               ligands=None, applied_force_pn=None, notes=None) -> dict:
+               ions=None, ligands=None, applied_force_pn=None, notes=None) -> dict:
     """A complete conditions object: unknown values are null, never omitted."""
     return {
         "environment": environment,
@@ -54,6 +54,7 @@ def conditions(environment: str = "in_vitro", *, temperature_c=None, ph=None, bu
         "ph": ph,
         "buffer": buffer,
         "salt_mM": salt_mM,
+        "ions": list(ions or []),
         "ligands": sorted(ligands or []),
         "applied_force_pn": applied_force_pn,
         "notes": notes,
@@ -80,7 +81,7 @@ def evidence(*, evidence_id: str, accession: str, technique: str, source_kind: s
              url: str, licence: str) -> dict:
     return {
         "evidence_id": evidence_id,
-        "uniprot": accession,
+        "molecule_id": accession,
         "technique": technique,
         "source_kind": source_kind,
         "title": title,

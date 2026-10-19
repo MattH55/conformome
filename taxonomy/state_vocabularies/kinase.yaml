@@ -1,0 +1,23 @@
+# Protein kinase conformations, as annotated per structure by KLIFS.
+id: kinase
+name: Protein kinases
+applies_to: Eukaryotic protein kinase domains. KLIFS annotates DFG and alphaC-helix conformation for every kinase structure in the PDB.
+source:
+  - citation: "van Linden OPJ et al. (2014) KLIFS: a knowledge-based structural database to navigate kinase-ligand interaction space. J Med Chem 57:249-277."
+    doi: 10.1021/jm400378w
+    url: https://klifs.net
+  - citation: "Modi V, Dunbrack RL (2019) Defining a new nomenclature for the structures of active and inactive kinases. PNAS 116:6818-6827."
+    doi: 10.1073/pnas.1814279116
+    url: null
+axes:
+  - id: dfg
+    name: DFG motif
+    terms:
+      - {id: dfg_in, name: DFG-in, definition: "Asp of the DFG motif points into the ATP site, Phe packs under the alphaC helix (the active-compatible arrangement)."}
+      - {id: dfg_out, name: DFG-out, definition: "DFG flipped: Phe occupies the ATP pocket and Asp points away (type II inhibitor binding)."}
+      - {id: dfg_out_like, name: DFG-out-like, definition: "Intermediate DFG arrangements that are neither fully in nor out (KLIFS out-like)."}
+  - id: alpha_c
+    name: alphaC helix
+    terms:
+      - {id: alpha_c_in, name: alphaC-in, definition: "alphaC helix positioned so its conserved Glu forms the salt bridge with the beta3 Lys."}
+      - {id: alpha_c_out, name: alphaC-out, definition: "alphaC helix rotated or displaced outward; the Glu-Lys salt bridge is broken."}

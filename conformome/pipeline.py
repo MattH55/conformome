@@ -16,6 +16,7 @@ from conformome.common import (
 from conformome.mapping.conflicts import find_conflicts, not_compared
 from conformome.mapping.curation import curation_for
 from conformome.mapping.rules import apply_rules, curator_assignment
+from conformome.molecule import molecule_type
 from conformome.sources import IMPLEMENTED
 from conformome.sources import pdb as pdb_source
 
@@ -23,12 +24,17 @@ CURATION_URL = "https://github.com/matth55/conformome/blob/HEAD/curation/{}"
 MODEL_URL = "https://files.rcsb.org/download/{}.{}"
 
 
+def target_id(target: dict) -> str:
+    """A targets.yaml entry names its molecule by molecule_id, or by uniprot for proteins."""
+    return str(target.get("molecule_id") or target.get("uniprot"))
+
+
 def target_accessions(paths: Paths) -> list[str]:
-    """Proteins to build: targets.yaml (next to curation/) plus every curated protein."""
+    """Molecules to build: targets.yaml (next to curation/) plus every curated molecule."""
     accs = {p.stem for p in paths.curation.glob("*.yaml")}
     targets = paths.curation.parent / "targets.yaml"
     if targets.exists():
-        accs |= {str(t["uniprot"]) for t in load_yaml(targets)["targets"]}
+        accs |= {target_id(t) for t in load_yaml(targets)["targets"]}
     return sorted(accs)
 
 
@@ -57,7 +63,7 @@ def download(paths: Paths, accessions: list[str]) -> None:
             except Exception as err:  # network or API failure: record it and carry on
                 if module is pdb_source:
                     raise
-                failures.append({"uniprot": acc, "source": module.NAME, "error": f"{type(err).__name__}: {err}"})
+                failures.append({"molecule_id": acc, "source": module.NAME, "error": f"{type(err).__name__}: {err}"})
                 print(f"download {acc}: {module.NAME} FAILED ({err})")
                 continue
             print(f"download {acc}: {module.NAME} ok")
@@ -83,13 +89,15 @@ def ingest(paths: Paths, accessions: list[str]) -> None:
     taxonomy = load_taxonomy(paths.taxonomy / "techniques.yaml")
     for acc in accessions:
         out = paths.build / acc
+        if molecule_type(acc) != "protein":
+            raise NotImplementedError(f"{acc}: no ingest yet for {molecule_type(acc)} molecules (schema only)")
         protein = protein_source.parse(protein_source.load_raw(paths, acc), acc)
-        errors = check(validators["protein"], protein)
+        errors = check(validators["molecule"], protein)
         if errors:
-            raise ValueError(f"{acc} protein record invalid: {errors}")
-        write_json(out / "protein.json", protein)
+            raise ValueError(f"{acc} molecule record invalid: {errors}")
+        write_json(out / "molecule.json", protein)
 
-        evidence, report = [], {"uniprot": acc, "sources": {}}
+        evidence, report = [], {"molecule_id": acc, "sources": {}}
         for module in IMPLEMENTED:
             raw = module.load_raw(paths, acc)
             if raw is None:
@@ -177,7 +185,7 @@ def map_protein(paths: Paths, acc: str) -> None:
     for s in cur.states:
         states.append({
             "state_id": s["id"],
-            "uniprot": acc,
+            "molecule_id": acc,
             "name": s["name"],
             "parent_state": s.get("parent"),
             "basis": s["basis"],
@@ -185,6 +193,9 @@ def map_protein(paths: Paths, acc: str) -> None:
             "description": s.get("description", ""),
             "assumptions": s.get("assumptions") or [],
             "status": cur.status,
+            "secondary_structure": s.get("secondary_structure"),
+            "family_label": s.get("family_label"),
+            "population": s.get("population"),
             "provenance": {
                 "source": f"Conformome curation ({cur.source_file})",
                 "doi": None,
@@ -194,7 +205,7 @@ def map_protein(paths: Paths, acc: str) -> None:
                 "licence": "Project licence (pending decision)",
             },
         })
-    transitions = [dict(t, uniprot=acc) for t in cur.transitions]
+    transitions = [dict(t, molecule_id=acc) for t in cur.transitions]
 
     for rec in states:
         for err in check(validators["state"], rec):
@@ -204,7 +215,7 @@ def map_protein(paths: Paths, acc: str) -> None:
             raise ValueError(f"{rec.get('transition_id')} invalid: {err}")
 
     mapped = {
-        "uniprot": acc,
+        "molecule_id": acc,
         "curation": {"file": cur.source_file, "status": cur.status, "curator": cur.curator, "as_of": cur.as_of},
         "states": states,
         "transitions": transitions,
@@ -253,7 +264,7 @@ def models(paths: Paths, acc: str) -> None:
             dest.write_text(header(state, rep) + body, encoding="utf-8")
             record = {
                 "model_id": f"{state['state_id']}-{ext}",
-                "uniprot": acc,
+                "molecule_id": acc,
                 "state_id": state["state_id"],
                 "format": fmt,
                 "file": f"models/{acc}/{rel}",

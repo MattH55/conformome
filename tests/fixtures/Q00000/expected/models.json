@@ -8,6 +8,7 @@
     "file": "models/Q00000/FX-open.cif",
     "format": "mmCIF",
     "model_id": "FX-open-cif",
+    "molecule_id": "Q00000",
     "provenance": {
       "deposit_id": "9FX1",
       "doi": "10.9999/synthetic.9fx1",
@@ -16,8 +17,7 @@
       "source": "RCSB PDB",
       "url": "https://files.rcsb.org/download/9FX1.cif"
     },
-    "state_id": "FX-open",
-    "uniprot": "Q00000"
+    "state_id": "FX-open"
   },
   {
     "assumptions": null,
@@ -28,6 +28,7 @@
     "file": "models/Q00000/FX-open.pdb",
     "format": "PDB",
     "model_id": "FX-open-pdb",
+    "molecule_id": "Q00000",
     "provenance": {
       "deposit_id": "9FX1",
       "doi": "10.9999/synthetic.9fx1",
@@ -36,7 +37,6 @@
       "source": "RCSB PDB",
       "url": "https://files.rcsb.org/download/9FX1.pdb"
     },
-    "state_id": "FX-open",
-    "uniprot": "Q00000"
+    "state_id": "FX-open"
   }
 ]

@@ -1,7 +1,7 @@
 """Static site: index, protein, technique, about and downloads pages.
 
 Every number and every table on the site is generated from build/ (mapped.json, models.json,
-protein.json), taxonomy/techniques.yaml, schema/ and docs/. Nothing here is hand-edited HTML.
+molecule.json), taxonomy/techniques.yaml, schema/ and docs/. Nothing here is hand-edited HTML.
 """
 
 from __future__ import annotations
@@ -226,10 +226,28 @@ def md_to_html(text: str) -> str:
 
 def _load(paths: Paths, acc: str):
     out = paths.build / acc
-    protein = read_json(out / "protein.json")
+    protein = read_json(out / "molecule.json")
     mapped = read_json(out / "mapped.json")
     models = read_json(out / "models.json") if (out / "models.json").exists() else []
     return protein, mapped, models
+
+
+def _state_extras(s: dict) -> str:
+    """Family label, population and secondary structure, when the state has them."""
+    out = ""
+    if s.get("family_label"):
+        fl = s["family_label"]
+        terms = ", ".join(f"{k}: {v}" for k, v in fl["terms"].items())
+        out += (f'<p class="muted">Family vocabulary <a href="../../downloads/taxonomy/state_vocabularies/{esc(fl["vocabulary"])}.yaml">'
+                f'{esc(fl["vocabulary"])}</a>: {esc(terms)}</p>')
+    if s.get("population"):
+        p = s["population"]
+        unc = f" ± {p['uncertainty']:.2f}" if p["uncertainty"] is not None else ""
+        out += f'<p class="muted">Population {p["value"]:.2f}{unc} ({esc(p["method"])})</p>'
+    if s.get("secondary_structure"):
+        ss = s["secondary_structure"]
+        out += f'<pre class="dotbracket">{esc(ss["dot_bracket"])}</pre><p class="muted">Pairing from {esc(ss["source"])}</p>'
+    return out
 
 
 def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: list[dict], taxonomy: dict) -> str:
@@ -340,7 +358,7 @@ def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: l
         f'<td>{esc(s["parent_state"] or "—")}</td><td>{esc(s["description"])}'
         + (f'<details><summary>Assumptions ({len(s["assumptions"])})</summary><ul>'
            + "".join(f"<li>{esc(a)}</li>" for a in s["assumptions"]) + "</ul></details>" if s["assumptions"] else "")
-        + "</td></tr>" for s in states)
+        + _state_extras(s) + "</td></tr>" for s in states)
     states_html = ('<h2>States and transitions</h2>' + diagram +
                    '<div class="scroll"><table><thead><tr><th>State</th><th>Basis</th><th>Parent</th>'
                    f'<th>Description</th></tr></thead><tbody>{state_rows}</tbody></table></div>')
@@ -682,8 +700,8 @@ def build_site(paths: Paths, accessions: list[str]) -> None:
             technique_acc.setdefault(t, []).append({"acc": acc, "name": protein["name"], "count": count})
         evidence_out = [e for e in mapped["evidence"] if redistributable.get(e["provenance"]["source"], True)]
         bundle = {
-            "uniprot": acc,
-            "protein": protein,
+            "molecule_id": acc,
+            "molecule": protein,
             "curation": mapped["curation"],
             "states": mapped["states"],
             "transitions": mapped["transitions"],
@@ -694,7 +712,7 @@ def build_site(paths: Paths, accessions: list[str]) -> None:
         }
         bundles[acc] = bundle
         write_json(site / "downloads" / "proteins" / f"{acc}.json", bundle)
-        all_lines += [{"record_type": "protein", **protein}]
+        all_lines += [{"record_type": "molecule", **protein}]
         all_lines += [{"record_type": "state", **s} for s in mapped["states"]]
         all_lines += [{"record_type": "transition", **t} for t in mapped["transitions"]]
         all_lines += [{"record_type": "evidence", **e} for e in evidence_out]
@@ -747,6 +765,9 @@ def _write_downloads(paths: Paths, site: Path, accessions: list[str]) -> None:
         shutil.copy(p, dl / "schema" / p.name)
     (dl / "taxonomy").mkdir(parents=True, exist_ok=True)
     shutil.copy(paths.taxonomy / "techniques.yaml", dl / "taxonomy" / "techniques.yaml")
+    (dl / "taxonomy" / "state_vocabularies").mkdir(parents=True, exist_ok=True)
+    for v in (paths.taxonomy / "state_vocabularies").glob("*.yaml"):
+        shutil.copy(v, dl / "taxonomy" / "state_vocabularies" / v.name)
     if paths.manifest.exists():
         shutil.copy(paths.manifest, dl / "manifest.json")
     else:
@@ -754,11 +775,14 @@ def _write_downloads(paths: Paths, site: Path, accessions: list[str]) -> None:
     body = ('<h1>Downloads</h1>'
             '<p class="sub">Every file is generated from the pipeline. Records carry provenance and conditions.</p>'
             '<ul>'
-            '<li><a href="all-records.jsonl">All records, one JSON object per line</a> (record_type: protein, state, transition, evidence, model)</li>'
+            '<li><a href="all-records.jsonl">All records, one JSON object per line</a> (record_type: molecule, state, transition, evidence, model)</li>'
             + "".join(f'<li><a href="proteins/{esc(acc)}.json">{esc(acc)}: protein bundle (JSON)</a></li>' for acc in accessions)
-            + '<li><a href="schema/protein.schema.json">JSON Schemas</a> for protein, state, evidence, transition and model, '
+            + '<li><a href="schema/molecule.schema.json">JSON Schemas</a> for molecule, state, evidence, transition, model, mutational effect and state vocabulary, '
             'plus <a href="schema/common.schema.json">shared definitions</a></li>'
-            '<li><a href="taxonomy/techniques.yaml">Technique taxonomy</a></li>'
+            '<li><a href="taxonomy/techniques.yaml">Technique taxonomy</a> and '
+            + ", ".join(f'<a href="taxonomy/state_vocabularies/{esc(v.name)}">{esc(v.stem)}</a>'
+                        for v in sorted((paths.taxonomy / "state_vocabularies").glob("*.yaml")))
+            + ' state vocabularies</li>'
             '<li><a href="manifest.json">Download manifest</a>: source URLs, retrieval dates and SHA-256 of every raw input</li>'
             '</ul>'
             '<p class="muted">State models are linked from each protein page. Evidence from sources whose licence forbids '

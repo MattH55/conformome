@@ -40,7 +40,7 @@ Raw downloads go to `data/raw/` (git-ignored, with an HTTP cache in `data/raw/_c
 | Step | Code | Output |
 |---|---|---|
 | download | `conformome/pipeline.py: download`, one module per source in `conformome/sources/` | `data/raw/<source>/<acc>.json` |
-| ingest | `pipeline.ingest`; each source's `parse()` | `build/<acc>/evidence.json`, `ingest.json` (what was skipped and why), `protein.json` |
+| ingest | `pipeline.ingest`; each source's `parse()` | `build/<acc>/evidence.json`, `ingest.json` (what was skipped and why), `molecule.json` |
 | map | `pipeline.map_protein`, `mapping/rules.py`, `mapping/conflicts.py` | `build/<acc>/mapped.json` (states, mappings, ambiguous items, conflicts, coverage grid) |
 | models | `pipeline.models` | representative PDB/mmCIF files for observed states |
 | site | `conformome/site/build.py` | `site/dist/`: home, `proteins/`, `protein/<acc>/`, `technique/<id>/`, `search/`, `about/`, `downloads/` |
@@ -109,7 +109,15 @@ Licences, and which sources may be redistributed, are in `docs/SOURCES.md`; the 
 - Every technique now has `tier` (1, 2, 3, or null for predictions), `raw_location` and `raw_format`; the validator requires them.
 - `schema/evidence.schema.json` now **requires** `data_level` (raw | processed | reported); `data_format` and `reader` are optional. Set per source: PDB, BMRB, SASBDB, AlphaFold DB and MDDB = `processed` (no source links raw images, FIDs or traces yet); DisProt and SMASH-BIO = `reported`. Raw-data pointers (EMPIAR, SBGrid, BMRbig, SMASH-BIO trace links) and `reader` sidecars are not populated.
 - The coverage grid shows the best data level per cell (`coverage.data_levels` in `mapped.json`).
-- Nucleic-acid techniques added (from the second brief): `shape`, `dms_mapseq`, `duplex_crosslinking`, `mutate_and_map`, `na_footprinting`, `uv_melting`, `native_gel_mobility`, and predictions `na_secondary_prediction`, `na_3d_prediction`. Nothing ingests them: the schema is still protein-only (UniProt key), so RNA/DNA molecules, RNAcentral/NAKB keys, dot-bracket states, reactivity profiles, `mutational_effect` and kinetics (Φ-values) need schema work first.
+- Nucleic-acid techniques added (from the second brief): `shape`, `dms_mapseq`, `duplex_crosslinking`, `mutate_and_map`, `na_footprinting`, `uv_melting`, `native_gel_mobility`, and predictions `na_secondary_prediction`, `na_3d_prediction`. No source ingests them yet.
+
+## Molecule schema (2026-10-19)
+
+- Records are keyed on `molecule_id` (was `uniprot`) in every schema. Patterns: UniProt (isoform suffix allowed), RNAcentral `URS…`, `DNA-<12 hex of SHA-256 of sequence>` (`conformome/molecule.py: dna_id`), `CPX-…` for complexes. For proteins the ID is unchanged, so URLs and curation file names are unchanged.
+- `schema/protein.schema.json` is replaced by `molecule.schema.json` (`molecule_type`, `identifiers` for UniProt/isoform/RNAcentral/Rfam/GenBank/NAKB/PDB, `modifications` (UniProt "Modified residue" features fill it for proteins), `components` for complexes). The build file is `build/<id>/molecule.json` and the all-records download uses `record_type: molecule`.
+- New: `mutational_effect.schema.json`, `state_vocabulary.schema.json` and six vocabularies in `taxonomy/state_vocabularies/` (DOIs checked against Crossref). States gain `secondary_structure`, `family_label`, `population`; evidence gains `profile`; transitions gain `kinetics` (Φ-values as a profile); models accept `dot-bracket`; conditions gain required `ions`; mappings gain optional `agreement` (score + method, for profile-vs-dot-bracket mapping).
+- Applied: GPCRdb labels on β2AR states, KLIFS labels on three Abl states (draft, unreviewed).
+- Not done: ingest for RNA/DNA/complex IDs (`ingest` raises NotImplementedError), sources for nucleic acids (RNAcentral, Rfam, NAKB, RMDB, RASP) and for mutational effects and kinetics (ProThermDB, mega-scale dataset, MaveDB, ClinVar, PFDB), profile-to-dot-bracket mapping, the six nucleic-acid pilot molecules, and site pages for non-protein molecules.
 
 ## Good next steps
 

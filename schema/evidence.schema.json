@@ -2,42 +2,155 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://conformome.org/schema/evidence.schema.json",
   "title": "Evidence",
-  "description": "One experiment or deposit. Its mappings to states are listed here, each with who made it, confidence and justification.",
+  "description": "One experiment or deposit. Its mappings to states are listed here, each with who made it, confidence and justification. Per-nucleotide reactivities and other per-position data go in profile, not one value per item.",
   "type": "object",
-  "required": ["evidence_id", "uniprot", "technique", "source_kind", "title", "construct", "conditions", "observable", "mappings", "data_link", "data_level", "provenance"],
+  "required": [
+    "evidence_id",
+    "molecule_id",
+    "technique",
+    "source_kind",
+    "title",
+    "construct",
+    "conditions",
+    "observable",
+    "mappings",
+    "data_link",
+    "data_level",
+    "provenance"
+  ],
   "additionalProperties": false,
   "properties": {
-    "evidence_id": {"type": "string", "pattern": "^EV-[A-Za-z0-9_-]+$"},
-    "uniprot": {"$ref": "common.schema.json#/$defs/uniprot"},
-    "technique": {"type": "string", "pattern": "^[a-z0-9_]+$", "description": "Must appear in taxonomy/techniques.yaml."},
-    "source_kind": {"enum": ["deposit", "literature", "computed"]},
-    "title": {"type": ["string", "null"], "description": "Title of the deposit, record or publication the evidence comes from."},
+    "evidence_id": {
+      "type": "string",
+      "pattern": "^EV-[A-Za-z0-9_-]+$"
+    },
+    "molecule_id": {
+      "$ref": "common.schema.json#/$defs/molecule_id"
+    },
+    "technique": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+$",
+      "description": "Must appear in taxonomy/techniques.yaml."
+    },
+    "source_kind": {
+      "enum": [
+        "deposit",
+        "literature",
+        "computed"
+      ]
+    },
+    "title": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Title of the deposit, record or publication the evidence comes from."
+    },
     "construct": {
       "type": "object",
-      "required": ["description", "labels"],
+      "required": [
+        "description",
+        "labels"
+      ],
       "additionalProperties": false,
       "properties": {
-        "description": {"type": "string"},
-        "labels": {"type": "array", "items": {"type": "string"}}
+        "description": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
       }
     },
-    "conditions": {"$ref": "common.schema.json#/$defs/conditions"},
+    "conditions": {
+      "$ref": "common.schema.json#/$defs/conditions"
+    },
     "observable": {
       "type": "object",
-      "required": ["type", "value", "unit", "uncertainty"],
+      "required": [
+        "type",
+        "value",
+        "unit",
+        "uncertainty"
+      ],
       "additionalProperties": false,
       "properties": {
-        "type": {"type": "string", "pattern": "^[a-z0-9_]+$", "description": "Must be listed under the technique in taxonomy/techniques.yaml."},
-        "value": {"type": ["number", "null"]},
-        "unit": {"type": ["string", "null"]},
-        "uncertainty": {"type": ["number", "null"]}
+        "type": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]+$",
+          "description": "Must be listed under the technique in taxonomy/techniques.yaml."
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "uncertainty": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
       }
     },
-    "mappings": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/mapping"}},
-    "data_link": {"type": ["string", "null"], "format": "uri"},
-    "data_level": {"enum": ["raw", "processed", "reported"], "description": "raw: traces, images, FIDs, timestamps. processed: fitted curves, maps, uptake tables, trajectories. reported: values in the paper only."},
-    "data_format": {"type": ["string", "null"], "description": "Format of the dataset at data_link."},
-    "reader": {"type": ["string", "null"], "description": "Sidecar or reader that opens the dataset (for example a TraceSet file)."},
-    "provenance": {"$ref": "common.schema.json#/$defs/provenance"}
+    "mappings": {
+      "type": "array",
+      "items": {
+        "$ref": "common.schema.json#/$defs/mapping"
+      }
+    },
+    "data_link": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "uri"
+    },
+    "data_level": {
+      "enum": [
+        "raw",
+        "processed",
+        "reported"
+      ],
+      "description": "raw: traces, images, FIDs, timestamps. processed: fitted curves, maps, uptake tables, trajectories. reported: values in the paper only."
+    },
+    "data_format": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Format of the dataset at data_link."
+    },
+    "reader": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Sidecar or reader that opens the dataset (for example a TraceSet file)."
+    },
+    "provenance": {
+      "$ref": "common.schema.json#/$defs/provenance"
+    },
+    "profile": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "common.schema.json#/$defs/profile"
+        }
+      ],
+      "description": "Per-position series for this evidence (probing reactivities, HDX protection). observable then summarises it (for example the number of positions)."
+    }
   }
 }

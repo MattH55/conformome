@@ -1,7 +1,7 @@
-"""Curation files: one YAML per protein, owned by the curator.
+"""Curation files: one YAML per molecule, owned by the curator.
 
 Shape (see curation/README.md):
-    uniprot, name, curator, status (draft|reviewed), as_of, states, assignments, rules, transitions
+    uniprot (proteins) or molecule_id, name, curator, status (draft|reviewed), as_of, states, assignments, rules, transitions
 Assignments are the curator's evidence-to-state decisions. Each one becomes a mapping record
 with who = "curator:<curator>", the stated confidence and justification.
 Rules are the curator's declarative criteria (technique, source, ligands, title words). Each match
@@ -16,6 +16,8 @@ from pathlib import Path
 from conformome.common import load_yaml
 
 CONFIDENCE = {"high", "medium", "low"}
+STATE_KEYS = {"id", "name", "basis", "representative_pdb", "description", "assumptions", "parent",
+              "secondary_structure", "family_label", "population"}
 MATCH_KEYS = {"techniques", "sources", "observable_types", "environment", "ligands_any", "ligands_all",
               "ligands_none", "no_ligands", "ligand_text_any", "ligand_text_none", "title_any", "title_all",
               "title_none", "publication_title_any"}
@@ -39,11 +41,11 @@ class Curation:
 def load_curation(path: Path, expected_uniprot: str | None = None) -> Curation:
     data = load_yaml(path)
     errors: list[str] = []
-    uniprot = data.get("uniprot")
+    uniprot = data.get("molecule_id") or data.get("uniprot")
     if not data.get("as_of"):
         errors.append(f"{path.name}: as_of date is required (the date the curation was last changed)")
     if expected_uniprot and uniprot != expected_uniprot:
-        errors.append(f"{path.name}: uniprot {uniprot} does not match file name {expected_uniprot}")
+        errors.append(f"{path.name}: molecule {uniprot} does not match file name {expected_uniprot}")
     states = data.get("states") or []
     state_ids = [s["id"] for s in states]
     if len(set(state_ids)) != len(state_ids):
@@ -54,6 +56,9 @@ def load_curation(path: Path, expected_uniprot: str | None = None) -> Curation:
             errors.append(f"{path.name}: state {s['id']} has unknown parent {parent}")
         if s.get("basis") not in {"observed", "inferred"}:
             errors.append(f"{path.name}: state {s['id']} basis must be observed or inferred")
+        unknown = set(s) - STATE_KEYS
+        if unknown:
+            errors.append(f"{path.name}: state {s['id']} has unknown keys {sorted(unknown)}")
     for a in data.get("assignments") or []:
         if bool(a.get("evidence_id")) == bool(a.get("pdb")):
             errors.append(f"{path.name}: assignment {a} needs exactly one of evidence_id or pdb")

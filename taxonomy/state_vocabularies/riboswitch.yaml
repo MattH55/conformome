@@ -1,0 +1,19 @@
+# Riboswitch states: ligand occupancy of the aptamer and the regulatory output of the expression platform.
+id: riboswitch
+name: Riboswitches
+applies_to: Riboswitches (Rfam riboswitch families), as aptamer plus expression platform.
+source:
+  - citation: "Serganov A, Nudler E (2013) A decade of riboswitches. Cell 152:17-24."
+    doi: 10.1016/j.cell.2012.12.024
+    url: null
+axes:
+  - id: aptamer
+    name: Aptamer
+    terms:
+      - {id: aptamer_unbound, name: aptamer unbound, definition: "Aptamer without its ligand; may be partly folded or preorganised."}
+      - {id: aptamer_bound, name: aptamer bound, definition: "Aptamer folded around its ligand."}
+  - id: expression_platform
+    name: Expression platform
+    terms:
+      - {id: platform_on, name: expression ON, definition: "Platform conformation that allows expression (antiterminator formed, or ribosome-binding site exposed)."}
+      - {id: platform_off, name: expression OFF, definition: "Platform conformation that blocks expression (terminator formed, or ribosome-binding site sequestered)."}
