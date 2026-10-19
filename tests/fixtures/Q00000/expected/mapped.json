@@ -293,7 +293,7 @@
         "licence": "Project licence (pending decision)",
         "retrieved": "2026-01-15",
         "source": "Conformome curation (Q00000.yaml)",
-        "url": "https://github.com/matth55/conformome/blob/main/curation/Q00000.yaml"
+        "url": "https://github.com/matth55/conformome/blob/HEAD/curation/Q00000.yaml"
       },
       "representative_model": "FX-open-cif",
       "state_id": "FX-open",
@@ -312,7 +312,7 @@
         "licence": "Project licence (pending decision)",
         "retrieved": "2026-01-15",
         "source": "Conformome curation (Q00000.yaml)",
-        "url": "https://github.com/matth55/conformome/blob/main/curation/Q00000.yaml"
+        "url": "https://github.com/matth55/conformome/blob/HEAD/curation/Q00000.yaml"
       },
       "representative_model": null,
       "state_id": "FX-closed",
@@ -334,7 +334,7 @@
         "licence": "Project licence (pending decision)",
         "retrieved": "2026-01-15",
         "source": "Conformome curation (Q00000.yaml)",
-        "url": "https://github.com/matth55/conformome/blob/main/curation/Q00000.yaml"
+        "url": "https://github.com/matth55/conformome/blob/HEAD/curation/Q00000.yaml"
       },
       "representative_model": null,
       "state_id": "FX-intermediate",

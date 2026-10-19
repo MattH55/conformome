@@ -4,6 +4,8 @@
 
 One page per protein, keyed on its UniProt accession. A page lists the **states** a protein is curated to have, the **evidence** from each technique that has probed it, how each evidence item maps to a state, the **conflicts** between comparable measurements, and the **models** exported for observed states.
 
+
+The proteins built are listed in `targets.yaml`. A protein with no curation file still gets a page with all its evidence, labelled "states not yet curated"; nothing on it is mapped until a curator defines states.
 ## Observed and inferred
 
 Every state and every model carries one of two labels.

@@ -10,8 +10,8 @@ from pathlib import Path
 from jsonschema import Draft202012Validator
 
 from conformome.common import Paths, check, load_taxonomy, load_validators, load_yaml, read_json
-from conformome.mapping.curation import load_curation
-from conformome.pipeline import curated_accessions, evidence_errors
+from conformome.mapping.curation import curation_for
+from conformome.pipeline import evidence_errors, target_accessions
 from conformome.sources import REGISTRY
 
 RESOLUTION_CLASSES = {"atomic", "residue", "domain", "global", "single_molecule"}
@@ -90,7 +90,7 @@ def build_errors(paths: Paths, accessions: list[str]) -> list[str]:
             errors.append(f"{acc}: build/{acc}/mapped.json missing; run make map")
             continue
         cur_path = paths.curation / f"{acc}.yaml"
-        cur = load_curation(cur_path, acc)
+        cur = curation_for(paths.curation, acc)
         errors += [f"{acc}: {e}" for e in cur.errors]
         rule_ids = {r["id"] for r in cur.rules}
 
@@ -216,9 +216,23 @@ def site_errors(paths: Paths, accessions: list[str]) -> list[str]:
     return errors
 
 
+def targets_errors(paths: Paths) -> list[str]:
+    """Every curated protein must be listed in targets.yaml, once, with a reason for inclusion."""
+    path = paths.curation.parent / "targets.yaml"
+    if not path.exists():
+        return []
+    targets = load_yaml(path)["targets"]
+    accs = [str(t.get("uniprot")) for t in targets]
+    errors = [f"targets.yaml: {a} listed more than once" for a in sorted({a for a in accs if accs.count(a) > 1})]
+    errors += [f"targets.yaml: {t.get('uniprot')} has no batch" for t in targets if not t.get("batch")]
+    errors += [f"curation/{p.name} has no entry in targets.yaml" for p in sorted(paths.curation.glob("*.yaml"))
+               if p.stem not in accs]
+    return errors
+
+
 def run(paths: Paths, accessions: list[str] | None = None, site: bool = True) -> list[str]:
-    accessions = accessions or curated_accessions(paths)
-    errors = schema_errors(paths) + taxonomy_errors(paths) + sources_errors(paths)
+    accessions = accessions or target_accessions(paths)
+    errors = schema_errors(paths) + taxonomy_errors(paths) + sources_errors(paths) + targets_errors(paths)
     errors += build_errors(paths, accessions)
     if site:
         errors += site_errors(paths, accessions)

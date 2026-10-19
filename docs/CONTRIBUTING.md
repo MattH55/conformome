@@ -1,5 +1,13 @@
 # Contributing
 
+## Adding a protein
+
+Add a line to `targets.yaml` with the UniProt accession, a `batch` that says why it was added, and a name. `make download` and `make site` then build an evidence-only page for it. Pages without a curation file say "states not yet curated".
+
+## Curating a protein
+
+Copy a curation file from `curation/` as a template, name it `<UniProt>.yaml`, define the states (with a representative PDB entry for observed states and assumptions for inferred ones), then add assignments and rules. See `curation/README.md` for every field.
+
 ## Correcting a page
 
 Every page has a link to its curation file. To correct a state, a mapping or a description:

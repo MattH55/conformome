@@ -14,23 +14,31 @@ from conformome.common import (
     Paths, check, fetch_url, load_taxonomy, load_validators, load_yaml, read_json, record_download, today, write_json,
 )
 from conformome.mapping.conflicts import find_conflicts, not_compared
-from conformome.mapping.curation import load_curation
+from conformome.mapping.curation import curation_for
 from conformome.mapping.rules import apply_rules, curator_assignment
 from conformome.sources import IMPLEMENTED
 from conformome.sources import pdb as pdb_source
 
-CURATION_URL = "https://github.com/matth55/conformome/blob/main/curation/{}"
+CURATION_URL = "https://github.com/matth55/conformome/blob/HEAD/curation/{}"
 MODEL_URL = "https://files.rcsb.org/download/{}.{}"
 
 
-def curated_accessions(paths: Paths) -> list[str]:
-    return sorted(p.stem for p in paths.curation.glob("*.yaml"))
+def target_accessions(paths: Paths) -> list[str]:
+    """Proteins to build: targets.yaml (next to curation/) plus every curated protein."""
+    accs = {p.stem for p in paths.curation.glob("*.yaml")}
+    targets = paths.curation.parent / "targets.yaml"
+    if targets.exists():
+        accs |= {str(t["uniprot"]) for t in load_yaml(targets)["targets"]}
+    return sorted(accs)
+
+
+curated_accessions = target_accessions  # older name
 
 
 def _representatives(paths: Paths, accessions: list[str]) -> list[str]:
     reps = []
     for acc in accessions:
-        for state in load_curation(paths.curation / f"{acc}.yaml", acc).states:
+        for state in curation_for(paths.curation, acc).states:
             if state.get("representative_pdb"):
                 reps.append(state["representative_pdb"])
     return sorted(set(reps))
@@ -137,7 +145,7 @@ def map_protein(paths: Paths, acc: str) -> None:
     validators = load_validators(paths.schema)
     taxonomy_list = load_yaml(paths.taxonomy / "techniques.yaml")["techniques"]
     technique_order = [t["id"] for t in taxonomy_list]
-    cur = load_curation(paths.curation / f"{acc}.yaml", acc)
+    cur = curation_for(paths.curation, acc)
     if cur.errors:
         raise ValueError("; ".join(cur.errors))
     out = paths.build / acc
@@ -211,7 +219,7 @@ def models(paths: Paths, acc: str) -> None:
     out = paths.build / acc
     mapped = read_json(out / "mapped.json")
     evidence = mapped["evidence"]
-    curated = {s["id"]: s for s in load_curation(paths.curation / f"{acc}.yaml", acc).states}
+    curated = {s["id"]: s for s in curation_for(paths.curation, acc).states}
     records = []
     for state in mapped["states"]:
         rep = curated[state["state_id"]].get("representative_pdb")

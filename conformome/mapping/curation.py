@@ -95,3 +95,12 @@ def load_curation(path: Path, expected_uniprot: str | None = None) -> Curation:
         source_file=path.name,
         errors=errors,
     )
+
+
+def curation_for(curation_dir: Path, accession: str) -> Curation:
+    """The protein's curation file, or an empty 'uncurated' record when no curator has written one yet."""
+    path = curation_dir / f"{accession}.yaml"
+    if path.exists():
+        return load_curation(path, accession)
+    return Curation(uniprot=accession, name=accession, curator="none", status="uncurated", states=[],
+                    transitions=[], assignments=[], rules=[], as_of="", source_file="")

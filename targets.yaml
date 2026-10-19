@@ -1,0 +1,93 @@
+# Proteins Conformome builds. A protein listed here gets a page from its evidence alone;
+# states and mappings come from curation/<UniProt>.yaml when a curator writes one.
+# Batches record why each protein was added.
+#   pilot-1: the brief's ten pilot proteins
+#   pilot-2: twenty well-studied conformational systems, chosen by hand
+#   multi-source-1: at least one PDB structure, one BMRB deposit and one SMASH-BIO record, with 8 or more
+#                   BMRB deposits or SMASH-BIO records (selected 2026-10-19 from the BMRB UniProt mapping
+#                   and the SMASH-BIO release)
+targets:
+  - {uniprot: P00519, batch: pilot-2, name: "Abl kinase (ABL1)"}
+  - {uniprot: P00644, batch: pilot-2, name: "Staphylococcal nuclease (SNase)"}
+  - {uniprot: P00648, batch: pilot-2, name: "Barnase"}
+  - {uniprot: P00698, batch: pilot-2, name: "Hen egg-white lysozyme"}
+  - {uniprot: P00720, batch: pilot-1, name: "Endolysin (T4 lysozyme)"}
+  - {uniprot: P00974, batch: pilot-2, name: "Bovine pancreatic trypsin inhibitor (BPTI)"}
+  - {uniprot: P01053, batch: pilot-2, name: "Chymotrypsin inhibitor 2 (CI2)"}
+  - {uniprot: P01112, batch: pilot-2, name: "HRas"}
+  - {uniprot: P02185, batch: pilot-2, name: "Myoglobin"}
+  - {uniprot: P02829, batch: pilot-1, name: "ATP-dependent molecular chaperone HSP82 (Hsp90)"}
+  - {uniprot: P02925, batch: pilot-2, name: "Ribose-binding protein (RbsB)"}
+  - {uniprot: P03023, batch: pilot-1, name: "Lactose operon repressor (LacI)"}
+  - {uniprot: P06654, batch: pilot-1, name: "Immunoglobulin G-binding protein G (GB1 domain)"}
+  - {uniprot: P07550, batch: pilot-2, name: "Beta-2 adrenergic receptor"}
+  - {uniprot: P07751, batch: pilot-2, name: "Alpha-spectrin SH3 domain"}
+  - {uniprot: P0A334, batch: pilot-2, name: "KcsA potassium channel"}
+  - {uniprot: P0A6Y8, batch: pilot-2, name: "DnaK (Hsp70)"}
+  - {uniprot: P0ABQ4, batch: pilot-2, name: "Dihydrofolate reductase (DHFR)"}
+  - {uniprot: P0AE67, batch: pilot-2, name: "CheY"}
+  - {uniprot: P0AEX9, batch: pilot-1, name: "Maltose-binding periplasmic protein (MBP)"}
+  - {uniprot: P0CG48, batch: pilot-1, name: "Ubiquitin (polyubiquitin-C)"}
+  - {uniprot: P0DP23, batch: pilot-1, name: "Calmodulin-1"}
+  - {uniprot: P10636, batch: pilot-2, name: "Tau"}
+  - {uniprot: P37840, batch: pilot-1, name: "Alpha-synuclein"}
+  - {uniprot: P42212, batch: pilot-2, name: "Green fluorescent protein (GFP)"}
+  - {uniprot: P62937, batch: pilot-2, name: "Cyclophilin A"}
+  - {uniprot: P69441, batch: pilot-1, name: "Adenylate kinase"}
+  - {uniprot: Q13526, batch: pilot-2, name: "Pin1"}
+  - {uniprot: Q8WZ42, batch: pilot-1, name: "Titin (Ig repeat I27)"}
+  - {uniprot: Q9Y490, batch: pilot-2, name: "Talin-1"}
+  - {uniprot: O00571, batch: multi-source-1, name: "ATP-dependent RNA helicase DDX3X (Homo sapiens)"}
+  - {uniprot: O60610, batch: multi-source-1, name: "Protein diaphanous homolog 1 (Homo sapiens)"}
+  - {uniprot: P00441, batch: multi-source-1, name: "Superoxide dismutase [Cu-Zn] (Homo sapiens)"}
+  - {uniprot: P02452, batch: multi-source-1, name: "Collagen alpha-1(I) chain (Homo sapiens)"}
+  - {uniprot: P02545, batch: multi-source-1, name: "Prelamin-A/C (Homo sapiens)"}
+  - {uniprot: P02549, batch: multi-source-1, name: "Spectrin alpha chain, erythrocytic 1 (Homo sapiens)"}
+  - {uniprot: P02751, batch: multi-source-1, name: "Fibronectin (Homo sapiens)"}
+  - {uniprot: P02945, batch: multi-source-1, name: "Bacteriorhodopsin (Halobacterium salinarum (strain ATCC 700922 / JCM 11081 / NRC-1))"}
+  - {uniprot: P03018, batch: multi-source-1, name: "DNA helicase II (Escherichia coli (strain K12))"}
+  - {uniprot: P03069, batch: multi-source-1, name: "General control transcription factor GCN4 (Saccharomyces cerevisiae (strain ATCC\
+  \ 204508 / S288c))"}
+  - {uniprot: P04050, batch: multi-source-1, name: "DNA-directed RNA polymerase II subunit RPB1 (Saccharomyces cerevisiae (strain ATCC\
+  \ 204508 / S288c))"}
+  - {uniprot: P04156, batch: multi-source-1, name: "Major prion protein (Homo sapiens)"}
+  - {uniprot: P04275, batch: multi-source-1, name: "von Willebrand factor (Homo sapiens)"}
+  - {uniprot: P04637, batch: multi-source-1, name: "Cellular tumor antigen p53 (Homo sapiens)"}
+  - {uniprot: P04925, batch: multi-source-1, name: "Major prion protein (Mus musculus)"}
+  - {uniprot: P05067, batch: multi-source-1, name: "Amyloid-beta precursor protein (Homo sapiens)"}
+  - {uniprot: P05455, batch: multi-source-1, name: "Lupus La protein (Homo sapiens)"}
+  - {uniprot: P05556, batch: multi-source-1, name: "Integrin beta-1 (Homo sapiens)"}
+  - {uniprot: P07900, batch: multi-source-1, name: "Heat shock protein HSP 90-alpha (Homo sapiens)"}
+  - {uniprot: P08191, batch: multi-source-1, name: "Type 1 fimbrin D-mannose specific adhesin (Escherichia coli (strain K12))"}
+  - {uniprot: P09055, batch: multi-source-1, name: "Integrin beta-1 (Mus musculus)"}
+  - {uniprot: P09493, batch: multi-source-1, name: "Tropomyosin alpha-1 chain (Homo sapiens)"}
+  - {uniprot: P0ACF8, batch: multi-source-1, name: "DNA-binding protein H-NS (Escherichia coli (strain K12))"}
+  - {uniprot: P0AGE0, batch: multi-source-1, name: "Single-stranded DNA-binding protein (Escherichia coli (strain K12))"}
+  - {uniprot: P0DTC2, batch: multi-source-1, name: "Spike glycoprotein (Severe acute respiratory syndrome coronavirus 2)"}
+  - {uniprot: P12023, batch: multi-source-1, name: "Amyloid-beta precursor protein (Mus musculus)"}
+  - {uniprot: P12883, batch: multi-source-1, name: "Myosin-7 (Homo sapiens)"}
+  - {uniprot: P14151, batch: multi-source-1, name: "L-selectin (Homo sapiens)"}
+  - {uniprot: P16157, batch: multi-source-1, name: "Ankyrin-1 (Homo sapiens)"}
+  - {uniprot: P21333, batch: multi-source-1, name: "Filamin-A (Homo sapiens)"}
+  - {uniprot: P21579, batch: multi-source-1, name: "Synaptotagmin-1 (Homo sapiens)"}
+  - {uniprot: P26039, batch: multi-source-1, name: "Talin-1 (Mus musculus)"}
+  - {uniprot: P27694, batch: multi-source-1, name: "Replication protein A 70 kDa DNA-binding subunit (Homo sapiens)"}
+  - {uniprot: P33176, batch: multi-source-1, name: "Kinesin-1 heavy chain (Homo sapiens)"}
+  - {uniprot: P35579, batch: multi-source-1, name: "Myosin-9 (Homo sapiens)"}
+  - {uniprot: P39476, batch: multi-source-1, name: "DNA-binding protein 7d (Saccharolobus solfataricus (strain ATCC 35092 / DSM 1617\
+  \ / JCM 11322 / P2))"}
+  - {uniprot: P40460, batch: multi-source-1, name: "Kinetochore protein NDC80 (Saccharomyces cerevisiae (strain ATCC 204508 / S288c))"}
+  - {uniprot: P42858, batch: multi-source-1, name: "Huntingtin (Homo sapiens)"}
+  - {uniprot: P49934, batch: multi-source-1, name: "Protegrin-5 (Sus scrofa)"}
+  - {uniprot: P54132, batch: multi-source-1, name: "RecQ-like DNA helicase BLM (Homo sapiens)"}
+  - {uniprot: P62894, batch: multi-source-1, name: "Cytochrome c (Bos taurus)"}
+  - {uniprot: P68431, batch: multi-source-1, name: "Histone H3.1 (Homo sapiens)"}
+  - {uniprot: P99999, batch: multi-source-1, name: "Cytochrome c (Homo sapiens)"}
+  - {uniprot: Q05397, batch: multi-source-1, name: "Focal adhesion kinase 1 (Homo sapiens)"}
+  - {uniprot: Q06609, batch: multi-source-1, name: "DNA repair protein RAD51 homolog 1 (Homo sapiens)"}
+  - {uniprot: Q13148, batch: multi-source-1, name: "TAR DNA-binding protein 43 (Homo sapiens)"}
+  - {uniprot: Q14204, batch: multi-source-1, name: "Cytoplasmic dynein 1 heavy chain 1 (Homo sapiens)"}
+  - {uniprot: Q64727, batch: multi-source-1, name: "Vinculin (Mus musculus)"}
+  - {uniprot: Q99ZW2, batch: multi-source-1, name: "CRISPR-associated endonuclease Cas9/Csn1 (Streptococcus pyogenes serotype M1)"}
+  - {uniprot: Q9BYF1, batch: multi-source-1, name: "Angiotensin-converting enzyme 2 (Homo sapiens)"}
+  - {uniprot: Q9UM54, batch: multi-source-1, name: "Unconventional myosin-VI (Homo sapiens)"}
