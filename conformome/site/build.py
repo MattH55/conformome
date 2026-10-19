@@ -154,7 +154,7 @@ def page(title: str, body: str, root: str, scripts: str = "", head_extra: str = 
 <body>
 <header class="site"><nav>
 <a class="brand" href="{root}index.html">Conformome</a>
-<a href="{root}index.html">Proteins</a>
+<a href="{root}proteins/index.html">Proteins</a>
 <a href="{root}search/index.html">Search</a>
 <a href="{root}about/index.html">About and methods</a>
 <a href="{root}downloads/index.html">Downloads</a>
@@ -478,11 +478,11 @@ def _diagram(states: list[dict], transitions: list[dict]) -> str:
     return "".join(parts)
 
 
-def _matrix(rows: list[dict], techniques: list[str], taxonomy: dict) -> str:
+def _matrix(rows: list[dict], techniques: list[str], taxonomy: dict, root: str = "") -> str:
     """Proteins x techniques, shaded by evidence count (log scale)."""
     import math
     top = max([n for r in rows for n in r["tech_counts"].values()] or [1])
-    head = "".join(f'<th class="tech" title="{esc(taxonomy[tid]["name"])}"><a href="technique/{esc(tid)}/index.html">{esc(tid)}</a></th>'
+    head = "".join(f'<th class="tech" title="{esc(taxonomy[tid]["name"])}"><a href="{root}technique/{esc(tid)}/index.html">{esc(tid)}</a></th>'
                    for tid in techniques)
     body = []
     for r in sorted(rows, key=lambda r: (-len(r["tech_counts"]), r["name"].lower())):
@@ -494,8 +494,8 @@ def _matrix(rows: list[dict], techniques: list[str], taxonomy: dict) -> str:
                 continue
             pct = round(18 + 72 * math.log10(n + 1) / math.log10(top + 1))
             cells.append(f'<td class="m" style="background:color-mix(in srgb, var(--accent) {pct}%, transparent)" '
-                         f'title="{esc(r["name"])}: {n} {esc(tid)}"><a href="protein/{esc(r["acc"])}/index.html">{n}</a></td>')
-        body.append(f'<tr><td><a href="protein/{esc(r["acc"])}/index.html">{esc(r["name"])}</a></td>{"".join(cells)}</tr>')
+                         f'title="{esc(r["name"])}: {n} {esc(tid)}"><a href="{root}protein/{esc(r["acc"])}/index.html">{n}</a></td>')
+        body.append(f'<tr><td><a href="{root}protein/{esc(r["acc"])}/index.html">{esc(r["name"])}</a></td>{"".join(cells)}</tr>')
     return ('<h2>Technique coverage</h2>'
             '<p class="sub">Evidence items per protein and technique. Darker cells hold more evidence (log scale); '
             'proteins probed by the most techniques come first. Click a cell to open the protein.</p>'
@@ -503,7 +503,85 @@ def _matrix(rows: list[dict], techniques: list[str], taxonomy: dict) -> str:
             f'<tbody>{"".join(body)}</tbody></table></div>')
 
 
-def _index_page(rows: list[dict], source_names: list[str], techniques: list[str], taxonomy: dict) -> str:
+SMASH_BIO_URL = "https://smash-bio.org/"
+
+
+def _states_label(n: int) -> str:
+    return "states not yet curated" if n == 0 else f"{n} state" + ("" if n == 1 else "s")
+
+
+def _home_page(summaries: list[dict], techniques: list[str]) -> str:
+    """The front door: what Conformome is, live counts, search, and the sister project SMASH-BIO."""
+    n_ev = sum(s["evidence"] for s in summaries)
+    n_states = sum(len(s["state_list"]) for s in summaries)
+    n_curated = sum(1 for s in summaries if s["status"] != "uncurated")
+    by_source: dict[str, int] = {}
+    for s in summaries:
+        for name in s["source_list"]:
+            by_source[name] = by_source.get(name, 0) + 1
+    sources = "".join(f'<li><b>{esc(name)}</b> <span class="muted">· {n} proteins</span></li>'
+                      for name, n in sorted(by_source.items(), key=lambda kv: -kv[1]))
+    tiles = "".join(f'<div class="stat"><b>{v:,}</b>{esc(k)}</div>' for k, v in (
+        ("proteins", len(summaries)), ("evidence entries", n_ev), ("techniques", len(techniques)),
+        ("sources", len(by_source)), ("curated states", n_states)))
+    featured = sorted(summaries, key=lambda s: (-len(s["tech_counts"]), -s["evidence"]))[:6]
+    cards = "".join(
+        f'<div class="card"><h3><a href="protein/{esc(s["acc"])}/index.html">{esc(s["name"])}</a></h3>'
+        f'<div class="muted">{esc(s["organism"])}</div>'
+        f'<div class="muted" style="margin-top:6px">{s["evidence"]:,} entries · {len(s["tech_counts"])} techniques · '
+        f'{_states_label(len(s["state_list"]))}</div></div>' for s in featured)
+    body = f"""
+<h1 style="font-size:2.1rem">Conformome</h1>
+<p class="sub" style="font-size:1.15rem;max-width:46rem">A database of experimental entries that probe protein conformation, each in its own way.</p>
+<p style="max-width:46rem">Every technique sees a protein's shape differently. Crystallography resolves atoms in a lattice. Cryo-EM sees
+particles frozen in ice. NMR reports how each residue moves. Small-angle scattering measures overall size in solution. Force
+spectroscopy pulls a single molecule apart and records how it gives way. Simulations and predictions say what a model expects.
+Conformome gathers these entries for each protein, keeps them side by side with their conditions and provenance, and maps them
+onto shared conformational states, so you can see which techniques support which state, and where they disagree.</p>
+<form class="searchbar" action="search/index.html" method="get" role="search" style="max-width:46rem">
+<input name="q" type="search" placeholder="Search proteins, states, PDB or BMRB IDs, ligands, titles" aria-label="Search Conformome">
+<button type="submit">Search</button></form>
+<div class="stats">{tiles}</div>
+<p><a href="proteins/index.html">Browse all proteins and the technique coverage matrix</a> · <a href="search/index.html">Search</a> ·
+<a href="about/index.html">How it works</a> · <a href="downloads/index.html">Downloads</a></p>
+
+<h2>How to read an entry</h2>
+<div class="cards">
+<div class="card"><h3>Evidence entries</h3><p>One experiment or deposit: a crystal structure, an NMR data set, a SAXS curve,
+a force-spectroscopy result. Each keeps its technique, construct, conditions (temperature, pH, ligands, force) and source.</p></div>
+<div class="card"><h3>Conformational states</h3><p>Named shapes a protein adopts, such as open and closed, apo and bound, folded and
+unfolded. Curators map each entry to a state and say who decided, how confident they are, and why.</p></div>
+<div class="card"><h3>Observed or inferred</h3><p>A state is <span class="badge badge-observed">observed</span> when a structure
+resolves it directly, and <span class="badge badge-inferred">inferred</span> when it is fitted to indirect measurements; inferred
+states list their assumptions.</p></div>
+<div class="card"><h3>Disagreement is shown</h3><p>When comparable measurements of the same state disagree beyond their errors, the
+page flags the conflict instead of averaging it away.</p></div>
+</div>
+
+<h2>Most-probed proteins</h2>
+<div class="cards">{cards}</div>
+
+<h2>Where the entries come from</h2>
+<ul>{sources}</ul>
+
+<h2>Sister project: SMASH-BIO</h2>
+<div class="card" style="max-width:46rem"><h3><a href="{SMASH_BIO_URL}">SMASH-BIO</a></h3>
+<p class="muted">Single Molecule Analysis and Spectroscopy Hub</p>
+<p>SMASH-BIO indexes single-molecule force spectroscopy studies (optical and magnetic tweezers, AFM and more) with their
+instruments, conditions and results. Conformome takes its force-spectroscopy entries from the SMASH-BIO release, so the
+mechanical view of a protein sits next to its structures, NMR and scattering data.
+<a href="{SMASH_BIO_URL}">Visit smash-bio.org</a>.</p></div>
+
+<div class="banner" style="margin-top:24px"><b>Pilot.</b> {len(summaries)} proteins; {n_curated} have draft curation that no curator
+has reviewed yet, and the rest list their evidence without states. Corrections and curation are welcome: see
+<a href="{REPO_URL}/blob/HEAD/docs/CONTRIBUTING.md">CONTRIBUTING</a>.</div>
+"""
+    return page("Home", body, "", description="Conformome: a database of experimental entries that probe "
+                "protein conformation, each in its own way, mapped onto shared conformational states.")
+
+
+def _proteins_page(rows: list[dict], source_names: list[str], techniques: list[str], taxonomy: dict) -> str:
+    root = "../"
     def curation_cell(status: str) -> str:
         if status == "uncurated":
             return '<span class="muted">not yet curated</span>'
@@ -514,21 +592,20 @@ def _index_page(rows: list[dict], source_names: list[str], techniques: list[str]
         search = esc((r["name"] + " " + r["acc"] + " " + r["organism"]).lower())
         body_lines.append(
             f'<tr data-text="{search}">'
-            f'<td><a href="protein/{esc(r["acc"])}/index.html">{esc(r["name"])}</a></td>'
+            f'<td><a href="{root}protein/{esc(r["acc"])}/index.html">{esc(r["name"])}</a></td>'
             f'<td>{esc(r["acc"])}</td><td>{esc(r["organism"])}</td>'
             f'<td class="num">{r["techniques"]}</td><td class="num">{r["states"]}</td>'
             f'<td class="num">{r["sources"]}</td><td class="num">{r["evidence"]}</td><td class="num">{r["mapped"]}</td>'
             f'<td>{curation_cell(r["status"])}</td></tr>')
     rows_html = "".join(body_lines)
-    body = ('<h1>Conformome</h1>'
-            '<p class="sub">An index of every technique that has probed a protein’s conformation, organised around '
-            'shared conformational states. Observed and inferred are kept apart on every page.</p>'
+    body = ('<h1>Proteins</h1>'
+            '<p class="sub">Every protein in Conformome, with the techniques that have probed it.</p>'
             f'<div class="banner"><b>Pilot.</b> {len(rows)} proteins. Evidence from {esc(", ".join(source_names))}. '
             'Curation is a draft that no curator has reviewed yet, and some proteins have no states yet; literature extraction, PED and PDB-IHM restraints are not yet included.</div>'
-            '<form class="searchbar" action="search/index.html" method="get" role="search">'
+            '<form class="searchbar" action="../search/index.html" method="get" role="search">'
             '<input name="q" type="search" placeholder="Search proteins, states, PDB or BMRB IDs, ligands, titles" '
             'aria-label="Search everything"><button type="submit">Search</button></form>'
-            f'{_matrix(rows, techniques, taxonomy)}'
+            f'{_matrix(rows, techniques, taxonomy, root)}'
             '<h2>All proteins</h2>'
             '<div class="controls"><input id="p-text" type="search" placeholder="Filter this table by name, UniProt or organism" '
             'aria-label="Filter proteins"></div><p class="muted" id="p-table-count"></p>'
@@ -537,7 +614,7 @@ def _index_page(rows: list[dict], source_names: list[str], techniques: list[str]
             '<th class="num">Mapped</th><th>Curation</th></tr></thead>'
             f'<tbody>{rows_html}</tbody></table></div>')
     scripts = f'<script>{SCRIPT_FILTER}conformomeFilter("p-table",[],"p-text");</script>'
-    return page("Proteins", body, "", scripts=scripts)
+    return page("Proteins", body, root, scripts=scripts)
 
 
 def _technique_page(tid: str, tech: dict, covered: list[dict]) -> str:
@@ -634,8 +711,10 @@ def build_site(paths: Paths, accessions: list[str]) -> None:
         (page_dir / "index.html").write_text(_technique_page(t_id, tech, covered), encoding="utf-8")
 
     technique_order = [tid for tid in taxonomy if any(tid in s["tech_counts"] for s in summaries)]
-    (site / "index.html").write_text(_index_page(summaries, [m.NAME for m in IMPLEMENTED], technique_order, taxonomy),
-                                     encoding="utf-8")
+    (site / "proteins").mkdir(parents=True, exist_ok=True)
+    (site / "proteins" / "index.html").write_text(
+        _proteins_page(summaries, [m.NAME for m in IMPLEMENTED], technique_order, taxonomy), encoding="utf-8")
+    (site / "index.html").write_text(_home_page(summaries, technique_order), encoding="utf-8")
     _write_search(site, summaries, search_rows, technique_order, taxonomy)
     _write_about(paths, site)
     _write_downloads(paths, site, accessions)
