@@ -106,3 +106,29 @@ def test_rfam_hit_is_a_prediction_with_coverage(repo_paths):
 def test_stockholm_consensus_joins_blocks():
     sto = "# STOCKHOLM 1.0\nseq1 ACGU\n#=GC SS_cons <<..\n#=GC RF ACGU\n\nseq1 AAAA\n#=GC SS_cons ..>>\n#=GC RF aaaa\n//\n"
     assert rfam.consensus(sto) == {"SS_cons": "<<....>>", "RF": "ACGUaaaa"}
+
+
+def test_bmrb_sequence_hits_keep_full_length_high_identity_matches():
+    from conformome.sources import bmrb
+    hits = [
+        {"entry_id": "1", "entity_id": "1", "percent_id": 100.0, "q.start": 1, "q.end": 22},
+        {"entry_id": "2", "entity_id": "1", "percent_id": 95.0, "q.start": 2, "q.end": 22},
+        {"entry_id": "3", "entity_id": "1", "percent_id": 76.0, "q.start": 1, "q.end": 21},   # low identity
+        {"entry_id": "4", "entity_id": "1", "percent_id": 100.0, "q.start": 1, "q.end": 11},  # half the sequence
+        {"entry_id": "2", "entity_id": "2", "percent_id": 90.0, "q.start": 1, "q.end": 22},   # worse hit, same entry
+    ]
+    best = bmrb.sequence_hits(hits, 22)
+    assert set(best) == {"1", "2"}
+    assert best["1"] == {"percent_id": 100.0, "coverage": 1.0, "entity_id": "1"}
+    assert best["2"]["entity_id"] == "1" and best["2"]["coverage"] == 0.955
+
+
+def test_bmrb_nucleic_acid_entries_say_how_they_match(checker):
+    from conformome.sources import bmrb
+    records = {ev["evidence_id"]: ev for ev in bmrb.parse(raw(f"bmrb_{DNA}.json"), DNA, "2026-10-19")}
+    assert set(records) == {"EV-BMRB-17655", "EV-BMRB-19381", "EV-BMRB-31254"}
+    for ev in records.values():
+        assert checker(ev) == [] and ev["technique"] == "nmr_shifts"
+    assert records["EV-BMRB-17655"]["construct"]["description"].endswith("contains this sequence")
+    assert "(another construct)" in records["EV-BMRB-19381"]["construct"]["description"]
+    assert bmrb in for_type("rna") and bmrb in for_type("dna") and bmrb in for_type("protein")

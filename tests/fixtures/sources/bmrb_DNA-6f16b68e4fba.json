@@ -1,0 +1,1135 @@
+{
+ "accession": "DNA-6f16b68e4fba",
+ "entries": {
+  "17655": {
+   "17655": {
+    "entry_information": [
+     {
+      "category": "entry_information",
+      "loops": [
+       {
+        "category": "_Entry_author",
+        "data": [
+         [
+          "1",
+          "Brahim",
+          "Heddi",
+          ".",
+          ".",
+          ".",
+          "17655"
+         ],
+         [
+          "2",
+          "Anh Tuan",
+          "Phan",
+          ".",
+          ".",
+          ".",
+          "17655"
+         ]
+        ],
+        "tags": [
+         "Ordinal",
+         "Given_name",
+         "Family_name",
+         "First_initial",
+         "Middle_initials",
+         "Family_title",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_SG_project",
+        "data": [
+         [
+          "1",
+          "not applicable",
+          "not applicable",
+          ".",
+          "17655"
+         ]
+        ],
+        "tags": [
+         "SG_project_ID",
+         "Project_name",
+         "Full_name_of_center",
+         "Initial_of_center",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_Struct_keywords",
+        "data": [
+         [
+          "G-quadruplex",
+          ".",
+          "17655"
+         ],
+         [
+          "Molecular crowding",
+          ".",
+          "17655"
+         ],
+         [
+          "propeller-type parallel-stranded",
+          ".",
+          "17655"
+         ]
+        ],
+        "tags": [
+         "Keywords",
+         "Text",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_Data_set",
+        "data": [
+         [
+          "assigned_chemical_shifts",
+          "1",
+          "17655"
+         ]
+        ],
+        "tags": [
+         "Type",
+         "Count",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_Datum",
+        "data": [
+         [
+          "1H chemical shifts",
+          "175",
+          "17655"
+         ]
+        ],
+        "tags": [
+         "Type",
+         "Count",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_Release",
+        "data": [
+         [
+          "1",
+          ".",
+          ".",
+          "2011-08-02",
+          "2011-05-17",
+          "original",
+          "author",
+          ".",
+          "17655"
+         ]
+        ],
+        "tags": [
+         "Release_number",
+         "Format_type",
+         "Format_version",
+         "Date",
+         "Submission_date",
+         "Type",
+         "Author",
+         "Detail",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_Related_entries",
+        "data": [
+         [
+          "PDB",
+          "1KF1",
+          ".",
+          "17655"
+         ],
+         [
+          "PDB",
+          "2gku",
+          ".",
+          "17655"
+         ],
+         [
+          "PDB",
+          "2JSL",
+          ".",
+          "17655"
+         ],
+         [
+          "PDB",
+          "2kf8",
+          ".",
+          "17655"
+         ],
+         [
+          "PDB",
+          "2km3",
+          ".",
+          "17655"
+         ],
+         [
+          "PDB",
+          "2LD8",
+          "BMRB Entry Tracking System",
+          "17655"
+         ]
+        ],
+        "tags": [
+         "Database_name",
+         "Database_accession_code",
+         "Relationship",
+         "Entry_ID"
+        ]
+       }
+      ],
+      "name": "entry_information",
+      "tag_prefix": "_Entry",
+      "tags": [
+       [
+        "Sf_category",
+        "entry_information"
+       ],
+       [
+        "Sf_framecode",
+        "entry_information"
+       ],
+       [
+        "ID",
+        "17655"
+       ],
+       [
+        "Title",
+        "Structure of Human Telomeric DNA in Crowded Solution\n"
+       ],
+       [
+        "Type",
+        "macromolecule"
+       ],
+       [
+        "Version_type",
+        "original"
+       ],
+       [
+        "Submission_date",
+        "2011-05-17"
+       ],
+       [
+        "Accession_date",
+        "2011-05-17"
+       ],
+       [
+        "Last_release_date",
+        "2011-08-02"
+       ],
+       [
+        "Original_release_date",
+        "2011-08-02"
+       ],
+       [
+        "Origination",
+        "author"
+       ],
+       [
+        "NMR_STAR_version",
+        "3.1.1.61"
+       ],
+       [
+        "Original_NMR_STAR_version",
+        "3.1"
+       ],
+       [
+        "Experimental_method",
+        "NMR"
+       ],
+       [
+        "Experimental_method_subtype",
+        "SOLUTION"
+       ],
+       [
+        "Details",
+        "."
+       ],
+       [
+        "BMRB_internal_directory_name",
+        "."
+       ]
+      ]
+     }
+    ],
+    "sample_conditions": [
+     {
+      "category": "sample_conditions",
+      "loops": [
+       {
+        "category": "_Sample_condition_variable",
+        "data": [
+         [
+          "pH",
+          "7.00",
+          ".",
+          "pH",
+          "17655",
+          "1"
+         ],
+         [
+          "pressure",
+          "1",
+          ".",
+          "atm",
+          "17655",
+          "1"
+         ],
+         [
+          "temperature",
+          "310",
+          ".",
+          "K",
+          "17655",
+          "1"
+         ]
+        ],
+        "tags": [
+         "Type",
+         "Val",
+         "Val_err",
+         "Val_units",
+         "Entry_ID",
+         "Sample_condition_list_ID"
+        ]
+       }
+      ],
+      "name": "sample_conditions_1",
+      "tag_prefix": "_Sample_condition_list",
+      "tags": [
+       [
+        "Sf_category",
+        "sample_conditions"
+       ],
+       [
+        "Sf_framecode",
+        "sample_conditions_1"
+       ],
+       [
+        "Entry_ID",
+        "17655"
+       ],
+       [
+        "ID",
+        "1"
+       ],
+       [
+        "Details",
+        "."
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "19381": {
+   "19381": {
+    "entry_information": [
+     {
+      "category": "entry_information",
+      "loops": [
+       {
+        "category": "_Entry_author",
+        "data": [
+         [
+          "1",
+          "Zhe",
+          "Li",
+          ".",
+          ".",
+          ".",
+          "19381"
+         ],
+         [
+          "2",
+          "Christopher",
+          "Lech",
+          ".",
+          ".",
+          ".",
+          "19381"
+         ],
+         [
+          "3",
+          "Michael",
+          "Adrian",
+          ".",
+          ".",
+          ".",
+          "19381"
+         ],
+         [
+          "4",
+          "Brahim",
+          "Heddi",
+          ".",
+          ".",
+          ".",
+          "19381"
+         ],
+         [
+          "5",
+          "Anh Tuan",
+          "Phan",
+          ".",
+          ".",
+          ".",
+          "19381"
+         ]
+        ],
+        "tags": [
+         "Ordinal",
+         "Given_name",
+         "Family_name",
+         "First_initial",
+         "Middle_initials",
+         "Family_title",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_SG_project",
+        "data": [
+         [
+          "1",
+          "not applicable",
+          "not applicable",
+          ".",
+          "19381"
+         ]
+        ],
+        "tags": [
+         "SG_project_ID",
+         "Project_name",
+         "Full_name_of_center",
+         "Initial_of_center",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_Struct_keywords",
+        "data": [
+         [
+          "Backbone",
+          ".",
+          "19381"
+         ],
+         [
+          "G-quadruplex",
+          ".",
+          "19381"
+         ],
+         [
+          "LNA modification",
+          ".",
+          "19381"
+         ],
+         [
+          "loop",
+          ".",
+          "19381"
+         ]
+        ],
+        "tags": [
+         "Keywords",
+         "Text",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_Data_set",
+        "data": [
+         [
+          "assigned_chemical_shifts",
+          "1",
+          "19381"
+         ]
+        ],
+        "tags": [
+         "Type",
+         "Count",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_Datum",
+        "data": [
+         [
+          "1H chemical shifts",
+          "186",
+          "19381"
+         ]
+        ],
+        "tags": [
+         "Type",
+         "Count",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_Release",
+        "data": [
+         [
+          "1",
+          ".",
+          ".",
+          "2015-02-02",
+          "2013-07-22",
+          "original",
+          "author",
+          ".",
+          "19381"
+         ]
+        ],
+        "tags": [
+         "Release_number",
+         "Format_type",
+         "Format_version",
+         "Date",
+         "Submission_date",
+         "Type",
+         "Author",
+         "Detail",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_Related_entries",
+        "data": [
+         [
+          "BMRB",
+          "19386",
+          "Parallel-stranded G-quadruplex in DNA poly-G stretches",
+          "19381"
+         ],
+         [
+          "BMRB",
+          "19389",
+          "Stacked dimeric G-quadruplex",
+          "19381"
+         ]
+        ],
+        "tags": [
+         "Database_name",
+         "Database_accession_code",
+         "Relationship",
+         "Entry_ID"
+        ]
+       }
+      ],
+      "name": "entry_information",
+      "tag_prefix": "_Entry",
+      "tags": [
+       [
+        "Sf_category",
+        "entry_information"
+       ],
+       [
+        "Sf_framecode",
+        "entry_information"
+       ],
+       [
+        "ID",
+        "19381"
+       ],
+       [
+        "Title",
+        "Engineering G4: Towards effective incorporation of locked nucleic acid into G-quadruplexes\n"
+       ],
+       [
+        "Type",
+        "macromolecule"
+       ],
+       [
+        "Version_type",
+        "original"
+       ],
+       [
+        "Submission_date",
+        "2013-07-22"
+       ],
+       [
+        "Accession_date",
+        "2013-07-22"
+       ],
+       [
+        "Last_release_date",
+        "2015-02-02"
+       ],
+       [
+        "Original_release_date",
+        "2015-02-02"
+       ],
+       [
+        "Origination",
+        "author"
+       ],
+       [
+        "NMR_STAR_version",
+        "3.1.1.61"
+       ],
+       [
+        "Original_NMR_STAR_version",
+        "3.1"
+       ],
+       [
+        "Experimental_method",
+        "NMR"
+       ],
+       [
+        "Experimental_method_subtype",
+        "SOLUTION"
+       ],
+       [
+        "Details",
+        "."
+       ],
+       [
+        "BMRB_internal_directory_name",
+        "."
+       ]
+      ]
+     }
+    ],
+    "sample_conditions": [
+     {
+      "category": "sample_conditions",
+      "loops": [
+       {
+        "category": "_Sample_condition_variable",
+        "data": [
+         [
+          "ionic strength",
+          "30",
+          ".",
+          "mM",
+          "19381",
+          "1"
+         ],
+         [
+          "pH",
+          "7",
+          ".",
+          "pH",
+          "19381",
+          "1"
+         ],
+         [
+          "pressure",
+          "1",
+          ".",
+          "atm",
+          "19381",
+          "1"
+         ],
+         [
+          "temperature",
+          "298",
+          ".",
+          "K",
+          "19381",
+          "1"
+         ]
+        ],
+        "tags": [
+         "Type",
+         "Val",
+         "Val_err",
+         "Val_units",
+         "Entry_ID",
+         "Sample_condition_list_ID"
+        ]
+       }
+      ],
+      "name": "sample_conditions_1",
+      "tag_prefix": "_Sample_condition_list",
+      "tags": [
+       [
+        "Sf_category",
+        "sample_conditions"
+       ],
+       [
+        "Sf_framecode",
+        "sample_conditions_1"
+       ],
+       [
+        "Entry_ID",
+        "19381"
+       ],
+       [
+        "ID",
+        "1"
+       ],
+       [
+        "Details",
+        "."
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "31254": {
+   "31254": {
+    "entry_information": [
+     {
+      "category": "entry_information",
+      "loops": [
+       {
+        "category": "_Entry_author",
+        "data": [
+         [
+          "1",
+          "J.",
+          "Dickerhoff",
+          "J.",
+          ".",
+          ".",
+          ".",
+          "31254"
+         ],
+         [
+          "2",
+          "D.",
+          "Yang",
+          "D.",
+          ".",
+          ".",
+          ".",
+          "31254"
+         ]
+        ],
+        "tags": [
+         "Ordinal",
+         "Given_name",
+         "Family_name",
+         "First_initial",
+         "Middle_initials",
+         "Family_title",
+         "ORCID",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_Struct_keywords",
+        "data": [
+         [
+          "DNA",
+          ".",
+          "31254"
+         ],
+         [
+          "G-quadruplex",
+          ".",
+          "31254"
+         ],
+         [
+          "human telomere",
+          ".",
+          "31254"
+         ],
+         [
+          "hybrid-1",
+          ".",
+          "31254"
+         ]
+        ],
+        "tags": [
+         "Keywords",
+         "Text",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_Data_set",
+        "data": [
+         [
+          "assigned_chemical_shifts",
+          "2",
+          "31254"
+         ]
+        ],
+        "tags": [
+         "Type",
+         "Count",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_Datum",
+        "data": [
+         [
+          "13C chemical shifts",
+          "288",
+          "31254"
+         ],
+         [
+          "1H chemical shifts",
+          "459",
+          "31254"
+         ]
+        ],
+        "tags": [
+         "Type",
+         "Count",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_Release",
+        "data": [
+         [
+          "1",
+          ".",
+          ".",
+          "2026-05-07",
+          ".",
+          "original",
+          "BMRB",
+          ".",
+          "31254"
+         ]
+        ],
+        "tags": [
+         "Release_number",
+         "Format_type",
+         "Format_version",
+         "Date",
+         "Submission_date",
+         "Type",
+         "Author",
+         "Detail",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_Related_entries",
+        "data": [
+         [
+          "PDB",
+          "9PA0",
+          "BMRB Entry Tracking System",
+          "31254"
+         ]
+        ],
+        "tags": [
+         "Database_name",
+         "Database_accession_code",
+         "Relationship",
+         "Entry_ID"
+        ]
+       }
+      ],
+      "name": "entry_information",
+      "tag_prefix": "_Entry",
+      "tags": [
+       [
+        "Sf_category",
+        "entry_information"
+       ],
+       [
+        "Sf_framecode",
+        "entry_information"
+       ],
+       [
+        "ID",
+        "31254"
+       ],
+       [
+        "Title",
+        "Hybrid-1 form of human telomere DNA quadruplex with wild-type 5'-flanking in K+ solution\n"
+       ],
+       [
+        "Type",
+        "macromolecule"
+       ],
+       [
+        "Version_type",
+        "original"
+       ],
+       [
+        "Submission_date",
+        "2025-06-25"
+       ],
+       [
+        "Accession_date",
+        "2025-06-25"
+       ],
+       [
+        "Last_release_date",
+        "2025-07-25"
+       ],
+       [
+        "Original_release_date",
+        "2025-07-25"
+       ],
+       [
+        "Origination",
+        "author"
+       ],
+       [
+        "Format_name",
+        "."
+       ],
+       [
+        "NMR_STAR_version",
+        "3.2.14.0"
+       ],
+       [
+        "NMR_STAR_dict_location",
+        "."
+       ],
+       [
+        "Original_NMR_STAR_version",
+        "3.1"
+       ],
+       [
+        "Experimental_method",
+        "NMR"
+       ],
+       [
+        "Experimental_method_subtype",
+        "SOLUTION NMR"
+       ],
+       [
+        "Source_data_format",
+        "."
+       ],
+       [
+        "Source_data_format_version",
+        "."
+       ],
+       [
+        "Generated_software_name",
+        "."
+       ],
+       [
+        "Generated_software_version",
+        "."
+       ],
+       [
+        "Generated_software_ID",
+        "."
+       ],
+       [
+        "Generated_software_label",
+        "."
+       ],
+       [
+        "Generated_date",
+        "."
+       ],
+       [
+        "DOI",
+        "."
+       ],
+       [
+        "UUID",
+        "."
+       ],
+       [
+        "Related_coordinate_file_name",
+        "."
+       ],
+       [
+        "Details",
+        "."
+       ],
+       [
+        "BMRB_internal_directory_name",
+        "."
+       ]
+      ]
+     }
+    ],
+    "sample_conditions": [
+     {
+      "category": "sample_conditions",
+      "loops": [
+       {
+        "category": "_Sample_condition_variable",
+        "data": [
+         [
+          "ionic strength",
+          "10",
+          ".",
+          "mM",
+          "31254",
+          "1"
+         ],
+         [
+          "pH",
+          "7",
+          ".",
+          "pH",
+          "31254",
+          "1"
+         ],
+         [
+          "pressure",
+          "1",
+          ".",
+          "atm",
+          "31254",
+          "1"
+         ],
+         [
+          "temperature",
+          "298",
+          ".",
+          "K",
+          "31254",
+          "1"
+         ]
+        ],
+        "tags": [
+         "Type",
+         "Val",
+         "Val_err",
+         "Val_units",
+         "Entry_ID",
+         "Sample_condition_list_ID"
+        ]
+       }
+      ],
+      "name": "sample_conditions_1",
+      "tag_prefix": "_Sample_condition_list",
+      "tags": [
+       [
+        "Sf_category",
+        "sample_conditions"
+       ],
+       [
+        "Sf_framecode",
+        "sample_conditions_1"
+       ],
+       [
+        "Entry_ID",
+        "31254"
+       ],
+       [
+        "ID",
+        "1"
+       ],
+       [
+        "Name",
+        "."
+       ],
+       [
+        "Details",
+        "."
+       ]
+      ]
+     },
+     {
+      "category": "sample_conditions",
+      "loops": [
+       {
+        "category": "_Sample_condition_variable",
+        "data": [
+         [
+          "ionic strength",
+          "10",
+          ".",
+          "mM",
+          "31254",
+          "2"
+         ],
+         [
+          "pH",
+          "7",
+          ".",
+          "pH",
+          "31254",
+          "2"
+         ],
+         [
+          "pressure",
+          "1",
+          ".",
+          "atm",
+          "31254",
+          "2"
+         ],
+         [
+          "temperature",
+          "288",
+          ".",
+          "K",
+          "31254",
+          "2"
+         ]
+        ],
+        "tags": [
+         "Type",
+         "Val",
+         "Val_err",
+         "Val_units",
+         "Entry_ID",
+         "Sample_condition_list_ID"
+        ]
+       }
+      ],
+      "name": "sample_conditions_2",
+      "tag_prefix": "_Sample_condition_list",
+      "tags": [
+       [
+        "Sf_category",
+        "sample_conditions"
+       ],
+       [
+        "Sf_framecode",
+        "sample_conditions_2"
+       ],
+       [
+        "Entry_ID",
+        "31254"
+       ],
+       [
+        "ID",
+        "2"
+       ],
+       [
+        "Name",
+        "."
+       ],
+       [
+        "Details",
+        "."
+       ]
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "map_url": "https://api.bmrb.io/v2/search/fasta/AGGGTTAGGGTTAGGGTTAGGG?type=dna",
+ "retrieved": "2026-10-19",
+ "sequence_matches": {
+  "17655": {
+   "coverage": 1.0,
+   "entity_id": "1",
+   "percent_id": 100.0
+  },
+  "19381": {
+   "coverage": 0.955,
+   "entity_id": "1",
+   "percent_id": 95.238
+  },
+  "31254": {
+   "coverage": 1.0,
+   "entity_id": "1",
+   "percent_id": 100.0
+  }
+ }
+}

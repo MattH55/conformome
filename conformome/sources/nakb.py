@@ -17,7 +17,8 @@ from __future__ import annotations
 import json
 import urllib.parse
 
-from conformome.common import fetch_url, read_json
+from conformome.common import fetch_url
+from conformome.molecule import nucleic_acid_info
 from conformome.sources.base import conditions, evidence, load_raw as _load, save_raw
 from conformome.sources.pdb import DATA_FORMAT, METHOD_TECHNIQUE
 
@@ -48,24 +49,8 @@ def query(paths, q: str) -> tuple[list[dict], str]:
     return data["response"]["docs"], url
 
 
-def _molecule(paths, molecule_id: str) -> dict:
-    """The molecule this page is about, from the identity file ingest also reads."""
-    if molecule_id.startswith("URS"):
-        from conformome import rnacentral
-        raw = rnacentral.load_raw(paths, molecule_id)
-        if raw is None:
-            raise FileNotFoundError(f"{molecule_id}: download the RNAcentral entry first")
-        hits = rnacentral.rfam_hits(raw)
-        return {"sequence": raw["entry"]["sequence"].upper(), "rfam": sorted({h["rfam"] for h in hits}),
-                "taxid": rnacentral.split(molecule_id)[1]}
-    path = paths.raw / f"dna/{molecule_id}.json"
-    if not path.exists():
-        raise FileNotFoundError(f"{molecule_id}: download the DNA anchor entry first")
-    return {"sequence": read_json(path)["sequence"], "rfam": [], "taxid": None}
-
-
 def fetch(paths, molecule_id: str, retrieved: str) -> dict:
-    mol = _molecule(paths, molecule_id)
+    mol = nucleic_acid_info(paths, molecule_id)
     docs, url = query(paths, f'naseq:"{mol["sequence"]}"')
     urls = [url]
     for rfam in mol["rfam"]:

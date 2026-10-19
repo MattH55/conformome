@@ -1,7 +1,10 @@
 """BMRB: NMR chemical shifts, relaxation and exchange data.
 
-fetch: BMRB's UniProt-to-entry mapping (one shared file), then the entry_information and
-       sample_conditions saveframes of each entry. Raw file: data/raw/bmrb/<accession>.json
+fetch: proteins: BMRB's UniProt-to-entry mapping (one shared file). RNA and DNA: BMRB's BLAST
+       search on the molecule's sequence; entries whose alignment covers at least 90% of the
+       sequence at 90% identity or more are kept, with the identity and coverage recorded.
+       Then the entry_information and sample_conditions saveframes of each entry.
+       Raw file: data/raw/bmrb/<accession>.json
 parse: one evidence item per entry. Entries with relaxation data become `nmr_dynamics` /
        relaxation_rate, entries with exchange data `nmr_dynamics` / exchange_rate, and entries with
        only chemical shifts `nmr_shifts` / chemical_shift. Temperature and pH come from the first
@@ -14,25 +17,53 @@ import json
 import re
 
 from conformome.common import fetch_url
+from conformome.molecule import molecule_type, nucleic_acid_info
 from conformome.sources.base import conditions, evidence, kelvin_to_c, load_raw as _load, number, save_raw
 
 KEY = "bmrb"
 NAME = "BMRB"
 LICENCE = "CC0 1.0 (verify)"
 IMPLEMENTED = True
+MOLECULE_TYPES = {"protein", "rna", "dna"}
+FASTA_URL = "https://api.bmrb.io/v2/search/fasta/{}?type={}"
+MIN_COVERAGE = 0.9
+MIN_IDENTITY = 90.0
 MAP_URL = "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json"
 ENTRY_URL = "https://api.bmrb.io/v2/entry/{}?saveframe_category=entry_information&saveframe_category=sample_conditions"
 PAGE_URL = "https://bmrb.io/data_library/summary/index.php?bmrbId={}"
 
 
+def sequence_hits(hits: list[dict], length: int) -> dict[str, dict]:
+    """Best BLAST hit per entry that covers most of the query at high identity."""
+    best: dict[str, dict] = {}
+    for h in hits:
+        coverage = (abs(h["q.end"] - h["q.start"]) + 1) / length
+        if coverage < MIN_COVERAGE or h["percent_id"] < MIN_IDENTITY:
+            continue
+        cur = best.get(h["entry_id"])
+        if cur is None or (h["percent_id"], coverage) > (cur["percent_id"], cur["coverage"]):
+            best[h["entry_id"]] = {"percent_id": h["percent_id"], "coverage": round(coverage, 3), "entity_id": h["entity_id"]}
+    return best
+
+
 def fetch(paths, accession: str, retrieved: str) -> dict:
-    mapping = json.loads(fetch_url(MAP_URL, cache_dir=paths.raw / "_cache"))
-    ids = sorted({i for row in mapping if row["uniprot_id"] == accession for i in row["bmrb_ids"]}, key=int)
+    urls = [MAP_URL]
+    matches = None
+    if molecule_type(accession) == "protein":
+        mapping = json.loads(fetch_url(MAP_URL, cache_dir=paths.raw / "_cache"))
+        ids = sorted({i for row in mapping if row["uniprot_id"] == accession for i in row["bmrb_ids"]}, key=int)
+    else:
+        info = nucleic_acid_info(paths, accession)
+        url = FASTA_URL.format(info["sequence"], info["type"])
+        urls = [url]
+        matches = sequence_hits(json.loads(fetch_url(url, cache_dir=paths.raw / "_cache")), len(info["sequence"]))
+        ids = sorted(matches, key=int)
     entries = {}
     for bmrb_id in ids:
         entries[bmrb_id] = json.loads(fetch_url(ENTRY_URL.format(bmrb_id), cache_dir=paths.raw / "_cache"))
-    return save_raw(paths, KEY, accession, {"accession": accession, "retrieved": retrieved, "map_url": MAP_URL,
-                                            "entries": entries}, [MAP_URL, ENTRY_URL.format("<id>")])
+    return save_raw(paths, KEY, accession, {"accession": accession, "retrieved": retrieved, "map_url": urls[0],
+                                            "sequence_matches": matches, "entries": entries},
+                    urls + [ENTRY_URL.format("<id>")])
 
 
 def load_raw(paths, accession: str) -> dict | None:
@@ -91,6 +122,15 @@ def not_ingested(raw: dict, accession: str) -> list[dict]:
     return out
 
 
+def _match_note(raw: dict, bmrb_id: str) -> str:
+    m = (raw.get("sequence_matches") or {}).get(bmrb_id)
+    if not m:
+        return ""
+    if m["percent_id"] == 100 and m["coverage"] == 1:
+        return f"; entity {m['entity_id']} contains this sequence"
+    return f"; entity {m['entity_id']} matches {m['percent_id']:.0f}% over {m['coverage']:.0%} of this sequence (another construct)"
+
+
 def parse(raw: dict, accession: str, retrieved: str) -> list[dict]:
     records = []
     for bmrb_id, data in raw["entries"].items():
@@ -106,7 +146,7 @@ def parse(raw: dict, accession: str, retrieved: str) -> list[dict]:
             technique=technique,
             source_kind="deposit",
             title=title,
-            construct="BMRB data: " + ", ".join(types[:6]),
+            construct="BMRB data: " + ", ".join(types[:6]) + _match_note(raw, bmrb_id),
             conds=conditions("in_vitro", temperature_c=temp, ph=ph,
                              notes="From the first sample condition list of the entry."),
             obs_type=obs,
