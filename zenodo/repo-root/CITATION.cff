@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use Conformome, please cite it as below."
+title: "Conformome"
+type: software
+authors:
+  - family-names: Halma
+    given-names: Matthew T. J.
+    affiliation: "Open Source Medicine, Tallinn, Estonia"
+    orcid: "https://orcid.org/0000-0000-0000-0000"
+repository-code: "https://github.com/matth55/conformome"
+url: "https://conformome.org"
+license: MIT
+version: "0.1.0"
+date-released: "2026-11-01"
+keywords:
+  - protein conformation
+  - conformational ensembles
+  - structural biology
+  - FAIR data
+  - RNA structure
+  - nucleic acids

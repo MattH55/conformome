@@ -3,6 +3,8 @@ data/raw/
 # Generated outputs
 build/
 site/dist/
+paper/out/
+paper/figures/_screens/
 # Python
 __pycache__/
 *.egg-info/

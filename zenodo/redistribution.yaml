@@ -1,0 +1,5 @@
+# Licences whose evidence may be redistributed in the Zenodo data archive.
+# Add a value only after confirming the source's terms (record the terms URL in the comment).
+allow:
+  - CC0-1.0      # RCSB PDB / wwPDB
+  - CC-BY-4.0    # AlphaFold DB, DisProt

@@ -1,0 +1,1946 @@
+[
+ {
+  "id": "henzlerwildmanDynamicPersonalitiesProteins2007",
+  "citation-key": "henzlerwildmanDynamicPersonalitiesProteins2007",
+  "title": "Dynamic personalities of proteins",
+  "author": [
+   {
+    "family": "Henzler-Wildman",
+    "given": "K."
+   },
+   {
+    "family": "Kern",
+    "given": "D."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2007
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nature",
+  "container-title-short": "Nature",
+  "journalAbbreviation": "Nature",
+  "volume": "450",
+  "page": "964–972",
+  "DOI": "10.1038/nature06522"
+ },
+ {
+  "id": "wrightIntrinsicallyDisorderedProteins2015",
+  "citation-key": "wrightIntrinsicallyDisorderedProteins2015",
+  "title": "Intrinsically disordered proteins in cellular signalling and regulation",
+  "author": [
+   {
+    "family": "Wright",
+    "given": "P. E."
+   },
+   {
+    "family": "Dyson",
+    "given": "H. J."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2015
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nature Reviews Molecular Cell Biology",
+  "container-title-short": "Nat. Rev. Mol. Cell Biol.",
+  "journalAbbreviation": "Nat. Rev. Mol. Cell Biol.",
+  "volume": "16",
+  "page": "18–29",
+  "DOI": "10.1038/nrm3920"
+ },
+ {
+  "id": "chitiProteinMisfoldingAmyloid2017",
+  "citation-key": "chitiProteinMisfoldingAmyloid2017",
+  "title": "Protein misfolding, amyloid formation, and human disease: a summary of progress over the last decade",
+  "author": [
+   {
+    "family": "Chiti",
+    "given": "F."
+   },
+   {
+    "family": "Dobson",
+    "given": "C. M."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2017
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Annual Review of Biochemistry",
+  "container-title-short": "Annu. Rev. Biochem.",
+  "journalAbbreviation": "Annu. Rev. Biochem.",
+  "volume": "86",
+  "page": "27–68",
+  "DOI": "10.1146/annurev-biochem-061516-045115"
+ },
+ {
+  "id": "sekharNMRPavesWay2013",
+  "citation-key": "sekharNMRPavesWay2013",
+  "title": "NMR paves the way for atomic level descriptions of sparsely populated, transiently formed biomolecular conformers",
+  "author": [
+   {
+    "family": "Sekhar",
+    "given": "A."
+   },
+   {
+    "family": "Kay",
+    "given": "L. E."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2013
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Proceedings of the National Academy of Sciences of the United States of America",
+  "container-title-short": "Proc. Natl. Acad. Sci. USA",
+  "journalAbbreviation": "Proc. Natl. Acad. Sci. USA",
+  "volume": "110",
+  "page": "12867–12874",
+  "DOI": "10.1073/pnas.1305688110"
+ },
+ {
+  "id": "kikhneyPracticalGuideSmall2015",
+  "citation-key": "kikhneyPracticalGuideSmall2015",
+  "title": "A practical guide to small angle X-ray scattering (SAXS) of flexible and intrinsically disordered proteins",
+  "author": [
+   {
+    "family": "Kikhney",
+    "given": "A. G."
+   },
+   {
+    "family": "Svergun",
+    "given": "D. I."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2015
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "FEBS Letters",
+  "container-title-short": "FEBS Lett.",
+  "journalAbbreviation": "FEBS Lett.",
+  "volume": "589",
+  "page": "2570–2577",
+  "DOI": "10.1016/j.febslet.2015.08.027"
+ },
+ {
+  "id": "lernerFRETbasedDynamicStructural2021",
+  "citation-key": "lernerFRETbasedDynamicStructural2021",
+  "title": "FRET-based dynamic structural biology: challenges, perspectives and an appeal for open-science practices",
+  "author": [
+   {
+    "family": "Lerner",
+    "given": "E."
+   },
+   {
+    "family": "Barth",
+    "given": "A."
+   },
+   {
+    "family": "Hendrix",
+    "given": "J."
+   },
+   {
+    "family": "Ambrose",
+    "given": "B."
+   },
+   {
+    "family": "Birkedal",
+    "given": "V."
+   },
+   {
+    "family": "Blanchard",
+    "given": "S. C."
+   },
+   {
+    "literal": "et al."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2021
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "eLife",
+  "container-title-short": "eLife",
+  "journalAbbreviation": "eLife",
+  "volume": "10",
+  "page": "e60416",
+  "DOI": "10.7554/eLife.60416"
+ },
+ {
+  "id": "bustamanteSinglemoleculeStudiesProtein2020",
+  "citation-key": "bustamanteSinglemoleculeStudiesProtein2020",
+  "title": "Single-molecule studies of protein folding with optical tweezers",
+  "author": [
+   {
+    "family": "Bustamante",
+    "given": "C."
+   },
+   {
+    "family": "Alexander",
+    "given": "L."
+   },
+   {
+    "family": "Maciuba",
+    "given": "K."
+   },
+   {
+    "family": "Kaiser",
+    "given": "C. M."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2020
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Annual Review of Biochemistry",
+  "container-title-short": "Annu. Rev. Biochem.",
+  "journalAbbreviation": "Annu. Rev. Biochem.",
+  "volume": "89",
+  "page": "443–470",
+  "DOI": "10.1146/annurev-biochem-013118-111442"
+ },
+ {
+  "id": "massonRecommendationsPerformingInterpreting2019",
+  "citation-key": "massonRecommendationsPerformingInterpreting2019",
+  "title": "Recommendations for performing, interpreting and reporting hydrogen deuterium exchange mass spectrometry (HDX-MS) experiments",
+  "author": [
+   {
+    "family": "Masson",
+    "given": "G. R."
+   },
+   {
+    "family": "Burke",
+    "given": "J. E."
+   },
+   {
+    "family": "Ahn",
+    "given": "N. G."
+   },
+   {
+    "family": "Anand",
+    "given": "G. S."
+   },
+   {
+    "family": "Borchers",
+    "given": "C."
+   },
+   {
+    "family": "Brier",
+    "given": "S."
+   },
+   {
+    "literal": "et al."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2019
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nature Methods",
+  "container-title-short": "Nat. Methods",
+  "journalAbbreviation": "Nat. Methods",
+  "volume": "16",
+  "page": "595–602",
+  "DOI": "10.1038/s41592-019-0459-y"
+ },
+ {
+  "id": "lindorfflarsenHowFastfoldingProteins2011",
+  "citation-key": "lindorfflarsenHowFastfoldingProteins2011",
+  "title": "How fast-folding proteins fold",
+  "author": [
+   {
+    "family": "Lindorff-Larsen",
+    "given": "K."
+   },
+   {
+    "family": "Piana",
+    "given": "S."
+   },
+   {
+    "family": "Dror",
+    "given": "R. O."
+   },
+   {
+    "family": "Shaw",
+    "given": "D. E."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2011
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Science",
+  "container-title-short": "Science",
+  "journalAbbreviation": "Science",
+  "volume": "334",
+  "page": "517–520",
+  "DOI": "10.1126/science.1208351"
+ },
+ {
+  "id": "bermanProteinDataBank2000",
+  "citation-key": "bermanProteinDataBank2000",
+  "title": "The Protein Data Bank",
+  "author": [
+   {
+    "family": "Berman",
+    "given": "H. M."
+   },
+   {
+    "family": "Westbrook",
+    "given": "J."
+   },
+   {
+    "family": "Feng",
+    "given": "Z."
+   },
+   {
+    "family": "Gilliland",
+    "given": "G."
+   },
+   {
+    "family": "Bhat",
+    "given": "T. N."
+   },
+   {
+    "family": "Weissig",
+    "given": "H."
+   },
+   {
+    "literal": "et al."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2000
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nucleic Acids Research",
+  "container-title-short": "Nucleic Acids Res.",
+  "journalAbbreviation": "Nucleic Acids Res.",
+  "volume": "28",
+  "page": "235–242",
+  "DOI": "10.1093/nar/28.1.235"
+ },
+ {
+  "id": "burleyUpdatedResourcesExploring2025",
+  "citation-key": "burleyUpdatedResourcesExploring2025",
+  "title": "Updated resources for exploring experimentally-determined PDB structures and Computed Structure Models at the RCSB Protein Data Bank",
+  "author": [
+   {
+    "family": "Burley",
+    "given": "S. K."
+   },
+   {
+    "family": "Bhatt",
+    "given": "R."
+   },
+   {
+    "family": "Bhikadiya",
+    "given": "C."
+   },
+   {
+    "family": "Bi",
+    "given": "C."
+   },
+   {
+    "family": "Biester",
+    "given": "A."
+   },
+   {
+    "family": "Biswas",
+    "given": "P."
+   },
+   {
+    "literal": "et al."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2025
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nucleic Acids Research",
+  "container-title-short": "Nucleic Acids Res.",
+  "journalAbbreviation": "Nucleic Acids Res.",
+  "volume": "53",
+  "page": "D564–D574",
+  "DOI": "10.1093/nar/gkae1091"
+ },
+ {
+  "id": "hochBiologicalMagneticResonance2023",
+  "citation-key": "hochBiologicalMagneticResonance2023",
+  "title": "Biological Magnetic Resonance Data Bank",
+  "author": [
+   {
+    "family": "Hoch",
+    "given": "J. C."
+   },
+   {
+    "family": "Baskaran",
+    "given": "K."
+   },
+   {
+    "family": "Burr",
+    "given": "H."
+   },
+   {
+    "family": "Chin",
+    "given": "J."
+   },
+   {
+    "family": "Eghbalnia",
+    "given": "H. R."
+   },
+   {
+    "family": "Fujiwara",
+    "given": "T."
+   },
+   {
+    "literal": "et al."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2023
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nucleic Acids Research",
+  "container-title-short": "Nucleic Acids Res.",
+  "journalAbbreviation": "Nucleic Acids Res.",
+  "volume": "51",
+  "page": "D368–D376",
+  "DOI": "10.1093/nar/gkac1050"
+ },
+ {
+  "id": "kikhneySASBDBTowardsAutomatically2020",
+  "citation-key": "kikhneySASBDBTowardsAutomatically2020",
+  "title": "SASBDB: towards an automatically curated and validated repository for biological scattering data",
+  "author": [
+   {
+    "family": "Kikhney",
+    "given": "A. G."
+   },
+   {
+    "family": "Borges",
+    "given": "C. R."
+   },
+   {
+    "family": "Molodenskiy",
+    "given": "D. S."
+   },
+   {
+    "family": "Jeffries",
+    "given": "C. M."
+   },
+   {
+    "family": "Svergun",
+    "given": "D. I."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2020
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Protein Science",
+  "container-title-short": "Protein Sci.",
+  "journalAbbreviation": "Protein Sci.",
+  "volume": "29",
+  "page": "66–75",
+  "DOI": "10.1002/pro.3731"
+ },
+ {
+  "id": "ghafouriPED2024Improving2024",
+  "citation-key": "ghafouriPED2024Improving2024",
+  "title": "PED in 2024: improving the community deposition of structural ensembles for intrinsically disordered proteins",
+  "author": [
+   {
+    "family": "Ghafouri",
+    "given": "H."
+   },
+   {
+    "family": "Lazar",
+    "given": "T."
+   },
+   {
+    "family": "Del Conte",
+    "given": "A."
+   },
+   {
+    "family": "Tenorio Ku",
+    "given": "L. G."
+   },
+   {
+    "literal": "PED Consortium"
+   },
+   {
+    "family": "Aspromonte",
+    "given": "M. C."
+   },
+   {
+    "literal": "et al."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2024
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nucleic Acids Research",
+  "container-title-short": "Nucleic Acids Res.",
+  "journalAbbreviation": "Nucleic Acids Res.",
+  "volume": "52",
+  "page": "D536–D544",
+  "DOI": "10.1093/nar/gkad947"
+ },
+ {
+  "id": "aspromonteDisProt2024Improving2024",
+  "citation-key": "aspromonteDisProt2024Improving2024",
+  "title": "DisProt in 2024: improving function annotation of intrinsically disordered proteins",
+  "author": [
+   {
+    "family": "Aspromonte",
+    "given": "M. C."
+   },
+   {
+    "family": "Nugnes",
+    "given": "M. V."
+   },
+   {
+    "family": "Quaglia",
+    "given": "F."
+   },
+   {
+    "family": "Bouharoua",
+    "given": "A."
+   },
+   {
+    "literal": "DisProt Consortium"
+   },
+   {
+    "family": "Sagris",
+    "given": "V."
+   },
+   {
+    "literal": "et al."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2024
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nucleic Acids Research",
+  "container-title-short": "Nucleic Acids Res.",
+  "journalAbbreviation": "Nucleic Acids Res.",
+  "volume": "52",
+  "page": "D434–D441",
+  "DOI": "10.1093/nar/gkad928"
+ },
+ {
+  "id": "amaroNeedImplementFAIR2025",
+  "citation-key": "amaroNeedImplementFAIR2025",
+  "title": "The need to implement FAIR principles in biomolecular simulations",
+  "author": [
+   {
+    "family": "Amaro",
+    "given": "R. E."
+   },
+   {
+    "family": "Åqvist",
+    "given": "J."
+   },
+   {
+    "family": "Bahar",
+    "given": "I."
+   },
+   {
+    "family": "Battistini",
+    "given": "F."
+   },
+   {
+    "family": "Bellaiche",
+    "given": "A."
+   },
+   {
+    "family": "Beltran",
+    "given": "D."
+   },
+   {
+    "literal": "et al."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2025
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nature Methods",
+  "container-title-short": "Nat. Methods",
+  "journalAbbreviation": "Nat. Methods",
+  "volume": "22",
+  "page": "641–645",
+  "DOI": "10.1038/s41592-025-02635-0"
+ },
+ {
+  "id": "halmaSMASHBIOReleaseV12026",
+  "citation-key": "halmaSMASHBIOReleaseV12026",
+  "title": "SMASH-BIO release v1.0.0-paper",
+  "author": [
+   {
+    "family": "Halma",
+    "given": "M. T. J."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2026
+    ]
+   ]
+  },
+  "type": "software",
+  "publisher": "Zenodo",
+  "version": "v1.0.0-paper",
+  "DOI": "10.5281/zenodo.23455641"
+ },
+ {
+  "id": "pdbekbconsortiumPDBeKBCollaborativelyDefining2022",
+  "citation-key": "pdbekbconsortiumPDBeKBCollaborativelyDefining2022",
+  "title": "PDBe-KB: collaboratively defining the biological context of structural data",
+  "author": [
+   {
+    "literal": "PDBe-KB consortium"
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2022
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nucleic Acids Research",
+  "container-title-short": "Nucleic Acids Res.",
+  "journalAbbreviation": "Nucleic Acids Res.",
+  "volume": "50",
+  "page": "D534–D542",
+  "DOI": "10.1093/nar/gkab988"
+ },
+ {
+  "id": "monzonCoDNaS202016",
+  "citation-key": "monzonCoDNaS202016",
+  "title": "CoDNaS 2.0: a comprehensive database of protein conformational diversity in the native state",
+  "author": [
+   {
+    "family": "Monzon",
+    "given": "A. M."
+   },
+   {
+    "family": "Rohr",
+    "given": "C. O."
+   },
+   {
+    "family": "Fornasari",
+    "given": "M. S."
+   },
+   {
+    "family": "Parisi",
+    "given": "G."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2016
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Database",
+  "container-title-short": "Database",
+  "journalAbbreviation": "Database",
+  "volume": "2016",
+  "page": "baw038",
+  "DOI": "10.1093/database/baw038"
+ },
+ {
+  "id": "hrabePDBFlexExploringFlexibility2016",
+  "citation-key": "hrabePDBFlexExploringFlexibility2016",
+  "title": "PDBFlex: exploring flexibility in protein structures",
+  "author": [
+   {
+    "family": "Hrabe",
+    "given": "T."
+   },
+   {
+    "family": "Li",
+    "given": "Z."
+   },
+   {
+    "family": "Sedova",
+    "given": "M."
+   },
+   {
+    "family": "Rotkiewicz",
+    "given": "P."
+   },
+   {
+    "family": "Jaroszewski",
+    "given": "L."
+   },
+   {
+    "family": "Godzik",
+    "given": "A."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2016
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nucleic Acids Research",
+  "container-title-short": "Nucleic Acids Res.",
+  "journalAbbreviation": "Nucleic Acids Res.",
+  "volume": "44",
+  "page": "D423–D428",
+  "DOI": "10.1093/nar/gkv1316"
+ },
+ {
+  "id": "routPrinciplesIntegrativeStructural2019",
+  "citation-key": "routPrinciplesIntegrativeStructural2019",
+  "title": "Principles for integrative structural biology studies",
+  "author": [
+   {
+    "family": "Rout",
+    "given": "M. P."
+   },
+   {
+    "family": "Sali",
+    "given": "A."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2019
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Cell",
+  "container-title-short": "Cell",
+  "journalAbbreviation": "Cell",
+  "volume": "177",
+  "page": "1384–1403",
+  "DOI": "10.1016/j.cell.2019.05.016"
+ },
+ {
+  "id": "vallatNewSystemArchiving2021",
+  "citation-key": "vallatNewSystemArchiving2021",
+  "title": "New system for archiving integrative structures",
+  "author": [
+   {
+    "family": "Vallat",
+    "given": "B."
+   },
+   {
+    "family": "Webb",
+    "given": "B. M."
+   },
+   {
+    "family": "Fayazi",
+    "given": "M."
+   },
+   {
+    "family": "Voinea",
+    "given": "S."
+   },
+   {
+    "family": "Tangmunarunkit",
+    "given": "H."
+   },
+   {
+    "family": "Ganesan",
+    "given": "S. J."
+   },
+   {
+    "literal": "et al."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2021
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Acta Crystallographica Section D: Structural Biology",
+  "container-title-short": "Acta Crystallogr. D",
+  "journalAbbreviation": "Acta Crystallogr. D",
+  "volume": "77",
+  "page": "1486–1496",
+  "DOI": "10.1107/S2059798321010871"
+ },
+ {
+  "id": "wilkinsonFAIRGuidingPrinciples2016",
+  "citation-key": "wilkinsonFAIRGuidingPrinciples2016",
+  "title": "The FAIR Guiding Principles for scientific data management and stewardship",
+  "author": [
+   {
+    "family": "Wilkinson",
+    "given": "M. D."
+   },
+   {
+    "family": "Dumontier",
+    "given": "M."
+   },
+   {
+    "family": "Aalbersberg",
+    "given": "I. J."
+   },
+   {
+    "family": "Appleton",
+    "given": "G."
+   },
+   {
+    "family": "Axton",
+    "given": "M."
+   },
+   {
+    "family": "Baak",
+    "given": "A."
+   },
+   {
+    "literal": "et al."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2016
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Scientific Data",
+  "container-title-short": "Sci. Data",
+  "journalAbbreviation": "Sci. Data",
+  "volume": "3",
+  "page": "160018",
+  "DOI": "10.1038/sdata.2016.18"
+ },
+ {
+  "id": "uniprotconsortiumUniProtUniversalProtein2025",
+  "citation-key": "uniprotconsortiumUniProtUniversalProtein2025",
+  "title": "UniProt: the Universal Protein Knowledgebase in 2025",
+  "author": [
+   {
+    "literal": "UniProt Consortium"
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2025
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nucleic Acids Research",
+  "container-title-short": "Nucleic Acids Res.",
+  "journalAbbreviation": "Nucleic Acids Res.",
+  "volume": "53",
+  "page": "D609–D617",
+  "DOI": "10.1093/nar/gkae1010"
+ },
+ {
+  "id": "jumperHighlyAccurateProtein2021",
+  "citation-key": "jumperHighlyAccurateProtein2021",
+  "title": "Highly accurate protein structure prediction with AlphaFold",
+  "author": [
+   {
+    "family": "Jumper",
+    "given": "J."
+   },
+   {
+    "family": "Evans",
+    "given": "R."
+   },
+   {
+    "family": "Pritzel",
+    "given": "A."
+   },
+   {
+    "family": "Green",
+    "given": "T."
+   },
+   {
+    "family": "Figurnov",
+    "given": "M."
+   },
+   {
+    "family": "Ronneberger",
+    "given": "O."
+   },
+   {
+    "literal": "et al."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2021
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nature",
+  "container-title-short": "Nature",
+  "journalAbbreviation": "Nature",
+  "volume": "596",
+  "page": "583–589",
+  "DOI": "10.1038/s41586-021-03819-2"
+ },
+ {
+  "id": "varadiAlphaFoldProteinStructure2024",
+  "citation-key": "varadiAlphaFoldProteinStructure2024",
+  "title": "AlphaFold Protein Structure Database in 2024: providing structure coverage for over 214 million protein sequences",
+  "author": [
+   {
+    "family": "Varadi",
+    "given": "M."
+   },
+   {
+    "family": "Bertoni",
+    "given": "D."
+   },
+   {
+    "family": "Magana",
+    "given": "P."
+   },
+   {
+    "family": "Paramval",
+    "given": "U."
+   },
+   {
+    "family": "Pidruchna",
+    "given": "I."
+   },
+   {
+    "family": "Radhakrishnan",
+    "given": "M."
+   },
+   {
+    "literal": "et al."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2024
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nucleic Acids Research",
+  "container-title-short": "Nucleic Acids Res.",
+  "journalAbbreviation": "Nucleic Acids Res.",
+  "volume": "52",
+  "page": "D368–D375",
+  "DOI": "10.1093/nar/gkad1011"
+ },
+ {
+  "id": "halmaFAIRDataOptical2025",
+  "citation-key": "halmaFAIRDataOptical2025",
+  "title": "FAIR data for optical tweezers experiments",
+  "author": [
+   {
+    "family": "Halma",
+    "given": "M. T. J."
+   },
+   {
+    "family": "Kumar",
+    "given": "S."
+   },
+   {
+    "family": "van Eck",
+    "given": "J."
+   },
+   {
+    "family": "Abeln",
+    "given": "S."
+   },
+   {
+    "family": "Gates",
+    "given": "A."
+   },
+   {
+    "family": "Wuite",
+    "given": "G. J. L."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2025
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Biophysical Journal",
+  "container-title-short": "Biophys. J.",
+  "journalAbbreviation": "Biophys. J.",
+  "volume": "124",
+  "page": "1255–1272",
+  "DOI": "10.1016/j.bpj.2025.03.005",
+  "issue": "8"
+ },
+ {
+  "id": "vandermeerscheATLASProteinFlexibility2024",
+  "citation-key": "vandermeerscheATLASProteinFlexibility2024",
+  "title": "ATLAS: protein flexibility description from atomistic molecular dynamics simulations",
+  "author": [
+   {
+    "family": "Vander Meersche",
+    "given": "Y."
+   },
+   {
+    "family": "Cretin",
+    "given": "G."
+   },
+   {
+    "family": "Gheeraert",
+    "given": "A."
+   },
+   {
+    "family": "Gelly",
+    "given": "J.-C."
+   },
+   {
+    "family": "Galochkina",
+    "given": "T."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2024
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nucleic Acids Research",
+  "container-title-short": "Nucleic Acids Res.",
+  "journalAbbreviation": "Nucleic Acids Res.",
+  "volume": "52",
+  "page": "D384–D392",
+  "DOI": "10.1093/nar/gkad1084"
+ },
+ {
+  "id": "rosonovskiEuropePMC20232024",
+  "citation-key": "rosonovskiEuropePMC20232024",
+  "title": "Europe PMC in 2023",
+  "author": [
+   {
+    "family": "Rosonovski",
+    "given": "S."
+   },
+   {
+    "family": "Levchenko",
+    "given": "M."
+   },
+   {
+    "family": "Bhatnagar",
+    "given": "R."
+   },
+   {
+    "family": "Chandrasekaran",
+    "given": "U."
+   },
+   {
+    "family": "Faulk",
+    "given": "L."
+   },
+   {
+    "family": "Hassan",
+    "given": "I."
+   },
+   {
+    "literal": "et al."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2024
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nucleic Acids Research",
+  "container-title-short": "Nucleic Acids Res.",
+  "journalAbbreviation": "Nucleic Acids Res.",
+  "volume": "52",
+  "page": "D1668–D1676",
+  "DOI": "10.1093/nar/gkad1085"
+ },
+ {
+  "id": "sehnalMolViewerModern2021",
+  "citation-key": "sehnalMolViewerModern2021",
+  "title": "Mol* Viewer: modern web app for 3D visualization and analysis of large biomolecular structures",
+  "author": [
+   {
+    "family": "Sehnal",
+    "given": "D."
+   },
+   {
+    "family": "Bittrich",
+    "given": "S."
+   },
+   {
+    "family": "Deshpande",
+    "given": "M."
+   },
+   {
+    "family": "Svobodová",
+    "given": "R."
+   },
+   {
+    "family": "Berka",
+    "given": "K."
+   },
+   {
+    "family": "Bazgier",
+    "given": "V."
+   },
+   {
+    "literal": "et al."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2021
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nucleic Acids Research",
+  "container-title-short": "Nucleic Acids Res.",
+  "journalAbbreviation": "Nucleic Acids Res.",
+  "volume": "49",
+  "page": "W431–W437",
+  "DOI": "10.1093/nar/gkab314"
+ },
+ {
+  "id": "theilletStructuralDisorderMonomeric2016",
+  "citation-key": "theilletStructuralDisorderMonomeric2016",
+  "title": "Structural disorder of monomeric α-synuclein persists in mammalian cells",
+  "author": [
+   {
+    "family": "Theillet",
+    "given": "F.-X."
+   },
+   {
+    "family": "Binolfi",
+    "given": "A."
+   },
+   {
+    "family": "Bekei",
+    "given": "B."
+   },
+   {
+    "family": "Martorana",
+    "given": "A."
+   },
+   {
+    "family": "Rose",
+    "given": "H. M."
+   },
+   {
+    "family": "Stuiver",
+    "given": "M."
+   },
+   {
+    "literal": "et al."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2016
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nature",
+  "container-title-short": "Nature",
+  "journalAbbreviation": "Nature",
+  "volume": "530",
+  "page": "45–50",
+  "DOI": "10.1038/nature16531"
+ },
+ {
+  "id": "ulmerStructureDynamicsMicellebound2005",
+  "citation-key": "ulmerStructureDynamicsMicellebound2005",
+  "title": "Structure and dynamics of micelle-bound human α-synuclein",
+  "author": [
+   {
+    "family": "Ulmer",
+    "given": "T. S."
+   },
+   {
+    "family": "Bax",
+    "given": "A."
+   },
+   {
+    "family": "Cole",
+    "given": "N. B."
+   },
+   {
+    "family": "Nussbaum",
+    "given": "R. L."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2005
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Journal of Biological Chemistry",
+  "container-title-short": "J. Biol. Chem.",
+  "journalAbbreviation": "J. Biol. Chem.",
+  "volume": "280",
+  "page": "9595–9603",
+  "DOI": "10.1074/jbc.M411805200"
+ },
+ {
+  "id": "liAmyloidFibrilStructure2018",
+  "citation-key": "liAmyloidFibrilStructure2018",
+  "title": "Amyloid fibril structure of α-synuclein determined by cryo-electron microscopy",
+  "author": [
+   {
+    "family": "Li",
+    "given": "Y."
+   },
+   {
+    "family": "Zhao",
+    "given": "C."
+   },
+   {
+    "family": "Luo",
+    "given": "F."
+   },
+   {
+    "family": "Liu",
+    "given": "Z."
+   },
+   {
+    "family": "Gui",
+    "given": "X."
+   },
+   {
+    "family": "Luo",
+    "given": "Z."
+   },
+   {
+    "literal": "et al."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2018
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Cell Research",
+  "container-title-short": "Cell Res.",
+  "journalAbbreviation": "Cell Res.",
+  "volume": "28",
+  "page": "897–903",
+  "DOI": "10.1038/s41422-018-0075-x"
+ },
+ {
+  "id": "liCryoEMFulllengthsynuclein2018",
+  "citation-key": "liCryoEMFulllengthsynuclein2018",
+  "title": "Cryo-EM of full-length α-synuclein reveals fibril polymorphs with a common structural kernel",
+  "author": [
+   {
+    "family": "Li",
+    "given": "B."
+   },
+   {
+    "family": "Ge",
+    "given": "P."
+   },
+   {
+    "family": "Murray",
+    "given": "K. A."
+   },
+   {
+    "family": "Sheth",
+    "given": "P."
+   },
+   {
+    "family": "Zhang",
+    "given": "M."
+   },
+   {
+    "family": "Nair",
+    "given": "G."
+   },
+   {
+    "literal": "et al."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2018
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nature Communications",
+  "container-title-short": "Nat. Commun.",
+  "journalAbbreviation": "Nat. Commun.",
+  "volume": "9",
+  "page": "3609",
+  "DOI": "10.1038/s41467-018-05971-2"
+ },
+ {
+  "id": "laneProteinStructurePrediction2023",
+  "citation-key": "laneProteinStructurePrediction2023",
+  "title": "Protein structure prediction has reached the single-structure frontier",
+  "author": [
+   {
+    "family": "Lane",
+    "given": "T. J."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2023
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nature Methods",
+  "container-title-short": "Nat. Methods",
+  "journalAbbreviation": "Nat. Methods",
+  "volume": "20",
+  "page": "170–173",
+  "DOI": "10.1038/s41592-022-01760-4"
+ },
+ {
+  "id": "rnacentralconsortiumRNAcentral2021Secondary2021",
+  "citation-key": "rnacentralconsortiumRNAcentral2021Secondary2021",
+  "title": "RNAcentral 2021: secondary structure integration, improved sequence search and new member databases",
+  "author": [
+   {
+    "literal": "RNAcentral Consortium"
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2021
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nucleic Acids Research",
+  "container-title-short": "Nucleic Acids Res.",
+  "journalAbbreviation": "Nucleic Acids Res.",
+  "volume": "49",
+  "page": "D212–D220",
+  "DOI": "10.1093/nar/gkaa921"
+ },
+ {
+  "id": "merinoRNAStructureAnalysis2005",
+  "citation-key": "merinoRNAStructureAnalysis2005",
+  "title": "RNA structure analysis at single nucleotide resolution by selective 2′-hydroxyl acylation and primer extension (SHAPE)",
+  "author": [
+   {
+    "family": "Merino",
+    "given": "E. J."
+   },
+   {
+    "family": "Wilkinson",
+    "given": "K. A."
+   },
+   {
+    "family": "Coughlan",
+    "given": "J. L."
+   },
+   {
+    "family": "Weeks",
+    "given": "K. M."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2005
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Journal of the American Chemical Society",
+  "container-title-short": "J. Am. Chem. Soc.",
+  "journalAbbreviation": "J. Am. Chem. Soc.",
+  "volume": "127",
+  "page": "4223–4231",
+  "DOI": "10.1021/ja043822v"
+ },
+ {
+  "id": "zubradtDMSMaPseqGenomewideTargeted2017",
+  "citation-key": "zubradtDMSMaPseqGenomewideTargeted2017",
+  "title": "DMS-MaPseq for genome-wide or targeted RNA structure probing in vivo",
+  "author": [
+   {
+    "family": "Zubradt",
+    "given": "M."
+   },
+   {
+    "family": "Gupta",
+    "given": "P."
+   },
+   {
+    "family": "Persad",
+    "given": "S."
+   },
+   {
+    "family": "Lambowitz",
+    "given": "A. M."
+   },
+   {
+    "family": "Weissman",
+    "given": "J. S."
+   },
+   {
+    "family": "Rouskin",
+    "given": "S."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2017
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nature Methods",
+  "container-title-short": "Nat. Methods",
+  "journalAbbreviation": "Nat. Methods",
+  "volume": "14",
+  "page": "75–82",
+  "DOI": "10.1038/nmeth.4057"
+ },
+ {
+  "id": "kanevKLIFSOverhaulAfter2021",
+  "citation-key": "kanevKLIFSOverhaulAfter2021",
+  "title": "KLIFS: an overhaul after the first 5 years of supporting kinase research",
+  "author": [
+   {
+    "family": "Kanev",
+    "given": "G. K."
+   },
+   {
+    "family": "de Graaf",
+    "given": "C."
+   },
+   {
+    "family": "Westerman",
+    "given": "B. A."
+   },
+   {
+    "family": "de Esch",
+    "given": "I. J. P."
+   },
+   {
+    "family": "Kooistra",
+    "given": "A. J."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2021
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nucleic Acids Research",
+  "container-title-short": "Nucleic Acids Res.",
+  "journalAbbreviation": "Nucleic Acids Res.",
+  "volume": "49",
+  "page": "D562–D569",
+  "DOI": "10.1093/nar/gkaa895"
+ },
+ {
+  "id": "pandyszekeresGPCRdb2023Statespecific2023",
+  "citation-key": "pandyszekeresGPCRdb2023Statespecific2023",
+  "title": "GPCRdb in 2023: state-specific structure models using AlphaFold2 and new ligand resources",
+  "author": [
+   {
+    "family": "Pándy-Szekeres",
+    "given": "G."
+   },
+   {
+    "family": "Caroli",
+    "given": "J."
+   },
+   {
+    "family": "Mamyrbekov",
+    "given": "A."
+   },
+   {
+    "family": "Kermani",
+    "given": "A. A."
+   },
+   {
+    "family": "Keserű",
+    "given": "G. M."
+   },
+   {
+    "family": "Kooistra",
+    "given": "A. J."
+   },
+   {
+    "literal": "et al."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2023
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nucleic Acids Research",
+  "container-title-short": "Nucleic Acids Res.",
+  "journalAbbreviation": "Nucleic Acids Res.",
+  "volume": "51",
+  "page": "D395–D402",
+  "DOI": "10.1093/nar/gkac1013"
+ },
+ {
+  "id": "nikamProThermDBThermodynamicDatabase2021",
+  "citation-key": "nikamProThermDBThermodynamicDatabase2021",
+  "title": "ProThermDB: thermodynamic database for proteins and mutants revisited after 15 years",
+  "author": [
+   {
+    "family": "Nikam",
+    "given": "R."
+   },
+   {
+    "family": "Kulandaisamy",
+    "given": "A."
+   },
+   {
+    "family": "Harini",
+    "given": "K."
+   },
+   {
+    "family": "Sharma",
+    "given": "D."
+   },
+   {
+    "family": "Gromiha",
+    "given": "M. M."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2021
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nucleic Acids Research",
+  "container-title-short": "Nucleic Acids Res.",
+  "journalAbbreviation": "Nucleic Acids Res.",
+  "volume": "49",
+  "page": "D420–D424",
+  "DOI": "10.1093/nar/gkaa1035"
+ },
+ {
+  "id": "xavierThermoMutDBThermodynamicDatabase2021",
+  "citation-key": "xavierThermoMutDBThermodynamicDatabase2021",
+  "title": "ThermoMutDB: a thermodynamic database for missense mutations",
+  "author": [
+   {
+    "family": "Xavier",
+    "given": "J. S."
+   },
+   {
+    "family": "Nguyen",
+    "given": "T.-B."
+   },
+   {
+    "family": "Karmarkar",
+    "given": "M."
+   },
+   {
+    "family": "Portelli",
+    "given": "S."
+   },
+   {
+    "family": "Rezende",
+    "given": "P. M."
+   },
+   {
+    "family": "Velloso",
+    "given": "J. P. L."
+   },
+   {
+    "literal": "et al."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2021
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nucleic Acids Research",
+  "container-title-short": "Nucleic Acids Res.",
+  "journalAbbreviation": "Nucleic Acids Res.",
+  "volume": "49",
+  "page": "D475–D479",
+  "DOI": "10.1093/nar/gkaa925"
+ },
+ {
+  "id": "tsuboyamaMegascaleExperimentalAnalysis2023",
+  "citation-key": "tsuboyamaMegascaleExperimentalAnalysis2023",
+  "title": "Mega-scale experimental analysis of protein folding stability in biology and design",
+  "author": [
+   {
+    "family": "Tsuboyama",
+    "given": "K."
+   },
+   {
+    "family": "Dauparas",
+    "given": "J."
+   },
+   {
+    "family": "Chen",
+    "given": "J."
+   },
+   {
+    "family": "Laine",
+    "given": "E."
+   },
+   {
+    "family": "Mohseni Behbahani",
+    "given": "Y."
+   },
+   {
+    "family": "Weinstein",
+    "given": "J. J."
+   },
+   {
+    "literal": "et al."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2023
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nature",
+  "container-title-short": "Nature",
+  "journalAbbreviation": "Nature",
+  "volume": "620",
+  "page": "434–444",
+  "DOI": "10.1038/s41586-023-06328-6"
+ },
+ {
+  "id": "fowlerDeepMutationalScanning2014",
+  "citation-key": "fowlerDeepMutationalScanning2014",
+  "title": "Deep mutational scanning: a new style of protein science",
+  "author": [
+   {
+    "family": "Fowler",
+    "given": "D. M."
+   },
+   {
+    "family": "Fields",
+    "given": "S."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2014
+    ]
+   ]
+  },
+  "type": "article-journal",
+  "container-title": "Nature Methods",
+  "container-title-short": "Nat. Methods",
+  "journalAbbreviation": "Nat. Methods",
+  "volume": "11",
+  "page": "801–807",
+  "DOI": "10.1038/nmeth.3027"
+ },
+ {
+  "id": "serganovDecadeRiboswitches2013",
+  "type": "article-journal",
+  "title": "A decade of riboswitches",
+  "author": [
+   {
+    "family": "Serganov",
+    "given": "A."
+   },
+   {
+    "family": "Nudler",
+    "given": "E."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2013
+    ]
+   ]
+  },
+  "container-title": "Cell",
+  "container-title-short": "Cell",
+  "volume": "152",
+  "page": "17–24",
+  "DOI": "10.1016/j.cell.2012.12.024"
+ },
+ {
+  "id": "woodsideDirectMeasurementFull2006",
+  "type": "article-journal",
+  "title": "Direct measurement of the full, sequence-dependent folding landscape of a nucleic acid",
+  "author": [
+   {
+    "family": "Woodside",
+    "given": "M. T."
+   },
+   {
+    "family": "Anthony",
+    "given": "P. C."
+   },
+   {
+    "family": "Behnke-Parks",
+    "given": "W. M."
+   },
+   {
+    "family": "Larizadeh",
+    "given": "K."
+   },
+   {
+    "family": "Herschlag",
+    "given": "D."
+   },
+   {
+    "family": "Block",
+    "given": "S. M."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2006
+    ]
+   ]
+  },
+  "container-title": "Science",
+  "container-title-short": "Science",
+  "volume": "314",
+  "page": "1001–1004",
+  "DOI": "10.1126/science.1133601"
+ },
+ {
+  "id": "greenleafDirectObservationHierarchical2008",
+  "type": "article-journal",
+  "title": "Direct observation of hierarchical folding in single riboswitch aptamers",
+  "author": [
+   {
+    "family": "Greenleaf",
+    "given": "W. J."
+   },
+   {
+    "family": "Frieda",
+    "given": "K. L."
+   },
+   {
+    "family": "Foster",
+    "given": "D. A. N."
+   },
+   {
+    "family": "Woodside",
+    "given": "M. T."
+   },
+   {
+    "family": "Block",
+    "given": "S. M."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2008
+    ]
+   ]
+  },
+  "container-title": "Science",
+  "container-title-short": "Science",
+  "volume": "319",
+  "page": "630–633",
+  "DOI": "10.1126/science.1151298"
+ },
+ {
+  "id": "burgeQuadruplexDNASequence2006",
+  "type": "article-journal",
+  "title": "Quadruplex DNA: sequence, topology and structure",
+  "author": [
+   {
+    "family": "Burge",
+    "given": "S."
+   },
+   {
+    "family": "Parkinson",
+    "given": "G. N."
+   },
+   {
+    "family": "Hazel",
+    "given": "P."
+   },
+   {
+    "family": "Todd",
+    "given": "A. K."
+   },
+   {
+    "family": "Neidle",
+    "given": "S."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2006
+    ]
+   ]
+  },
+  "container-title": "Nucleic Acids Research",
+  "container-title-short": "Nucleic Acids Res.",
+  "volume": "34",
+  "page": "5402–5415",
+  "DOI": "10.1093/nar/gkl655"
+ },
+ {
+  "id": "corderoRNAMappingDataBase2012",
+  "type": "article-journal",
+  "title": "An RNA Mapping DataBase for curating RNA structure mapping experiments",
+  "author": [
+   {
+    "family": "Cordero",
+    "given": "P."
+   },
+   {
+    "family": "Lucks",
+    "given": "J. B."
+   },
+   {
+    "family": "Das",
+    "given": "R."
+   }
+  ],
+  "issued": {
+   "date-parts": [
+    [
+     2012
+    ]
+   ]
+  },
+  "container-title": "Bioinformatics",
+  "container-title-short": "Bioinformatics",
+  "volume": "28",
+  "page": "3006–3008",
+  "DOI": "10.1093/bioinformatics/bts554"
+ }
+]
