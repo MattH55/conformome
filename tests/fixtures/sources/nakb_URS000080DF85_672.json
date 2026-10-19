@@ -1,0 +1,137 @@
+{
+ "accession": "URS000080DF85_672",
+ "entries": [
+  {
+   "DOI": "10.1016/j.chembiol.2004.11.018",
+   "exptlmethod": [
+    "X-RAY DIFFRACTION"
+   ],
+   "ndbid": "UR0051",
+   "nonpolymers": [
+    "ADE",
+    "MG"
+   ],
+   "pdbid": "1Y26",
+   "polymer.authorchains": [
+    "X"
+   ],
+   "polymer.description": [
+    "Vibrio vulnificus A-riboswitch"
+   ],
+   "polymer.entity_id": [
+    "1"
+   ],
+   "polymer.sequence_canonical": [
+    "CGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUG"
+   ],
+   "polymer.taxid": [
+    672
+   ],
+   "polymer.type": [
+    "RNA"
+   ],
+   "released": "2004-12-28",
+   "resolution": [
+    2.1
+   ],
+   "rfamentity": [
+    "1"
+   ],
+   "rfamids": [
+    "RF00167"
+   ],
+   "title": "A-riboswitch-adenine complex"
+  },
+  {
+   "DOI": "10.1021/ja502873j",
+   "exptlmethod": [
+    "X-RAY DIFFRACTION"
+   ],
+   "ndbid": "NA2639",
+   "nonpolymers": [
+    "29G",
+    "MG"
+   ],
+   "pdbid": "4LX5",
+   "polymer.authorchains": [
+    "A"
+   ],
+   "polymer.description": [
+    "Mutated adenine riboswitch aptamer"
+   ],
+   "polymer.entity_id": [
+    "1"
+   ],
+   "polymer.sequence_canonical": [
+    "GGCUUCAUAUAAUCCGAAUGAUAUGGUUUCGGAGCUUCCACCAAGAGCCUUAAACUCUUGAUUAUGAAGUC"
+   ],
+   "polymer.taxid": [
+    672
+   ],
+   "polymer.type": [
+    "RNA"
+   ],
+   "released": "2014-07-16",
+   "resolution": [
+    2.13
+   ],
+   "rfamentity": [
+    "1"
+   ],
+   "rfamids": [
+    "RF00167"
+   ],
+   "title": "X-ray crystal structure of the M6\" riboswitch aptamer bound to pyrimido[4,5-d]pyrimidine-2,4-diamine (PPDA)"
+  },
+  {
+   "DOI": "10.1038/s41467-021-21838-5",
+   "exptlmethod": [
+    "X-RAY DIFFRACTION"
+   ],
+   "ndbid": "6VWT",
+   "nonpolymers": [
+    "ADE",
+    "MG"
+   ],
+   "pdbid": "6VWT",
+   "polymer.authorchains": [
+    "A,B"
+   ],
+   "polymer.description": [
+    "adenine riboswitch aptamer variant"
+   ],
+   "polymer.entity_id": [
+    "1"
+   ],
+   "polymer.sequence_canonical": [
+    "GGGAAGAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUCUUCCC"
+   ],
+   "polymer.taxid": [
+    672
+   ],
+   "polymer.type": [
+    "RNA"
+   ],
+   "released": "2020-11-11",
+   "resolution": [
+    3.03
+   ],
+   "rfamentity": [
+    "1"
+   ],
+   "rfamids": [
+    "RF00167"
+   ],
+   "title": "Transitional unit cell 1 of adenine riboswitch aptamer crystal phase transition upon ligand binding"
+  }
+ ],
+ "molecule": {
+  "rfam": [
+   "RF00167"
+  ],
+  "sequence": "CGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUG",
+  "taxid": 672
+ },
+ "retrieved": "2026-10-19",
+ "url": "https://www.nakb.org/node/solr/nakb/select?q=naseq%3A%22CGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUG%22&fl=pdbid%2Cndbid%2Ctitle%2Cexptlmethod%2Cresolution%2CDOI%2Cpolymer.entity_id%2Cpolymer.authorchains%2Cpolymer.description%2Cpolymer.type%2Cpolymer.taxid%2Cpolymer.sequence_canonical%2Crfamentity%2Crfamids%2Cnonpolymers%2Creleased&wt=json&rows=2000"
+}

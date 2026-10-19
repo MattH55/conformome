@@ -506,6 +506,17 @@ techniques:
     resolution_class: residue
     observables: [secondary_structure, free_energy_difference, population]
     description: Minimum free-energy and ensemble predictions of base pairing. Predictions, not measurements.
+  - id: rfam_covariation
+    name: Comparative sequence analysis (Rfam covariance model)
+    category: computational
+    basis: inferred
+    prediction: true
+    tier: null
+    raw_location: "Rfam"
+    raw_format: "Stockholm alignment (SS_cons), covariance model"
+    resolution_class: residue
+    observables: [family_coverage, secondary_structure]
+    description: Membership of an RNA family by covariance-model search, and the family's consensus secondary structure inferred from covariation across homologs. Evolutionary inference, not a measurement on this molecule.
   - id: na_3d_prediction
     name: Nucleic-acid 3D structure prediction
     category: computational

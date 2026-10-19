@@ -5,6 +5,7 @@ A source module exposes:
     NAME          human-readable source name, as it appears in docs/SOURCES.md and in provenance
     LICENCE       licence of the source data, as recorded in docs/SOURCES.md
     IMPLEMENTED   False until fetch and parse work end to end
+    MOLECULE_TYPES  optional; the molecule types the source is queried for (default {"protein"})
     fetch(paths, accession, retrieved) -> raw   downloads and caches; writes data/raw/<KEY>/<accession>.json
     parse(raw, accession, retrieved) -> [evidence dict]  pure function, no network
     not_ingested(raw, accession) -> [{"id", "reason"}]   optional; items seen but not turned into evidence

@@ -1,0 +1,56 @@
+{
+ "entry": {
+  "description": "Vibrio vulnificus A-riboswitch from Vibrio vulnificus (PDB 1Y26, chain X)",
+  "distinct_databases": "PDBe",
+  "genes": [],
+  "is_active": true,
+  "length": 71,
+  "publications": 63,
+  "rna_type": "misc_RNA",
+  "rnacentral_id": "URS000080DF85_672",
+  "sequence": "CGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUG",
+  "short_description": "A-riboswitch from Vibrio vulnificus (PDB 1Y26, chain X)",
+  "species": "Vibrio vulnificus",
+  "taxid": 672
+ },
+ "retrieved": "2026-10-19",
+ "rfam_hits": [
+  {
+   "rfam_model": {
+    "description": "Riboswitches are metabolite binding domains within certain messenger RNAs that serve as precision sensors for their corresponding targets. Allosteric rearrangement of mRNA structure is mediated by lig",
+    "domain": "Bacteria",
+    "full_count": 4097,
+    "go_terms": [
+     {
+      "definition": "",
+      "name": "purine nucleobase biosynthetic process",
+      "ontology": "GO",
+      "ontology_term_id": "GO:0009113",
+      "quickgo_url": "https://www.ebi.ac.uk/QuickGO/term/GO:0009113",
+      "url": "http://amigo.geneontology.org/amigo/term/GO:0009113"
+     }
+    ],
+    "is_suppressed": true,
+    "length": 102,
+    "long_name": "Purine riboswitch aptamer",
+    "rfam_clan": {
+     "description": "Riboswitches are metabolite binding domains within certain messenger RNAs that serve as precision sensors for their corresponding targets. Allosteric rearrangement of mRNA structure is mediated by lig",
+     "family_count": 3,
+     "name": "Purine riboswitches",
+     "rfam_clan_id": "CL00123"
+    },
+    "rfam_model_id": "RF00167",
+    "rfam_rna_type": "Cis-reg; riboswitch",
+    "rna_type": "other",
+    "seed_count": 133,
+    "short_name": "Purine",
+    "thumbnail_url": "https://rfam.org/family/RF00167/thumbnail",
+    "url": "https://rfam.org/family/RF00167"
+   },
+   "sequence_completeness": 0.9436619718309859,
+   "sequence_start": 2,
+   "sequence_stop": 69
+  }
+ ],
+ "url": "https://rnacentral.org/api/v1/rna/URS000080DF85_672/?format=json"
+}

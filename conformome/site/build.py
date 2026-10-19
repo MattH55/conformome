@@ -232,6 +232,28 @@ def _load(paths: Paths, acc: str):
     return protein, mapped, models
 
 
+ID_LABEL = {"protein": "UniProt", "rna": "RNAcentral", "dna": "NAKB", "complex": "Complex"}
+
+
+def organism_name(molecule: dict) -> str:
+    return molecule["organism"]["name"] if molecule.get("organism") else "synthetic construct"
+
+
+def _identity_line(acc: str, mol: dict) -> str:
+    """Identifier, family, gene, organism and length, worded for the molecule type."""
+    mtype = mol.get("molecule_type", "protein")
+    shown = mol["identifiers"]["nakb"] if mtype == "dna" else acc
+    parts = [f'{ID_LABEL[mtype]} <a href="{esc(mol["provenance"]["url"])}">{esc(shown)}</a>']
+    if mol["identifiers"].get("rfam"):
+        rf = mol["identifiers"]["rfam"]
+        parts.append(f'Rfam <a href="https://rfam.org/family/{esc(rf)}">{esc(rf)}</a>')
+    if mol.get("gene"):
+        parts.append("gene " + esc(mol["gene"]))
+    parts.append(esc(organism_name(mol)))
+    parts.append(f'{mol["sequence_length"]} {"residues" if mtype == "protein" else "nt"}')
+    return " · ".join(parts)
+
+
 def _state_extras(s: dict) -> str:
     """Family label, population and secondary structure, when the state has them."""
     out = ""
@@ -438,9 +460,7 @@ def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: l
 
     body = (
         f'<h1>{esc(protein["name"])}</h1>'
-        f'<p class="sub">UniProt <a href="{esc(protein["provenance"]["url"])}">{esc(acc)}</a>'
-        f'{" · gene " + esc(protein["gene"]) if protein.get("gene") else ""} · '
-        f'{esc(protein["organism"]["name"])} · {protein["sequence_length"]} residues</p>'
+        f'<p class="sub">{_identity_line(acc, protein)}</p>'
         f'{banner}{stats}{grid}{viewer}{states_html}{evidence_html}{conflicts_html}{downloads_html}')
     return page(protein["name"], body, root, scripts=scripts + evidence_scripts, head_extra=head_extra,
                 description=f"Conformational states and techniques for {protein['name']} ({acc})")
@@ -675,7 +695,7 @@ def build_site(paths: Paths, accessions: list[str]) -> None:
         protein, mapped, models = _load(paths, acc)
         draft = mapped["curation"]["status"] != "reviewed"
         summaries.append({
-            "acc": acc, "name": protein["name"], "organism": protein["organism"]["name"],
+            "acc": acc, "name": protein["name"], "organism": organism_name(protein),
             "techniques": len(mapped["coverage"]["techniques"]), "states": len(mapped["states"]),
             "evidence": len(mapped["evidence"]), "mapped": sum(1 for e in mapped["evidence"] if e["mappings"]),
             "sources": len({e["provenance"]["source"] for e in mapped["evidence"]}),

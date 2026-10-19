@@ -2,7 +2,7 @@
 
 ## What a page is
 
-One page per molecule. Proteins are keyed on their UniProt accession (with an isoform suffix when a page is about one isoform). The schema also defines RNA pages (RNAcentral URS, with the Rfam family), DNA structure pages (`DNA-` plus 12 hex digits of the SHA-256 of the sequence, with NAKB and PDB identifiers) and complex pages (`CPX-`, linking component pages); only protein pages are built so far. A page lists the **states** a protein is curated to have, the **evidence** from each technique that has probed it, how each evidence item maps to a state, the **conflicts** between comparable measurements, and the **models** exported for observed states.
+One page per molecule. Proteins are keyed on their UniProt accession (with an isoform suffix when a page is about one isoform). The schema also defines RNA pages (RNAcentral URS, with the Rfam family), DNA structure pages (`DNA-` plus 12 hex digits of the SHA-256 of the sequence, with NAKB and PDB identifiers) and complex pages (`CPX-`, linking component pages); protein, RNA and DNA pages are built; complexes are not yet. A page lists the **states** a protein is curated to have, the **evidence** from each technique that has probed it, how each evidence item maps to a state, the **conflicts** between comparable measurements, and the **models** exported for observed states.
 
 
 The proteins built are listed in `targets.yaml`. A protein with no curation file still gets a page with all its evidence, labelled "states not yet curated"; nothing on it is mapped until a curator defines states.
@@ -34,6 +34,8 @@ These are in the schema; no source fills them yet.
 One evidence item per experiment or deposit:
 
 - RCSB PDB: one item per polymer entity whose UniProt mapping includes the accession.
+- NAKB (RNA and DNA): one item per nucleic-acid entity with exactly the molecule's sequence, or, for RNA, in the same Rfam family and organism (another construct of the same RNA; the item says which).
+- Rfam (RNA): one item per family hit, with the fraction of the sequence the covariance model covers. Labelled as a prediction.
 - BMRB: one item per entry in BMRB's UniProt mapping.
 - SASBDB: one item per entry whose sample lists a molecule with this UniProt code (radius of gyration with its error).
 - DisProt: one item per curated region with a structural-state or structural-transition term; the ECO evidence code names the technique.

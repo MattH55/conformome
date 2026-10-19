@@ -117,9 +117,20 @@ Licences, and which sources may be redistributed, are in `docs/SOURCES.md`; the 
 - `schema/protein.schema.json` is replaced by `molecule.schema.json` (`molecule_type`, `identifiers` for UniProt/isoform/RNAcentral/Rfam/GenBank/NAKB/PDB, `modifications` (UniProt "Modified residue" features fill it for proteins), `components` for complexes). The build file is `build/<id>/molecule.json` and the all-records download uses `record_type: molecule`.
 - New: `mutational_effect.schema.json`, `state_vocabulary.schema.json` and six vocabularies in `taxonomy/state_vocabularies/` (DOIs checked against Crossref). States gain `secondary_structure`, `family_label`, `population`; evidence gains `profile`; transitions gain `kinetics` (Φ-values as a profile); models accept `dot-bracket`; conditions gain required `ions`; mappings gain optional `agreement` (score + method, for profile-vs-dot-bracket mapping).
 - Applied: GPCRdb labels on β2AR states, KLIFS labels on three Abl states (draft, unreviewed).
-- Not done: ingest for RNA/DNA/complex IDs (`ingest` raises NotImplementedError), sources for nucleic acids (RNAcentral, Rfam, NAKB, RMDB, RASP) and for mutational effects and kinetics (ProThermDB, mega-scale dataset, MaveDB, ClinVar, PFDB), profile-to-dot-bracket mapping, the six nucleic-acid pilot molecules, and site pages for non-protein molecules.
+- Not done: complexes (`ingest` raises NotImplementedError), probing sources (RMDB, RASP) and for mutational effects and kinetics (ProThermDB, mega-scale dataset, MaveDB, ClinVar, PFDB), profile-to-dot-bracket mapping, the six nucleic-acid pilot molecules, and site pages for non-protein molecules.
+
+## Nucleic-acid sources (2026-10-19)
+
+- `conformome/rnacentral.py` builds RNA molecule records (like `protein.py` for UniProt). RNA pages are keyed on the species-specific `URS…_<taxid>`.
+- `conformome/dna.py` builds DNA records from the `anchor_pdb` given in `targets.yaml`; the anchor's DNA chain is the sequence, and the target's `molecule_id` must equal `dna_id(sequence)`.
+- `sources/nakb.py` (RNA and DNA): NAKB's Solr index (`/node/solr/nakb/select`, linked from its download page; there is no documented API). It matches chains of exactly the molecule's sequence (`naseq`) and, for RNA, other constructs Rfam assigns to the same family in the same organism. That second rule pulls in mutants and redesigned constructs, and could merge paralogs in one organism; each item says which rule matched. Synthetic-construct RNA entries (taxon 32630) with a different sequence are missed. NMR entries are not found if their taxon is synthetic.
+- `sources/rfam.py` (RNA): one `rfam_covariation` item per family hit, flagged as a prediction. The family consensus (`SS_cons`) is kept in the raw file but not projected onto the sequence (needs Infernal `cmalign`).
+- Sources declare `MOLECULE_TYPES`; protein sources default to proteins only, so PDB, BMRB, SASBDB and the rest are not queried for RNA or DNA yet. RNA in BMRB and SASBDB is therefore missing.
+- `targets.yaml` batch `nucleic-acid-1`: add adenine riboswitch aptamer (`URS000080DF85_672`, 12 structures + 1 Rfam hit) and the human telomeric G-quadruplex (`DNA-6f16b68e4fba`, anchor 143D, 14 structures). Both evidence-only (no curation yet).
+- Pages for RNA and DNA still live under `protein/<id>/`; the header line is worded per molecule type.
 
 ## Good next steps
+
 
 - Write curation files for the 51 evidence-only proteins, starting with those with the most techniques (spike, p53, APP, Hsp90-alpha, histone H3.1).
 - Recover salt and mutations from SASBDB entry descriptions.

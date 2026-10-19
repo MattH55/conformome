@@ -17,7 +17,10 @@ from conformome.mapping.conflicts import find_conflicts, not_compared
 from conformome.mapping.curation import curation_for
 from conformome.mapping.rules import apply_rules, curator_assignment
 from conformome.molecule import molecule_type
-from conformome.sources import IMPLEMENTED
+from conformome import dna as dna_source
+from conformome import rnacentral as rna_source
+from conformome.sources import PRIMARY, for_type as sources_for
+from conformome.sources import nakb as nakb_source
 from conformome.sources import pdb as pdb_source
 
 CURATION_URL = "https://github.com/matth55/conformome/blob/HEAD/curation/{}"
@@ -41,6 +44,39 @@ def target_accessions(paths: Paths) -> list[str]:
 curated_accessions = target_accessions  # older name
 
 
+IDENTITY_NAME = {"protein": "UniProt", "rna": "RNAcentral", "dna": "NAKB anchor", "complex": "complex"}
+
+
+def target_entry(paths: Paths, acc: str) -> dict:
+    targets = paths.curation.parent / "targets.yaml"
+    entries = load_yaml(targets)["targets"] if targets.exists() else []
+    return next((t for t in entries if target_id(t) == acc), {})
+
+
+def fetch_identity(paths: Paths, acc: str, retrieved: str) -> None:
+    """The molecule's own record: UniProt for proteins, RNAcentral for RNA, the NAKB anchor entry for DNA."""
+    mtype = molecule_type(acc)
+    if mtype == "protein":
+        protein_source.fetch(paths, acc, retrieved)
+    elif mtype == "rna":
+        rna_source.fetch(paths, acc, retrieved)
+    elif mtype == "dna":
+        dna_source.fetch(paths, acc, retrieved, target_entry(paths, acc))
+    else:
+        raise NotImplementedError(f"{acc}: no download yet for complexes")
+
+
+def molecule_record(paths: Paths, acc: str) -> dict:
+    mtype = molecule_type(acc)
+    module = {"protein": protein_source, "rna": rna_source, "dna": dna_source}.get(mtype)
+    if module is None:
+        raise NotImplementedError(f"{acc}: no ingest yet for complexes")
+    raw = module.load_raw(paths, acc)
+    if raw is None:
+        raise FileNotFoundError(f"{acc}: no {IDENTITY_NAME[mtype]} download; run make download")
+    return module.parse(raw, acc)
+
+
 def _representatives(paths: Paths, accessions: list[str]) -> list[str]:
     reps = []
     for acc in accessions:
@@ -55,13 +91,14 @@ def download(paths: Paths, accessions: list[str]) -> None:
     retrieved = today()
     failures = []
     for acc in accessions:
-        print(f"download {acc}: UniProt entry")
-        protein_source.fetch(paths, acc, retrieved)
-        for module in IMPLEMENTED:
+        mtype = molecule_type(acc)
+        print(f"download {acc}: {IDENTITY_NAME[mtype]} entry")
+        fetch_identity(paths, acc, retrieved)
+        for module in sources_for(mtype):
             try:
                 module.fetch(paths, acc, retrieved)
             except Exception as err:  # network or API failure: record it and carry on
-                if module is pdb_source:
+                if module is PRIMARY[mtype]:
                     raise
                 failures.append({"molecule_id": acc, "source": module.NAME, "error": f"{type(err).__name__}: {err}"})
                 print(f"download {acc}: {module.NAME} FAILED ({err})")
@@ -89,20 +126,19 @@ def ingest(paths: Paths, accessions: list[str]) -> None:
     taxonomy = load_taxonomy(paths.taxonomy / "techniques.yaml")
     for acc in accessions:
         out = paths.build / acc
-        if molecule_type(acc) != "protein":
-            raise NotImplementedError(f"{acc}: no ingest yet for {molecule_type(acc)} molecules (schema only)")
-        protein = protein_source.parse(protein_source.load_raw(paths, acc), acc)
+        mtype = molecule_type(acc)
+        protein = molecule_record(paths, acc)
         errors = check(validators["molecule"], protein)
         if errors:
             raise ValueError(f"{acc} molecule record invalid: {errors}")
         write_json(out / "molecule.json", protein)
 
         evidence, report = [], {"molecule_id": acc, "sources": {}}
-        for module in IMPLEMENTED:
+        for module in sources_for(mtype):
             raw = module.load_raw(paths, acc)
             if raw is None:
-                if module is pdb_source:
-                    raise FileNotFoundError(f"{acc}: no PDB download; run make download")
+                if module is PRIMARY[mtype]:
+                    raise FileNotFoundError(f"{acc}: no {module.NAME} download; run make download")
                 report["sources"][module.NAME] = {"status": "not downloaded", "evidence_items": 0, "not_ingested": []}
                 continue
             records = module.parse(raw, acc, raw["retrieved"])
@@ -171,7 +207,7 @@ def map_protein(paths: Paths, acc: str) -> None:
     for a in cur.assignments:
         if a.get("pdb"):
             # A PDB ID stands for every entity of this protein in that entry.
-            targets = [ev for ev in evidence if ev["provenance"]["source"] == pdb_source.NAME
+            targets = [ev for ev in evidence if ev["provenance"]["source"] in (pdb_source.NAME, nakb_source.NAME)
                        and ev["provenance"]["deposit_id"] == str(a["pdb"])]
         else:
             targets = [by_id[a["evidence_id"]]] if a["evidence_id"] in by_id else []
