@@ -127,6 +127,7 @@ Licences, and which sources may be redistributed, are in `docs/SOURCES.md`; the 
 - `sources/rfam.py` (RNA): one `rfam_covariation` item per family hit, flagged as a prediction. The family consensus (`SS_cons`) is kept in the raw file but not projected onto the sequence (needs Infernal `cmalign`).
 - Sources declare `MOLECULE_TYPES`; protein sources default to proteins only, so PDB, BMRB, SASBDB and the rest are not queried for RNA or DNA yet. RNA in BMRB and SASBDB is therefore missing.
 - `targets.yaml` batch `nucleic-acid-1`: add adenine riboswitch aptamer (`URS000080DF85_672`, 12 structures + 1 Rfam hit) and the human telomeric G-quadruplex (`DNA-6f16b68e4fba`, anchor 143D, 14 structures). Both evidence-only (no curation yet).
+- Draft curation `curation/URS000080DF85_672.yaml` (add riboswitch): ligand-free (5E54), ligand-bound intermediate (5SWD) and adenine-bound (1Y26) states, all observed, with riboswitch vocabulary labels on the apo and bound states. The bound state carries its dot-bracket, built from FR3D canonical pairs of 1Y26 (BGSU RNA 3D Hub) and checked by the validator. 10 of 13 items mapped (7 curator, 3 by rule); 6VWT/6VWV (crystal phase-transition snapshots) and the Rfam hit are left unmapped. No expression-platform states: the construct is aptamer only. Every state rests on X-ray alone; NMR (BMRB), smFRET, force and SHAPE data for this riboswitch are not ingested yet.
 - Pages for RNA and DNA still live under `protein/<id>/`; the header line is worded per molecule type.
 
 ## Good next steps

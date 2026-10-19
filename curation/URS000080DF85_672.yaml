@@ -1,0 +1,64 @@
+# add adenine riboswitch aptamer, Vibrio vulnificus. Draft: curator to review.
+# Structures come from NAKB: 1Y26 has exactly this sequence; the others are other constructs of the
+# same Rfam family (RF00167) from V. vulnificus (different P1 sequence, mutants), as each item says.
+# This aptamer-only construct has no expression platform, so the platform ON/OFF states are not defined.
+molecule_id: URS000080DF85_672
+name: add adenine riboswitch aptamer
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: ADD-apo
+    name: ligand-free aptamer
+    basis: observed
+    representative_pdb: "5E54"
+    family_label: {vocabulary: riboswitch, terms: {aptamer: aptamer_unbound}}
+    description: >-
+      Aptamer without adenine, as in 5E54 (room-temperature XFEL structure; two conformers in the
+      asymmetric unit, apo1 and apo2, which differ in the length of P1). The 5E54 construct has a
+      different P1 sequence from this page's sequence, so no pairing is given here.
+  - id: ADD-intermediate
+    name: ligand-bound intermediate
+    basis: observed
+    representative_pdb: "5SWD"
+    description: >-
+      Adenine bound to an aptamer that has not yet reached the fully bound fold, trapped by
+      mix-and-inject serial crystallography, as in 5SWD. Same construct as 5E54.
+  - id: ADD-bound
+    name: adenine-bound aptamer
+    basis: observed
+    representative_pdb: "1Y26"
+    family_label: {vocabulary: riboswitch, terms: {aptamer: aptamer_bound}}
+    secondary_structure:
+      dot_bracket: "((((((((({..((((((......[[.))))))(.....})((((((]].....))))))..)))))))))"
+      source: "1Y26, canonical cWW pairs from FR3D (BGSU RNA 3D Hub), author numbering 13-83 = positions 1-71"
+    description: >-
+      Aptamer folded around adenine, as in 1Y26 (2.1 Å, Mg2+): P1, P2 and P3 around a three-way
+      junction, the L2-L3 kissing loop (G37-C61, G38-C60; brackets [ ]), the U22-A52 pair of the
+      binding pocket (brackets { }) and adenine paired with U74.
+assignments:
+  - {pdb: "1Y26", state: ADD-bound, confidence: high, justification: "Adenine (ADE) bound, this exact sequence; anchor structure."}
+  - {pdb: "4XNR", state: ADD-bound, confidence: high, justification: "Title: aptamer domain in complex with adenine (PLOR-synthesised)."}
+  - {pdb: "5SWE", state: ADD-bound, confidence: high, justification: "Title: ligand-bound structure converted in crystal from the ligand-free state."}
+  - {pdb: "5E54", state: ADD-apo, confidence: high, justification: "Title: two apo structures of the aptamer domain; no adenine modelled."}
+  - {pdb: "5SWD", state: ADD-intermediate, confidence: high, justification: "Title: aptamer domain in an intermediate-bound state."}
+  - {pdb: "4LX5", state: ADD-bound, confidence: low, justification: "Engineered M6'' aptamer bound to a synthetic ligand (PPDA) instead of adenine; bound fold assumed similar."}
+  - {pdb: "4LX6", state: ADD-bound, confidence: low, justification: "Engineered M6C'' aptamer bound to a synthetic ligand (PPAO) instead of adenine; bound fold assumed similar."}
+rules:
+  - id: add-adenine-bound
+    state: ADD-bound
+    confidence: medium
+    justification: "Structure with adenine modelled and not titled as an intermediate or transitional state; adenine-bound aptamer structures share the bound fold."
+    match:
+      techniques: [xray, cryoem, nmr_structure, neutron, microed]
+      ligands_any: [ADE]
+      title_none: ["intermediate", "transitional", "apo"]
+  - id: add-ligand-free
+    state: ADD-apo
+    confidence: medium
+    justification: "Structure with no ligand modelled (ions aside) and not titled as an intermediate; taken as the ligand-free aptamer."
+    match:
+      techniques: [xray, cryoem, nmr_structure, neutron, microed]
+      no_ligands: true
+      title_none: ["intermediate", "transitional"]
+transitions: []
