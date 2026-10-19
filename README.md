@@ -33,7 +33,11 @@ Limit a step to some proteins with `ACC="P69441 P0DP23"`.
 
 ## Deployment
 
-On every push to `main`, `.github/workflows/deploy.yml` downloads the raw inputs, runs `make validate`, and publishes `site/dist/` with GitHub Pages. `site/dist/CNAME` names conformome.org. The custom domain is set in DNS at the registrar, and Pages must be set to deploy from GitHub Actions.
+The site is published with GitHub Pages. On every push to the default branch, `.github/workflows/deploy.yml` downloads the raw inputs, runs `make validate`, and deploys `site/dist/`. It can also be run by hand from the Actions tab (workflow_dispatch).
+
+- Pages must be set to deploy from **GitHub Actions** (repository Settings → Pages → Source). The workflow tries to enable this itself; if the token is not allowed to, set it once by hand.
+- Until a custom domain is set, the site is at `https://matth55.github.io/conformome/`. All links are relative, so it works at that path.
+- For conformome.org: add the domain under Settings → Pages → Custom domain, then follow GitHub's instructions for the apex A records and the `www` CNAME at the registrar, and enable HTTPS. `site/dist/CNAME` already names the domain.
 
 ## Contributing
 
