@@ -95,3 +95,16 @@ def test_smashbio_results_and_study_records_carry_extraction_level():
     assert by["EV-SMASH-SMFS-000147"]["observable"]["type"] == "study_record"
     assert all("extraction level" in r["conditions"]["notes"] for r in records)
     assert all("experiment class:" in r["construct"]["description"] for r in records)
+
+
+@pytest.mark.parametrize("module,name,acc,level", [
+    (alphafold, "alphafold_P69441.json", "P69441", "processed"),
+    (bmrb, "bmrb_P01053.json", "P01053", "processed"),
+    (sasbdb, "sasbdb_P0CG48.json", "P0CG48", "processed"),
+    (disprot, "disprot_P10636.json", "P10636", "reported"),
+    (mddb, "mddb_P01053.json", "P01053", "processed"),
+    (smashbio, "smashbio_Q8WZ42.json", "Q8WZ42", "reported"),
+])
+def test_each_source_sets_its_data_level(module, name, acc, level):
+    records, _ = run(module, name, acc)
+    assert {r["data_level"] for r in records} == {level}

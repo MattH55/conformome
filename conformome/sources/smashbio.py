@@ -101,6 +101,7 @@ def parse(raw: dict, accession: str, retrieved: str) -> list[dict]:
         classes = ", ".join((rec.get("assay") or {}).get("experiment_class") or []) or "not stated"
         construct = f"{_entity_names(rec, accession)}; {primary.replace('_', ' ')}; experiment class: {classes}"
         common = dict(accession=accession, technique="force_spectroscopy", source_kind="literature",
+                      data_level="reported", data_format=None,
                       title=pub.get("title"), data_link=f"https://doi.org/{doi}" if doi else raw["release_url"],
                       source=NAME, doi=doi, deposit_id=rid, retrieved=retrieved, url=raw["release_url"], licence=LICENCE)
         env = "in_cell" if primary in IN_CELL else "in_vitro"

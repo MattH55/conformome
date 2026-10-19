@@ -75,7 +75,8 @@ def kelvin_to_c(value) -> float | None:
 
 def evidence(*, evidence_id: str, accession: str, technique: str, source_kind: str, title: str | None,
              construct: str, labels=None, conds: dict, obs_type: str, value=None, unit=None, uncertainty=None,
-             data_link: str | None, source: str, doi: str | None, deposit_id: str | None, retrieved: str,
+             data_link: str | None, data_level: str, data_format: str | None = None, reader: str | None = None,
+             source: str, doi: str | None, deposit_id: str | None, retrieved: str,
              url: str, licence: str) -> dict:
     return {
         "evidence_id": evidence_id,
@@ -89,6 +90,9 @@ def evidence(*, evidence_id: str, accession: str, technique: str, source_kind: s
                        "uncertainty": uncertainty if value is not None else None},
         "mappings": [],
         "data_link": data_link,
+        "data_level": data_level,
+        "data_format": data_format,
+        "reader": reader,
         "provenance": {"source": source, "doi": doi, "deposit_id": deposit_id, "retrieved": retrieved,
                        "url": url, "licence": licence},
     }

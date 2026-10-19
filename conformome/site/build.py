@@ -52,6 +52,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);vert
 th{background:var(--code);font-weight:600;position:sticky;top:0}
 td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 tr.single td{background:var(--warn-bg)}
+.lvl{font-size:.7rem;opacity:.7;border:1px solid currentColor;border-radius:3px;padding:0 .2em}
 #coverage-grid td:first-child{min-width:11rem}
 .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin:12px 0}
 .card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
@@ -263,14 +264,17 @@ def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: l
     for s in states:
         row = coverage["cells"][s["state_id"]]
         single = s["state_id"] in coverage["single_method_states"]
-        cells = "".join(f'<td class="num{" hit" if row[t] else ""}">{row[t] or "·"}</td>' for t in techniques)
+        lv = coverage["data_levels"][s["state_id"]]
+        cells = "".join(f'<td class="num{" hit" if row[t] else ""}"'
+                        + (f' title="best data level: {lv[t]}"><span class="lvl lvl-{lv[t]}">{DATA_LEVEL_LABEL[lv[t]]}</span> {row[t]}</td>' if row[t] else '>·</td>')
+                        for t in techniques)
         note = " (one method)" if single else ""
         rows.append(f'<tr class="{"single" if single else ""}"><td>{esc(s["name"])}<br><span class="muted">'
                     f'{esc(s["state_id"])}</span></td><td>{badge(s["basis"])}{esc(note)}</td>{cells}'
                     f'<td class="num">{sum(row.values())}</td></tr>')
     empty_row = f'<tr><td colspan="{len(techniques) + 3}" class="muted">No states defined yet.</td></tr>'
     grid = ('<h2>Coverage grid</h2>'
-            '<p class="sub">Mapped evidence per state and technique. Shaded rows rest on a single technique.</p>'
+            '<p class="sub">Mapped evidence per state and technique. Shaded rows rest on a single technique. Badge = best data level in the cell: raw (traces, images, FIDs: can be re-analysed), proc (maps, curves, tables, trajectories) or rep (values in the paper only).</p>'
             '<div class="scroll"><table id="coverage-grid"><thead><tr><th>State</th><th>Basis</th>'
             f'{head}<th class="num">Total</th></tr></thead><tbody>{"".join(rows) or empty_row}</tbody></table></div>'
             f'<p class="muted">Unmapped evidence: {coverage["unmapped_evidence"]} of {len(evidence)} items. '
@@ -631,6 +635,9 @@ def _technique_page(tid: str, tech: dict, covered: list[dict]) -> str:
             '<h2>Proteins covered</h2><div class="scroll"><table><thead><tr><th>Protein</th>'
             f'<th class="num">Evidence items</th></tr></thead><tbody>{rows}</tbody></table></div>')
     return page(tech["name"], body, root, description=tech["description"])
+
+
+DATA_LEVEL_LABEL = {"raw": "raw", "processed": "proc", "reported": "rep"}
 
 
 def build_site(paths: Paths, accessions: list[str]) -> None:

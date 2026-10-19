@@ -4,7 +4,7 @@
   "title": "Evidence",
   "description": "One experiment or deposit. Its mappings to states are listed here, each with who made it, confidence and justification.",
   "type": "object",
-  "required": ["evidence_id", "uniprot", "technique", "source_kind", "title", "construct", "conditions", "observable", "mappings", "data_link", "provenance"],
+  "required": ["evidence_id", "uniprot", "technique", "source_kind", "title", "construct", "conditions", "observable", "mappings", "data_link", "data_level", "provenance"],
   "additionalProperties": false,
   "properties": {
     "evidence_id": {"type": "string", "pattern": "^EV-[A-Za-z0-9_-]+$"},

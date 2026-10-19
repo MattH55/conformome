@@ -110,7 +110,7 @@ def parse(raw: dict, accession: str, retrieved: str) -> list[dict]:
             conds=conditions("in_vitro", temperature_c=temp, ph=ph,
                              notes="From the first sample condition list of the entry."),
             obs_type=obs,
-            data_link=PAGE_URL.format(bmrb_id),
+            data_link=PAGE_URL.format(bmrb_id), data_level="processed", data_format="NMR-STAR",
             source=NAME, doi=f"10.13018/BMR{bmrb_id}", deposit_id=f"bmr{bmrb_id}", retrieved=retrieved,
             url=PAGE_URL.format(bmrb_id), licence=LICENCE,
         ))

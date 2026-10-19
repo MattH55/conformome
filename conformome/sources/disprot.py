@@ -103,6 +103,7 @@ def parse(raw: dict, accession: str, retrieved: str) -> list[dict]:
             obs_type="disorder_region",
             value=(end - start + 1) if isinstance(start, int) and isinstance(end, int) else None,
             unit="residues",
+            data_level="reported", data_format=None,
             data_link=f"https://europepmc.org/article/MED/{pmid}" if pmid else PAGE_URL.format(disprot_id),
             source=NAME, doi=None, deposit_id=r["region_id"], retrieved=retrieved,
             url=PAGE_URL.format(disprot_id), licence=LICENCE,

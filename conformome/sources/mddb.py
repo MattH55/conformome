@@ -56,7 +56,7 @@ def parse(raw: dict, accession: str, retrieved: str) -> list[dict]:
                              notes="Simulation; temperature is the thermostat setting."),
             obs_type="trajectory",
             value=number(meta.get("LENGTH")), unit="ns",
-            data_link=PAGE_URL.format(acc_id),
+            data_link=PAGE_URL.format(acc_id), data_level="processed", data_format="trajectory",
             source=NAME, doi=doi.group(0).rstrip(".") if doi else None, deposit_id=acc_id, retrieved=retrieved,
             url=PAGE_URL.format(acc_id), licence=meta.get("LICENSE") or LICENCE,
         ))

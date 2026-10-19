@@ -417,6 +417,107 @@ techniques:
     observables: [protease_susceptibility]
     description: Limited proteolysis of proteins in lysate or intact cells.
 
+  # ---- nucleic-acid probing (RNA and DNA). Per-nucleotide profiles are stored as a profile, not one value.
+  - id: shape
+    name: SHAPE, SHAPE-MaP and icSHAPE
+    category: nucleic_acid_probing
+    basis: inferred
+    prediction: false
+    tier: 1
+    raw_location: "RMDB (curated profiles); RASP (transcriptome-wide); reads in SRA / GEO"
+    raw_format: "RDAT, reactivity tables; FASTQ"
+    resolution_class: residue
+    observables: [reactivity_profile, population, secondary_structure, disorder_region]
+    description: 2'-hydroxyl acylation reactivity per nucleotide, in vitro or in cells. Reports flexibility and pairing; structures are inferred by folding algorithms constrained by the profile.
+  - id: dms_mapseq
+    name: DMS-MaPseq and DMS-seq
+    category: nucleic_acid_probing
+    basis: inferred
+    prediction: false
+    tier: 1
+    raw_location: "RMDB, RASP, SRA / GEO"
+    raw_format: "RDAT; FASTQ"
+    resolution_class: residue
+    observables: [reactivity_profile, population, secondary_structure]
+    description: Dimethyl sulfate modification of A and C. Alternative structures can be resolved by clustering (DREEM, DRACO); each cluster is a candidate state with a population.
+  - id: duplex_crosslinking
+    name: Duplex crosslinking (PARIS, SPLASH, COMRADES)
+    category: nucleic_acid_probing
+    basis: inferred
+    prediction: false
+    tier: 2
+    raw_location: "SRA / GEO, scattered"
+    raw_format: "FASTQ, chimeric-read tables"
+    resolution_class: residue
+    observables: [crosslink_chimera, population]
+    description: Psoralen crosslinking and proximity ligation capture base-paired helices, including long-range and alternative helices in cells.
+  - id: mutate_and_map
+    name: Mutate-and-map and M2-seq
+    category: nucleic_acid_probing
+    basis: inferred
+    prediction: false
+    tier: 2
+    raw_location: "RMDB"
+    raw_format: "RDAT"
+    resolution_class: residue
+    observables: [reactivity_profile, pairing_partner]
+    description: Chemical mapping of single and double mutants to identify pairing partners and validate helices.
+  - id: na_footprinting
+    name: Hydroxyl-radical and nuclease footprinting
+    category: nucleic_acid_probing
+    basis: inferred
+    prediction: false
+    tier: 2
+    raw_location: "RMDB, scattered"
+    raw_format: "reactivity tables, gel images"
+    resolution_class: residue
+    observables: [reactivity_profile, protection_factor]
+    description: Solvent accessibility, tertiary packing and protein contacts of nucleic acids.
+  - id: uv_melting
+    name: Optical (UV) melting
+    category: nucleic_acid_probing
+    basis: inferred
+    prediction: false
+    tier: 3
+    raw_location: "Values in papers"
+    raw_format: "reported values"
+    resolution_class: global
+    observables: [melting_temperature, delta_g, enthalpy]
+    description: Absorbance melting of helices and G-quadruplexes; thermodynamic parameters depend on a two-state model.
+  - id: native_gel_mobility
+    name: Native gel mobility
+    category: nucleic_acid_probing
+    basis: inferred
+    prediction: false
+    tier: 3
+    raw_location: "Papers"
+    raw_format: "reported values"
+    resolution_class: global
+    observables: [gel_mobility, population]
+    description: Electrophoretic mobility under native conditions as a read-out of compaction and alternative folds.
+  - id: na_secondary_prediction
+    name: Secondary-structure prediction (ViennaRNA, RNAstructure)
+    category: computational
+    basis: inferred
+    prediction: true
+    tier: null
+    raw_location: "Generated"
+    raw_format: "dot-bracket"
+    resolution_class: residue
+    observables: [secondary_structure, free_energy_difference, population]
+    description: Minimum free-energy and ensemble predictions of base pairing. Predictions, not measurements.
+  - id: na_3d_prediction
+    name: Nucleic-acid 3D structure prediction
+    category: computational
+    basis: inferred
+    prediction: true
+    tier: null
+    raw_location: "Generated"
+    raw_format: "PDB, mmCIF"
+    resolution_class: atomic
+    observables: [structure, plddt]
+    description: Predicted 3D models of RNA or DNA. Predictions, not measurements.
+
   # ---- computational (predictions, flagged on the site)
   - id: integrative
     name: Integrative modelling

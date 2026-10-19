@@ -107,7 +107,9 @@ Licences, and which sources may be redistributed, are in `docs/SOURCES.md`; the 
 
 - New techniques: `xray_time_resolved`, `cryoem_heterogeneity`, `ped_ensemble`. NMR dynamics also lists RDC and PRE observables. No source emits the new ids yet (PDB maps still use `xray` / `cryoem`; PED is a stub).
 - Every technique now has `tier` (1, 2, 3, or null for predictions), `raw_location` and `raw_format`; the validator requires them.
-- `schema/evidence.schema.json` has optional `data_level` (raw | processed | reported), `data_format` and `reader`. Optional because no source fills them yet. Not done: populate them in each source module, show `data_level` in the coverage grid, and make `data_level` required.
+- `schema/evidence.schema.json` now **requires** `data_level` (raw | processed | reported); `data_format` and `reader` are optional. Set per source: PDB, BMRB, SASBDB, AlphaFold DB and MDDB = `processed` (no source links raw images, FIDs or traces yet); DisProt and SMASH-BIO = `reported`. Raw-data pointers (EMPIAR, SBGrid, BMRbig, SMASH-BIO trace links) and `reader` sidecars are not populated.
+- The coverage grid shows the best data level per cell (`coverage.data_levels` in `mapped.json`).
+- Nucleic-acid techniques added (from the second brief): `shape`, `dms_mapseq`, `duplex_crosslinking`, `mutate_and_map`, `na_footprinting`, `uv_melting`, `native_gel_mobility`, and predictions `na_secondary_prediction`, `na_3d_prediction`. Nothing ingests them: the schema is still protein-only (UniProt key), so RNA/DNA molecules, RNAcentral/NAKB keys, dot-bracket states, reactivity profiles, `mutational_effect` and kinetics (Φ-values) need schema work first.
 
 ## Good next steps
 

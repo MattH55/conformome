@@ -17,6 +17,9 @@ def valid_evidence():
         "observable": {"type": "resolution", "value": 2.0, "unit": "Å", "uncertainty": None},
         "mappings": [],
         "data_link": None,
+        "data_level": "reported",
+        "data_format": None,
+        "reader": None,
         "provenance": {"source": "test", "doi": None, "deposit_id": None, "retrieved": "2026-01-01",
                        "url": "https://example.org", "licence": "CC0 1.0"},
     }
@@ -109,3 +112,12 @@ def test_uniprot_accession_pattern(repo_paths):
 
 def test_one_validator_per_record_type(repo_paths):
     assert {"protein", "state", "evidence", "transition", "model"} <= set(load_validators(repo_paths.schema))
+
+
+def test_data_level_is_required_and_constrained(repo_paths):
+    validators = load_validators(repo_paths.schema)
+    ev = valid_evidence()
+    del ev["data_level"]
+    assert check(validators["evidence"], ev)
+    ev["data_level"] = "partial"
+    assert check(validators["evidence"], ev)

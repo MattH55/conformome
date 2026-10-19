@@ -55,7 +55,7 @@ def parse(raw: dict, accession: str, retrieved: str) -> list[dict]:
             obs_type="plddt",
             value=m.get("globalMetricValue"),
             unit="pLDDT",
-            data_link=ENTRY_URL.format(accession),
+            data_link=ENTRY_URL.format(accession), data_level="processed", data_format="mmCIF, PAE JSON",
             source=NAME, doi=None, deposit_id=model_id, retrieved=retrieved,
             url=ENTRY_URL.format(accession), licence=LICENCE,
         ))

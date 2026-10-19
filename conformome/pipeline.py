@@ -135,9 +135,18 @@ def coverage_grid(states: list[dict], evidence: list[dict], technique_order: lis
         for m in ev["mappings"]:
             if m["state_id"] in cells:
                 cells[m["state_id"]][ev["technique"]] += 1
+    # Best data level per cell (raw > processed > reported): which results can be re-analysed.
+    rank = {"raw": 0, "processed": 1, "reported": 2}
+    levels = {s["state_id"]: {} for s in states}
+    for ev in evidence:
+        for m in ev["mappings"]:
+            if m["state_id"] in levels:
+                cur = levels[m["state_id"]].get(ev["technique"])
+                if cur is None or rank[ev["data_level"]] < rank[cur]:
+                    levels[m["state_id"]][ev["technique"]] = ev["data_level"]
     single = [sid for sid, row in cells.items() if sum(1 for n in row.values() if n) == 1]
     unmapped = sum(1 for ev in evidence if not ev["mappings"])
-    return {"techniques": techniques, "states": [s["state_id"] for s in states], "cells": cells,
+    return {"techniques": techniques, "states": [s["state_id"] for s in states], "cells": cells, "data_levels": levels,
             "single_method_states": single, "unmapped_evidence": unmapped}
 
 

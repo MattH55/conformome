@@ -37,6 +37,17 @@ METHOD_TECHNIQUE = {
     "SOLUTION SCATTERING": "saxs_sans",
 }
 
+# Deposited format per technique (what the entry page links to).
+DATA_FORMAT = {
+    "xray": "mmCIF + structure factors",
+    "cryoem": "mmCIF + EMDB map",
+    "microed": "mmCIF",
+    "neutron": "mmCIF + structure factors",
+    "nmr_structure": "mmCIF + NMR restraints",
+    "integrative": "mmCIF/IHM",
+    "saxs_sans": "mmCIF",
+}
+
 GRAPHQL_QUERY = """
 query($ids: [String!]!) {
   entries(entry_ids: $ids) {
@@ -211,6 +222,10 @@ def parse(raw: dict, accession: str, retrieved: str) -> list[dict]:
                 },
                 "mappings": [],
                 "data_link": ENTRY_URL.format(pdb_id),
+                # Coordinates, maps and restraints are deposited; raw images and FIDs are held elsewhere (EMPIAR, SBGrid, BMRbig).
+                "data_level": "processed",
+                "data_format": DATA_FORMAT.get(technique, "mmCIF"),
+                "reader": None,
                 "provenance": {
                     "source": NAME,
                     "doi": doi,
