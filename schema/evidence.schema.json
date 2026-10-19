@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://conformome.org/schema/evidence.schema.json",
+  "title": "Evidence",
+  "description": "One experiment or deposit. Its mappings to states are listed here, each with who made it, confidence and justification.",
+  "type": "object",
+  "required": ["evidence_id", "uniprot", "technique", "source_kind", "construct", "conditions", "observable", "mappings", "data_link", "provenance"],
+  "additionalProperties": false,
+  "properties": {
+    "evidence_id": {"type": "string", "pattern": "^EV-[A-Za-z0-9_-]+$"},
+    "uniprot": {"$ref": "common.schema.json#/$defs/uniprot"},
+    "technique": {"type": "string", "pattern": "^[a-z0-9_]+$", "description": "Must appear in taxonomy/techniques.yaml."},
+    "source_kind": {"enum": ["deposit", "literature", "computed"]},
+    "construct": {
+      "type": "object",
+      "required": ["description", "labels"],
+      "additionalProperties": false,
+      "properties": {
+        "description": {"type": "string"},
+        "labels": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "conditions": {"$ref": "common.schema.json#/$defs/conditions"},
+    "observable": {
+      "type": "object",
+      "required": ["type", "value", "unit", "uncertainty"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {"type": "string", "pattern": "^[a-z0-9_]+$", "description": "Must be listed under the technique in taxonomy/techniques.yaml."},
+        "value": {"type": ["number", "null"]},
+        "unit": {"type": ["string", "null"]},
+        "uncertainty": {"type": ["number", "null"]}
+      }
+    },
+    "mappings": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/mapping"}},
+    "data_link": {"type": ["string", "null"], "format": "uri"},
+    "provenance": {"$ref": "common.schema.json#/$defs/provenance"}
+  }
+}

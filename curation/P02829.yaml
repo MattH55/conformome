@@ -1,0 +1,28 @@
+# ATP-dependent molecular chaperone HSP82, Saccharomyces cerevisiae (strain ATCC 204508 / S288c).
+# Draft: curator to review.
+uniprot: P02829
+name: ATP-dependent molecular chaperone HSP82 (Hsp90)
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: Hsp90-closed
+    name: closed, nucleotide-bound chaperone complex
+    basis: observed
+    representative_pdb: "2CG9"
+    description: Closed chaperone complex with Sba1 and a nucleotide, as in 2CG9. Full-length context, complex-level state.
+  - id: Hsp90-NTD-apo
+    name: N-terminal domain, ligand-free
+    basis: observed
+    representative_pdb: "1AH6"
+    description: N-terminal domain only, as in 1AH6. Not a full-length conformation.
+assignments:
+  - evidence_id: EV-PDB-2CG9-1
+    state: Hsp90-closed
+    confidence: medium
+    justification: "Closed conformation of Hsp82 in a complex with Sba1; the state is complex-dependent, so confidence is medium."
+  - evidence_id: EV-PDB-1AH6-1
+    state: Hsp90-NTD-apo
+    confidence: high
+    justification: "N-terminal domain only, ligand-free; representative for the NTD apo state."
+transitions: []

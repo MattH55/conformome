@@ -1,0 +1,27 @@
+# Adenylate kinase, Escherichia coli (strain K12). Draft: curator to review.
+uniprot: P69441
+name: Adenylate kinase
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: ADK-open
+    name: open (apo)
+    basis: observed
+    representative_pdb: "4AKE"
+    description: Apo enzyme with the LID and NMP domains in the open arrangement, as in 4AKE. Domain definitions to be confirmed by the curator.
+  - id: ADK-closed
+    name: closed (Ap5A-bound)
+    basis: observed
+    representative_pdb: "1AKE"
+    description: LID and NMP domains closed around the bisubstrate inhibitor Ap5A, as in 1AKE.
+assignments:
+  - evidence_id: EV-PDB-4AKE-1
+    state: ADK-open
+    confidence: high
+    justification: "Apo structure with open LID and NMP domains; representative for ADK-open. Domain assignment to be confirmed by the curator."
+  - evidence_id: EV-PDB-1AKE-1
+    state: ADK-closed
+    confidence: high
+    justification: "Ap5A-bound structure with closed LID and NMP domains; representative for ADK-closed."
+transitions: []

@@ -1,0 +1,42 @@
+[
+  {
+    "assumptions": null,
+    "basis": "observed",
+    "constraints_used": [
+      "EV-PDB-9FX1-1"
+    ],
+    "file": "models/Q00000/FX-open.cif",
+    "format": "mmCIF",
+    "model_id": "FX-open-cif",
+    "provenance": {
+      "deposit_id": "9FX1",
+      "doi": "10.9999/synthetic.9fx1",
+      "licence": "CC0 1.0 (wwPDB archive data)",
+      "retrieved": "2026-01-15",
+      "source": "RCSB PDB",
+      "url": "https://files.rcsb.org/download/9FX1.cif"
+    },
+    "state_id": "FX-open",
+    "uniprot": "Q00000"
+  },
+  {
+    "assumptions": null,
+    "basis": "observed",
+    "constraints_used": [
+      "EV-PDB-9FX1-1"
+    ],
+    "file": "models/Q00000/FX-open.pdb",
+    "format": "PDB",
+    "model_id": "FX-open-pdb",
+    "provenance": {
+      "deposit_id": "9FX1",
+      "doi": "10.9999/synthetic.9fx1",
+      "licence": "CC0 1.0 (wwPDB archive data)",
+      "retrieved": "2026-01-15",
+      "source": "RCSB PDB",
+      "url": "https://files.rcsb.org/download/9FX1.pdb"
+    },
+    "state_id": "FX-open",
+    "uniprot": "Q00000"
+  }
+]

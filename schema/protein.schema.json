@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://conformome.org/schema/protein.schema.json",
+  "title": "Protein",
+  "description": "One page per protein, keyed on UniProt accession. The isoform is recorded when the page describes one.",
+  "type": "object",
+  "required": ["uniprot", "isoform", "name", "gene", "organism", "sequence_length", "sequence", "domains", "ligands", "provenance"],
+  "additionalProperties": false,
+  "properties": {
+    "uniprot": {"$ref": "common.schema.json#/$defs/uniprot"},
+    "isoform": {"type": ["string", "null"], "pattern": "^[A-Z0-9]{6,10}-[0-9]+$"},
+    "name": {"type": "string", "minLength": 1},
+    "gene": {"type": ["string", "null"]},
+    "organism": {
+      "type": "object",
+      "required": ["name", "taxon_id"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {"type": "string", "minLength": 1},
+        "taxon_id": {"type": "integer", "minimum": 1}
+      }
+    },
+    "sequence_length": {"type": "integer", "minimum": 1},
+    "sequence": {"type": "string", "pattern": "^[A-Z]+$"},
+    "domains": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "start", "end"],
+        "additionalProperties": false,
+        "properties": {
+          "name": {"type": "string"},
+          "start": {"type": "integer", "minimum": 1},
+          "end": {"type": "integer", "minimum": 1}
+        }
+      }
+    },
+    "ligands": {"type": "array", "items": {"type": "string"}},
+    "provenance": {"$ref": "common.schema.json#/$defs/provenance"}
+  }
+}

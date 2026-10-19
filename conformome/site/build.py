@@ -1,0 +1,577 @@
+"""Static site: index, protein, technique, about and downloads pages.
+
+Every number and every table on the site is generated from build/ (mapped.json, models.json,
+protein.json), taxonomy/techniques.yaml, schema/ and docs/. Nothing here is hand-edited HTML.
+"""
+
+from __future__ import annotations
+
+import html
+import json
+import re
+import shutil
+from pathlib import Path
+
+from conformome.common import Paths, load_taxonomy, load_yaml, read_json, write_json
+from conformome.sources import REGISTRY
+from conformome.validate import sources_table
+
+MOLSTAR_VERSION = "5.11.0"  # published 2026-07-19; at least two weeks old at the time of this build
+MOLSTAR_BASE = f"https://cdn.jsdelivr.net/npm/molstar@{MOLSTAR_VERSION}/build/viewer/"
+REPO_URL = "https://github.com/matth55/conformome"
+MOLSTAR_FORMAT = {"PDB": "pdb", "mmCIF": "mmcif"}
+
+CSS = """
+:root{--bg:#fbfaf7;--surface:#ffffff;--fg:#1d1d1b;--muted:#5d5b55;--accent:#1f5a8a;--border:#d9d6cd;
+--observed:#1e6b3a;--observed-bg:#e3f2e8;--inferred:#8a5a00;--inferred-bg:#fbefd6;--warn:#8a1f1f;--warn-bg:#f8e3e3;
+--prediction:#4b3b8a;--prediction-bg:#ebe7f7;--code:#f1efe8}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15161a;--surface:#1d1f25;--fg:#ececea;
+--muted:#a7a59c;--accent:#8fbde6;--border:#34363e;--observed:#8fd3a6;--observed-bg:#1f3a2a;--inferred:#e8c173;
+--inferred-bg:#3b3019;--warn:#f0a3a3;--warn-bg:#3d2222;--prediction:#c2b6f0;--prediction-bg:#2c2644;--code:#262830}}
+:root[data-theme="dark"]{--bg:#15161a;--surface:#1d1f25;--fg:#ececea;--muted:#a7a59c;--accent:#8fbde6;--border:#34363e;
+--observed:#8fd3a6;--observed-bg:#1f3a2a;--inferred:#e8c173;--inferred-bg:#3b3019;--warn:#f0a3a3;--warn-bg:#3d2222;
+--prediction:#c2b6f0;--prediction-bg:#2c2644;--code:#262830}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+header.site{border-bottom:1px solid var(--border);background:var(--surface)}
+header.site nav,main,footer{max-width:1100px;margin:0 auto;padding:0 16px}
+header.site nav{display:flex;flex-wrap:wrap;gap:16px;align-items:center;min-height:56px}
+header.site .brand{font-weight:700;color:var(--fg);text-decoration:none;margin-right:auto}
+a{color:var(--accent)}
+main{padding-top:24px;padding-bottom:48px}
+h1{font-size:1.7rem;margin:0 0 4px}h2{font-size:1.25rem;margin:32px 0 8px;border-bottom:1px solid var(--border);padding-bottom:4px}
+h3{font-size:1.05rem;margin:20px 0 6px}
+.sub{color:var(--muted);margin:0 0 12px}
+.banner{border:1px solid var(--border);border-left:4px solid var(--warn);background:var(--warn-bg);padding:10px 14px;border-radius:6px;margin:12px 0}
+.stats{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0}
+.stat{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:8px 14px;min-width:120px}
+.stat b{display:block;font-size:1.3rem}
+.scroll{overflow-x:auto;border:1px solid var(--border);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:0.92rem}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);vertical-align:top}
+th{background:var(--code);font-weight:600;position:sticky;top:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tr.single td{background:var(--warn-bg)}
+td.hit{font-weight:600;color:var(--observed)}
+.badge{display:inline-block;font-size:0.78rem;font-weight:600;padding:1px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
+.badge-observed{color:var(--observed);background:var(--observed-bg)}
+.badge-inferred{color:var(--inferred);background:var(--inferred-bg)}
+.badge-prediction{color:var(--prediction);background:var(--prediction-bg)}
+.badge-draft{color:var(--warn);background:var(--warn-bg)}
+.controls{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.controls input,.controls select,select#model-select{font:inherit;padding:6px 8px;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--fg);max-width:100%}
+#viewer{position:relative;width:100%;height:440px;border:1px solid var(--border);border-radius:8px;background:var(--surface)}
+.muted{color:var(--muted)}
+code{background:var(--code);padding:1px 4px;border-radius:4px;font-size:0.9em;word-break:break-word}
+details{margin:6px 0}summary{cursor:pointer;color:var(--accent)}
+svg text{fill:var(--fg)}
+footer{color:var(--muted);font-size:0.88rem;border-top:1px solid var(--border);margin-top:32px;padding-top:12px;padding-bottom:24px}
+"""
+
+SCRIPT_FILTER = """
+function conformomeFilter(tableId, controlIds, textId){
+  var rows=[].slice.call(document.querySelectorAll('#'+tableId+' tbody tr'));
+  var controls=controlIds.map(function(id){return document.getElementById(id)});
+  var text=document.getElementById(textId);
+  function apply(){
+    var q=(text?text.value:'').toLowerCase();
+    rows.forEach(function(r){
+      var ok=q===''||r.getAttribute('data-text').indexOf(q)>=0;
+      controls.forEach(function(c){
+        if(!c)return;
+        var attr=c.getAttribute('data-attr');
+        var v=c.value;
+        if(v!=='' && r.getAttribute(attr)!==v) ok=false;
+      });
+      r.style.display=ok?'':'none';
+    });
+    var shown=rows.filter(function(r){return r.style.display!=='none'}).length;
+    var out=document.getElementById(tableId+'-count');
+    if(out)out.textContent=shown+' of '+rows.length+' shown';
+  }
+  controls.forEach(function(c){if(c)c.addEventListener('change',apply)});
+  if(text)text.addEventListener('input',apply);
+  apply();
+}
+"""
+
+
+def esc(value) -> str:
+    return html.escape("" if value is None else str(value), quote=True)
+
+
+def badge(basis: str) -> str:
+    return f'<span class="badge badge-{esc(basis)}">{esc(basis)}</span>'
+
+
+def fmt_obs(obs: dict) -> str:
+    if obs["value"] is None:
+        return esc(obs["type"])
+    unc = f" ± {obs['uncertainty']:g}" if obs.get("uncertainty") is not None else ""
+    unit = f" {obs['unit']}" if obs.get("unit") else ""
+    return f"{esc(obs['type'])}: {obs['value']:g}{esc(unit)}{esc(unc)}"
+
+
+def fmt_conditions(c: dict) -> str:
+    parts = [c["environment"].replace("_", " ")]
+    if c.get("temperature_c") is not None:
+        parts.append(f"{c['temperature_c']:g} °C")
+    if c.get("ph") is not None:
+        parts.append(f"pH {c['ph']:g}")
+    if c.get("ligands"):
+        parts.append("ligands " + ", ".join(c["ligands"]))
+    if c.get("applied_force_pn") is not None:
+        parts.append(f"{c['applied_force_pn']:g} pN")
+    return " · ".join(esc(p) for p in parts)
+
+
+def page(title: str, body: str, root: str, scripts: str = "", head_extra: str = "", description: str = "") -> str:
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{esc(title)} · Conformome</title>
+<meta name="description" content="{esc(description or 'Conformome: conformational states and the techniques that probed them')}">
+<link rel="icon" href="data:,">
+<style>{CSS}</style>
+{head_extra}
+</head>
+<body>
+<header class="site"><nav>
+<a class="brand" href="{root}index.html">Conformome</a>
+<a href="{root}index.html">Proteins</a>
+<a href="{root}about/index.html">About and methods</a>
+<a href="{root}downloads/index.html">Downloads</a>
+<a href="{REPO_URL}">GitHub</a>
+</nav></header>
+<main>
+{body}
+</main>
+<footer>Every number on this page is generated by <code>make site</code> from the pipeline outputs.
+Corrections: see <a href="{REPO_URL}/blob/main/CONTRIBUTING.md">CONTRIBUTING</a>.</footer>
+{scripts}
+</body>
+</html>
+"""
+
+
+def md_to_html(text: str) -> str:
+    """Minimal Markdown for docs/*.md: headings, paragraphs, lists, pipe tables, code, bold, links."""
+    def inline(s: str) -> str:
+        s = esc(s)
+        s = re.sub(r"`([^`]+)`", r"<code>\1</code>", s)
+        s = re.sub(r"\*\*([^*]+)\*\*", r"<strong>\1</strong>", s)
+        s = re.sub(r"\[([^\]]+)\]\((https?://[^)]+)\)", r'<a href="\2">\1</a>', s)
+        return s
+
+    out, para, lines = [], [], text.splitlines()
+    i = 0
+    def flush():
+        if para:
+            out.append(f"<p>{inline(' '.join(para))}</p>")
+            para.clear()
+    while i < len(lines):
+        line = lines[i]
+        if line.startswith("|") and i + 1 < len(lines) and set(lines[i + 1].replace("|", "").strip()) <= set("-: "):
+            flush()
+            head = [c.strip() for c in line.strip().strip("|").split("|")]
+            rows = []
+            i += 2
+            while i < len(lines) and lines[i].startswith("|"):
+                rows.append([c.strip() for c in lines[i].strip().strip("|").split("|")])
+                i += 1
+            out.append('<div class="scroll"><table><thead><tr>' + "".join(f"<th>{inline(h)}</th>" for h in head)
+                       + "</tr></thead><tbody>" + "".join(
+                           "<tr>" + "".join(f"<td>{inline(c)}</td>" for c in r) + "</tr>" for r in rows)
+                       + "</tbody></table></div>")
+            continue
+        m = re.match(r"^(#{1,3}) (.*)", line)
+        if m:
+            flush()
+            level = len(m.group(1)) + 1  # page h1 is the title; document # becomes h2
+            out.append(f"<h{level}>{inline(m.group(2))}</h{level}>")
+        elif line.startswith("- "):
+            flush()
+            items = []
+            while i < len(lines) and lines[i].startswith("- "):
+                items.append(f"<li>{inline(lines[i][2:])}</li>")
+                i += 1
+            out.append("<ul>" + "".join(items) + "</ul>")
+            continue
+        elif line.strip() == "":
+            flush()
+        else:
+            para.append(line.strip())
+        i += 1
+    flush()
+    return "\n".join(out)
+
+
+def _load(paths: Paths, acc: str):
+    out = paths.build / acc
+    protein = read_json(out / "protein.json")
+    mapped = read_json(out / "mapped.json")
+    models = read_json(out / "models.json") if (out / "models.json").exists() else []
+    return protein, mapped, models
+
+
+def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: list[dict], taxonomy: dict) -> str:
+    root = "../../"
+    states = mapped["states"]
+    evidence = mapped["evidence"]
+    coverage = mapped["coverage"]
+    draft = mapped["curation"]["status"] != "reviewed"
+    techniques = coverage["techniques"]
+    state_name = {s["state_id"]: s["name"] for s in states}
+
+    banner = ""
+    if draft:
+        banner = ('<div class="banner"><b>Draft curation.</b> States and evidence-to-state mappings have not been '
+                  'reviewed by a curator. Treat the grid and models as provisional.</div>')
+
+    stats = (f'<div class="stats">'
+             f'<div class="stat"><b>{len(evidence)}</b>evidence items</div>'
+             f'<div class="stat"><b>{sum(1 for e in evidence if e["mappings"])}</b>mapped to a state</div>'
+             f'<div class="stat"><b>{len(states)}</b>states</div>'
+             f'<div class="stat"><b>{len(techniques)}</b>techniques</div>'
+             f'<div class="stat"><b>{len(mapped["conflicts"])}</b>conflicts</div></div>')
+
+    # Coverage grid
+    head = "".join(f'<th class="num" title="{esc(taxonomy[t]["name"])}"><a href="{root}technique/{esc(t)}/index.html">{esc(t)}</a></th>'
+                   for t in techniques)
+    rows = []
+    for s in states:
+        row = coverage["cells"][s["state_id"]]
+        single = s["state_id"] in coverage["single_method_states"]
+        cells = "".join(f'<td class="num{" hit" if row[t] else ""}">{row[t] or "·"}</td>' for t in techniques)
+        note = " (one method)" if single else ""
+        rows.append(f'<tr class="{"single" if single else ""}"><td>{esc(s["name"])}<br><span class="muted">'
+                    f'{esc(s["state_id"])}</span></td><td>{badge(s["basis"])}{esc(note)}</td>{cells}'
+                    f'<td class="num">{sum(row.values())}</td></tr>')
+    grid = ('<h2>Coverage grid</h2>'
+            '<p class="sub">Mapped evidence per state and technique. Shaded rows rest on a single technique.</p>'
+            '<div class="scroll"><table id="coverage-grid"><thead><tr><th>State</th><th>Basis</th>'
+            f'{head}<th class="num">Total</th></tr></thead><tbody>{"".join(rows)}</tbody></table></div>'
+            f'<p class="muted">Unmapped evidence: {coverage["unmapped_evidence"]} of {len(evidence)} items. '
+            'Mapping is by curator decision in this version; see About for the rules.</p>')
+
+    # Viewer
+    model_data = []
+    for m in models:
+        if m["format"] != "mmCIF":
+            continue
+        state = next(s for s in states if s["state_id"] == m["state_id"])
+        assumptions = ("; ".join(state["assumptions"]) if state["basis"] == "inferred" and state["assumptions"]
+                       else (m.get("assumptions") or "Observed: directly resolved in PDB entry "
+                             f"{m['provenance']['deposit_id']}. No modelling assumptions."))
+        model_data.append({"state": state["name"], "state_id": m["state_id"], "basis": m["basis"],
+                           "format": MOLSTAR_FORMAT[m["format"]], "url": root + "downloads/" + m["file"],
+                           "assumptions": assumptions})
+    if model_data:
+        options = "".join(f'<option value="{i}">{esc(d["state"])} ({esc(d["state_id"])})</option>'
+                          for i, d in enumerate(model_data))
+        viewer = ('<h2>Structure</h2>'
+                  '<p class="sub">Choose a state. Each model is badged observed or inferred; assumptions are one click away.</p>'
+                  f'<div class="controls"><label for="model-select">State model</label>'
+                  f'<select id="model-select">{options}</select></div>'
+                  '<div id="viewer" role="img" aria-label="3D structure of the selected state"></div>'
+                  '<div id="model-info"></div>'
+                  '<noscript><p class="muted">The 3D viewer needs JavaScript. Models are in the downloads.</p></noscript>')
+        model_json = json.dumps(model_data).replace("</", "<\\/")
+        scripts = (f'<script type="application/json" id="model-data">{model_json}</script>'
+                   f'<script src="{MOLSTAR_BASE}molstar.js"></script>'
+                   '<script>'
+                   '(function(){'
+                   'var data=JSON.parse(document.getElementById("model-data").textContent);'
+                   'var select=document.getElementById("model-select");var info=document.getElementById("model-info");'
+                   'function show(i){var d=data[i];info.innerHTML="";'
+                   'var b=document.createElement("span");b.className="badge badge-"+d.basis;b.textContent=d.basis;'
+                   'info.appendChild(b);var det=document.createElement("details");det.open=d.basis==="inferred";'
+                   'var s=document.createElement("summary");s.textContent=d.basis==="inferred"?"Assumptions":"Basis";'
+                   'var p=document.createElement("p");p.textContent=d.assumptions;det.appendChild(s);det.appendChild(p);info.appendChild(det);}'
+                   'if(!window.molstar){document.getElementById("viewer").textContent="The 3D viewer could not load. Models are in the downloads.";'
+                   'show(0);return;}'
+                   'molstar.Viewer.create("viewer",{layoutIsExpanded:false,layoutShowControls:false,'
+                   'layoutShowSequence:false,layoutShowLog:false,layoutShowRemoteState:false,viewportShowExpand:false})'
+                   '.then(function(viewer){'
+                   'function load(i){var d=data[i];show(i);viewer.plugin.clear().then(function(){'
+                   'return viewer.loadStructureFromUrl(d.url,d.format);});}'
+                   'select.addEventListener("change",function(){load(+select.value);});'
+                   'load(0);});'
+                   'show(0);})();'
+                   '</script>')
+        head_extra = (f'<link rel="stylesheet" href="{MOLSTAR_BASE}molstar.css">')
+    else:
+        viewer = ('<h2>Structure</h2><p class="muted">No state models are exported for this protein yet. '
+                  'Observed states export the representative PDB entry; inferred states need fitted models, not yet built.</p>')
+        scripts = ""
+        head_extra = ""
+
+    # State and transition diagram
+    diagram = _diagram(states, mapped["transitions"])
+    state_rows = "".join(
+        f'<tr><td>{esc(s["name"])}<br><span class="muted">{esc(s["state_id"])}</span></td><td>{badge(s["basis"])}</td>'
+        f'<td>{esc(s["parent_state"] or "—")}</td><td>{esc(s["description"])}'
+        + (f'<details><summary>Assumptions ({len(s["assumptions"])})</summary><ul>'
+           + "".join(f"<li>{esc(a)}</li>" for a in s["assumptions"]) + "</ul></details>" if s["assumptions"] else "")
+        + "</td></tr>" for s in states)
+    states_html = ('<h2>States and transitions</h2>' + diagram +
+                   '<div class="scroll"><table><thead><tr><th>State</th><th>Basis</th><th>Parent</th>'
+                   f'<th>Description</th></tr></thead><tbody>{state_rows}</tbody></table></div>')
+    if mapped["transitions"]:
+        trows = "".join(
+            f'<tr><td>{esc(t["from_state"])} → {esc(t["to_state"])}</td>'
+            f'<td>{esc(t["quantity"]["type"])}: {t["quantity"]["value"]:g} {esc(t["quantity"]["unit"])}</td>'
+            f'<td>{fmt_conditions(t["conditions"])}</td><td>{", ".join(esc(e) for e in t["evidence_ids"])}</td></tr>'
+            for t in mapped["transitions"])
+        states_html += ('<h3>Transitions</h3><div class="scroll"><table><thead><tr><th>From → to</th><th>Quantity</th>'
+                        f'<th>Conditions</th><th>Evidence</th></tr></thead><tbody>{trows}</tbody></table></div>')
+    else:
+        states_html += '<p class="muted">No transitions recorded in this version (no rate or free-energy evidence has been curated yet).</p>'
+
+    # Evidence table
+    tech_options = "".join(f'<option value="{esc(t)}">{esc(t)}</option>' for t in techniques)
+    env_options = "".join(f'<option value="{esc(e)}">{esc(e.replace("_", " "))}</option>'
+                          for e in sorted({ev["conditions"]["environment"] for ev in evidence}))
+    erows = []
+    for ev in evidence:
+        mapped_flag = "yes" if ev["mappings"] else "no"
+        mappings = "<br>".join(
+            f'{esc(state_name.get(m["state_id"], m["state_id"]))} · {esc(m["who"])} · {esc(m["confidence"])}'
+            f'<br><span class="muted">{esc(m["justification"])}</span>' for m in ev["mappings"]) or '<span class="muted">unmapped</span>'
+        link = esc(ev["data_link"] or "#")
+        text = " ".join([ev["evidence_id"], ev["technique"], ev["conditions"]["environment"], ev["construct"]["description"],
+                         ev["provenance"]["source"], ev["provenance"]["deposit_id"] or ""] +
+                        [m["state_id"] for m in ev["mappings"]]).lower()
+        erows.append(
+            f'<tr data-technique="{esc(ev["technique"])}" data-environment="{esc(ev["conditions"]["environment"])}" '
+            f'data-mapped="{mapped_flag}" data-text="{esc(text)}">'
+            f'<td><a href="{link}">{esc(ev["evidence_id"])}</a><br><span class="muted">{esc(ev["provenance"]["source"])}</span></td>'
+            f'<td><a href="{root}technique/{esc(ev["technique"])}/index.html">{esc(ev["technique"])}</a></td>'
+            f'<td>{fmt_obs(ev["observable"])}</td><td>{fmt_conditions(ev["conditions"])}'
+            f'<br><span class="muted">{esc(ev["construct"]["description"])}</span></td><td>{mappings}</td></tr>')
+    evidence_html = (
+        '<h2>Evidence</h2>'
+        '<p class="sub">One row per deposit or experiment. Filter by technique, environment or text. Unmapped evidence is listed too.</p>'
+        '<div class="controls">'
+        '<input id="ev-text" type="search" placeholder="Search evidence, state, source" aria-label="Search evidence">'
+        f'<select id="ev-technique" data-attr="data-technique" aria-label="Technique"><option value="">All techniques</option>{tech_options}</select>'
+        f'<select id="ev-environment" data-attr="data-environment" aria-label="Environment"><option value="">All environments</option>{env_options}</select>'
+        '<select id="ev-mapped" data-attr="data-mapped" aria-label="Mapping"><option value="">Mapped and unmapped</option>'
+        '<option value="yes">Mapped only</option><option value="no">Unmapped only</option></select>'
+        '</div><p class="muted" id="ev-table-count"></p>'
+        '<div class="scroll" style="max-height:70vh"><table id="ev-table"><thead><tr><th>Evidence</th><th>Technique</th>'
+        '<th>Observable</th><th>Conditions</th><th>Mapped to state</th></tr></thead>'
+        f'<tbody>{"".join(erows)}</tbody></table></div>')
+    evidence_scripts = (f'<script>{SCRIPT_FILTER}'
+                        'conformomeFilter("ev-table",["ev-technique","ev-environment","ev-mapped"],"ev-text");</script>')
+
+    # Conflicts
+    if mapped["conflicts"]:
+        items = "".join(f'<li><b>{esc(c["state_id"])}</b> · {esc(c["observable_type"])}: '
+                        f'{", ".join(f"{v:g}" for v in c["values"])} {esc(c["unit"] or "")} · '
+                        f'{", ".join(esc(e) for e in c["evidence_ids"])}<br><span class="muted">{esc(c["reason"])}</span></li>'
+                        for c in mapped["conflicts"])
+        conflicts = f'<ul>{items}</ul>'
+    else:
+        conflicts = ('<p>No conflicts found among comparable evidence.</p>'
+                     f'<p class="muted">{mapped["not_compared"]} evidence items could not be compared: they lack a comparable '
+                     'observable type, a value, or an uncertainty. Absence of a conflict here is not agreement.</p>')
+    conflicts_html = f'<h2>Conflicts</h2>{conflicts}'
+
+    downloads = [f'<li><a href="{root}downloads/proteins/{esc(acc)}.json">Protein bundle (JSON)</a></li>']
+    for m in models:
+        downloads.append(f'<li><a href="{root}downloads/{esc(m["file"])}">{esc(m["model_id"])}</a> '
+                         f'<span class="muted">({esc(m["format"])}, {esc(m["basis"])})</span></li>')
+    downloads.append(f'<li><a href="{REPO_URL}/blob/main/curation/{esc(acc)}.yaml">Curation file (YAML)</a></li>')
+    downloads_html = f'<h2>Downloads</h2><ul>{"".join(downloads)}</ul>'
+
+    body = (
+        f'<h1>{esc(protein["name"])}</h1>'
+        f'<p class="sub">UniProt <a href="{esc(protein["provenance"]["url"])}">{esc(acc)}</a>'
+        f'{" · gene " + esc(protein["gene"]) if protein.get("gene") else ""} · '
+        f'{esc(protein["organism"]["name"])} · {protein["sequence_length"]} residues</p>'
+        f'{banner}{stats}{grid}{viewer}{states_html}{evidence_html}{conflicts_html}{downloads_html}')
+    return page(protein["name"], body, root, scripts=scripts + evidence_scripts, head_extra=head_extra,
+                description=f"Conformational states and techniques for {protein['name']} ({acc})")
+
+
+def _diagram(states: list[dict], transitions: list[dict]) -> str:
+    if not states:
+        return '<p class="muted">No states defined.</p>'
+    width, box_w, box_h, gap = max(680, len(states) * 180), 160, 56, 20
+    pos = {s["state_id"]: 40 + i * (box_w + gap) for i, s in enumerate(states)}
+    height = 150 if transitions else 90
+    parts = [f'<svg viewBox="0 0 {width} {height}" width="100%" role="img" '
+             f'aria-label="State and transition diagram" style="max-width:{width}px">'
+             '<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">'
+             '<path d="M0,0 L8,4 L0,8 z" fill="currentColor"/></marker></defs>']
+    for t in transitions:
+        x1, x2 = pos[t["from_state"]] + box_w / 2, pos[t["to_state"]] + box_w / 2
+        mid = (x1 + x2) / 2
+        q = t["quantity"]
+        label = f'{q["value"]:g} {q["unit"]}' + (" (rate)" if q["type"] == "rate" else " (ΔG)")
+        parts.append(f'<path d="M{x1},{box_h + 10} Q{mid},{height - 10} {x2},{box_h + 10}" fill="none" '
+                     'stroke="currentColor" stroke-width="1.5" marker-end="url(#arrow)"/>'
+                     f'<text x="{mid}" y="{height - 16}" text-anchor="middle" font-size="12">{esc(label)}</text>')
+    for s in states:
+        x = pos[s["state_id"]]
+        fill = "var(--observed-bg)" if s["basis"] == "observed" else "var(--inferred-bg)"
+        parts.append(f'<rect x="{x}" y="10" width="{box_w}" height="{box_h}" rx="10" fill="{fill}" stroke="var(--border)"/>'
+                     f'<text x="{x + box_w / 2}" y="34" text-anchor="middle" font-size="13" font-weight="600">{esc(s["name"][:26])}</text>'
+                     f'<text x="{x + box_w / 2}" y="54" text-anchor="middle" font-size="11">{esc(s["basis"])}</text>')
+    parts.append("</svg>")
+    return "".join(parts)
+
+
+def _index_page(rows: list[dict]) -> str:
+    def curation_cell(draft: bool) -> str:
+        return '<span class="badge badge-draft">draft</span>' if draft else "reviewed"
+
+    body_lines = []
+    for r in rows:
+        search = esc((r["name"] + " " + r["acc"] + " " + r["organism"]).lower())
+        body_lines.append(
+            f'<tr data-text="{search}">'
+            f'<td><a href="protein/{esc(r["acc"])}/index.html">{esc(r["name"])}</a></td>'
+            f'<td>{esc(r["acc"])}</td><td>{esc(r["organism"])}</td>'
+            f'<td class="num">{r["techniques"]}</td><td class="num">{r["states"]}</td>'
+            f'<td class="num">{r["evidence"]}</td><td class="num">{r["mapped"]}</td>'
+            f'<td>{curation_cell(r["draft"])}</td></tr>')
+    rows_html = "".join(body_lines)
+    body = ('<h1>Conformome</h1>'
+            '<p class="sub">An index of every technique that has probed a protein’s conformation, organised around '
+            'shared conformational states. Observed and inferred are kept apart on every page.</p>'
+            '<div class="banner"><b>Pilot.</b> Ten proteins, drafted from RCSB PDB metadata and draft curation. '
+            'Literature, BMRB, SASBDB, PED and SMASH-BIO evidence is not yet included.</div>'
+            '<div class="controls"><input id="p-text" type="search" placeholder="Search by name, UniProt or organism" '
+            'aria-label="Search proteins"></div><p class="muted" id="p-table-count"></p>'
+            '<div class="scroll"><table id="p-table"><thead><tr><th>Protein</th><th>UniProt</th><th>Organism</th>'
+            '<th class="num">Techniques</th><th class="num">States</th><th class="num">Evidence</th>'
+            '<th class="num">Mapped</th><th>Curation</th></tr></thead>'
+            f'<tbody>{rows_html}</tbody></table></div>')
+    scripts = f'<script>{SCRIPT_FILTER}conformomeFilter("p-table",[],"p-text");</script>'
+    return page("Proteins", body, "", scripts=scripts)
+
+
+def _technique_page(tid: str, tech: dict, covered: list[dict]) -> str:
+    root = "../../"
+    prediction = '<span class="badge badge-prediction">computed prediction</span>' if tech["prediction"] else ""
+    rows = "".join(f'<tr><td><a href="{root}protein/{esc(c["acc"])}/index.html">{esc(c["name"])}</a></td>'
+                   f'<td class="num">{c["count"]}</td></tr>' for c in covered) or \
+        '<tr><td colspan="2" class="muted">No evidence in the pilot yet.</td></tr>'
+    body = (f'<h1>{esc(tech["name"])}</h1>'
+            f'<p class="sub">{badge(tech["basis"])} {prediction} <span class="muted">category: {esc(tech["category"])} · '
+            f'resolution class: {esc(tech["resolution_class"])}</span></p>'
+            f'<p>{esc(tech["description"])}</p>'
+            '<h2>Observables</h2><ul>' + "".join(f'<li><code>{esc(o)}</code></li>' for o in tech["observables"]) + '</ul>'
+            '<h2>Proteins covered</h2><div class="scroll"><table><thead><tr><th>Protein</th>'
+            f'<th class="num">Evidence items</th></tr></thead><tbody>{rows}</tbody></table></div>')
+    return page(tech["name"], body, root, description=tech["description"])
+
+
+def build_site(paths: Paths, accessions: list[str]) -> None:
+    site = paths.site
+    if site.exists():
+        shutil.rmtree(site)
+    site.mkdir(parents=True)
+    taxonomy = load_taxonomy(paths.taxonomy / "techniques.yaml")
+    sources = sources_table(paths)
+    redistributable = {mod.NAME: sources.get(key, {}).get("redistribute", "no").lower() != "no"
+                       for key, mod in REGISTRY.items()}
+    redistributable.setdefault("Conformome curation", True)
+
+    summaries, bundles, all_lines = [], {}, []
+    technique_acc: dict[str, list[dict]] = {}
+    for acc in accessions:
+        protein, mapped, models = _load(paths, acc)
+        draft = mapped["curation"]["status"] != "reviewed"
+        summaries.append({
+            "acc": acc, "name": protein["name"], "organism": protein["organism"]["name"],
+            "techniques": len(mapped["coverage"]["techniques"]), "states": len(mapped["states"]),
+            "evidence": len(mapped["evidence"]), "mapped": sum(1 for e in mapped["evidence"] if e["mappings"]),
+            "draft": draft,
+        })
+        for t in mapped["coverage"]["techniques"]:
+            count = sum(1 for e in mapped["evidence"] if e["technique"] == t)
+            technique_acc.setdefault(t, []).append({"acc": acc, "name": protein["name"], "count": count})
+        evidence_out = [e for e in mapped["evidence"] if redistributable.get(e["provenance"]["source"], True)]
+        bundle = {
+            "uniprot": acc,
+            "protein": protein,
+            "curation": mapped["curation"],
+            "states": mapped["states"],
+            "transitions": mapped["transitions"],
+            "evidence": evidence_out,
+            "conflicts": mapped["conflicts"],
+            "coverage": mapped["coverage"],
+            "models": models,
+        }
+        bundles[acc] = bundle
+        write_json(site / "downloads" / "proteins" / f"{acc}.json", bundle)
+        all_lines += [{"record_type": "protein", **protein}]
+        all_lines += [{"record_type": "state", **s} for s in mapped["states"]]
+        all_lines += [{"record_type": "transition", **t} for t in mapped["transitions"]]
+        all_lines += [{"record_type": "evidence", **e} for e in evidence_out]
+        all_lines += [{"record_type": "model", **m} for m in models]
+        models_src = paths.build / acc / "models"
+        if models_src.exists():
+            shutil.copytree(models_src, site / "downloads" / "models" / acc)
+
+        out_dir = site / "protein" / acc
+        out_dir.mkdir(parents=True)
+        (out_dir / "index.html").write_text(_protein_page(paths, acc, protein, mapped, models, taxonomy), encoding="utf-8")
+
+    with (site / "downloads" / "all-records.jsonl").open("w", encoding="utf-8") as fh:
+        for line in all_lines:
+            fh.write(json.dumps(line, ensure_ascii=False, sort_keys=True) + "\n")
+
+    for t_id, tech in taxonomy.items():
+        covered = sorted(technique_acc.get(t_id, []), key=lambda c: c["acc"])
+        page_dir = site / "technique" / t_id
+        page_dir.mkdir(parents=True)
+        (page_dir / "index.html").write_text(_technique_page(t_id, tech, covered), encoding="utf-8")
+
+    (site / "index.html").write_text(_index_page(summaries), encoding="utf-8")
+    _write_about(paths, site)
+    _write_downloads(paths, site, accessions)
+    (site / "CNAME").write_text("conformome.org\n", encoding="utf-8")
+    (site / ".nojekyll").write_text("", encoding="utf-8")
+
+
+def _write_about(paths: Paths, site: Path) -> None:
+    parts = []
+    for name in ("METHODS.md", "CONTRIBUTING.md", "SOURCES.md"):
+        parts.append(md_to_html((paths.docs / name).read_text(encoding="utf-8")))
+    body = ('<h1>About and methods</h1>'
+            '<p class="sub">The mapping rules, the observed and inferred rule, sources and licences, and how to contribute.</p>'
+            + "\n".join(parts))
+    (site / "about").mkdir(parents=True)
+    (site / "about" / "index.html").write_text(page("About and methods", body, "../"), encoding="utf-8")
+
+
+def _write_downloads(paths: Paths, site: Path, accessions: list[str]) -> None:
+    dl = site / "downloads"
+    (dl / "schema").mkdir(parents=True, exist_ok=True)
+    for p in paths.schema.glob("*.schema.json"):
+        shutil.copy(p, dl / "schema" / p.name)
+    (dl / "taxonomy").mkdir(parents=True, exist_ok=True)
+    shutil.copy(paths.taxonomy / "techniques.yaml", dl / "taxonomy" / "techniques.yaml")
+    if paths.manifest.exists():
+        shutil.copy(paths.manifest, dl / "manifest.json")
+    else:
+        write_json(dl / "manifest.json", {})
+    body = ('<h1>Downloads</h1>'
+            '<p class="sub">Every file is generated from the pipeline. Records carry provenance and conditions.</p>'
+            '<ul>'
+            '<li><a href="all-records.jsonl">All records, one JSON object per line</a> (record_type: protein, state, transition, evidence, model)</li>'
+            + "".join(f'<li><a href="proteins/{esc(acc)}.json">{esc(acc)}: protein bundle (JSON)</a></li>' for acc in accessions)
+            + '<li><a href="schema/protein.schema.json">JSON Schemas</a> for protein, state, evidence, transition and model, '
+            'plus <a href="schema/common.schema.json">shared definitions</a></li>'
+            '<li><a href="taxonomy/techniques.yaml">Technique taxonomy</a></li>'
+            '<li><a href="manifest.json">Download manifest</a>: source URLs, retrieval dates and SHA-256 of every raw input</li>'
+            '</ul>'
+            '<p class="muted">State models are linked from each protein page. Evidence from sources whose licence forbids '
+            'redistribution is left out of these files; the site links to the source instead.</p>')
+    (dl / "index.html").write_text(page("Downloads", body, "../"), encoding="utf-8")

@@ -1,0 +1,460 @@
+{
+  "raw/pdb-files/1AH6.cif": {
+    "bytes": 249044,
+    "retrieved": "2026-10-19",
+    "sha256": "73f1aea37080c7db75b4146829675f1849e42f66d3d1b988182719b55ddb244e",
+    "urls": [
+      "https://files.rcsb.org/download/1AH6.cif"
+    ]
+  },
+  "raw/pdb-files/1AH6.pdb": {
+    "bytes": 196668,
+    "retrieved": "2026-10-19",
+    "sha256": "a9d04a6d7fcd3eedb739d4333188d62cdb8274c7b6e1860b09d02b336214a251",
+    "urls": [
+      "https://files.rcsb.org/download/1AH6.pdb"
+    ]
+  },
+  "raw/pdb-files/1AKE.cif": {
+    "bytes": 426810,
+    "retrieved": "2026-10-19",
+    "sha256": "01f41b1b42318a1a5df7f650dbab881677aa0e8d825f7c42dd26ae16a94c0948",
+    "urls": [
+      "https://files.rcsb.org/download/1AKE.cif"
+    ]
+  },
+  "raw/pdb-files/1AKE.pdb": {
+    "bytes": 357777,
+    "retrieved": "2026-10-19",
+    "sha256": "651e952f55f1317f50f4e82b7f0e99053397032cd8da5b2896f79d0af9f619a9",
+    "urls": [
+      "https://files.rcsb.org/download/1AKE.pdb"
+    ]
+  },
+  "raw/pdb-files/1ANF.cif": {
+    "bytes": 356558,
+    "retrieved": "2026-10-19",
+    "sha256": "54a33f49073210a129a74ab256fab4f8dfedc3df5a4d43360d92e5636b93572f",
+    "urls": [
+      "https://files.rcsb.org/download/1ANF.cif"
+    ]
+  },
+  "raw/pdb-files/1ANF.pdb": {
+    "bytes": 285768,
+    "retrieved": "2026-10-19",
+    "sha256": "1b9545776b2c1d53895215af3ab29c3e798f642eccf451c24fc291d2a647a0f7",
+    "urls": [
+      "https://files.rcsb.org/download/1ANF.pdb"
+    ]
+  },
+  "raw/pdb-files/1CLL.cif": {
+    "bytes": 192662,
+    "retrieved": "2026-10-19",
+    "sha256": "a8be375d00d2d5d47ffacae491f775167d1c0488ab8485cabd269410e596d3aa",
+    "urls": [
+      "https://files.rcsb.org/download/1CLL.cif"
+    ]
+  },
+  "raw/pdb-files/1CLL.pdb": {
+    "bytes": 144504,
+    "retrieved": "2026-10-19",
+    "sha256": "54c094c7c337d7b5829bb9d865cd0042f9e5557478d1528f76c1e7b691f8ce37",
+    "urls": [
+      "https://files.rcsb.org/download/1CLL.pdb"
+    ]
+  },
+  "raw/pdb-files/1CTR.cif": {
+    "bytes": 180590,
+    "retrieved": "2026-10-19",
+    "sha256": "01bb3c9fc02b0bd336b7f8a872a2fd01b2b39df04f7f41e76d601964c45497ea",
+    "urls": [
+      "https://files.rcsb.org/download/1CTR.cif"
+    ]
+  },
+  "raw/pdb-files/1CTR.pdb": {
+    "bytes": 143451,
+    "retrieved": "2026-10-19",
+    "sha256": "c5175d0bb1d60a06c07fbdb23c182c9d61173ec53bac059aafa8b822889c4091",
+    "urls": [
+      "https://files.rcsb.org/download/1CTR.pdb"
+    ]
+  },
+  "raw/pdb-files/1EFA.cif": {
+    "bytes": 874829,
+    "retrieved": "2026-10-19",
+    "sha256": "ab4d85ebd3d8e9954254443dc13d33aa0335257a6573532e22d1acdd56d51a1c",
+    "urls": [
+      "https://files.rcsb.org/download/1EFA.cif"
+    ]
+  },
+  "raw/pdb-files/1EFA.pdb": {
+    "bytes": 699840,
+    "retrieved": "2026-10-19",
+    "sha256": "f167c9b0be8530b402e55d992a90983243121e4dcc1d637efdf900f6a167d784",
+    "urls": [
+      "https://files.rcsb.org/download/1EFA.pdb"
+    ]
+  },
+  "raw/pdb-files/1JW4.cif": {
+    "bytes": 370431,
+    "retrieved": "2026-10-19",
+    "sha256": "c5c621aeb81143d7b9021d8138ac0c6453fb546c03d8bc2ec2f63f0eefc909f6",
+    "urls": [
+      "https://files.rcsb.org/download/1JW4.cif"
+    ]
+  },
+  "raw/pdb-files/1JW4.pdb": {
+    "bytes": 292896,
+    "retrieved": "2026-10-19",
+    "sha256": "8c754cc978f64cecb75fb2e3d6c9df828d0f34b3df32168b7b3cfa5b4f1ef1f1",
+    "urls": [
+      "https://files.rcsb.org/download/1JW4.pdb"
+    ]
+  },
+  "raw/pdb-files/1L83.cif": {
+    "bytes": 196827,
+    "retrieved": "2026-10-19",
+    "sha256": "dab560a5faca0804a1c7b297a9ba53a459f2c8b9a6d4caafbe0bd26d33497852",
+    "urls": [
+      "https://files.rcsb.org/download/1L83.cif"
+    ]
+  },
+  "raw/pdb-files/1L83.pdb": {
+    "bytes": 149121,
+    "retrieved": "2026-10-19",
+    "sha256": "d1fd3cd5ab105ff799d84b8b08fa11ae7c94562ddbc73ac8af65730accd0774d",
+    "urls": [
+      "https://files.rcsb.org/download/1L83.pdb"
+    ]
+  },
+  "raw/pdb-files/1PGA.cif": {
+    "bytes": 79913,
+    "retrieved": "2026-10-19",
+    "sha256": "e8d9e171a9ca2b7e66b10568bf6d0122da8450e57ad632a7b4c13c6a71f7edf2",
+    "urls": [
+      "https://files.rcsb.org/download/1PGA.cif"
+    ]
+  },
+  "raw/pdb-files/1PGA.pdb": {
+    "bytes": 59049,
+    "retrieved": "2026-10-19",
+    "sha256": "908f8dbf3bb7567f36eec4683eb8cfab5ac0c011dfee1b9c940cab7f482bc841",
+    "urls": [
+      "https://files.rcsb.org/download/1PGA.pdb"
+    ]
+  },
+  "raw/pdb-files/1TIT.cif": {
+    "bytes": 188623,
+    "retrieved": "2026-10-19",
+    "sha256": "9b53fbf0825333e210b4211c4e980ef498e7527407aaf87f80ea1960c95e2001",
+    "urls": [
+      "https://files.rcsb.org/download/1TIT.cif"
+    ]
+  },
+  "raw/pdb-files/1TIT.pdb": {
+    "bytes": 129033,
+    "retrieved": "2026-10-19",
+    "sha256": "3f2efc602095f0482278df61b6dacd13d99340f2c99f9aa1fe14a8db92c62d79",
+    "urls": [
+      "https://files.rcsb.org/download/1TIT.pdb"
+    ]
+  },
+  "raw/pdb-files/1UBQ.cif": {
+    "bytes": 103220,
+    "retrieved": "2026-10-19",
+    "sha256": "056f98710cb2b36f633c45e41902a02eb446e82871da21ff2dd44f74a56ca0f6",
+    "urls": [
+      "https://files.rcsb.org/download/1UBQ.cif"
+    ]
+  },
+  "raw/pdb-files/1UBQ.pdb": {
+    "bytes": 78570,
+    "retrieved": "2026-10-19",
+    "sha256": "d4a6812d8951cf6594e6a0763f089e35f5a80b62acb3c117b2c5565228a7b161",
+    "urls": [
+      "https://files.rcsb.org/download/1UBQ.pdb"
+    ]
+  },
+  "raw/pdb-files/1XQ8.cif": {
+    "bytes": 221391,
+    "retrieved": "2026-10-19",
+    "sha256": "d68a45d47b04a66ce3058db16526cec198af5a078251f269d6e0a8941ece3f26",
+    "urls": [
+      "https://files.rcsb.org/download/1XQ8.cif"
+    ]
+  },
+  "raw/pdb-files/1XQ8.pdb": {
+    "bytes": 177552,
+    "retrieved": "2026-10-19",
+    "sha256": "abf553222f8bcb9d29984c02def0dd47c6a768f05312fbf38f5dd9f66aa1e7f6",
+    "urls": [
+      "https://files.rcsb.org/download/1XQ8.pdb"
+    ]
+  },
+  "raw/pdb-files/2CG9.cif": {
+    "bytes": 1299491,
+    "retrieved": "2026-10-19",
+    "sha256": "206d500f98c127adb36163b166579aa52fe000edbbe32489d29d2e7b2546ec99",
+    "urls": [
+      "https://files.rcsb.org/download/2CG9.cif"
+    ]
+  },
+  "raw/pdb-files/2CG9.pdb": {
+    "bytes": 1049598,
+    "retrieved": "2026-10-19",
+    "sha256": "a90ed610edae27645d001f6878c0b0022e49d5af6f35904c9d34f1614263aa0c",
+    "urls": [
+      "https://files.rcsb.org/download/2CG9.pdb"
+    ]
+  },
+  "raw/pdb-files/2LZM.cif": {
+    "bytes": 191798,
+    "retrieved": "2026-10-19",
+    "sha256": "9fa81cd0454d37c53cd5046b96ef7d993a99c249e77a2da4dc3adf7cdc263d90",
+    "urls": [
+      "https://files.rcsb.org/download/2LZM.cif"
+    ]
+  },
+  "raw/pdb-files/2LZM.pdb": {
+    "bytes": 149526,
+    "retrieved": "2026-10-19",
+    "sha256": "a305932376e1e45428c956164117bd3ab1bbc59cdab6b2ae38b7974c0e83ce6f",
+    "urls": [
+      "https://files.rcsb.org/download/2LZM.pdb"
+    ]
+  },
+  "raw/pdb-files/2P9H.cif": {
+    "bytes": 565302,
+    "retrieved": "2026-10-19",
+    "sha256": "03e65f7d5a4e3a2d963bde5cba770fb6533fb77980afe491c69937240ad90f64",
+    "urls": [
+      "https://files.rcsb.org/download/2P9H.cif"
+    ]
+  },
+  "raw/pdb-files/2P9H.pdb": {
+    "bytes": 429543,
+    "retrieved": "2026-10-19",
+    "sha256": "2d37ed77315916d72afc5b258b75c1a1d1c47a8f09a45381f18f1a87c3c10f93",
+    "urls": [
+      "https://files.rcsb.org/download/2P9H.pdb"
+    ]
+  },
+  "raw/pdb-files/3DMV.cif": {
+    "bytes": 221067,
+    "retrieved": "2026-10-19",
+    "sha256": "b7eaad68a657e38bf999d5a22383e2360ff36efec7eed0b5bf26c5436574b4b1",
+    "urls": [
+      "https://files.rcsb.org/download/3DMV.cif"
+    ]
+  },
+  "raw/pdb-files/3DMV.pdb": {
+    "bytes": 168966,
+    "retrieved": "2026-10-19",
+    "sha256": "2c4657ca069bdda66f2d06eedcd51e529e028deccd094d8c1d0f9238c62fd97f",
+    "urls": [
+      "https://files.rcsb.org/download/3DMV.pdb"
+    ]
+  },
+  "raw/pdb-files/4AKE.cif": {
+    "bytes": 381852,
+    "retrieved": "2026-10-19",
+    "sha256": "fcb2ff49a3e255797fee277ce28e0acace67f6e6ddf432841f8451f00cbde9e9",
+    "urls": [
+      "https://files.rcsb.org/download/4AKE.cif"
+    ]
+  },
+  "raw/pdb-files/4AKE.pdb": {
+    "bytes": 309339,
+    "retrieved": "2026-10-19",
+    "sha256": "ff798ee8791878eb58bac1c6bed32042f51b455512ac93b50bda8fa0ff0e7f78",
+    "urls": [
+      "https://files.rcsb.org/download/4AKE.pdb"
+    ]
+  },
+  "raw/pdb-files/6A6B.cif": {
+    "bytes": 521965,
+    "retrieved": "2026-10-19",
+    "sha256": "aec20c7dd58f885ad28e8d44d330748bb3ba62f3002a30d199db65916cc3e459",
+    "urls": [
+      "https://files.rcsb.org/download/6A6B.cif"
+    ]
+  },
+  "raw/pdb-files/6A6B.pdb": {
+    "bytes": 448983,
+    "retrieved": "2026-10-19",
+    "sha256": "901f2fc46c6e53de74261bc3b816aea00b087a245971f368bcfd0d96e9394b55",
+    "urls": [
+      "https://files.rcsb.org/download/6A6B.pdb"
+    ]
+  },
+  "raw/pdb/P00720.json": {
+    "bytes": 1318118,
+    "retrieved": "2026-10-19",
+    "sha256": "f63e61ab8a04df7090990c60bf79003bf07c0115625f2fa79322c7f47db194cf",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P00720%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P02829.json": {
+    "bytes": 79693,
+    "retrieved": "2026-10-19",
+    "sha256": "f55d3311b3cd57228f314b684526302f2773877221beda160f1817e0e8f7fb91",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P02829%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P03023.json": {
+    "bytes": 43225,
+    "retrieved": "2026-10-19",
+    "sha256": "a165f0fad888645950db3c8d4671e058739006a8899e6ca59b10487930ebdb84",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P03023%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P06654.json": {
+    "bytes": 82991,
+    "retrieved": "2026-10-19",
+    "sha256": "c35b71ab52792adee0f6f607c7a18f9cce0c83930a07718eda0186c33b4179fe",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P06654%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P0AEX9.json": {
+    "bytes": 1058130,
+    "retrieved": "2026-10-19",
+    "sha256": "1126d419f187a92b400c29f15e90e8bc67ae97fae41cb3673fd4039f757d8278",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P0AEX9%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P0CG48.json": {
+    "bytes": 860103,
+    "retrieved": "2026-10-19",
+    "sha256": "34a3565a2738f0db4895234adce7cd453983f65f3279779baf2363a2fa05ba4f",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P0CG48%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P0DP23.json": {
+    "bytes": 757848,
+    "retrieved": "2026-10-19",
+    "sha256": "99702004c552450cf46791b4d47bee64f05821f76bc75a5a3a6423fe7b91ea93",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P0DP23%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P37840.json": {
+    "bytes": 348718,
+    "retrieved": "2026-10-19",
+    "sha256": "947dc900b04eb682c7f8e30827c4255e1e9517ee01befae0afe813e3250215e7",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P37840%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P69441.json": {
+    "bytes": 47029,
+    "retrieved": "2026-10-19",
+    "sha256": "3a7ba9df4d59c1799a53c369f4c34bed955f42ed37a71faf99b26ac0be5f5f5a",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P69441%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/Q8WZ42.json": {
+    "bytes": 113069,
+    "retrieved": "2026-10-19",
+    "sha256": "bacf9c61cb0375ce1147eb716f584f59934c40a251790951838feb0ad38e4b5c",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22Q8WZ42%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/uniprot/P00720.json": {
+    "bytes": 216179,
+    "retrieved": "2026-10-19",
+    "sha256": "8c268e9cc986a247f8f038ba26b25a024da2965116e8a65808d32c0716c71031",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P00720.json"
+    ]
+  },
+  "raw/uniprot/P02829.json": {
+    "bytes": 92179,
+    "retrieved": "2026-10-19",
+    "sha256": "41657e855e714601b9978c059f29b9c031ef72826ddd285a0cc77d4a03fa7879",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P02829.json"
+    ]
+  },
+  "raw/uniprot/P03023.json": {
+    "bytes": 39797,
+    "retrieved": "2026-10-19",
+    "sha256": "b5b10ec845338ef95b11c6b485e4b534be8a051c91e9b75b2e6e20fa74b8fbff",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P03023.json"
+    ]
+  },
+  "raw/uniprot/P06654.json": {
+    "bytes": 27148,
+    "retrieved": "2026-10-19",
+    "sha256": "ec119b0b320316b3226806215bd34afe0321ab988b194b5c7e073c0cba41b7ff",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P06654.json"
+    ]
+  },
+  "raw/uniprot/P0AEX9.json": {
+    "bytes": 169124,
+    "retrieved": "2026-10-19",
+    "sha256": "d10ae825bfeb1d6d3f7566b19aa9625e92df523cb23674750ba461e7dd3fe47c",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P0AEX9.json"
+    ]
+  },
+  "raw/uniprot/P0CG48.json": {
+    "bytes": 203792,
+    "retrieved": "2026-10-19",
+    "sha256": "d74df5f7661b688f7f3ac0356b2757f38a63e348d35087509b78c71d8ba148e5",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P0CG48.json"
+    ]
+  },
+  "raw/uniprot/P0DP23.json": {
+    "bytes": 230332,
+    "retrieved": "2026-10-19",
+    "sha256": "d74d35b0b1788bae211da2cbb44f74b0ff08721bbeb5b51c2466c865cc3287e2",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P0DP23.json"
+    ]
+  },
+  "raw/uniprot/P37840.json": {
+    "bytes": 218032,
+    "retrieved": "2026-10-19",
+    "sha256": "3b05a75fa9b9704132df0f0df59f052061f0afa501c3cea8f5b977510a0abc9b",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P37840.json"
+    ]
+  },
+  "raw/uniprot/P69441.json": {
+    "bytes": 51480,
+    "retrieved": "2026-10-19",
+    "sha256": "cc809f1ce1d956471d3878c57ffe757a4cd8aedf33ae829f5f5133d44337a551",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P69441.json"
+    ]
+  },
+  "raw/uniprot/Q8WZ42.json": {
+    "bytes": 496100,
+    "retrieved": "2026-10-19",
+    "sha256": "c9ddc2e5e0a2b71e33ada22d585c1043c94e82b98239d895dfa775ad29b5274a",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/Q8WZ42.json"
+    ]
+  }
+}

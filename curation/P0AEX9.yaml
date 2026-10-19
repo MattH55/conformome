@@ -1,0 +1,27 @@
+# Maltose/maltodextrin-binding periplasmic protein, Escherichia coli (strain K12). Draft: curator to review.
+uniprot: P0AEX9
+name: Maltose-binding periplasmic protein (MBP)
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: MBP-open-apo
+    name: open, ligand-free
+    basis: observed
+    representative_pdb: "1JW4"
+    description: Ligand-free open form, as in 1JW4.
+  - id: MBP-closed-maltose
+    name: closed, maltose-bound
+    basis: observed
+    representative_pdb: "1ANF"
+    description: Closed form with maltose bound, as in 1ANF.
+assignments:
+  - evidence_id: EV-PDB-1JW4-1
+    state: MBP-open-apo
+    confidence: high
+    justification: "Ligand-free open structure; representative for the open apo state."
+  - evidence_id: EV-PDB-1ANF-1
+    state: MBP-closed-maltose
+    confidence: high
+    justification: "Maltose-bound closed structure; representative for the closed state."
+transitions: []

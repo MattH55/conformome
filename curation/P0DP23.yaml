@@ -1,0 +1,28 @@
+# Calmodulin-1, Homo sapiens. CALM1, CALM2 and CALM3 share one sequence; entries annotated to
+# the sibling accessions are not yet grouped with this one (see docs/PILOT_REPORT.md).
+uniprot: P0DP23
+name: Calmodulin-1
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: CaM-Ca4-extended
+    name: Ca2+-saturated, extended
+    basis: observed
+    representative_pdb: "1CLL"
+    description: Four Ca2+ bound, two lobes separated by the central helix, as in 1CLL.
+  - id: CaM-Ca4-collapsed
+    name: Ca2+-saturated, collapsed (trifluoperazine-bound)
+    basis: observed
+    representative_pdb: "1CTR"
+    description: Four Ca2+ bound with trifluoperazine; lobes collapse around the drug, as in 1CTR.
+assignments:
+  - evidence_id: EV-PDB-1CLL-1
+    state: CaM-Ca4-extended
+    confidence: high
+    justification: "Four Ca2+ bound, extended dumbbell; representative for CaM-Ca4-extended."
+  - evidence_id: EV-PDB-1CTR-1
+    state: CaM-Ca4-collapsed
+    confidence: high
+    justification: "Trifluoperazine-bound collapsed form; representative for CaM-Ca4-collapsed."
+transitions: []

@@ -1,0 +1,19 @@
+# Immunoglobulin G-binding protein G, Streptococcus sp. group G. The GB1 domain is the pilot target.
+# Draft: curator to review.
+uniprot: P06654
+name: Immunoglobulin G-binding protein G (GB1 domain)
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: GB1-native
+    name: native fold
+    basis: observed
+    representative_pdb: "1PGA"
+    description: Native fold of the B1 domain, as in 1PGA. Force and ensemble data are not yet ingested.
+assignments:
+  - evidence_id: EV-PDB-1PGA-1
+    state: GB1-native
+    confidence: high
+    justification: "Native B1 domain at 2.07 Å; representative for the native fold."
+transitions: []

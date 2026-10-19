@@ -1,0 +1,40 @@
+# SYNTHETIC fixture protein for tests. Not a real protein; values are invented to exercise the pipeline.
+uniprot: Q00000
+name: Fixture kinase (synthetic)
+curator: fixture-author
+status: draft
+as_of: 2026-01-15
+states:
+  - id: FX-open
+    name: open apo
+    basis: observed
+    representative_pdb: "9FX1"
+    description: Synthetic open apo state, represented by synthetic entry 9FX1.
+  - id: FX-closed
+    name: closed with substrate
+    basis: observed
+    parent: null
+    representative_pdb: null
+    description: Synthetic closed state, mapped from the cryo-EM entry 9FX2 but not exported.
+  - id: FX-intermediate
+    name: intermediate I1
+    basis: inferred
+    representative_pdb: null
+    description: Synthetic intermediate with no direct structure.
+    assumptions:
+      - Defined only for the purposes of the fixture.
+      - No model is fitted in this version.
+assignments:
+  - evidence_id: EV-PDB-9FX1-1
+    state: FX-open
+    confidence: high
+    justification: "Synthetic apo open structure; representative of FX-open."
+  - evidence_id: EV-PDB-9FX2-1
+    state: FX-closed
+    confidence: medium
+    justification: "Synthetic cryo-EM closed structure; complex-dependent so medium."
+  - evidence_id: EV-PDB-9FX3-1
+    state: FX-intermediate
+    confidence: low
+    justification: "Synthetic NMR ensemble, ambiguous between open and intermediate."
+transitions: []

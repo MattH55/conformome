@@ -1,0 +1,37 @@
+# Alpha-synuclein, Homo sapiens. Disordered monomer plus observed membrane-bound and fibril structures.
+# Draft: curator to review.
+uniprot: P37840
+name: Alpha-synuclein
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: aS-disordered
+    name: disordered monomer
+    basis: inferred
+    representative_pdb: null
+    description: Intrinsically disordered monomer. No observed structure; ensemble descriptions are not yet ingested.
+    assumptions:
+      - No observed structure of the free monomer exists; the state is defined by the absence of a folded model.
+      - Ensemble descriptions from PED, NMR, SAXS and smFRET are not yet ingested. No model is exported.
+      - Assumes unbound, monomeric protein under the conditions of the source experiments.
+  - id: aS-micelle-helix
+    name: helical, micelle-bound
+    basis: observed
+    representative_pdb: "1XQ8"
+    description: Helical conformation on a membrane-mimetic micelle, as in 1XQ8 (human).
+  - id: aS-fibril
+    name: fibril
+    basis: observed
+    representative_pdb: "6A6B"
+    description: Cross-beta fibril, as in 6A6B. Polymorph differences are not separated in the pilot.
+assignments:
+  - evidence_id: EV-PDB-1XQ8-1
+    state: aS-micelle-helix
+    confidence: medium
+    justification: "NMR structure of the micelle-bound helical form; membrane-mimetic conditions, so confidence is medium."
+  - evidence_id: EV-PDB-6A6B-1
+    state: aS-fibril
+    confidence: high
+    justification: "Cryo-EM fibril; representative for the fibril state. Polymorph not separated."
+transitions: []

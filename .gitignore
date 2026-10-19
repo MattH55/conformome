@@ -1,0 +1,10 @@
+# Raw downloads are never committed; the manifest records how to reproduce them.
+data/raw/
+# Generated outputs
+build/
+site/dist/
+# Python
+__pycache__/
+*.egg-info/
+.pytest_cache/
+.venv/

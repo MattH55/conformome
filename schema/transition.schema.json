@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://conformome.org/schema/transition.schema.json",
+  "title": "Transition",
+  "description": "A directional transition between two states, with a rate or a free-energy difference, the conditions it was measured under, and the evidence behind it.",
+  "type": "object",
+  "required": ["transition_id", "uniprot", "from_state", "to_state", "quantity", "conditions", "evidence_ids", "provenance"],
+  "additionalProperties": false,
+  "properties": {
+    "transition_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"},
+    "uniprot": {"$ref": "common.schema.json#/$defs/uniprot"},
+    "from_state": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"},
+    "to_state": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"},
+    "quantity": {
+      "type": "object",
+      "required": ["type", "value", "unit", "uncertainty"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {"enum": ["rate", "delta_g"]},
+        "value": {"type": "number"},
+        "unit": {"type": "string", "minLength": 1},
+        "uncertainty": {"type": ["number", "null"]}
+      }
+    },
+    "conditions": {"$ref": "common.schema.json#/$defs/conditions"},
+    "evidence_ids": {"type": "array", "minItems": 1, "items": {"type": "string", "pattern": "^EV-[A-Za-z0-9_-]+$"}},
+    "provenance": {"$ref": "common.schema.json#/$defs/provenance"}
+  }
+}

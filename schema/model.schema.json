@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://conformome.org/schema/model.schema.json",
+  "title": "Model",
+  "description": "A coordinate model exported for one state. Inferred models must state their assumptions; the file header repeats them.",
+  "type": "object",
+  "required": ["model_id", "uniprot", "state_id", "format", "file", "basis", "constraints_used", "assumptions", "provenance"],
+  "additionalProperties": false,
+  "properties": {
+    "model_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"},
+    "uniprot": {"$ref": "common.schema.json#/$defs/uniprot"},
+    "state_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"},
+    "format": {"enum": ["PDB", "mmCIF"]},
+    "file": {"type": "string", "minLength": 1, "description": "Path relative to the site downloads directory."},
+    "basis": {"$ref": "common.schema.json#/$defs/basis"},
+    "constraints_used": {"type": "array", "items": {"type": "string", "pattern": "^EV-[A-Za-z0-9_-]+$"}},
+    "assumptions": {"type": ["string", "null"]},
+    "provenance": {"$ref": "common.schema.json#/$defs/provenance"}
+  },
+  "if": {"properties": {"basis": {"const": "inferred"}}, "required": ["basis"]},
+  "then": {"properties": {"assumptions": {"type": "string", "minLength": 1}}}
+}

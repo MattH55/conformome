@@ -1,0 +1,285 @@
+# Techniques that can contribute evidence. Every technique used in evidence must appear here.
+#
+# basis:      observed  - the technique resolves a structure directly (X-ray, cryo-EM, microED, neutron, NMR structure)
+#             inferred  - the technique reports indirect constraints; any model is fitted to them
+# prediction: true      - the source is a computed prediction, not an experiment (shown with a badge on the site)
+# resolution_class: the spatial or population scale the technique speaks to
+# observables: the observable types evidence may report for this technique
+techniques:
+  # ---- structures
+  - id: xray
+    name: X-ray crystallography
+    category: structure
+    basis: observed
+    prediction: false
+    resolution_class: atomic
+    observables: [structure, resolution, b_factor]
+    description: Electron density from diffraction of protein crystals. Conformations are crystal-packing dependent.
+  - id: cryoem
+    name: Cryo-electron microscopy
+    category: structure
+    basis: observed
+    prediction: false
+    resolution_class: atomic
+    observables: [structure, resolution, class_population]
+    description: Single-particle or tomographic reconstruction. Class populations from classification are inferred from particle counts.
+  - id: microed
+    name: Microcrystal electron diffraction
+    category: structure
+    basis: observed
+    prediction: false
+    resolution_class: atomic
+    observables: [structure, resolution]
+    description: Electron diffraction from nanocrystals.
+  - id: neutron
+    name: Neutron diffraction
+    category: structure
+    basis: observed
+    prediction: false
+    resolution_class: atomic
+    observables: [structure, resolution]
+    description: Neutron diffraction from crystals; sensitive to hydrogen and deuterium positions.
+
+  # ---- solution ensembles
+  - id: nmr_structure
+    name: NMR structure determination
+    category: solution_ensemble
+    basis: observed
+    prediction: false
+    resolution_class: residue
+    observables: [structure, restraint_count]
+    description: Ensemble of structures calculated from NOE, RDC and other restraints. Each member is a model consistent with restraints.
+  - id: nmr_dynamics
+    name: NMR relaxation and dispersion
+    category: solution_ensemble
+    basis: inferred
+    prediction: false
+    resolution_class: residue
+    observables: [relaxation_rate, exchange_rate, chemical_shift_difference, population, protection_factor]
+    description: Relaxation (R1, R2, NOE) and relaxation dispersion (CPMG, R1rho) report on exchange between states and their populations and rates.
+  - id: saxs_sans
+    name: SAXS / SANS
+    category: solution_ensemble
+    basis: inferred
+    prediction: false
+    resolution_class: global
+    observables: [radius_of_gyration, distance_distribution, shape_parameter]
+    description: Small-angle scattering profiles. Models are fitted to the scattering curve and are not unique.
+  - id: epr_deer
+    name: EPR / DEER
+    category: solution_ensemble
+    basis: inferred
+    prediction: false
+    resolution_class: residue
+    observables: [distance, distance_distribution]
+    description: Spin-label distance distributions between labelled residues.
+  - id: cd
+    name: Circular dichroism
+    category: solution_ensemble
+    basis: inferred
+    prediction: false
+    resolution_class: global
+    observables: [secondary_structure_fraction, cd_signal, melting_temperature]
+    description: Far-UV and near-UV CD. Secondary-structure fractions depend on the deconvolution method.
+  - id: ftir_raman
+    name: FTIR / Raman spectroscopy
+    category: solution_ensemble
+    basis: inferred
+    prediction: false
+    resolution_class: global
+    observables: [secondary_structure_fraction, band_shift]
+    description: Vibrational spectroscopy of backbone amide bands and side chains.
+  - id: fluorescence
+    name: Fluorescence spectroscopy
+    category: solution_ensemble
+    basis: inferred
+    prediction: false
+    resolution_class: global
+    observables: [emission_shift, lifetime, anisotropy, quenching_constant]
+    description: Intrinsic or extrinsic fluorescence, lifetimes and anisotropy.
+  - id: ensemble_fret
+    name: Ensemble FRET
+    category: solution_ensemble
+    basis: inferred
+    prediction: false
+    resolution_class: residue
+    observables: [fret_efficiency, distance]
+    description: Bulk FRET efficiency between donor and acceptor labels.
+
+  # ---- single molecule
+  - id: smfret
+    name: Single-molecule FRET
+    category: single_molecule
+    basis: inferred
+    prediction: false
+    resolution_class: single_molecule
+    observables: [fret_efficiency, population, transition_rate, dwell_time]
+    description: FRET efficiency histograms and dwell times from individual molecules.
+  - id: force_spectroscopy
+    name: Force spectroscopy
+    category: single_molecule
+    basis: inferred
+    prediction: false
+    resolution_class: single_molecule
+    observables: [unfolding_force, rupture_force, unfolding_rate, contour_length_increment, free_energy_difference]
+    description: Optical or magnetic tweezers and AFM-based single-molecule force spectroscopy, including SMASH-BIO records.
+  - id: hs_afm
+    name: High-speed AFM imaging
+    category: single_molecule
+    basis: inferred
+    prediction: false
+    resolution_class: single_molecule
+    observables: [shape_parameter, population, dwell_time]
+    description: Time-resolved topographic imaging of surface-bound molecules.
+  - id: nanopore
+    name: Nanopore
+    category: single_molecule
+    basis: inferred
+    prediction: false
+    resolution_class: single_molecule
+    observables: [current_blockade, dwell_time, population]
+    description: Current blockade signatures from molecules translocating or trapped in a pore.
+  - id: iscat
+    name: Interferometric scattering (iSCAT)
+    category: single_molecule
+    basis: inferred
+    prediction: false
+    resolution_class: single_molecule
+    observables: [mass, population, dwell_time]
+    description: Label-free interferometric imaging of single molecules and complexes.
+  - id: mass_photometry
+    name: Mass photometry
+    category: single_molecule
+    basis: inferred
+    prediction: false
+    resolution_class: single_molecule
+    observables: [mass, population]
+    description: Single-molecule mass distributions from interferometric contrast.
+
+  # ---- mass spectrometry
+  - id: hdx_ms
+    name: Hydrogen-deuterium exchange MS
+    category: mass_spectrometry
+    basis: inferred
+    prediction: false
+    resolution_class: residue
+    observables: [exchange_rate, protection_factor, deuterium_uptake]
+    description: Deuterium uptake by peptide and residue region. Protection is interpreted through a structural model.
+  - id: xl_ms
+    name: Crosslinking MS
+    category: mass_spectrometry
+    basis: inferred
+    prediction: false
+    resolution_class: residue
+    observables: [crosslink_distance]
+    description: Distance restraints from chemical crosslinks identified by MS.
+  - id: native_ms
+    name: Native and ion-mobility MS
+    category: mass_spectrometry
+    basis: inferred
+    prediction: false
+    resolution_class: global
+    observables: [collision_cross_section, population, mass]
+    description: Gas-phase conformers and their collision cross sections. Gas-phase conformations may differ from solution.
+  - id: limited_proteolysis
+    name: Limited proteolysis
+    category: mass_spectrometry
+    basis: inferred
+    prediction: false
+    resolution_class: domain
+    observables: [protease_susceptibility, population]
+    description: Cleavage patterns that report on accessible regions. Read-out is by gel or MS.
+  - id: footprinting
+    name: Covalent footprinting
+    category: mass_spectrometry
+    basis: inferred
+    prediction: false
+    resolution_class: residue
+    observables: [labelling_rate, protection_factor]
+    description: Hydroxyl radical, SAP or other covalent labelling of solvent-accessible residues.
+
+  # ---- stability and shape
+  - id: denaturation
+    name: Chemical and thermal denaturation
+    category: stability
+    basis: inferred
+    prediction: false
+    resolution_class: global
+    observables: [delta_g, melting_temperature, m_value]
+    description: Equilibrium unfolding monitored by any probe. Two-state fits are assumed unless stated.
+  - id: dsc
+    name: Differential scanning calorimetry
+    category: stability
+    basis: inferred
+    prediction: false
+    resolution_class: global
+    observables: [melting_temperature, enthalpy, heat_capacity_change]
+    description: Heat capacity profiles of thermal unfolding.
+  - id: auc
+    name: Analytical ultracentrifugation
+    category: stability
+    basis: inferred
+    prediction: false
+    resolution_class: global
+    observables: [sedimentation_coefficient, population]
+    description: Sedimentation velocity and equilibrium; reports on oligomeric state and shape.
+  - id: dls
+    name: Dynamic light scattering
+    category: stability
+    basis: inferred
+    prediction: false
+    resolution_class: global
+    observables: [hydrodynamic_radius, population]
+    description: Hydrodynamic radius distributions.
+
+  # ---- in cell
+  - id: in_cell_nmr
+    name: In-cell NMR
+    category: in_cell
+    basis: inferred
+    prediction: false
+    resolution_class: residue
+    observables: [chemical_shift_difference, population]
+    description: NMR inside living cells.
+  - id: flim_fret
+    name: FLIM-FRET in cells
+    category: in_cell
+    basis: inferred
+    prediction: false
+    resolution_class: residue
+    observables: [fret_efficiency, lifetime]
+    description: Fluorescence lifetime imaging of FRET in cells.
+  - id: in_cell_lip
+    name: In-cell limited proteolysis
+    category: in_cell
+    basis: inferred
+    prediction: false
+    resolution_class: domain
+    observables: [protease_susceptibility]
+    description: Limited proteolysis of proteins in lysate or intact cells.
+
+  # ---- computational (predictions, flagged on the site)
+  - id: md
+    name: Molecular dynamics
+    category: computational
+    basis: inferred
+    prediction: true
+    resolution_class: atomic
+    observables: [rmsd, population, free_energy_difference, transition_rate]
+    description: Simulation trajectories. Sampling and force-field choices are assumptions.
+  - id: msm
+    name: Markov state model
+    category: computational
+    basis: inferred
+    prediction: true
+    resolution_class: global
+    observables: [population, transition_rate]
+    description: Kinetic models built from simulation data.
+  - id: af_ensemble
+    name: AlphaFold-based ensemble
+    category: computational
+    basis: inferred
+    prediction: true
+    resolution_class: atomic
+    observables: [population, structure]
+    description: Ensembles generated from AlphaFold-style predictors. Predictions, not measurements.

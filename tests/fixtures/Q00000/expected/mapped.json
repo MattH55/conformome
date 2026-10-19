@@ -1,0 +1,245 @@
+{
+  "conflicts": [],
+  "coverage": {
+    "cells": {
+      "FX-closed": {
+        "cryoem": 1,
+        "nmr_structure": 0,
+        "xray": 0
+      },
+      "FX-intermediate": {
+        "cryoem": 0,
+        "nmr_structure": 1,
+        "xray": 0
+      },
+      "FX-open": {
+        "cryoem": 0,
+        "nmr_structure": 0,
+        "xray": 1
+      }
+    },
+    "single_method_states": [
+      "FX-open",
+      "FX-closed",
+      "FX-intermediate"
+    ],
+    "states": [
+      "FX-open",
+      "FX-closed",
+      "FX-intermediate"
+    ],
+    "techniques": [
+      "xray",
+      "cryoem",
+      "nmr_structure"
+    ],
+    "unmapped_evidence": 0
+  },
+  "curation": {
+    "as_of": "2026-01-15",
+    "curator": "fixture-author",
+    "file": "Q00000.yaml",
+    "status": "draft"
+  },
+  "evidence": [
+    {
+      "conditions": {
+        "applied_force_pn": null,
+        "buffer": null,
+        "environment": "in_vitro",
+        "ligands": [
+          "ATP"
+        ],
+        "notes": "Entry-level ligand list. pH and temperature are null when not deposited in machine-readable fields.",
+        "ph": 7.2,
+        "salt_mM": null,
+        "temperature_c": -173.15
+      },
+      "construct": {
+        "description": "Fixture kinase (chains A)",
+        "labels": []
+      },
+      "data_link": "https://www.rcsb.org/structure/9FX1",
+      "evidence_id": "EV-PDB-9FX1-1",
+      "mappings": [
+        {
+          "confidence": "high",
+          "justification": "Synthetic apo open structure; representative of FX-open.",
+          "rule": "curator_assignment",
+          "state_id": "FX-open",
+          "who": "curator:fixture-author"
+        }
+      ],
+      "observable": {
+        "type": "resolution",
+        "uncertainty": null,
+        "unit": "Å",
+        "value": 2.0
+      },
+      "provenance": {
+        "deposit_id": "9FX1",
+        "doi": "10.9999/synthetic.9fx1",
+        "licence": "CC0 1.0 (wwPDB archive data)",
+        "retrieved": "2026-01-15",
+        "source": "RCSB PDB",
+        "url": "https://www.rcsb.org/structure/9FX1"
+      },
+      "source_kind": "deposit",
+      "technique": "xray",
+      "uniprot": "Q00000"
+    },
+    {
+      "conditions": {
+        "applied_force_pn": null,
+        "buffer": null,
+        "environment": "in_vitro",
+        "ligands": [],
+        "notes": "Entry-level ligand list. pH and temperature are null when not deposited in machine-readable fields.",
+        "ph": null,
+        "salt_mM": null,
+        "temperature_c": null
+      },
+      "construct": {
+        "description": "Fixture kinase (chains A)",
+        "labels": []
+      },
+      "data_link": "https://www.rcsb.org/structure/9FX2",
+      "evidence_id": "EV-PDB-9FX2-1",
+      "mappings": [
+        {
+          "confidence": "medium",
+          "justification": "Synthetic cryo-EM closed structure; complex-dependent so medium.",
+          "rule": "curator_assignment",
+          "state_id": "FX-closed",
+          "who": "curator:fixture-author"
+        }
+      ],
+      "observable": {
+        "type": "resolution",
+        "uncertainty": null,
+        "unit": "Å",
+        "value": 3.5
+      },
+      "provenance": {
+        "deposit_id": "9FX2",
+        "doi": "10.9999/synthetic.9fx2",
+        "licence": "CC0 1.0 (wwPDB archive data)",
+        "retrieved": "2026-01-15",
+        "source": "RCSB PDB",
+        "url": "https://www.rcsb.org/structure/9FX2"
+      },
+      "source_kind": "deposit",
+      "technique": "cryoem",
+      "uniprot": "Q00000"
+    },
+    {
+      "conditions": {
+        "applied_force_pn": null,
+        "buffer": null,
+        "environment": "in_vitro",
+        "ligands": [],
+        "notes": "Entry-level ligand list. pH and temperature are null when not deposited in machine-readable fields.",
+        "ph": 6.5,
+        "salt_mM": null,
+        "temperature_c": 24.85
+      },
+      "construct": {
+        "description": "Fixture kinase (chains A)",
+        "labels": []
+      },
+      "data_link": "https://www.rcsb.org/structure/9FX3",
+      "evidence_id": "EV-PDB-9FX3-1",
+      "mappings": [
+        {
+          "confidence": "low",
+          "justification": "Synthetic NMR ensemble, ambiguous between open and intermediate.",
+          "rule": "curator_assignment",
+          "state_id": "FX-intermediate",
+          "who": "curator:fixture-author"
+        }
+      ],
+      "observable": {
+        "type": "structure",
+        "uncertainty": null,
+        "unit": null,
+        "value": null
+      },
+      "provenance": {
+        "deposit_id": "9FX3",
+        "doi": "10.9999/synthetic.9fx3",
+        "licence": "CC0 1.0 (wwPDB archive data)",
+        "retrieved": "2026-01-15",
+        "source": "RCSB PDB",
+        "url": "https://www.rcsb.org/structure/9FX3"
+      },
+      "source_kind": "deposit",
+      "technique": "nmr_structure",
+      "uniprot": "Q00000"
+    }
+  ],
+  "not_compared": 3,
+  "states": [
+    {
+      "assumptions": [],
+      "basis": "observed",
+      "description": "Synthetic open apo state, represented by synthetic entry 9FX1.",
+      "name": "open apo",
+      "parent_state": null,
+      "provenance": {
+        "deposit_id": null,
+        "doi": null,
+        "licence": "Project licence (pending decision)",
+        "retrieved": "2026-01-15",
+        "source": "Conformome curation (Q00000.yaml)",
+        "url": "https://github.com/matth55/conformome/blob/main/curation/Q00000.yaml"
+      },
+      "representative_model": "FX-open-cif",
+      "state_id": "FX-open",
+      "status": "draft",
+      "uniprot": "Q00000"
+    },
+    {
+      "assumptions": [],
+      "basis": "observed",
+      "description": "Synthetic closed state, mapped from the cryo-EM entry 9FX2 but not exported.",
+      "name": "closed with substrate",
+      "parent_state": null,
+      "provenance": {
+        "deposit_id": null,
+        "doi": null,
+        "licence": "Project licence (pending decision)",
+        "retrieved": "2026-01-15",
+        "source": "Conformome curation (Q00000.yaml)",
+        "url": "https://github.com/matth55/conformome/blob/main/curation/Q00000.yaml"
+      },
+      "representative_model": null,
+      "state_id": "FX-closed",
+      "status": "draft",
+      "uniprot": "Q00000"
+    },
+    {
+      "assumptions": [
+        "Defined only for the purposes of the fixture.",
+        "No model is fitted in this version."
+      ],
+      "basis": "inferred",
+      "description": "Synthetic intermediate with no direct structure.",
+      "name": "intermediate I1",
+      "parent_state": null,
+      "provenance": {
+        "deposit_id": null,
+        "doi": null,
+        "licence": "Project licence (pending decision)",
+        "retrieved": "2026-01-15",
+        "source": "Conformome curation (Q00000.yaml)",
+        "url": "https://github.com/matth55/conformome/blob/main/curation/Q00000.yaml"
+      },
+      "representative_model": null,
+      "state_id": "FX-intermediate",
+      "status": "draft",
+      "uniprot": "Q00000"
+    }
+  ],
+  "transitions": [],
+  "uniprot": "Q00000"
+}

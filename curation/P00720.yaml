@@ -1,0 +1,36 @@
+# Endolysin (T4 lysozyme), Enterobacteria phage T4. Draft: curator to review.
+uniprot: P00720
+name: Endolysin (T4 lysozyme)
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: T4L-WT
+    name: wild type
+    basis: observed
+    representative_pdb: "2LZM"
+    description: Wild-type-like hydrophobic core, as in 2LZM.
+  - id: T4L-L99A-apo
+    name: L99A cavity, ligand-free
+    basis: observed
+    representative_pdb: "3DMV"
+    description: Cavity-containing L99A mutant without bound ligand, as in 3DMV.
+  - id: T4L-L99A-benzene
+    name: L99A cavity with buried benzene
+    basis: observed
+    representative_pdb: "1L83"
+    description: Cavity-containing L99A mutant with buried benzene, as in 1L83.
+assignments:
+  - evidence_id: EV-PDB-2LZM-1
+    state: T4L-WT
+    confidence: high
+    justification: "Wild-type structure at 1.7 Å; representative for the wild-type state."
+  - evidence_id: EV-PDB-3DMV-1
+    state: T4L-L99A-apo
+    confidence: high
+    justification: "Ligand-free L99A cavity mutant; representative for the cavity apo state."
+  - evidence_id: EV-PDB-1L83-1
+    state: T4L-L99A-benzene
+    confidence: high
+    justification: "L99A cavity with buried benzene; representative for the benzene-bound state."
+transitions: []

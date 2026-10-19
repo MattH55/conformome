@@ -1,0 +1,19 @@
+# Polyubiquitin-C, Homo sapiens. Ubiquitin is the 76-residue unit repeated in this polyprotein;
+# entries are mapped at the ubiquitin level. Draft: curator to review.
+uniprot: P0CG48
+name: Ubiquitin (polyubiquitin-C)
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: Ub-folded
+    name: folded (native)
+    basis: observed
+    representative_pdb: "1UBQ"
+    description: Native globular fold, as in 1UBQ. Ensemble states from NMR dynamics are not yet in the pilot.
+assignments:
+  - evidence_id: EV-PDB-1UBQ-1
+    state: Ub-folded
+    confidence: high
+    justification: "Native ubiquitin fold at 1.8 Å; representative for the folded state."
+transitions: []

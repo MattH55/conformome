@@ -1,0 +1,195 @@
+{
+  "source": "RCSB GraphQL, retrieved 2026-10-19 (unmodified response)",
+  "data": {
+    "entries": [
+      {
+        "rcsb_id": "4AKE",
+        "struct": {
+          "title": "ADENYLATE KINASE"
+        },
+        "exptl": [
+          {
+            "method": "X-RAY DIFFRACTION"
+          }
+        ],
+        "rcsb_entry_info": {
+          "resolution_combined": [
+            2.2
+          ],
+          "experimental_method": "X-ray",
+          "polymer_entity_count": 1,
+          "nonpolymer_entity_count": 0,
+          "deposited_polymer_monomer_count": 428
+        },
+        "rcsb_accession_info": {
+          "initial_release_date": "1996-06-10T00:00:00Z"
+        },
+        "rcsb_primary_citation": {
+          "pdbx_database_id_DOI": "10.1016/S0969-2126(96)00018-4"
+        },
+        "diffrn": [
+          {
+            "ambient_temp": null
+          }
+        ],
+        "exptl_crystal_grow": null,
+        "pdbx_nmr_exptl_sample_conditions": null,
+        "polymer_entities": [
+          {
+            "rcsb_id": "4AKE_1",
+            "entity_poly": {
+              "pdbx_seq_one_letter_code_can": "MRIILLGAPGAGKGTQAQFIMEKYGIPQISTGDMLRAAVKSGSELGKQAKDIMDAGKLVTDELVIALVKERIAQEDCRNGFLLDGFPRTIPQADAMKEAGINVDYVLEFDVPDELIVDRIVGRRVHAPSGRVYHVKFNPPKVEGKDDVTGEELTTRKDDQEETVRKRLVEYHQMTAPLIGYYSKEAEAGNTKYAKVDGTKPVAEVRADLEKILG"
+            },
+            "rcsb_polymer_entity_container_identifiers": {
+              "entity_id": "1",
+              "auth_asym_ids": [
+                "A",
+                "B"
+              ],
+              "uniprot_ids": [
+                "P69441"
+              ]
+            },
+            "rcsb_polymer_entity": {
+              "pdbx_description": "ADENYLATE KINASE"
+            }
+          }
+        ],
+        "nonpolymer_entities": null
+      },
+      {
+        "rcsb_id": "1AKE",
+        "struct": {
+          "title": "STRUCTURE OF THE COMPLEX BETWEEN ADENYLATE KINASE FROM ESCHERICHIA COLI AND THE INHIBITOR AP5A REFINED AT 1.9 ANGSTROMS RESOLUTION: A MODEL FOR A CATALYTIC TRANSITION STATE"
+        },
+        "exptl": [
+          {
+            "method": "X-RAY DIFFRACTION"
+          }
+        ],
+        "rcsb_entry_info": {
+          "resolution_combined": [
+            2.0
+          ],
+          "experimental_method": "X-ray",
+          "polymer_entity_count": 1,
+          "nonpolymer_entity_count": 1,
+          "deposited_polymer_monomer_count": 428
+        },
+        "rcsb_accession_info": {
+          "initial_release_date": "1994-01-31T00:00:00Z"
+        },
+        "rcsb_primary_citation": {
+          "pdbx_database_id_DOI": "10.1016/0022-2836(92)90582-5"
+        },
+        "diffrn": [
+          {
+            "ambient_temp": null
+          }
+        ],
+        "exptl_crystal_grow": null,
+        "pdbx_nmr_exptl_sample_conditions": null,
+        "polymer_entities": [
+          {
+            "rcsb_id": "1AKE_1",
+            "entity_poly": {
+              "pdbx_seq_one_letter_code_can": "MRIILLGAPGAGKGTQAQFIMEKYGIPQISTGDMLRAAVKSGSELGKQAKDIMDAGKLVTDELVIALVKERIAQEDCRNGFLLDGFPRTIPQADAMKEAGINVDYVLEFDVPDELIVDRIVGRRVHAPSGRVYHVKFNPPKVEGKDDVTGEELTTRKDDQEETVRKRLVEYHQMTAPLIGYYSKEAEAGNTKYAKVDGTKPVAEVRADLEKILG"
+            },
+            "rcsb_polymer_entity_container_identifiers": {
+              "entity_id": "1",
+              "auth_asym_ids": [
+                "A",
+                "B"
+              ],
+              "uniprot_ids": [
+                "P69441"
+              ]
+            },
+            "rcsb_polymer_entity": {
+              "pdbx_description": "ADENYLATE KINASE"
+            }
+          }
+        ],
+        "nonpolymer_entities": [
+          {
+            "nonpolymer_comp": {
+              "chem_comp": {
+                "id": "AP5",
+                "name": "BIS(ADENOSINE)-5'-PENTAPHOSPHATE"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "rcsb_id": "2CCM",
+        "struct": {
+          "title": "X-ray structure of Calexcitin from Loligo pealeii at 1.8A"
+        },
+        "exptl": [
+          {
+            "method": "X-RAY DIFFRACTION"
+          }
+        ],
+        "rcsb_entry_info": {
+          "resolution_combined": [
+            1.8
+          ],
+          "experimental_method": "X-ray",
+          "polymer_entity_count": 1,
+          "nonpolymer_entity_count": 1,
+          "deposited_polymer_monomer_count": 382
+        },
+        "rcsb_accession_info": {
+          "initial_release_date": "2006-01-26T00:00:00Z"
+        },
+        "rcsb_primary_citation": {
+          "pdbx_database_id_DOI": "10.1016/J.JMB.2006.01.083"
+        },
+        "diffrn": [
+          {
+            "ambient_temp": 100.0
+          }
+        ],
+        "exptl_crystal_grow": [
+          {
+            "pH": 5.5,
+            "temp": null
+          }
+        ],
+        "pdbx_nmr_exptl_sample_conditions": null,
+        "polymer_entities": [
+          {
+            "rcsb_id": "2CCM_1",
+            "entity_poly": {
+              "pdbx_seq_one_letter_code_can": "MAAHQLSDFQRNKILRVFNTFYDCNHDGVIEWDDFELAIKKICNLHSWPTDGKKHNEARATLKLIWDGLRKYADENEDEQVTKEEWLKMWAECVKSVEKGESLPEWLTKYMNFMFDVNDTSGDNIIDKHEYSTVYMSYGIPKSDCDAAFDTLSDGGKTMVTREIFARLWTEYFVSNDRGAKGNHLFGTLKL"
+            },
+            "rcsb_polymer_entity_container_identifiers": {
+              "entity_id": "1",
+              "auth_asym_ids": [
+                "A",
+                "B"
+              ],
+              "uniprot_ids": [
+                "O76764"
+              ]
+            },
+            "rcsb_polymer_entity": {
+              "pdbx_description": "CALEXCITIN"
+            }
+          }
+        ],
+        "nonpolymer_entities": [
+          {
+            "nonpolymer_comp": {
+              "chem_comp": {
+                "id": "CA",
+                "name": "CALCIUM ION"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "synthetic": true,
+  "retrieved": "2026-01-15",
+  "url": "https://rest.uniprot.org/uniprotkb/Q00000.json",
+  "entry": {
+    "primaryAccession": "Q00000",
+    "proteinDescription": {
+      "recommendedName": {
+        "fullName": {
+          "value": "Fixture kinase (synthetic)"
+        }
+      }
+    },
+    "genes": [
+      {
+        "geneName": {
+          "value": "fixk"
+        }
+      }
+    ],
+    "organism": {
+      "scientificName": "Synthetic test organism",
+      "taxonId": 1
+    },
+    "sequence": {
+      "value": "MKTAYIAKQRQI",
+      "length": 12
+    },
+    "features": [
+      {
+        "type": "Domain",
+        "location": {
+          "start": {
+            "value": 1
+          },
+          "end": {
+            "value": 6
+          }
+        },
+        "description": "Lid"
+      },
+      {
+        "type": "Domain",
+        "location": {
+          "start": {
+            "value": 7
+          },
+          "end": {
+            "value": 12
+          }
+        },
+        "description": "Core"
+      },
+      {
+        "type": "Binding site",
+        "ligand": {
+          "name": "ATP"
+        },
+        "location": {
+          "start": {
+            "value": 3
+          },
+          "end": {
+            "value": 3
+          }
+        }
+      }
+    ]
+  }
+}

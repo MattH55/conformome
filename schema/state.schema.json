@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://conformome.org/schema/state.schema.json",
+  "title": "State",
+  "description": "A named conformational state of one protein. Substates nest through parent_state. Inferred states must list their assumptions.",
+  "type": "object",
+  "required": ["state_id", "uniprot", "name", "parent_state", "basis", "representative_model", "description", "assumptions", "status", "provenance"],
+  "additionalProperties": false,
+  "properties": {
+    "state_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"},
+    "uniprot": {"$ref": "common.schema.json#/$defs/uniprot"},
+    "name": {"type": "string", "minLength": 1},
+    "parent_state": {"type": ["string", "null"], "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"},
+    "basis": {"$ref": "common.schema.json#/$defs/basis"},
+    "representative_model": {"type": ["string", "null"]},
+    "description": {"type": "string"},
+    "assumptions": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "status": {"enum": ["draft", "reviewed"]},
+    "provenance": {"$ref": "common.schema.json#/$defs/provenance"}
+  },
+  "if": {"properties": {"basis": {"const": "inferred"}}, "required": ["basis"]},
+  "then": {"properties": {"assumptions": {"minItems": 1}}}
+}

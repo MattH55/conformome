@@ -1,0 +1,27 @@
+# Lactose operon repressor, Escherichia coli (strain K12). Draft: curator to review.
+uniprot: P03023
+name: Lactose operon repressor (LacI)
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: LacI-IPTG
+    name: inducer-bound (IPTG)
+    basis: observed
+    representative_pdb: "2P9H"
+    description: Repressor bound to the gratuitous inducer IPTG, as in 2P9H.
+  - id: LacI-operator
+    name: operator DNA-bound
+    basis: observed
+    representative_pdb: "1EFA"
+    description: Repressor dimer bound to operator DNA with the anti-inducer ONPF, as in 1EFA.
+assignments:
+  - evidence_id: EV-PDB-2P9H-1
+    state: LacI-IPTG
+    confidence: high
+    justification: "Repressor bound to IPTG; representative for the inducer-bound state."
+  - evidence_id: EV-PDB-1EFA-2
+    state: LacI-operator
+    confidence: high
+    justification: "Repressor bound to operator DNA with ONPF; representative for the operator-bound state."
+transitions: []

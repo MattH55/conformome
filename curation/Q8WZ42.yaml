@@ -1,0 +1,28 @@
+# Titin, Homo sapiens. Pilot protein chosen by the curator from SMASH-BIO force spectroscopy records
+# (Ig repeat I27 is the target). Draft: curator to review; SMASH-BIO evidence not yet ingested.
+uniprot: Q8WZ42
+name: Titin (Ig repeat I27)
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: I27-folded
+    name: folded Ig domain
+    basis: observed
+    representative_pdb: "1TIT"
+    description: Folded Ig repeat 27 in solution, as in 1TIT (NMR, minimised average structure).
+  - id: I27-unfolded
+    name: unfolded under force
+    basis: inferred
+    representative_pdb: null
+    description: Unfolded state reached under mechanical load. No observed structure.
+    assumptions:
+      - Defined from force-extension unfolding; no observed structure exists.
+      - The unfolded state is treated as a single ensemble; intermediates are not resolved.
+      - No evidence is ingested yet; the SMASH-BIO release file is pending.
+assignments:
+  - evidence_id: EV-PDB-1TIT-1
+    state: I27-folded
+    confidence: high
+    justification: "NMR structure of folded Ig repeat 27; representative for the folded state."
+transitions: []
