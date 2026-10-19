@@ -103,6 +103,12 @@ Licences, and which sources may be redistributed, are in `docs/SOURCES.md`; the 
 6. The project licence for code and curation (none chosen).
 7. Zenodo archiving at the first tagged release.
 
+## Taxonomy additions (2026-10-19, from the build brief)
+
+- New techniques: `xray_time_resolved`, `cryoem_heterogeneity`, `ped_ensemble`. NMR dynamics also lists RDC and PRE observables. No source emits the new ids yet (PDB maps still use `xray` / `cryoem`; PED is a stub).
+- Every technique now has `tier` (1, 2, 3, or null for predictions), `raw_location` and `raw_format`; the validator requires them.
+- `schema/evidence.schema.json` has optional `data_level` (raw | processed | reported), `data_format` and `reader`. Optional because no source fills them yet. Not done: populate them in each source module, show `data_level` in the coverage grid, and make `data_level` required.
+
 ## Good next steps
 
 - Write curation files for the 51 evidence-only proteins, starting with those with the most techniques (spike, p53, APP, Hsp90-alpha, histone H3.1).

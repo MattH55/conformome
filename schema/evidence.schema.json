@@ -35,6 +35,9 @@
     },
     "mappings": {"type": "array", "items": {"$ref": "common.schema.json#/$defs/mapping"}},
     "data_link": {"type": ["string", "null"], "format": "uri"},
+    "data_level": {"enum": ["raw", "processed", "reported"], "description": "raw: traces, images, FIDs, timestamps. processed: fitted curves, maps, uptake tables, trajectories. reported: values in the paper only."},
+    "data_format": {"type": ["string", "null"], "description": "Format of the dataset at data_link."},
+    "reader": {"type": ["string", "null"], "description": "Sidecar or reader that opens the dataset (for example a TraceSet file)."},
     "provenance": {"$ref": "common.schema.json#/$defs/provenance"}
   }
 }

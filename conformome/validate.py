@@ -36,6 +36,13 @@ def taxonomy_errors(paths: Paths) -> list[str]:
             errors.append(f"taxonomy {tid}: unknown resolution_class {t.get('resolution_class')}")
         if not t.get("observables"):
             errors.append(f"taxonomy {tid}: no observables listed")
+        if t.get("tier") not in {1, 2, 3, None} or ("tier" not in t):
+            errors.append(f"taxonomy {tid}: tier must be 1, 2, 3 or null (predictions)")
+        if t.get("tier") is None and not t.get("prediction"):
+            errors.append(f"taxonomy {tid}: only predictions may have a null tier")
+        for k in ("raw_location", "raw_format"):
+            if not t.get(k):
+                errors.append(f"taxonomy {tid}: {k} is required")
         if not isinstance(t.get("prediction"), bool):
             errors.append(f"taxonomy {tid}: prediction must be true or false")
     return errors

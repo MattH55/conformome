@@ -3,6 +3,8 @@
 # basis:      observed  - the technique resolves a structure directly (X-ray, cryo-EM, microED, neutron, NMR structure)
 #             inferred  - the technique reports indirect constraints; any model is fitted to them
 # prediction: true      - the source is a computed prediction, not an experiment (shown with a badge on the site)
+# tier:       1 ingest first (structured repository, searchable by UniProt); 2 added value (raw traces scattered); 3 reported values only; null for predictions
+# raw_location / raw_format: where raw or near-raw data live and in what format. Raw data are indexed by pointer, never hosted.
 # resolution_class: the spatial or population scale the technique speaks to
 # observables: the observable types evidence may report for this technique
 techniques:
@@ -12,6 +14,9 @@ techniques:
     category: structure
     basis: observed
     prediction: false
+    tier: 1
+    raw_location: "PDB (structure factors); diffraction images at SBGrid Data Bank / IRRMC"
+    raw_format: "mmCIF, diffraction images"
     resolution_class: atomic
     observables: [structure, resolution, b_factor, disorder_region]
     description: Electron density from diffraction of protein crystals. Conformations are crystal-packing dependent.
@@ -20,14 +25,42 @@ techniques:
     category: structure
     basis: observed
     prediction: false
+    tier: 1
+    raw_location: "EMDB (maps, half-maps); EMPIAR (micrographs, particles)"
+    raw_format: "MRC, STAR"
     resolution_class: atomic
     observables: [structure, resolution, class_population, disorder_region]
     description: Single-particle or tomographic reconstruction. Class populations from classification are inferred from particle counts.
+  - id: xray_time_resolved
+    name: Time-resolved and multi-temperature X-ray
+    category: structure
+    basis: observed
+    prediction: false
+    tier: 1
+    raw_location: "PDB (structure factors); diffraction images at SBGrid Data Bank / IRRMC"
+    raw_format: "mmCIF, diffraction images"
+    resolution_class: atomic
+    observables: [structure, resolution, b_factor, occupancy, alternate_conformation, time_delay, temperature_series]
+    description: Pump-probe, serial and multi-temperature crystallography. Resolves alternate conformations and their occupancies, and structural change over time. Conformations remain crystal-packing dependent.
+  - id: cryoem_heterogeneity
+    name: Cryo-EM heterogeneity analysis
+    category: structure
+    basis: observed
+    prediction: false
+    tier: 1
+    raw_location: "EMDB (maps, half-maps); EMPIAR (micrographs, particles)"
+    raw_format: "MRC, STAR"
+    resolution_class: atomic
+    observables: [structure, resolution, class_population, conformational_landscape]
+    description: 3D classification, variability and manifold analysis of one sample. Gives several states and their relative populations from particle counts; populations are inferred, the class maps are observed.
   - id: microed
     name: Microcrystal electron diffraction
     category: structure
     basis: observed
     prediction: false
+    tier: 1
+    raw_location: "PDB; EMPIAR for diffraction movies"
+    raw_format: "mmCIF, diffraction images"
     resolution_class: atomic
     observables: [structure, resolution]
     description: Electron diffraction from nanocrystals.
@@ -36,6 +69,9 @@ techniques:
     category: structure
     basis: observed
     prediction: false
+    tier: 1
+    raw_location: "PDB (structure factors)"
+    raw_format: "mmCIF"
     resolution_class: atomic
     observables: [structure, resolution]
     description: Neutron diffraction from crystals; sensitive to hydrogen and deuterium positions.
@@ -46,6 +82,9 @@ techniques:
     category: solution_ensemble
     basis: observed
     prediction: false
+    tier: 1
+    raw_location: "BMRB (restraints); PDB"
+    raw_format: "NMR-STAR, mmCIF"
     resolution_class: residue
     observables: [structure, restraint_count]
     description: Ensemble of structures calculated from NOE, RDC and other restraints. Each member is a model consistent with restraints.
@@ -54,14 +93,20 @@ techniques:
     category: solution_ensemble
     basis: inferred
     prediction: false
+    tier: 1
+    raw_location: "BMRB; BMRbig for raw FIDs"
+    raw_format: "NMR-STAR, FIDs"
     resolution_class: residue
-    observables: [relaxation_rate, exchange_rate, chemical_shift_difference, population, protection_factor, disorder_region]
-    description: Relaxation (R1, R2, NOE) and relaxation dispersion (CPMG, R1rho) report on exchange between states and their populations and rates.
+    observables: [relaxation_rate, exchange_rate, chemical_shift_difference, population, protection_factor, residual_dipolar_coupling, paramagnetic_relaxation_enhancement, disorder_region]
+    description: Relaxation (R1, R2, NOE), relaxation dispersion (CPMG, R1rho), RDCs and PREs report on exchange between states and their populations and rates.
   - id: nmr_shifts
     name: NMR chemical shift assignment
     category: solution_ensemble
     basis: inferred
     prediction: false
+    tier: 1
+    raw_location: "BMRB"
+    raw_format: "NMR-STAR"
     resolution_class: residue
     observables: [chemical_shift, secondary_structure_propensity, disorder_region]
     description: Assigned chemical shifts. Report on secondary structure, folding and disorder per residue; states are inferred from them.
@@ -70,14 +115,31 @@ techniques:
     category: solution_ensemble
     basis: inferred
     prediction: false
+    tier: 1
+    raw_location: "SASBDB"
+    raw_format: "scattering curves"
     resolution_class: global
     observables: [radius_of_gyration, distance_distribution, shape_parameter, disorder_region, structure]
     description: Small-angle scattering profiles. Models are fitted to the scattering curve and are not unique.
+  - id: ped_ensemble
+    name: Disordered-protein ensemble
+    category: solution_ensemble
+    basis: inferred
+    prediction: false
+    tier: 1
+    raw_location: "PED"
+    raw_format: "ensembles (PDB/mmCIF)"
+    resolution_class: residue
+    observables: [structure, radius_of_gyration, disorder_region, population]
+    description: Ensembles of IDPs and IDRs fitted to NMR, SAXS and other restraints (PED). Members are models consistent with the data, not resolved structures.
   - id: epr_deer
     name: EPR / DEER
     category: solution_ensemble
     basis: inferred
     prediction: false
+    tier: 2
+    raw_location: "No repository; sometimes Zenodo / Figshare"
+    raw_format: "time-domain traces"
     resolution_class: residue
     observables: [distance, distance_distribution, disorder_region]
     description: Spin-label distance distributions between labelled residues.
@@ -86,6 +148,9 @@ techniques:
     category: solution_ensemble
     basis: inferred
     prediction: false
+    tier: 1
+    raw_location: "PCDDB"
+    raw_format: "spectra"
     resolution_class: global
     observables: [secondary_structure_fraction, cd_signal, melting_temperature, disorder_region]
     description: Far-UV and near-UV CD. Secondary-structure fractions depend on the deconvolution method.
@@ -94,6 +159,9 @@ techniques:
     category: solution_ensemble
     basis: inferred
     prediction: false
+    tier: 3
+    raw_location: "Paper only"
+    raw_format: "reported values"
     resolution_class: global
     observables: [secondary_structure_fraction, band_shift, disorder_region]
     description: Vibrational spectroscopy of backbone amide bands and side chains.
@@ -102,6 +170,9 @@ techniques:
     category: solution_ensemble
     basis: inferred
     prediction: false
+    tier: 3
+    raw_location: "Paper only"
+    raw_format: "reported values"
     resolution_class: global
     observables: [emission_shift, lifetime, anisotropy, quenching_constant, disorder_region]
     description: Intrinsic or extrinsic fluorescence, lifetimes and anisotropy.
@@ -110,6 +181,9 @@ techniques:
     category: solution_ensemble
     basis: inferred
     prediction: false
+    tier: 3
+    raw_location: "Paper only"
+    raw_format: "reported values"
     resolution_class: residue
     observables: [fret_efficiency, distance, disorder_region]
     description: Bulk FRET efficiency between donor and acceptor labels.
@@ -120,6 +194,9 @@ techniques:
     category: single_molecule
     basis: inferred
     prediction: false
+    tier: 2
+    raw_location: "Zenodo / Figshare, unindexed (DataCite)"
+    raw_format: "Photon-HDF5 timestamps; TIRF intensity traces"
     resolution_class: single_molecule
     observables: [fret_efficiency, population, transition_rate, dwell_time, disorder_region]
     description: FRET efficiency histograms and dwell times from individual molecules.
@@ -128,6 +205,9 @@ techniques:
     category: single_molecule
     basis: inferred
     prediction: false
+    tier: 2
+    raw_location: "Linked from SMASH-BIO"
+    raw_format: "TraceSet sidecar over HDF5 / TDMS"
     resolution_class: single_molecule
     observables: [unfolding_force, rupture_force, unfolding_rate, contour_length_increment, free_energy_difference, refolding_force, unbinding_force, adhesion_force, contour_length, persistence_length, folding_free_energy, distance_to_transition_state, folding_rate, rate_constant_zero_force, step_size, stall_force, velocity, dwell_time, bond_lifetime, loading_rate, elastic_modulus, molecular_stiffness, equilibrium_force, overstretching_force, torque, study_record]
     description: Optical or magnetic tweezers and AFM-based single-molecule force spectroscopy, including SMASH-BIO records.
@@ -136,6 +216,9 @@ techniques:
     category: single_molecule
     basis: inferred
     prediction: false
+    tier: 2
+    raw_location: "BioImage Archive, scattered"
+    raw_format: "image stacks"
     resolution_class: single_molecule
     observables: [shape_parameter, population, dwell_time]
     description: Time-resolved topographic imaging of surface-bound molecules.
@@ -144,6 +227,9 @@ techniques:
     category: single_molecule
     basis: inferred
     prediction: false
+    tier: 2
+    raw_location: "Scattered (DataCite)"
+    raw_format: "current traces"
     resolution_class: single_molecule
     observables: [current_blockade, dwell_time, population]
     description: Current blockade signatures from molecules translocating or trapped in a pore.
@@ -152,6 +238,9 @@ techniques:
     category: single_molecule
     basis: inferred
     prediction: false
+    tier: 3
+    raw_location: "Paper only"
+    raw_format: "reported values"
     resolution_class: single_molecule
     observables: [mass, population, dwell_time]
     description: Label-free interferometric imaging of single molecules and complexes.
@@ -160,6 +249,9 @@ techniques:
     category: single_molecule
     basis: inferred
     prediction: false
+    tier: 3
+    raw_location: "Paper only"
+    raw_format: "reported values"
     resolution_class: single_molecule
     observables: [mass, population]
     description: Single-molecule mass distributions from interferometric contrast.
@@ -170,6 +262,9 @@ techniques:
     category: mass_spectrometry
     basis: inferred
     prediction: false
+    tier: 2
+    raw_location: "PRIDE (community format, low uptake)"
+    raw_format: "uptake tables + raw MS"
     resolution_class: residue
     observables: [exchange_rate, protection_factor, deuterium_uptake, disorder_region]
     description: Deuterium uptake by peptide and residue region. Protection is interpreted through a structural model.
@@ -178,6 +273,9 @@ techniques:
     category: mass_spectrometry
     basis: inferred
     prediction: false
+    tier: 2
+    raw_location: "PRIDE / jPOST"
+    raw_format: "mzIdentML + raw"
     resolution_class: residue
     observables: [crosslink_distance]
     description: Distance restraints from chemical crosslinks identified by MS.
@@ -186,6 +284,9 @@ techniques:
     category: mass_spectrometry
     basis: inferred
     prediction: false
+    tier: 3
+    raw_location: "Paper only"
+    raw_format: "reported values"
     resolution_class: global
     observables: [collision_cross_section, population, mass, disorder_region]
     description: Gas-phase conformers and their collision cross sections. Gas-phase conformations may differ from solution.
@@ -194,6 +295,9 @@ techniques:
     category: mass_spectrometry
     basis: inferred
     prediction: false
+    tier: 3
+    raw_location: "PRIDE (LiP-MS deposits may move it to Tier 2)"
+    raw_format: "reported values"
     resolution_class: domain
     observables: [protease_susceptibility, population, disorder_region]
     description: Cleavage patterns that report on accessible regions. Read-out is by gel or MS.
@@ -202,6 +306,9 @@ techniques:
     category: mass_spectrometry
     basis: inferred
     prediction: false
+    tier: 3
+    raw_location: "Paper only"
+    raw_format: "reported values"
     resolution_class: residue
     observables: [labelling_rate, protection_factor]
     description: Hydroxyl radical, SAP or other covalent labelling of solvent-accessible residues.
@@ -212,6 +319,9 @@ techniques:
     category: stability
     basis: inferred
     prediction: false
+    tier: 3
+    raw_location: "ProThermDB"
+    raw_format: "reported values"
     resolution_class: global
     observables: [delta_g, melting_temperature, m_value]
     description: Equilibrium unfolding monitored by any probe. Two-state fits are assumed unless stated.
@@ -220,6 +330,9 @@ techniques:
     category: stability
     basis: inferred
     prediction: false
+    tier: 3
+    raw_location: "ProThermDB"
+    raw_format: "reported values"
     resolution_class: global
     observables: [melting_temperature, enthalpy, heat_capacity_change]
     description: Heat capacity profiles of thermal unfolding.
@@ -228,6 +341,9 @@ techniques:
     category: stability
     basis: inferred
     prediction: false
+    tier: 3
+    raw_location: "Paper only"
+    raw_format: "reported values"
     resolution_class: global
     observables: [sedimentation_coefficient, population, disorder_region]
     description: Sedimentation velocity and equilibrium; reports on oligomeric state and shape.
@@ -236,6 +352,9 @@ techniques:
     category: stability
     basis: inferred
     prediction: false
+    tier: 3
+    raw_location: "Paper only"
+    raw_format: "reported values"
     resolution_class: global
     observables: [hydrodynamic_radius, population, disorder_region]
     description: Hydrodynamic radius distributions.
@@ -245,6 +364,9 @@ techniques:
     category: stability
     basis: inferred
     prediction: false
+    tier: 3
+    raw_location: "Paper only"
+    raw_format: "reported values"
     resolution_class: global
     observables: [gel_mobility, disorder_region]
     description: SDS-PAGE or native PAGE mobility. Anomalous mobility is used as indirect evidence of disorder.
@@ -253,6 +375,9 @@ techniques:
     category: stability
     basis: inferred
     prediction: false
+    tier: 3
+    raw_location: "Paper only"
+    raw_format: "reported values"
     resolution_class: global
     observables: [hydrodynamic_radius, disorder_region]
     description: Elution volume against standards gives an apparent size; expanded disordered chains elute early.
@@ -263,6 +388,9 @@ techniques:
     category: in_cell
     basis: inferred
     prediction: false
+    tier: 3
+    raw_location: "Paper only"
+    raw_format: "reported values"
     resolution_class: residue
     observables: [chemical_shift_difference, population]
     description: NMR inside living cells.
@@ -271,6 +399,9 @@ techniques:
     category: in_cell
     basis: inferred
     prediction: false
+    tier: 3
+    raw_location: "Paper only"
+    raw_format: "reported values"
     resolution_class: residue
     observables: [fret_efficiency, lifetime]
     description: Fluorescence lifetime imaging of FRET in cells.
@@ -279,6 +410,9 @@ techniques:
     category: in_cell
     basis: inferred
     prediction: false
+    tier: 3
+    raw_location: "PRIDE"
+    raw_format: "mzIdentML + raw"
     resolution_class: domain
     observables: [protease_susceptibility]
     description: Limited proteolysis of proteins in lysate or intact cells.
@@ -289,6 +423,9 @@ techniques:
     category: computational
     basis: inferred
     prediction: false
+    tier: 1
+    raw_location: "PDB-IHM"
+    raw_format: "mmCIF/IHM"
     resolution_class: atomic
     observables: [structure]
     description: Models built by combining several kinds of experimental restraints (PDB-IHM). Experiment-driven, but the structure is fitted, not resolved.
@@ -297,6 +434,9 @@ techniques:
     category: computational
     basis: inferred
     prediction: true
+    tier: null
+    raw_location: "AlphaFold DB"
+    raw_format: "mmCIF, PAE JSON"
     resolution_class: atomic
     observables: [structure, plddt]
     description: Single predicted structure from AlphaFold DB, with per-residue confidence (pLDDT). A prediction, not a measurement.
@@ -305,6 +445,9 @@ techniques:
     category: computational
     basis: inferred
     prediction: true
+    tier: 1
+    raw_location: "MDDB/MDposit, ATLAS, GPCRmd"
+    raw_format: "trajectories"
     resolution_class: atomic
     observables: [rmsd, population, free_energy_difference, transition_rate, disorder_region, trajectory]
     description: Simulation trajectories. Sampling and force-field choices are assumptions.
@@ -313,6 +456,9 @@ techniques:
     category: computational
     basis: inferred
     prediction: true
+    tier: 1
+    raw_location: "MDDB/MDposit"
+    raw_format: "trajectories"
     resolution_class: global
     observables: [population, transition_rate]
     description: Kinetic models built from simulation data.
@@ -321,6 +467,9 @@ techniques:
     category: computational
     basis: inferred
     prediction: true
+    tier: null
+    raw_location: "Paper / DataCite"
+    raw_format: "mmCIF"
     resolution_class: atomic
     observables: [population, structure]
     description: Ensembles generated from AlphaFold-style predictors. Predictions, not measurements.
