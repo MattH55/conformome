@@ -79,6 +79,7 @@ Licences, and which sources may be redistributed, are in `docs/SOURCES.md`; the 
 - `data/raw` is cached per ISO week, keyed on `targets.yaml` and the curation files: pushes within a week reuse it, and each new week refetches everything.
 - Deploys queue instead of cancelling, so a long build can save its cache.
 - `.github/workflows/ci.yml` runs the same validation on pull requests.
+- `.github/workflows/build-all.yml` runs the full download and build for every molecule on pushes to `claude/**` branches (and on demand) without publishing. It uploads `site/dist`, `build-summary.md` (one row per molecule, from `python -m conformome.summary`), the manifest and any download failures as the `conformome-site` artifact (kept 14 days). `build/` is not uploaded because it holds records whose licence forbids redistribution.
 - Pages must stay on **Source: GitHub Actions**. On "Deploy from a branch", GitHub publishes the README instead of the site.
 - The root `CNAME` file was created by GitHub when the custom domain was set; `site/dist/CNAME` is written by the build.
 - Links to repository files use `blob/HEAD`, because there is no `main` branch. If the default branch is renamed, nothing else needs to change.

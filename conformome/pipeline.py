@@ -74,7 +74,11 @@ def molecule_record(paths: Paths, acc: str) -> dict:
     raw = module.load_raw(paths, acc)
     if raw is None:
         raise FileNotFoundError(f"{acc}: no {IDENTITY_NAME[mtype]} download; run make download")
-    return module.parse(raw, acc)
+    record = module.parse(raw, acc)
+    if mtype == "rna" and target_entry(paths, acc).get("name"):
+        # RNAcentral descriptions name the PDB chain ("... from None (PDB 3FU2, chain A)"); targets.yaml names the RNA.
+        record["name"] = target_entry(paths, acc)["name"]
+    return record
 
 
 def _representatives(paths: Paths, accessions: list[str]) -> list[str]:
