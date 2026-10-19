@@ -40,7 +40,7 @@ Raw downloads go to `data/raw/` (git-ignored, with an HTTP cache in `data/raw/_c
 | Step | Code | Output |
 |---|---|---|
 | download | `conformome/pipeline.py: download`, one module per source in `conformome/sources/` | `data/raw/<source>/<acc>.json` |
-| ingest | `pipeline.ingest`; each source's `parse()` | `build/<acc>/evidence.json`, `ingest.json` (what was skipped and why), `protein.json` |
+| ingest | `pipeline.ingest`; each source's `parse()` | `build/<acc>/evidence.json`, `ingest.json` (what was skipped and why), `molecule.json` |
 | map | `pipeline.map_protein`, `mapping/rules.py`, `mapping/conflicts.py` | `build/<acc>/mapped.json` (states, mappings, ambiguous items, conflicts, coverage grid) |
 | models | `pipeline.models` | representative PDB/mmCIF files for observed states |
 | site | `conformome/site/build.py` | `site/dist/`: home, `proteins/`, `protein/<acc>/`, `technique/<id>/`, `search/`, `about/`, `downloads/` |
@@ -88,7 +88,7 @@ Licences, and which sources may be redistributed, are in `docs/SOURCES.md`; the 
 1. **False conflicts**: 33 of the 52 flagged conflicts (alpha-synuclein, SASBDB) compare K-to-R mutants at different salt. SASBDB summaries record neither the mutation nor the salt separately.
 2. **Paralogs**: CALM2 and CALM3 entries (identical sequence to CALM1) are not on the calmodulin page.
 3. **Empty inferred states**: 5 inferred states have no evidence (unfolded BPTI, CI2, spectrin SH3, Pin1; cyclophilin A minor state).
-4. **Unmapped fibrils**: hen lysozyme amyloid-fibril cryo-EM entries are unmapped; its curation has no fibril state.
+4. ~~Unmapped fibrils~~ Fixed: hen lysozyme now has an observed `HEWL-fibril` state (representative 9J0L; polymorphs 9J0L/9J0M/8QV8 pooled, rule `hewl-fibril-structures`, medium confidence). Draft, unreviewed; whether polymorphs deserve separate states is a curator call.
 5. **Skipped entries**: 14 powder-diffraction entries are skipped (could count as `xray`).
 6. **RMSD rule**: implemented and tested, not run (it needs coordinates for about 17,000 entities).
 7. **Missing content**: no transitions, no fitted models for inferred states, isoforms only partly handled.
@@ -103,10 +103,37 @@ Licences, and which sources may be redistributed, are in `docs/SOURCES.md`; the 
 6. The project licence for code and curation (none chosen).
 7. Zenodo archiving at the first tagged release.
 
+## Taxonomy additions (2026-10-19, from the build brief)
+
+- New techniques: `xray_time_resolved`, `cryoem_heterogeneity`, `ped_ensemble`. NMR dynamics also lists RDC and PRE observables. No source emits the new ids yet (PDB maps still use `xray` / `cryoem`; PED is a stub).
+- Every technique now has `tier` (1, 2, 3, or null for predictions), `raw_location` and `raw_format`; the validator requires them.
+- `schema/evidence.schema.json` now **requires** `data_level` (raw | processed | reported); `data_format` and `reader` are optional. Set per source: PDB, BMRB, SASBDB, AlphaFold DB and MDDB = `processed` (no source links raw images, FIDs or traces yet); DisProt and SMASH-BIO = `reported`. Raw-data pointers (EMPIAR, SBGrid, BMRbig, SMASH-BIO trace links) and `reader` sidecars are not populated.
+- The coverage grid shows the best data level per cell (`coverage.data_levels` in `mapped.json`).
+- Nucleic-acid techniques added (from the second brief): `shape`, `dms_mapseq`, `duplex_crosslinking`, `mutate_and_map`, `na_footprinting`, `uv_melting`, `native_gel_mobility`, and predictions `na_secondary_prediction`, `na_3d_prediction`. No source ingests them yet.
+
+## Molecule schema (2026-10-19)
+
+- Records are keyed on `molecule_id` (was `uniprot`) in every schema. Patterns: UniProt (isoform suffix allowed), RNAcentral `URS…`, `DNA-<12 hex of SHA-256 of sequence>` (`conformome/molecule.py: dna_id`), `CPX-…` for complexes. For proteins the ID is unchanged, so URLs and curation file names are unchanged.
+- `schema/protein.schema.json` is replaced by `molecule.schema.json` (`molecule_type`, `identifiers` for UniProt/isoform/RNAcentral/Rfam/GenBank/NAKB/PDB, `modifications` (UniProt "Modified residue" features fill it for proteins), `components` for complexes). The build file is `build/<id>/molecule.json` and the all-records download uses `record_type: molecule`.
+- New: `mutational_effect.schema.json`, `state_vocabulary.schema.json` and six vocabularies in `taxonomy/state_vocabularies/` (DOIs checked against Crossref). States gain `secondary_structure`, `family_label`, `population`; evidence gains `profile`; transitions gain `kinetics` (Φ-values as a profile); models accept `dot-bracket`; conditions gain required `ions`; mappings gain optional `agreement` (score + method, for profile-vs-dot-bracket mapping).
+- Applied: GPCRdb labels on β2AR states, KLIFS labels on three Abl states (draft, unreviewed).
+- Not done: complexes (`ingest` raises NotImplementedError), probing sources (RMDB, RASP) and for mutational effects and kinetics (ProThermDB, mega-scale dataset, MaveDB, ClinVar, PFDB), profile-to-dot-bracket mapping, the six nucleic-acid pilot molecules, and site pages for non-protein molecules.
+
+## Nucleic-acid sources (2026-10-19)
+
+- `conformome/rnacentral.py` builds RNA molecule records (like `protein.py` for UniProt). RNA pages are keyed on the species-specific `URS…_<taxid>`.
+- `conformome/dna.py` builds DNA records from the `anchor_pdb` given in `targets.yaml`; the anchor's DNA chain is the sequence, and the target's `molecule_id` must equal `dna_id(sequence)`.
+- `sources/nakb.py` (RNA and DNA): NAKB's Solr index (`/node/solr/nakb/select`, linked from its download page; there is no documented API). It matches chains of exactly the molecule's sequence (`naseq`) and, for RNA, other constructs Rfam assigns to the same family in the same organism. That second rule pulls in mutants and redesigned constructs, and could merge paralogs in one organism; each item says which rule matched. Synthetic-construct RNA entries (taxon 32630) with a different sequence are missed. NMR entries are not found if their taxon is synthetic.
+- `sources/rfam.py` (RNA): one `rfam_covariation` item per family hit, flagged as a prediction. The family consensus (`SS_cons`) is kept in the raw file but not projected onto the sequence (needs Infernal `cmalign`).
+- Sources declare `MOLECULE_TYPES`; protein sources default to proteins only, so PDB, BMRB, SASBDB and the rest are not queried for RNA or DNA yet. RNA in BMRB and SASBDB is therefore missing.
+- `targets.yaml` batch `nucleic-acid-1`: add adenine riboswitch aptamer (`URS000080DF85_672`, 12 structures + 1 Rfam hit) and the human telomeric G-quadruplex (`DNA-6f16b68e4fba`, anchor 143D, 14 structures). Both evidence-only (no curation yet).
+- Draft curation `curation/URS000080DF85_672.yaml` (add riboswitch): ligand-free (5E54), ligand-bound intermediate (5SWD) and adenine-bound (1Y26) states, all observed, with riboswitch vocabulary labels on the apo and bound states. The bound state carries its dot-bracket, built from FR3D canonical pairs of 1Y26 (BGSU RNA 3D Hub) and checked by the validator. 10 of 13 items mapped (7 curator, 3 by rule); 6VWT/6VWV (crystal phase-transition snapshots) and the Rfam hit are left unmapped. No expression-platform states: the construct is aptamer only. Every state rests on X-ray alone; NMR (BMRB), smFRET, force and SHAPE data for this riboswitch are not ingested yet.
+- Pages for RNA and DNA still live under `protein/<id>/`; the header line is worded per molecule type.
+
 ## Good next steps
 
+
 - Write curation files for the 51 evidence-only proteins, starting with those with the most techniques (spike, p53, APP, Hsp90-alpha, histone H3.1).
-- Add a fibril state for hen lysozyme.
 - Recover salt and mutations from SASBDB entry descriptions.
 - Add literature extraction behind human review, for denaturation, relaxation dispersion, smFRET and HDX.
 - Parse PDB-IHM restraint tables.

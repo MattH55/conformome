@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://conformome.org/schema/state_vocabulary.schema.json",
+  "title": "State vocabulary",
+  "description": "A family's established conformational nomenclature (taxonomy/state_vocabularies/<id>.yaml). States of family members take these terms through family_label.",
+  "type": "object",
+  "required": [
+    "id",
+    "name",
+    "applies_to",
+    "source",
+    "axes"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "applies_to": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Which molecules the vocabulary is for, in words (and the family database that annotates them, if any)."
+    },
+    "source": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "citation"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "citation": {
+            "type": "string",
+            "minLength": 1
+          },
+          "doi": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          }
+        }
+      }
+    },
+    "axes": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Independent descriptors; a state takes one term per axis it is labelled on (a kinase is DFG-in and alphaC-out).",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "terms"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "terms": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "name",
+                "definition"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "pattern": "^[a-z0-9_]+$"
+                },
+                "name": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "definition": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

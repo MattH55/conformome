@@ -83,7 +83,7 @@ def parse(raw: dict, accession: str, retrieved: str) -> list[dict]:
                                    + (f" Dmax {dmax:g} nm." if dmax is not None else "")),
             obs_type="radius_of_gyration",
             value=rg, unit="nm", uncertainty=err,
-            data_link=PAGE_URL.format(s["code"]),
+            data_link=PAGE_URL.format(s["code"]), data_level="processed", data_format="scattering curve",
             source=NAME, doi=pub.get("doi"), deposit_id=s["code"], retrieved=retrieved,
             url=PAGE_URL.format(s["code"]), licence=LICENCE,
         ))

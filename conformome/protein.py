@@ -1,4 +1,4 @@
-"""UniProt: protein records (name, organism, sequence, domains, ligands).
+"""UniProt: molecule records for proteins (name, organism, sequence, domains, ligands).
 
 Raw file: data/raw/uniprot/<accession>.json (the UniProtKB entry, JSON).
 Only the canonical isoform is recorded in this version; the schema allows an isoform field.
@@ -33,24 +33,31 @@ def parse(raw: dict, accession: str) -> dict:
     gene = genes[0]["geneName"]["value"] if genes and "geneName" in genes[0] else None
     organism = entry["organism"]
     sequence = entry["sequence"]["value"]
-    domains, ligands = [], set()
+    domains, ligands, modifications = [], set(), []
     for feature in entry.get("features") or []:
         if feature.get("type") == "Domain":
             loc = feature["location"]
             domains.append({"name": feature.get("description", "domain"),
                             "start": loc["start"]["value"], "end": loc["end"]["value"]})
+        if feature.get("type") == "Modified residue" and feature["location"]["start"].get("value"):
+            modifications.append({"position": feature["location"]["start"]["value"], "kind": "ptm",
+                                  "name": feature.get("description") or "modified residue", "source": NAME})
         if "ligand" in feature:
             ligands.add(feature["ligand"]["name"])
     return {
-        "uniprot": accession,
-        "isoform": None,
+        "molecule_id": accession,
+        "molecule_type": "protein",
+        "identifiers": {"uniprot": accession.split("-")[0], "isoform": accession if "-" in accession else None,
+                        "rnacentral": None, "rfam": None, "genbank": None, "nakb": None, "pdb": []},
         "name": name or accession,
         "gene": gene,
         "organism": {"name": organism["scientificName"], "taxon_id": organism["taxonId"]},
         "sequence_length": len(sequence),
         "sequence": sequence,
+        "modifications": modifications,
         "domains": domains,
         "ligands": sorted(ligands),
+        "components": [],
         "provenance": {
             "source": NAME,
             "doi": None,
@@ -66,5 +73,5 @@ def load_raw(paths, accession: str) -> dict:
     return read_json(paths.raw / f"uniprot/{accession}.json")
 
 
-def write_protein(paths, accession: str, record: dict) -> None:
-    write_json(paths.build / accession / "protein.json", record)
+def write_molecule(paths, accession: str, record: dict) -> None:
+    write_json(paths.build / accession / "molecule.json", record)

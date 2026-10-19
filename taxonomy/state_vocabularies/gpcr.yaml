@@ -1,0 +1,15 @@
+# GPCR activation states, as annotated per structure by GPCRdb.
+id: gpcr
+name: G protein-coupled receptors
+applies_to: Class A, B, C and F GPCRs. GPCRdb annotates the activation state of every GPCR structure.
+source:
+  - citation: "Pándy-Szekeres G et al. (2023) GPCRdb in 2023: state-specific structure models using AlphaFold2 and new ligand resources. Nucleic Acids Res 51:D395-D402."
+    doi: 10.1093/nar/gkac1013
+    url: https://gpcrdb.org
+axes:
+  - id: activation
+    name: Activation state
+    terms:
+      - {id: inactive, name: inactive, definition: "Transmembrane helix 6 packed inward; the intracellular cavity is closed to G protein."}
+      - {id: intermediate, name: intermediate, definition: "Partial outward movement of TM6, between the inactive and active arrangements."}
+      - {id: active, name: active, definition: "TM6 swung outward, opening the intracellular cavity for G protein or arrestin."}

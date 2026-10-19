@@ -18,6 +18,11 @@ states:
     assumptions:
       - Treated as a single ensemble; residual structure and intermediates are not resolved.
       - Defined by indirect measurements (denaturation, NMR of denatured samples, force spectroscopy); no model is exported.
+  - id: HEWL-fibril
+    name: amyloid fibril
+    basis: observed
+    representative_pdb: "9J0L"
+    description: Cross-beta amyloid fibril of hen lysozyme, as in 9J0L (type 1 fibril, cryo-EM, 2.29 Å). Types 1 and 2 (9J0M) and the heat-irreversible fibril (8QV8) are polymorphs and are pooled in this one state.
 assignments:
   - pdb: "193L"
     state: HEWL-native
@@ -72,4 +77,11 @@ rules:
     match:
       sources: [SMASH-BIO]
       title_any: ["experiment class: unfolding_protein", "unfolding_protein"]
+  - id: hewl-fibril-structures
+    state: HEWL-fibril
+    confidence: medium
+    justification: "Structure titled as an amyloid fibril; a fibril entry shows the cross-beta fibril fold, not the native fold. Polymorphs are pooled."
+    match:
+      techniques: [cryoem, xray, nmr_structure, microed]
+      title_any: ["fibril", "amyloid"]
 transitions: []

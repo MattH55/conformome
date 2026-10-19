@@ -37,6 +37,17 @@ METHOD_TECHNIQUE = {
     "SOLUTION SCATTERING": "saxs_sans",
 }
 
+# Deposited format per technique (what the entry page links to).
+DATA_FORMAT = {
+    "xray": "mmCIF + structure factors",
+    "cryoem": "mmCIF + EMDB map",
+    "microed": "mmCIF",
+    "neutron": "mmCIF + structure factors",
+    "nmr_structure": "mmCIF + NMR restraints",
+    "integrative": "mmCIF/IHM",
+    "saxs_sans": "mmCIF",
+}
+
 GRAPHQL_QUERY = """
 query($ids: [String!]!) {
   entries(entry_ids: $ids) {
@@ -188,7 +199,7 @@ def parse(raw: dict, accession: str, retrieved: str) -> list[dict]:
             chains = ",".join(ident.get("auth_asym_ids") or [])
             records.append({
                 "evidence_id": f"EV-PDB-{pdb_id}-{entity}",
-                "uniprot": accession,
+                "molecule_id": accession,
                 "technique": technique,
                 "source_kind": "deposit",
                 "title": (entry.get("struct") or {}).get("title"),
@@ -199,6 +210,7 @@ def parse(raw: dict, accession: str, retrieved: str) -> list[dict]:
                     "ph": _ph(entry),
                     "buffer": None,
                     "salt_mM": None,
+                    "ions": [],
                     "ligands": ligands,
                     "applied_force_pn": None,
                     "notes": "Entry-level ligand list; oligosaccharides appear as branched entities. pH and temperature are null when not deposited in machine-readable fields.",
@@ -211,6 +223,10 @@ def parse(raw: dict, accession: str, retrieved: str) -> list[dict]:
                 },
                 "mappings": [],
                 "data_link": ENTRY_URL.format(pdb_id),
+                # Coordinates, maps and restraints are deposited; raw images and FIDs are held elsewhere (EMPIAR, SBGrid, BMRbig).
+                "data_level": "processed",
+                "data_format": DATA_FORMAT.get(technique, "mmCIF"),
+                "reader": None,
                 "provenance": {
                     "source": NAME,
                     "doi": doi,

@@ -3,57 +3,367 @@
   "$id": "https://conformome.org/schema/common.schema.json",
   "title": "Shared definitions",
   "$defs": {
-    "uniprot": {
-      "type": "string",
-      "pattern": "^([OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9]([A-Z][A-Z0-9]{2}[0-9]){1,2})$",
-      "description": "UniProtKB accession (primary, without isoform suffix)."
-    },
     "provenance": {
       "type": "object",
       "description": "Where a record came from. Every record carries one.",
-      "required": ["source", "retrieved", "url", "licence"],
+      "required": [
+        "source",
+        "retrieved",
+        "url",
+        "licence"
+      ],
       "additionalProperties": false,
       "properties": {
-        "source": {"type": "string", "minLength": 1},
-        "doi": {"type": ["string", "null"]},
-        "deposit_id": {"type": ["string", "null"], "description": "PDB ID, BMRB ID, SASBDB code, PRIDE accession, DOI-less dataset ID, etc."},
-        "retrieved": {"type": "string", "format": "date"},
-        "url": {"type": "string", "format": "uri"},
-        "licence": {"type": "string", "minLength": 1, "description": "Licence of the source data, as recorded in docs/SOURCES.md."}
+        "source": {
+          "type": "string",
+          "minLength": 1
+        },
+        "doi": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "deposit_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "PDB ID, BMRB ID, SASBDB code, PRIDE accession, DOI-less dataset ID, etc."
+        },
+        "retrieved": {
+          "type": "string",
+          "format": "date"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "licence": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Licence of the source data, as recorded in docs/SOURCES.md."
+        }
       }
     },
     "conditions": {
       "type": "object",
       "description": "Conditions under which the observation or state was measured. Unknown values are null, never omitted.",
-      "required": ["environment", "temperature_c", "ph", "buffer", "salt_mM", "ligands", "applied_force_pn", "notes"],
+      "required": [
+        "environment",
+        "temperature_c",
+        "ph",
+        "buffer",
+        "salt_mM",
+        "ions",
+        "ligands",
+        "applied_force_pn",
+        "notes"
+      ],
       "additionalProperties": false,
       "properties": {
-        "environment": {"enum": ["in_vitro", "in_cell", "in_silico"]},
-        "temperature_c": {"type": ["number", "null"]},
-        "ph": {"type": ["number", "null"]},
-        "buffer": {"type": ["string", "null"]},
-        "salt_mM": {"type": ["number", "null"]},
-        "ligands": {"type": "array", "items": {"type": "string"}},
-        "applied_force_pn": {"type": ["number", "null"]},
-        "notes": {"type": ["string", "null"]}
+        "environment": {
+          "enum": [
+            "in_vitro",
+            "in_cell",
+            "in_silico"
+          ]
+        },
+        "temperature_c": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "ph": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "buffer": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "salt_mM": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "ions": {
+          "type": "array",
+          "description": "Ions with stated concentrations (Mg2+, K+, Na+ for nucleic acids). salt_mM stays the total monovalent salt when only that is given.",
+          "items": {
+            "type": "object",
+            "required": [
+              "ion",
+              "concentration_mM"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "ion": {
+                "type": "string",
+                "minLength": 1,
+                "description": "Written with its charge: Mg2+, K+, Na+, Ca2+."
+              },
+              "concentration_mM": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              }
+            }
+          }
+        },
+        "ligands": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "applied_force_pn": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "notes": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
       }
     },
     "mapping": {
       "type": "object",
       "description": "One link from an evidence item to a state. Who made it, how sure, and why must always be visible.",
-      "required": ["state_id", "who", "confidence", "justification"],
+      "required": [
+        "state_id",
+        "who",
+        "confidence",
+        "justification"
+      ],
       "additionalProperties": false,
       "properties": {
-        "state_id": {"type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"},
-        "who": {"type": "string", "pattern": "^(curator|rule):.+$"},
-        "confidence": {"enum": ["high", "medium", "low"]},
-        "justification": {"type": "string", "minLength": 1},
-        "rule": {"type": ["string", "null"]}
+        "state_id": {
+          "$ref": "#/$defs/state_id"
+        },
+        "who": {
+          "type": "string",
+          "pattern": "^(curator|rule):.+$"
+        },
+        "confidence": {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "justification": {
+          "type": "string",
+          "minLength": 1
+        },
+        "rule": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "agreement": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "description": "For mappings decided by comparing data with a state (a probing profile with a dot-bracket, an smFRET efficiency with an anchor model): the score and the method used.",
+          "required": [
+            "score",
+            "method"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "score": {
+              "type": "number"
+            },
+            "method": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
       }
     },
     "basis": {
-      "enum": ["observed", "inferred"],
+      "enum": [
+        "observed",
+        "inferred"
+      ],
       "description": "observed: directly resolved (X-ray, cryo-EM, NMR structure). inferred: fitted to indirect constraints."
+    },
+    "molecule_id": {
+      "type": "string",
+      "description": "Page key. Protein: UniProtKB accession, with an isoform suffix (P10636-8) when the page is about one isoform. RNA: RNAcentral URS identifier, with a taxon suffix (URS0000000001_9606) when species-specific. DNA without a sequence database entry: DNA- plus the first 12 hex digits of the SHA-256 of the upper-case sequence (see conformome/molecule.py). Complex: a Complex Portal ID (CPX-1234) or CPX- plus a curator-chosen slug.",
+      "oneOf": [
+        {
+          "pattern": "^([OPQ][0-9][A-Z0-9]{3}[0-9]|[A-NR-Z][0-9]([A-Z][A-Z0-9]{2}[0-9]){1,2})(-[0-9]+)?$"
+        },
+        {
+          "pattern": "^URS[0-9A-F]{10}(_[0-9]+)?$"
+        },
+        {
+          "pattern": "^DNA-[0-9a-f]{12}$"
+        },
+        {
+          "pattern": "^CPX-[A-Za-z0-9_-]+$"
+        }
+      ]
+    },
+    "state_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_-]*$"
+    },
+    "measured": {
+      "type": "object",
+      "description": "A measured number with its unit and uncertainty.",
+      "required": [
+        "value",
+        "unit",
+        "uncertainty"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "value": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string",
+          "minLength": 1
+        },
+        "uncertainty": {
+          "type": [
+            "number",
+            "null"
+          ]
+        }
+      }
+    },
+    "profile": {
+      "type": "object",
+      "description": "A per-residue or per-nucleotide series (chemical-probing reactivities, protection factors, Φ-values). values[i] belongs to position start + i; null where not measured. Large profiles may be linked by data_link instead of inlined, with values left empty.",
+      "required": [
+        "kind",
+        "start",
+        "values",
+        "unit",
+        "normalization",
+        "data_link"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]+$",
+          "description": "For example shape_reactivity, dms_reactivity, protection_factor, phi_value."
+        },
+        "start": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Sequence position of values[0] (1-based, in the molecule's own numbering)."
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        },
+        "uncertainties": {
+          "type": "array",
+          "items": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "description": "Same length as values when given."
+        },
+        "unit": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "normalization": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "How values were normalised (for example 2-8% normalisation, box-plot), as the source states it."
+        },
+        "data_link": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "uri"
+        }
+      }
+    },
+    "secondary_structure": {
+      "type": "object",
+      "description": "Base pairing of a nucleic-acid state. Dot-bracket over the full sequence: '.' unpaired, '()' nested pairs, '[]', '{}', '<>' and Aa..Zz (upper opens, lower closes) for pseudoknots. G-quadruplex tetrads use '+' on the guanines that form them.",
+      "required": [
+        "dot_bracket",
+        "source"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "dot_bracket": {
+          "type": "string",
+          "pattern": "^[.()\\[\\]{}<>A-Za-z+]+$"
+        },
+        "start": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Position of the first character, when the state covers part of the molecule. Default 1."
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Where the pairing comes from: an anchor PDB ID, an Rfam consensus, a probing-guided fold (name the method), or a curator."
+        }
+      }
+    },
+    "family_label": {
+      "type": "object",
+      "description": "A state name from a family vocabulary in taxonomy/state_vocabularies/, so that a term means the same thing across homologs. terms gives one term per axis the state is labelled on, for example {dfg: dfg_in, alpha_c: alpha_c_out}.",
+      "required": [
+        "vocabulary",
+        "terms"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "vocabulary": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]+$"
+        },
+        "terms": {
+          "type": "object",
+          "minProperties": 1,
+          "propertyNames": {
+            "pattern": "^[a-z0-9_]+$"
+          },
+          "additionalProperties": {
+            "type": "string",
+            "pattern": "^[a-z0-9_]+$"
+          }
+        }
+      }
     }
   }
 }

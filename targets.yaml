@@ -1,8 +1,11 @@
-# Proteins Conformome builds. A protein listed here gets a page from its evidence alone;
-# states and mappings come from curation/<UniProt>.yaml when a curator writes one.
+# Molecules Conformome builds. A molecule listed here gets a page from its evidence alone;
+# states and mappings come from curation/<molecule ID>.yaml when a curator writes one.
+# Proteins are named by uniprot; RNA and DNA by molecule_id (RNAcentral URS..._<taxid>, or DNA-<hash>
+# with the anchor_pdb entry whose DNA chain defines the sequence).
 # Batches record why each protein was added.
 #   pilot-1: the brief's ten pilot proteins
 #   pilot-2: twenty well-studied conformational systems, chosen by hand
+#   nucleic-acid-1: first nucleic-acid pilot molecules, to test the RNAcentral, Rfam and NAKB sources
 #   multi-source-1: at least one PDB structure, one BMRB deposit and one SMASH-BIO record, with 8 or more
 #                   BMRB deposits or SMASH-BIO records (selected 2026-10-19 from the BMRB UniProt mapping
 #                   and the SMASH-BIO release)
@@ -91,3 +94,5 @@ targets:
   - {uniprot: Q99ZW2, batch: multi-source-1, name: "CRISPR-associated endonuclease Cas9/Csn1 (Streptococcus pyogenes serotype M1)"}
   - {uniprot: Q9BYF1, batch: multi-source-1, name: "Angiotensin-converting enzyme 2 (Homo sapiens)"}
   - {uniprot: Q9UM54, batch: multi-source-1, name: "Unconventional myosin-VI (Homo sapiens)"}
+  - {molecule_id: URS000080DF85_672, batch: nucleic-acid-1, name: "add adenine riboswitch aptamer (Vibrio vulnificus)"}
+  - {molecule_id: DNA-6f16b68e4fba, batch: nucleic-acid-1, name: "Human telomeric G-quadruplex d[AG3(T2AG3)3]", anchor_pdb: "143D", organism: {name: Homo sapiens, taxon_id: 9606}}

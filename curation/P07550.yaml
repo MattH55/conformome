@@ -10,11 +10,13 @@ states:
     basis: observed
     representative_pdb: "2RH1"
     description: Inactive receptor bound to the inverse agonist carazolol, as in 2RH1 (T4 lysozyme fusion).
+    family_label: {vocabulary: gpcr, terms: {activation: inactive}}
   - id: B2AR-active
     name: active (Gs-coupled)
     basis: observed
     representative_pdb: "3SN6"
     description: Agonist-bound receptor in complex with Gs, as in 3SN6.
+    family_label: {vocabulary: gpcr, terms: {activation: active}}
 assignments:
   - {pdb: "2RH1", state: B2AR-inactive, confidence: high, justification: "Carazolol (CAU) bound receptor-T4L fusion."}
   - {pdb: "3SN6", state: B2AR-active, confidence: high, justification: "Receptor-Gs complex."}

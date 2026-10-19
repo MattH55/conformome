@@ -1,0 +1,57 @@
+{
+ "accession": "URS000080DF85_672",
+ "families": {
+  "RF00167": {
+   "consensus": {
+    "RF": "aaaaaaaaaaaaaaauuccc.u.CgUAUAAucccgggAAUAUGG.cccggga.GUUUCUACCaggcaaCC..GUAAAuugccu...GACUAcG.agggaauuuuuuuuuuuu.",
+    "SS_cons": ":::::::::::::::::(((.(.((((,,,<<<<<<<_______.>>>>>>>.,,,,,,,,<<<<<<<__.._____>>>>>>...>,,)))).))))::::::::::::::."
+   },
+   "family": {
+    "acc": "RF00167",
+    "clan": {
+     "acc": "CL00123",
+     "id": "Purine_riboswitch"
+    },
+    "cm": {
+     "build_command": "cmbuild -F CM SEED",
+     "calibrate_command": "cmcalibrate --mpi CM",
+     "cutoffs": {
+      "gathering": 37.0,
+      "noise": 36.9,
+      "trusted": 37.0
+     },
+     "search_command": "cmsearch --cpu 4 --verbose --nohmmonly -T 30.00 -Z 2958934 CM SEQDB"
+    },
+    "comment": "Riboswitches are metabolite binding domains within certain messenger RNAs that serve as precision sensors for their corresponding targets. Allosteric rearrangement of mRNA structure is mediated by lig",
+    "curation": {
+     "author": "Boese B, Barrick JE, Breaker RR",
+     "num_full": 4097,
+     "num_seed": 133,
+     "num_species": 1411,
+     "seed_source": "Boese B, Barrick JE",
+     "structure_source": "Published; PMID:12787499",
+     "type": "Cis-reg; riboswitch;"
+    },
+    "description": "Purine riboswitch aptamer",
+    "id": "Purine",
+    "release": {
+     "date": "2026-01-16",
+     "number": "15.1"
+    }
+   }
+  }
+ },
+ "hits": [
+  {
+   "completeness": 0.9436619718309859,
+   "end": 69,
+   "long_name": "Purine riboswitch aptamer",
+   "rfam": "RF00167",
+   "short_name": "Purine",
+   "start": 2
+  }
+ ],
+ "length": 71,
+ "retrieved": "2026-10-19",
+ "url": "https://rfam.org"
+}

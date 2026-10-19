@@ -1,0 +1,15 @@
+# G-quadruplex topologies, by strand orientation.
+id: g_quadruplex
+name: G-quadruplexes
+applies_to: Intramolecular and intermolecular G-quadruplexes of DNA and RNA.
+source:
+  - citation: "Burge S, Parkinson GN, Hazel P, Todd AK, Neidle S (2006) Quadruplex DNA: sequence, topology and structure. Nucleic Acids Res 34:5402-5415."
+    doi: 10.1093/nar/gkl655
+    url: null
+axes:
+  - id: topology
+    name: Strand topology
+    terms:
+      - {id: parallel, name: parallel, definition: "All four G-tracts run in the same direction; propeller loops."}
+      - {id: antiparallel, name: antiparallel, definition: "Two G-tracts run in each direction; lateral or diagonal loops (for example the Na+ basket form)."}
+      - {id: hybrid, name: hybrid (3+1), definition: "Three G-tracts in one direction and one in the other (hybrid-1 and hybrid-2 forms in K+)."}

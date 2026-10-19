@@ -5,6 +5,7 @@ A source module exposes:
     NAME          human-readable source name, as it appears in docs/SOURCES.md and in provenance
     LICENCE       licence of the source data, as recorded in docs/SOURCES.md
     IMPLEMENTED   False until fetch and parse work end to end
+    MOLECULE_TYPES  optional; the molecule types the source is queried for (default {"protein"})
     fetch(paths, accession, retrieved) -> raw   downloads and caches; writes data/raw/<KEY>/<accession>.json
     parse(raw, accession, retrieved) -> [evidence dict]  pure function, no network
     not_ingested(raw, accession) -> [{"id", "reason"}]   optional; items seen but not turned into evidence
@@ -46,7 +47,7 @@ def load_raw(paths, key: str, accession: str) -> dict | None:
 
 
 def conditions(environment: str = "in_vitro", *, temperature_c=None, ph=None, buffer=None, salt_mM=None,
-               ligands=None, applied_force_pn=None, notes=None) -> dict:
+               ions=None, ligands=None, applied_force_pn=None, notes=None) -> dict:
     """A complete conditions object: unknown values are null, never omitted."""
     return {
         "environment": environment,
@@ -54,6 +55,7 @@ def conditions(environment: str = "in_vitro", *, temperature_c=None, ph=None, bu
         "ph": ph,
         "buffer": buffer,
         "salt_mM": salt_mM,
+        "ions": list(ions or []),
         "ligands": sorted(ligands or []),
         "applied_force_pn": applied_force_pn,
         "notes": notes,
@@ -75,11 +77,12 @@ def kelvin_to_c(value) -> float | None:
 
 def evidence(*, evidence_id: str, accession: str, technique: str, source_kind: str, title: str | None,
              construct: str, labels=None, conds: dict, obs_type: str, value=None, unit=None, uncertainty=None,
-             data_link: str | None, source: str, doi: str | None, deposit_id: str | None, retrieved: str,
+             data_link: str | None, data_level: str, data_format: str | None = None, reader: str | None = None,
+             source: str, doi: str | None, deposit_id: str | None, retrieved: str,
              url: str, licence: str) -> dict:
     return {
         "evidence_id": evidence_id,
-        "uniprot": accession,
+        "molecule_id": accession,
         "technique": technique,
         "source_kind": source_kind,
         "title": title,
@@ -89,6 +92,9 @@ def evidence(*, evidence_id: str, accession: str, technique: str, source_kind: s
                        "uncertainty": uncertainty if value is not None else None},
         "mappings": [],
         "data_link": data_link,
+        "data_level": data_level,
+        "data_format": data_format,
+        "reader": reader,
         "provenance": {"source": source, "doi": doi, "deposit_id": deposit_id, "retrieved": retrieved,
                        "url": url, "licence": licence},
     }

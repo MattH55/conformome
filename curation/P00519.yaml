@@ -10,16 +10,19 @@ states:
     basis: observed
     representative_pdb: "2HYY"
     description: Kinase domain with DFG flipped out, bound to imatinib, as in 2HYY (human).
+    family_label: {vocabulary: kinase, terms: {dfg: dfg_out, alpha_c: alpha_c_in}}
   - id: Abl-active
     name: active-like DFG-in (dasatinib-bound)
     basis: observed
     representative_pdb: "2GQG"
     description: Activated kinase domain bound to dasatinib, as in 2GQG.
+    family_label: {vocabulary: kinase, terms: {dfg: dfg_in, alpha_c: alpha_c_in}}
   - id: Abl-Src-like-inactive
     name: Src-like inactive
     basis: observed
     representative_pdb: "2G2I"
     description: Src-like inactive kinase-domain conformation, as in 2G2I.
+    family_label: {vocabulary: kinase, terms: {dfg: dfg_in, alpha_c: alpha_c_out}}
   - id: Abl-autoinhibited
     name: autoinhibited (SH3-SH2 clamp, myristate-bound)
     basis: observed

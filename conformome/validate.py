@@ -11,7 +11,9 @@ from jsonschema import Draft202012Validator
 
 from conformome.common import Paths, check, load_taxonomy, load_validators, load_yaml, read_json
 from conformome.mapping.curation import curation_for
-from conformome.pipeline import evidence_errors, target_accessions
+from conformome.molecule import (family_label_errors, load_vocabularies, molecule_type,
+                                 secondary_structure_errors)
+from conformome.pipeline import evidence_errors, target_accessions, target_id
 from conformome.sources import REGISTRY
 
 RESOLUTION_CLASSES = {"atomic", "residue", "domain", "global", "single_molecule"}
@@ -36,6 +38,13 @@ def taxonomy_errors(paths: Paths) -> list[str]:
             errors.append(f"taxonomy {tid}: unknown resolution_class {t.get('resolution_class')}")
         if not t.get("observables"):
             errors.append(f"taxonomy {tid}: no observables listed")
+        if t.get("tier") not in {1, 2, 3, None} or ("tier" not in t):
+            errors.append(f"taxonomy {tid}: tier must be 1, 2, 3 or null (predictions)")
+        if t.get("tier") is None and not t.get("prediction"):
+            errors.append(f"taxonomy {tid}: only predictions may have a null tier")
+        for k in ("raw_location", "raw_format"):
+            if not t.get(k):
+                errors.append(f"taxonomy {tid}: {k} is required")
         if not isinstance(t.get("prediction"), bool):
             errors.append(f"taxonomy {tid}: prediction must be true or false")
     return errors
@@ -79,11 +88,35 @@ def sources_errors(paths: Paths) -> list[str]:
     return errors
 
 
+def state_content_errors(state: dict, molecule: dict, vocabularies: dict) -> list[str]:
+    """Checks the schema cannot express: dot-bracket balance and pairing, vocabulary terms."""
+    errors = []
+    if state.get("secondary_structure"):
+        if molecule.get("molecule_type") not in {"rna", "dna"}:
+            errors.append("secondary_structure is only for RNA and DNA molecules")
+        errors += secondary_structure_errors(state["secondary_structure"], molecule.get("sequence"))
+    if state.get("family_label"):
+        errors += family_label_errors(state["family_label"], vocabularies)
+    return errors
+
+
+def vocabulary_errors(paths: Paths) -> list[str]:
+    validators = load_validators(paths.schema)
+    errors = []
+    for p in sorted((paths.taxonomy / "state_vocabularies").glob("*.yaml")):
+        vocab = load_yaml(p)
+        errors += [f"state_vocabularies/{p.name}: {e}" for e in check(validators["state_vocabulary"], vocab)]
+        if vocab.get("id") != p.stem:
+            errors.append(f"state_vocabularies/{p.name}: id {vocab.get('id')} does not match the file name")
+    return errors
+
+
 def build_errors(paths: Paths, accessions: list[str]) -> list[str]:
     errors: list[str] = []
     validators = load_validators(paths.schema)
     taxonomy = load_taxonomy(paths.taxonomy / "techniques.yaml")
     table = sources_table(paths)
+    vocabularies = load_vocabularies(paths.taxonomy / "state_vocabularies")
     for acc in accessions:
         out = paths.build / acc
         if not (out / "mapped.json").exists():
@@ -94,8 +127,10 @@ def build_errors(paths: Paths, accessions: list[str]) -> list[str]:
         errors += [f"{acc}: {e}" for e in cur.errors]
         rule_ids = {r["id"] for r in cur.rules}
 
-        protein = read_json(out / "protein.json")
-        errors += [f"{acc} protein: {e}" for e in check(validators["protein"], protein)]
+        molecule = read_json(out / "molecule.json")
+        errors += [f"{acc} molecule: {e}" for e in check(validators["molecule"], molecule)]
+        if molecule.get("molecule_type") != molecule_type(acc):
+            errors.append(f"{acc} molecule: molecule_type {molecule.get('molecule_type')} does not match the ID scheme ({molecule_type(acc)})")
 
         mapped = read_json(out / "mapped.json")
         states = {s["state_id"]: s for s in mapped["states"]}
@@ -104,6 +139,7 @@ def build_errors(paths: Paths, accessions: list[str]) -> list[str]:
             errors += [f"{acc} state {s['state_id']}: {e}" for e in check(validators["state"], s)]
             if s["parent_state"] and s["parent_state"] not in states:
                 errors.append(f"{acc} state {s['state_id']}: unknown parent {s['parent_state']}")
+            errors += [f"{acc} state {s['state_id']}: {e}" for e in state_content_errors(s, molecule, vocabularies)]
         for ev in mapped["evidence"]:
             errors += [f"{acc} {ev['evidence_id']}: {e}" for e in evidence_errors(validators, taxonomy, ev)]
             for m in ev["mappings"]:
@@ -231,9 +267,9 @@ def targets_errors(paths: Paths) -> list[str]:
     if not path.exists():
         return []
     targets = load_yaml(path)["targets"]
-    accs = [str(t.get("uniprot")) for t in targets]
+    accs = [target_id(t) for t in targets]
     errors = [f"targets.yaml: {a} listed more than once" for a in sorted({a for a in accs if accs.count(a) > 1})]
-    errors += [f"targets.yaml: {t.get('uniprot')} has no batch" for t in targets if not t.get("batch")]
+    errors += [f"targets.yaml: {target_id(t)} has no batch" for t in targets if not t.get("batch")]
     errors += [f"curation/{p.name} has no entry in targets.yaml" for p in sorted(paths.curation.glob("*.yaml"))
                if p.stem not in accs]
     return errors
@@ -241,7 +277,7 @@ def targets_errors(paths: Paths) -> list[str]:
 
 def run(paths: Paths, accessions: list[str] | None = None, site: bool = True) -> list[str]:
     accessions = accessions or target_accessions(paths)
-    errors = schema_errors(paths) + taxonomy_errors(paths) + sources_errors(paths) + targets_errors(paths)
+    errors = schema_errors(paths) + taxonomy_errors(paths) + vocabulary_errors(paths) + sources_errors(paths) + targets_errors(paths)
     errors += build_errors(paths, accessions)
     if site:
         errors += site_errors(paths, accessions)
