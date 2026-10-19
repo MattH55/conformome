@@ -88,7 +88,7 @@ Licences, and which sources may be redistributed, are in `docs/SOURCES.md`; the 
 1. **False conflicts**: 33 of the 52 flagged conflicts (alpha-synuclein, SASBDB) compare K-to-R mutants at different salt. SASBDB summaries record neither the mutation nor the salt separately.
 2. **Paralogs**: CALM2 and CALM3 entries (identical sequence to CALM1) are not on the calmodulin page.
 3. **Empty inferred states**: 5 inferred states have no evidence (unfolded BPTI, CI2, spectrin SH3, Pin1; cyclophilin A minor state).
-4. **Unmapped fibrils**: hen lysozyme amyloid-fibril cryo-EM entries are unmapped; its curation has no fibril state.
+4. ~~Unmapped fibrils~~ Fixed: hen lysozyme now has an observed `HEWL-fibril` state (representative 9J0L; polymorphs 9J0L/9J0M/8QV8 pooled, rule `hewl-fibril-structures`, medium confidence). Draft, unreviewed; whether polymorphs deserve separate states is a curator call.
 5. **Skipped entries**: 14 powder-diffraction entries are skipped (could count as `xray`).
 6. **RMSD rule**: implemented and tested, not run (it needs coordinates for about 17,000 entities).
 7. **Missing content**: no transitions, no fitted models for inferred states, isoforms only partly handled.
@@ -106,7 +106,6 @@ Licences, and which sources may be redistributed, are in `docs/SOURCES.md`; the 
 ## Good next steps
 
 - Write curation files for the 51 evidence-only proteins, starting with those with the most techniques (spike, p53, APP, Hsp90-alpha, histone H3.1).
-- Add a fibril state for hen lysozyme.
 - Recover salt and mutations from SASBDB entry descriptions.
 - Add literature extraction behind human review, for denaturation, relaxation dispersion, smFRET and HDX.
 - Parse PDB-IHM restraint tables.
