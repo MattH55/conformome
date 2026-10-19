@@ -19,7 +19,7 @@ CONFIDENCE = {"high", "medium", "low"}
 STATE_KEYS = {"id", "name", "basis", "representative_pdb", "description", "assumptions", "parent",
               "secondary_structure", "family_label", "population"}
 MATCH_KEYS = {"techniques", "sources", "observable_types", "environment", "ligands_any", "ligands_all",
-              "ligands_none", "no_ligands", "ligand_text_any", "ligand_text_none", "title_any", "title_all",
+              "ligands_none", "no_ligands", "ligand_text_any", "ligand_text_none", "ions_any", "ions_none", "title_any", "title_all",
               "title_none", "publication_title_any"}
 
 

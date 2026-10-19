@@ -37,6 +37,7 @@ def rule_matches(match: dict, ev: dict) -> bool:
     """True when the evidence meets every criterion given. Absent criteria are not checked."""
     ligands, text = _ligands(ev), _text(ev)
     ligand_text = " | ".join(ev["conditions"].get("ligands") or []).lower()
+    ions = {i["ion"] for i in ev["conditions"].get("ions") or []}
     checks = {
         "techniques": lambda v: ev["technique"] in v,
         "sources": lambda v: ev["provenance"]["source"] in v,
@@ -48,6 +49,8 @@ def rule_matches(match: dict, ev: dict) -> bool:
         "no_ligands": lambda v: (not ligands) == bool(v),
         "ligand_text_any": lambda v: any(w.lower() in ligand_text for w in v),
         "ligand_text_none": lambda v: not any(w.lower() in ligand_text for w in v),
+        "ions_any": lambda v: bool(ions & set(v)),
+        "ions_none": lambda v: not (ions & set(v)),
         "title_any": lambda v: any(w.lower() in text for w in v),
         "title_all": lambda v: all(w.lower() in text for w in v),
         "title_none": lambda v: not any(w.lower() in text for w in v),

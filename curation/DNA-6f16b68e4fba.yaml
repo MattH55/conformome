@@ -1,0 +1,90 @@
+# Human telomeric G-quadruplex, d[AG3(T2AG3)3] (22AG). Draft: curator to review.
+# Topology of each structure was computed from its coordinates with conformome/g4.py: the 5'->3'
+# direction of each G-tract (G2-4, G8-10, G14-16, G20-22) projected on the stacking axis.
+# ++++ = parallel, +-+- = antiparallel (2+2), ++-+ = hybrid (3+1). The ion decides the fold:
+# K+ crystals are parallel propellers, Na+ solution gives the antiparallel basket, K+ solution a
+# mixture of hybrid forms. BMRB entries are chemical shifts only; they are mapped from their titles
+# or ions, at low or medium confidence. Some BMRB entries are other constructs (flanking bases,
+# substitutions); each says so in its construct line.
+molecule_id: DNA-6f16b68e4fba
+name: Human telomeric G-quadruplex d[AG3(T2AG3)3]
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: G4-parallel
+    name: parallel propeller
+    basis: observed
+    representative_pdb: "1KF1"
+    family_label: {vocabulary: g_quadruplex, terms: {topology: parallel}}
+    secondary_structure: {dot_bracket: ".+++...+++...+++...+++", source: "1KF1: three tetrads of G2-4, G8-10, G14-16, G20-22"}
+    description: >-
+      All four G-tracts parallel, joined by three propeller (double-chain-reversal) loops, as in 1KF1
+      (X-ray, 2.1 Å, K+). The form seen in K+ crystals, with and without bound ligands.
+  - id: G4-antiparallel
+    name: antiparallel (2+2)
+    basis: observed
+    representative_pdb: "143D"
+    family_label: {vocabulary: g_quadruplex, terms: {topology: antiparallel}}
+    secondary_structure: {dot_bracket: ".+++...+++...+++...+++", source: "143D: three tetrads of G2-4, G8-10, G14-16, G20-22"}
+    description: >-
+      Alternating strand directions (+-+-), as in 143D, the Na+ solution NMR structure (basket:
+      lateral, diagonal, lateral loops). Strand directions alone do not separate basket from chair forms.
+  - id: G4-hybrid
+    name: hybrid (3+1)
+    basis: observed
+    representative_pdb: "2E4I"
+    family_label: {vocabulary: g_quadruplex, terms: {topology: hybrid}}
+    secondary_structure: {dot_bracket: ".+++...+++...+++...+++", source: "2E4I: three tetrads of G2-4, G8-10, G14-16, G20-22"}
+    description: >-
+      Three tracts one way and one the other (++-+: first loop propeller, then two lateral, the
+      hybrid-1 loop order), as in 2E4I, an NMR structure in K+ with 8-bromoguanine substitutions
+      (BGM) that lock the fold. K+ solution holds a mixture of hybrid-1 and hybrid-2; they are not
+      separated into substates here.
+assignments:
+  - {pdb: "1KF1", state: G4-parallel, confidence: high, justification: "Strand pattern ++++ from coordinates; K+ crystal structure."}
+  - {pdb: "3R6R", state: G4-parallel, confidence: high, justification: "Strand pattern ++++ from coordinates; K+ crystal with berberine."}
+  - {pdb: "3SC8", state: G4-parallel, confidence: high, justification: "Strand pattern ++++ from coordinates; K+ crystal with a ligand."}
+  - {pdb: "3T5E", state: G4-parallel, confidence: high, justification: "Strand pattern ++++ from coordinates; K+ crystal with a ligand."}
+  - {pdb: "3UYH", state: G4-parallel, confidence: high, justification: "Strand pattern ++++ from coordinates; K+ crystal with a ligand."}
+  - {pdb: "4FXM", state: G4-parallel, confidence: high, justification: "Strand pattern ++++ from coordinates; K+ crystal with N-methyl mesoporphyrin."}
+  - {pdb: "4G0F", state: G4-parallel, confidence: high, justification: "Strand pattern ++++ from coordinates; K+ crystal with N-methyl mesoporphyrin."}
+  - {pdb: "6IP3", state: G4-parallel, confidence: high, justification: "Strand pattern ++++ from coordinates; K+ crystal at 1.4 Å."}
+  - {pdb: "6XCL", state: G4-parallel, confidence: high, justification: "Strand pattern ++++ from coordinates; K+ crystal with a ligand."}
+  - {pdb: "7KLP", state: G4-parallel, confidence: high, justification: "Strand pattern ++++ from coordinates; title: three-tetrad parallel K+ stabilised."}
+  - {pdb: "143D", state: G4-antiparallel, confidence: high, justification: "Strand pattern +-+- from coordinates; Na+ solution NMR structure (basket)."}
+  - {pdb: "2MCC", state: G4-antiparallel, confidence: high, justification: "Strand pattern +-+- from coordinates; NMR with a dinuclear ruthenium complex."}
+  - {pdb: "2MCO", state: G4-antiparallel, confidence: high, justification: "Strand pattern +-+- from coordinates; NMR in Na+ with a dinuclear ruthenium complex."}
+  - {pdb: "2E4I", state: G4-hybrid, confidence: high, justification: "Strand pattern ++-+ from coordinates; NMR in K+ (title: mixed-parallel/antiparallel)."}
+rules:
+  - id: g4-hybrid-title
+    state: G4-hybrid
+    confidence: low
+    justification: "NMR chemical shifts of a sample whose deposition title names a hybrid or (3+1) fold; shifts alone do not resolve topology."
+    match:
+      sources: [BMRB]
+      title_any: ["hybrid", "(3+1)", "mixed-parallel"]
+  - id: g4-antiparallel-title
+    state: G4-antiparallel
+    confidence: low
+    justification: "NMR chemical shifts of a sample whose deposition title names an antiparallel, (2+2), basket or chair fold; shifts alone do not resolve topology."
+    match:
+      sources: [BMRB]
+      title_any: ["antiparallel", "anti-parallel", "(2+2)", "basket", "chair"]
+  - id: g4-sodium-antiparallel
+    state: G4-antiparallel
+    confidence: medium
+    justification: "Sample in Na+ with no K+; the 22-nt telomeric repeat folds into the antiparallel basket in Na+ solution (143D)."
+    match:
+      techniques: [nmr_shifts, nmr_dynamics, nmr_structure]
+      ions_any: [Na+]
+      ions_none: [K+]
+  - id: g4-parallel-title
+    state: G4-parallel
+    confidence: low
+    justification: "NMR chemical shifts of a sample whose deposition title names a parallel or propeller fold; shifts alone do not resolve topology."
+    match:
+      sources: [BMRB]
+      title_any: ["propeller", "parallel"]
+      title_none: ["antiparallel", "anti-parallel", "mixed-parallel", "hybrid", "(3+1)"]
+transitions: []
