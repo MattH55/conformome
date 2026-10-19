@@ -53,6 +53,19 @@ th{background:var(--code);font-weight:600;position:sticky;top:0}
 td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 tr.single td{background:var(--warn-bg)}
 #coverage-grid td:first-child{min-width:11rem}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin:12px 0}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
+.card h3{margin:0 0 2px;font-size:1.02rem}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin:6px 0}
+.chip{font-size:0.78rem;padding:1px 7px;border-radius:999px;background:var(--code);border:1px solid var(--border);white-space:nowrap}
+.searchbar{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.searchbar input[type=search]{flex:1 1 260px;font:inherit;padding:8px 10px;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--fg)}
+.searchbar button{font:inherit;padding:8px 14px;border:1px solid var(--accent);border-radius:6px;background:var(--accent);color:var(--bg);cursor:pointer}
+table.matrix{font-size:0.82rem}
+table.matrix th.tech{writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;padding:6px 2px;vertical-align:bottom}
+table.matrix td.m{text-align:center;padding:3px 4px;min-width:2.2em;font-variant-numeric:tabular-nums}
+table.matrix td.m a{color:var(--fg);text-decoration:none;display:block}
+mark{background:var(--inferred-bg);color:inherit;padding:0 1px;border-radius:2px}
 td.hit{font-weight:600;color:var(--observed)}
 .badge{display:inline-block;font-size:0.78rem;font-weight:600;padding:1px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
 .badge-observed{color:var(--observed);background:var(--observed-bg)}
@@ -142,6 +155,7 @@ def page(title: str, body: str, root: str, scripts: str = "", head_extra: str = 
 <header class="site"><nav>
 <a class="brand" href="{root}index.html">Conformome</a>
 <a href="{root}index.html">Proteins</a>
+<a href="{root}search/index.html">Search</a>
 <a href="{root}about/index.html">About and methods</a>
 <a href="{root}downloads/index.html">Downloads</a>
 <a href="{REPO_URL}">GitHub</a>
@@ -355,7 +369,7 @@ def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: l
                          ev["provenance"]["source"], ev["provenance"]["deposit_id"] or ""] +
                         [m["state_id"] for m in ev["mappings"]]).lower()
         erows.append(
-            f'<tr data-technique="{esc(ev["technique"])}" data-environment="{esc(ev["conditions"]["environment"])}" '
+            f'<tr id="{esc(ev["evidence_id"])}" data-technique="{esc(ev["technique"])}" data-environment="{esc(ev["conditions"]["environment"])}" '
             f'data-source="{esc(ev["provenance"]["source"])}" data-mapped="{mapped_flag}" data-text="{esc(text)}">'
             f'<td><a href="{link}">{esc(ev["evidence_id"])}</a><br><span class="muted">{esc(ev["provenance"]["source"])}</span></td>'
             f'<td><a href="{root}technique/{esc(ev["technique"])}/index.html">{esc(ev["technique"])}</a></td>'
@@ -464,7 +478,32 @@ def _diagram(states: list[dict], transitions: list[dict]) -> str:
     return "".join(parts)
 
 
-def _index_page(rows: list[dict], source_names: list[str]) -> str:
+def _matrix(rows: list[dict], techniques: list[str], taxonomy: dict) -> str:
+    """Proteins x techniques, shaded by evidence count (log scale)."""
+    import math
+    top = max([n for r in rows for n in r["tech_counts"].values()] or [1])
+    head = "".join(f'<th class="tech" title="{esc(taxonomy[tid]["name"])}"><a href="technique/{esc(tid)}/index.html">{esc(tid)}</a></th>'
+                   for tid in techniques)
+    body = []
+    for r in sorted(rows, key=lambda r: (-len(r["tech_counts"]), r["name"].lower())):
+        cells = []
+        for tid in techniques:
+            n = r["tech_counts"].get(tid, 0)
+            if not n:
+                cells.append('<td class="m"></td>')
+                continue
+            pct = round(18 + 72 * math.log10(n + 1) / math.log10(top + 1))
+            cells.append(f'<td class="m" style="background:color-mix(in srgb, var(--accent) {pct}%, transparent)" '
+                         f'title="{esc(r["name"])}: {n} {esc(tid)}"><a href="protein/{esc(r["acc"])}/index.html">{n}</a></td>')
+        body.append(f'<tr><td><a href="protein/{esc(r["acc"])}/index.html">{esc(r["name"])}</a></td>{"".join(cells)}</tr>')
+    return ('<h2>Technique coverage</h2>'
+            '<p class="sub">Evidence items per protein and technique. Darker cells hold more evidence (log scale); '
+            'proteins probed by the most techniques come first. Click a cell to open the protein.</p>'
+            f'<div class="scroll" style="max-height:80vh"><table class="matrix"><thead><tr><th>Protein</th>{head}</tr></thead>'
+            f'<tbody>{"".join(body)}</tbody></table></div>')
+
+
+def _index_page(rows: list[dict], source_names: list[str], techniques: list[str], taxonomy: dict) -> str:
     def curation_cell(status: str) -> str:
         if status == "uncurated":
             return '<span class="muted">not yet curated</span>'
@@ -486,8 +525,13 @@ def _index_page(rows: list[dict], source_names: list[str]) -> str:
             'shared conformational states. Observed and inferred are kept apart on every page.</p>'
             f'<div class="banner"><b>Pilot.</b> {len(rows)} proteins. Evidence from {esc(", ".join(source_names))}. '
             'Curation is a draft that no curator has reviewed yet, and some proteins have no states yet; literature extraction, PED and PDB-IHM restraints are not yet included.</div>'
-            '<div class="controls"><input id="p-text" type="search" placeholder="Search by name, UniProt or organism" '
-            'aria-label="Search proteins"></div><p class="muted" id="p-table-count"></p>'
+            '<form class="searchbar" action="search/index.html" method="get" role="search">'
+            '<input name="q" type="search" placeholder="Search proteins, states, PDB or BMRB IDs, ligands, titles" '
+            'aria-label="Search everything"><button type="submit">Search</button></form>'
+            f'{_matrix(rows, techniques, taxonomy)}'
+            '<h2>All proteins</h2>'
+            '<div class="controls"><input id="p-text" type="search" placeholder="Filter this table by name, UniProt or organism" '
+            'aria-label="Filter proteins"></div><p class="muted" id="p-table-count"></p>'
             '<div class="scroll"><table id="p-table"><thead><tr><th>Protein</th><th>UniProt</th><th>Organism</th>'
             '<th class="num">Techniques</th><th class="num">States</th><th class="num">Sources</th><th class="num">Evidence</th>'
             '<th class="num">Mapped</th><th>Curation</th></tr></thead>'
@@ -523,7 +567,7 @@ def build_site(paths: Paths, accessions: list[str]) -> None:
                        for key, mod in REGISTRY.items()}
     redistributable.setdefault("Conformome curation", True)
 
-    summaries, bundles, all_lines = [], {}, []
+    summaries, bundles, all_lines, search_rows = [], {}, [], []
     technique_acc: dict[str, list[dict]] = {}
     for acc in accessions:
         protein, mapped, models = _load(paths, acc)
@@ -535,7 +579,20 @@ def build_site(paths: Paths, accessions: list[str]) -> None:
             "sources": len({e["provenance"]["source"] for e in mapped["evidence"]}),
             "draft": draft,
             "status": mapped["curation"]["status"],
+            "gene": protein.get("gene") or "",
+            "length": protein["sequence_length"],
+            "tech_counts": {tt: sum(1 for e in mapped["evidence"] if e["technique"] == tt)
+                            for tt in mapped["coverage"]["techniques"]},
+            "source_list": sorted({e["provenance"]["source"] for e in mapped["evidence"]}),
+            "state_list": [{"id": s["state_id"], "name": s["name"], "basis": s["basis"]} for s in mapped["states"]],
         })
+        state_names = {s["state_id"]: s["name"] for s in mapped["states"]}
+        for e in mapped["evidence"]:
+            search_rows.append([
+                e["evidence_id"], acc, e["technique"], e["provenance"]["source"], e["provenance"]["deposit_id"] or "",
+                (e.get("title") or "")[:200], e["construct"]["description"][:160], " ".join(e["conditions"]["ligands"])[:160],
+                "; ".join(state_names.get(m["state_id"], m["state_id"]) for m in e["mappings"]),
+            ])
         for t in mapped["coverage"]["techniques"]:
             count = sum(1 for e in mapped["evidence"] if e["technique"] == t)
             technique_acc.setdefault(t, []).append({"acc": acc, "name": protein["name"], "count": count})
@@ -576,7 +633,10 @@ def build_site(paths: Paths, accessions: list[str]) -> None:
         page_dir.mkdir(parents=True)
         (page_dir / "index.html").write_text(_technique_page(t_id, tech, covered), encoding="utf-8")
 
-    (site / "index.html").write_text(_index_page(summaries, [m.NAME for m in IMPLEMENTED]), encoding="utf-8")
+    technique_order = [tid for tid in taxonomy if any(tid in s["tech_counts"] for s in summaries)]
+    (site / "index.html").write_text(_index_page(summaries, [m.NAME for m in IMPLEMENTED], technique_order, taxonomy),
+                                     encoding="utf-8")
+    _write_search(site, summaries, search_rows, technique_order, taxonomy)
     _write_about(paths, site)
     _write_downloads(paths, site, accessions)
     (site / "CNAME").write_text("conformome.org\n", encoding="utf-8")
@@ -618,3 +678,120 @@ def _write_downloads(paths: Paths, site: Path, accessions: list[str]) -> None:
             '<p class="muted">State models are linked from each protein page. Evidence from sources whose licence forbids '
             'redistribution is left out of these files; the site links to the source instead.</p>')
     (dl / "index.html").write_text(page("Downloads", body, "../"), encoding="utf-8")
+
+
+SEARCH_JS = r"""
+(function(){
+  var P=[], E=null, byAcc={};
+  var $=function(id){return document.getElementById(id)};
+  var q=$('s-q'), out=$('s-results'), evOut=$('s-evidence'), info=$('s-info');
+  var facets=['technique','source','organism','curation','basis'];
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  function tokens(){return q.value.toLowerCase().split(/\s+/).filter(Boolean)}
+  function hit(text,toks){text=text.toLowerCase();for(var i=0;i<toks.length;i++){if(text.indexOf(toks[i])<0)return false}return true}
+  function mark(s,toks){var h=esc(s);toks.forEach(function(t){if(t.length<2)return;var re=new RegExp('('+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig');h=h.replace(re,'<mark>$1</mark>')});return h}
+  function val(f){return $('f-'+f).value}
+  function protOk(p){
+    if(val('technique')&&!(val('technique') in p.tech_counts))return false;
+    if(val('source')&&p.source_list.indexOf(val('source'))<0)return false;
+    if(val('organism')&&p.organism!==val('organism'))return false;
+    if(val('curation')&&p.status!==val('curation'))return false;
+    if(val('basis')&&!p.state_list.some(function(s){return s.basis===val('basis')}))return false;
+    return true;
+  }
+  function ptext(p){return [p.name,p.acc,p.gene,p.organism,Object.keys(p.tech_counts).join(' '),p.source_list.join(' '),
+    p.state_list.map(function(s){return s.name+' '+s.id}).join(' ')].join(' ')}
+  function sync(){
+    var u=new URLSearchParams(); if(q.value)u.set('q',q.value);
+    facets.forEach(function(f){if(val(f))u.set(f,val(f))});
+    history.replaceState(null,'',u.toString()?'?'+u.toString():location.pathname);
+  }
+  function card(p,toks,n){
+    var chips=Object.keys(p.tech_counts).map(function(t){return '<span class="chip">'+esc(t)+' '+p.tech_counts[t]+'</span>'}).join('');
+    var states=p.state_list.map(function(s){return '<span class="badge badge-'+esc(s.basis)+'">'+mark(s.name,toks)+'</span>'}).join(' ');
+    var cur=p.status==='uncurated'?'<span class="muted">states not yet curated</span>':(p.status==='draft'?'<span class="badge badge-draft">draft curation</span>':'reviewed');
+    var hits=n?'<div style="margin-top:6px"><a href="#s-evidence" data-acc="'+esc(p.acc)+'" class="ev-jump">'+n+' matching evidence item'+(n===1?'':'s')+'</a></div>':'';
+    return '<div class="card"><h3><a href="../protein/'+esc(p.acc)+'/index.html">'+mark(p.name,toks)+'</a></h3>'+
+      '<div class="muted">'+mark(p.acc,toks)+(p.gene?' · '+mark(p.gene,toks):'')+' · '+mark(p.organism,toks)+'</div>'+
+      '<div class="chips">'+chips+'</div><div>'+(states||'')+'</div>'+
+      '<div class="muted" style="margin-top:6px">'+p.evidence+' evidence · '+p.mapped+' mapped · '+p.source_list.length+' sources · '+cur+'</div>'+hits+'</div>';
+  }
+  function evidenceHits(toks){
+    // Returns {rows: first 200 matches, total, perAcc: counts}, or null when the evidence index is not needed or not loaded.
+    if(!toks.length&&!val('technique')&&!val('source'))return null;
+    if(!E)return 'loading';
+    var rows=[],total=0,perAcc={};
+    for(var i=0;i<E.length;i++){
+      var e=E[i], p=byAcc[e[1]];
+      if(!p||!protOk(p))continue;
+      if(val('technique')&&e[2]!==val('technique'))continue;
+      if(val('source')&&e[3]!==val('source'))continue;
+      if(!hit(e.join(' ')+' '+p.name,toks))continue;
+      total++; perAcc[e[1]]=(perAcc[e[1]]||0)+1; if(rows.length<200)rows.push([e,p]);
+    }
+    return {rows:rows,total:total,perAcc:perAcc};
+  }
+  function render(){
+    sync();
+    var toks=tokens(), ev=evidenceHits(toks);
+    if(ev==='loading'){evOut.innerHTML='<p class="muted">Loading the evidence index...</p>';
+      fetch('evidence.json').then(function(r){return r.json()}).then(function(d){E=d;render()})
+        .catch(function(){evOut.innerHTML='<p class="muted">The evidence index could not be loaded.</p>'});ev=null}
+    var per=(ev&&ev.perAcc)||{};
+    // A protein is listed when its own text matches, or when any of its evidence matches.
+    var ps=P.filter(function(p){return protOk(p)&&(hit(ptext(p),toks)||per[p.acc])});
+    ps.sort(function(a,b){var ma=hit(ptext(a),toks)?1:0, mb=hit(ptext(b),toks)?1:0;
+      return (mb-ma)||((per[b.acc]||0)-(per[a.acc]||0))||(b.evidence-a.evidence)});
+    out.innerHTML=ps.length?ps.map(function(p){return card(p,toks,per[p.acc])}).join(''):'<p class="muted">No proteins match.</p>';
+    info.textContent=ps.length+' of '+P.length+' proteins';
+    if(!ev){
+      if(!toks.length&&!val('technique')&&!val('source'))
+        evOut.innerHTML='<p class="muted">Type a query to search individual evidence items (PDB, BMRB and SASBDB IDs, titles, ligands, mapped states).</p>';
+      return;  // otherwise the evidence index is loading and render() runs again when it arrives
+    }
+    evOut.innerHTML='<p class="muted">'+ev.total+' evidence items'+(ev.total>200?'; first 200 shown':'')+'</p>'+
+      (ev.rows.length?'<div class="scroll"><table><thead><tr><th>Evidence</th><th>Protein</th><th>Technique</th><th>Title and construct</th><th>Mapped to</th></tr></thead><tbody>'+
+      ev.rows.map(function(r){var e=r[0],p=r[1];return '<tr><td><a href="../protein/'+esc(e[1])+'/index.html#'+esc(e[0])+'">'+mark(e[0],toks)+'</a><br><span class="muted">'+esc(e[3])+'</span></td>'+
+        '<td>'+esc(p.name)+'</td><td>'+esc(e[2])+'</td><td>'+mark(e[5],toks)+'<br><span class="muted">'+mark(e[6],toks)+(e[7]?' · '+mark(e[7],toks):'')+'</span></td>'+
+        '<td>'+(e[8]?mark(e[8],toks):'<span class="muted">unmapped</span>')+'</td></tr>'}).join('')+'</tbody></table></div>':'');
+  }
+  fetch('proteins.json').then(function(r){return r.json()}).then(function(d){
+    P=d; P.forEach(function(p){byAcc[p.acc]=p});
+    var opts={technique:{},source:{},organism:{},curation:{},basis:{observed:1,inferred:1}};
+    P.forEach(function(p){Object.keys(p.tech_counts).forEach(function(t){opts.technique[t]=1});
+      p.source_list.forEach(function(s){opts.source[s]=1});opts.organism[p.organism]=1;opts.curation[p.status]=1});
+    facets.forEach(function(f){var sel=$('f-'+f);Object.keys(opts[f]).sort().forEach(function(v){var o=document.createElement('option');o.value=v;o.textContent=v;sel.appendChild(o)})});
+    var u=new URLSearchParams(location.search); q.value=u.get('q')||'';
+    facets.forEach(function(f){if(u.get(f))$('f-'+f).value=u.get(f)});
+    render();
+  }).catch(function(){out.innerHTML='<p class="muted">The protein index could not be loaded.</p>'});
+  var timer; q.addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(render,150)});
+  facets.forEach(function(f){$('f-'+f).addEventListener('change',render)});
+  $('s-form').addEventListener('submit',function(ev){ev.preventDefault();render()});
+})();
+"""
+
+
+def _write_search(site: Path, summaries: list[dict], search_rows: list[list], techniques: list[str], taxonomy: dict) -> None:
+    out = site / "search"
+    out.mkdir(parents=True, exist_ok=True)
+    proteins = [{k: s[k] for k in ("acc", "name", "gene", "organism", "length", "status", "evidence", "mapped",
+                                   "tech_counts", "source_list", "state_list")} for s in summaries]
+    (out / "proteins.json").write_text(json.dumps(proteins, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    (out / "evidence.json").write_text(json.dumps(search_rows, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    selects = "".join(f'<select id="f-{f}" aria-label="{label}"><option value="">{label}: any</option></select>'
+                      for f, label in (("technique", "Technique"), ("source", "Source"), ("organism", "Organism"),
+                                       ("curation", "Curation"), ("basis", "State basis")))
+    body = ('<h1>Search</h1>'
+            '<p class="sub">Search proteins, states and individual evidence items. Every word must match. '
+            'Filters narrow both proteins and evidence; the address bar keeps the search, so it can be shared.</p>'
+            '<form id="s-form" class="searchbar" role="search"><input id="s-q" type="search" '
+            'placeholder="for example: maltose closed, 1UBQ, fibril cryoem, unfolding_force" aria-label="Search" autofocus>'
+            '<button type="submit">Search</button></form>'
+            f'<div class="controls">{selects}</div>'
+            '<p class="muted" id="s-info" aria-live="polite"></p>'
+            '<h2>Proteins</h2><div id="s-results" class="cards"></div>'
+            '<h2>Evidence</h2><div id="s-evidence"></div>'
+            '<noscript><p>Search needs JavaScript. The <a href="../index.html">protein list</a> works without it.</p></noscript>')
+    (out / "index.html").write_text(page("Search", body, "../", scripts=f"<script>{SEARCH_JS}</script>",
+                                         description="Search Conformome proteins, states and evidence"), encoding="utf-8")
