@@ -4,6 +4,23 @@ Status: the pipeline runs end to end on **30 proteins** and **7 evidence sources
 
 All numbers below come from `build/<UniProt>/mapped.json` and `build/<UniProt>/ingest.json`, produced by `make site` on 2026-10-19. Raw inputs and their SHA-256 hashes are in `data/MANIFEST.json`.
 
+## Batch multi-source-1: 51 evidence-only proteins
+
+`targets.yaml` now lists every protein the site builds. A third batch adds the 51 proteins with at least one PDB structure, one BMRB deposit and one SMASH-BIO record, and 8 or more BMRB deposits or SMASH-BIO records (selected on 2026-10-19 from the BMRB UniProt mapping and the SMASH-BIO release). They include SARS-CoV-2 spike, ACE2, p53, histone H3.1, Hsp90-alpha, the amyloid-beta precursor protein, prion protein, TDP-43, SOD1, bacteriorhodopsin, Cas9, kinesin-1, dynein, myosins, fibronectin, von Willebrand factor, integrin beta-1, collagen I and cytochrome c.
+
+These proteins have **no curation yet**: their pages list all their evidence, say "states not yet curated", and map nothing. The numbers in the sections below cover the 30 curated proteins only.
+
+| | |
+|---|---|
+| Proteins | 51 (81 in total) |
+| Evidence items | 9,187 (17,522 in total) |
+| By source | RCSB PDB 6,318; SMASH-BIO 2,025; BMRB 323; MDDB 218; DisProt 143; SASBDB 112; AlphaFold DB 48 |
+| Proteins with evidence from 5 or more techniques | 45 |
+| Proteins with evidence from 4 or more sources | 50 |
+| Largest page | SARS-CoV-2 spike, 2,468 evidence items (2 MB) |
+
+The site also has a search page and a proteins x techniques coverage matrix on the front page; see `docs/METHODS.md` and the README.
+
 ## What changed since the first pilot
 
 | | First pilot | Now |
