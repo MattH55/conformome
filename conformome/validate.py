@@ -211,6 +211,15 @@ def site_errors(paths: Paths, accessions: list[str]) -> list[str]:
         models_file = paths.build / acc / "models.json"
         if models_file.exists() and read_json(models_file) and not parser.has_viewer:
             errors.append(f"{acc}: protein page has models but no viewer")
+    search = site / "search"
+    if not (search / "index.html").exists() or not (search / "proteins.json").exists():
+        errors.append("search page or its protein index is missing")
+    else:
+        listed = {p["acc"] for p in read_json(search / "proteins.json")}
+        if listed != set(accessions):
+            errors.append(f"search index lists {len(listed)} proteins, expected {len(set(accessions))}")
+        if not (search / "evidence.json").exists():
+            errors.append("search evidence index is missing")
     if (site / "CNAME").read_text().strip() != "conformome.org":
         errors.append("site/dist/CNAME must contain conformome.org")
     return errors

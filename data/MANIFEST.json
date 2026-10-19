@@ -167,6 +167,78 @@
       "https://alphafold.ebi.ac.uk/api/prediction/P03023"
     ]
   },
+  "raw/alphafold/P03069.json": {
+    "bytes": 2614,
+    "retrieved": "2026-10-19",
+    "sha256": "3eec66ef82d2095affd065b0ceb7c7b4006c8ca38b1c66e8d1575b0d4c51fafc",
+    "urls": [
+      "https://alphafold.ebi.ac.uk/api/prediction/P03069"
+    ]
+  },
+  "raw/alphafold/P04050.json": {
+    "bytes": 5522,
+    "retrieved": "2026-10-19",
+    "sha256": "fee52b8ea62796f74a9568621fdd6a1b219dbdf1280e42444a71b9818aa97ad4",
+    "urls": [
+      "https://alphafold.ebi.ac.uk/api/prediction/P04050"
+    ]
+  },
+  "raw/alphafold/P04156.json": {
+    "bytes": 2768,
+    "retrieved": "2026-10-19",
+    "sha256": "f29286a947f24f6fd7ca55ec0f9c053f5ba20f398e273c192788e1fe41442144",
+    "urls": [
+      "https://alphafold.ebi.ac.uk/api/prediction/P04156"
+    ]
+  },
+  "raw/alphafold/P04275.json": {
+    "bytes": 2686,
+    "retrieved": "2026-10-19",
+    "sha256": "f85eb2a0b69f234791eb013e37d77e6817e1be4ea7fd3eae0e6b97bab3abf309",
+    "urls": [
+      "https://alphafold.ebi.ac.uk/api/prediction/P04275"
+    ]
+  },
+  "raw/alphafold/P04637.json": {
+    "bytes": 22374,
+    "retrieved": "2026-10-19",
+    "sha256": "a72e998d011780f3efe64e29c6d8f5e6d70100ba9b3b65ae286f1787f6e08ec8",
+    "urls": [
+      "https://alphafold.ebi.ac.uk/api/prediction/P04637"
+    ]
+  },
+  "raw/alphafold/P04925.json": {
+    "bytes": 2496,
+    "retrieved": "2026-10-19",
+    "sha256": "b6d3acbe9d452ba495c339b9e78912cacf0df6a2e994c8211f370d75c8966cc2",
+    "urls": [
+      "https://alphafold.ebi.ac.uk/api/prediction/P04925"
+    ]
+  },
+  "raw/alphafold/P05067.json": {
+    "bytes": 35735,
+    "retrieved": "2026-10-19",
+    "sha256": "ef6871beecceca72e2cc5d8ed685e1e69bfadb8821c5b8c11ebb5af4bf071e3f",
+    "urls": [
+      "https://alphafold.ebi.ac.uk/api/prediction/P05067"
+    ]
+  },
+  "raw/alphafold/P05455.json": {
+    "bytes": 3071,
+    "retrieved": "2026-10-19",
+    "sha256": "0cc22d60daa67861dea01ede45a284e2a4135021cd3e7f7ffcbffcd43030a289",
+    "urls": [
+      "https://alphafold.ebi.ac.uk/api/prediction/P05455"
+    ]
+  },
+  "raw/alphafold/P05556.json": {
+    "bytes": 17613,
+    "retrieved": "2026-10-19",
+    "sha256": "d9d6dde393ae65c40b01fd89d12bd052bf8079224e53083584470da745b6b50d",
+    "urls": [
+      "https://alphafold.ebi.ac.uk/api/prediction/P05556"
+    ]
+  },
   "raw/alphafold/P06654.json": {
     "bytes": 2901,
     "retrieved": "2026-10-19",
@@ -189,6 +261,38 @@
     "sha256": "dc096eaecb173e4e6fa118157f97de7b4ee1ad2138ffd1b8bf75d895524247bd",
     "urls": [
       "https://alphafold.ebi.ac.uk/api/prediction/P07751"
+    ]
+  },
+  "raw/alphafold/P07900.json": {
+    "bytes": 7294,
+    "retrieved": "2026-10-19",
+    "sha256": "5a193885c7e3f6c268011bd38463674c5fdc0500fed7165622ad10991162dbdc",
+    "urls": [
+      "https://alphafold.ebi.ac.uk/api/prediction/P07900"
+    ]
+  },
+  "raw/alphafold/P08191.json": {
+    "bytes": 2625,
+    "retrieved": "2026-10-19",
+    "sha256": "1b53c183d3fe4a4ecd12bed9257a0b6150e5252fcb1c197938d74dc5e6e7e30e",
+    "urls": [
+      "https://alphafold.ebi.ac.uk/api/prediction/P08191"
+    ]
+  },
+  "raw/alphafold/P09055.json": {
+    "bytes": 7006,
+    "retrieved": "2026-10-19",
+    "sha256": "efd5c1cd8f0a5e58ef1d3e552f8b0ad6f99e66fcec5badd190ddf3cede393b65",
+    "urls": [
+      "https://alphafold.ebi.ac.uk/api/prediction/P09055"
+    ]
+  },
+  "raw/alphafold/P09493.json": {
+    "bytes": 24315,
+    "retrieved": "2026-10-19",
+    "sha256": "3b33a14df4e635b381c5448b8d125bbeb06e5fba029aba47ac96cf4e324c1a1d",
+    "urls": [
+      "https://alphafold.ebi.ac.uk/api/prediction/P09493"
     ]
   },
   "raw/alphafold/P0A334.json": {
@@ -215,6 +319,14 @@
       "https://alphafold.ebi.ac.uk/api/prediction/P0ABQ4"
     ]
   },
+  "raw/alphafold/P0ACF8.json": {
+    "bytes": 2280,
+    "retrieved": "2026-10-19",
+    "sha256": "da9e59d79829a8fd38fc56ba09e6c173aa4dafb2b55f51e05190530c04af0411",
+    "urls": [
+      "https://alphafold.ebi.ac.uk/api/prediction/P0ACF8"
+    ]
+  },
   "raw/alphafold/P0AE67.json": {
     "bytes": 2264,
     "retrieved": "2026-10-19",
@@ -229,6 +341,14 @@
     "sha256": "c6db9978773f468bb3e2ae9363dc86060a18c962b583f6081b2b7d2c8682a0ce",
     "urls": [
       "https://alphafold.ebi.ac.uk/api/prediction/P0AEX9"
+    ]
+  },
+  "raw/alphafold/P0AGE0.json": {
+    "bytes": 2375,
+    "retrieved": "2026-10-19",
+    "sha256": "6b00aae158723951a59a533b8dbf336481d06c2d4048f011f2f92ffd3ba649e9",
+    "urls": [
+      "https://alphafold.ebi.ac.uk/api/prediction/P0AGE0"
     ]
   },
   "raw/alphafold/P0CG48.json": {
@@ -247,12 +367,76 @@
       "https://alphafold.ebi.ac.uk/api/prediction/P0DP23"
     ]
   },
+  "raw/alphafold/P0DTC2.json": {
+    "bytes": 4471,
+    "retrieved": "2026-10-19",
+    "sha256": "34df5eb11d077d5f67722665dd1b7b7a7f2d6a3c34b9861bd3d0aaf7818a5c2e",
+    "urls": [
+      "https://alphafold.ebi.ac.uk/api/prediction/P0DTC2"
+    ]
+  },
   "raw/alphafold/P10636.json": {
     "bytes": 25497,
     "retrieved": "2026-10-19",
     "sha256": "a9b656b3fab8ef6b96ab1cc360e00b211a7129d24d7116b205f14c39d1f66a17",
     "urls": [
       "https://alphafold.ebi.ac.uk/api/prediction/P10636"
+    ]
+  },
+  "raw/alphafold/P12023.json": {
+    "bytes": 10066,
+    "retrieved": "2026-10-19",
+    "sha256": "938985f7b33a5b74ab8f817acff9f73827e5d31d222082e090bc6346becd71bc",
+    "urls": [
+      "https://alphafold.ebi.ac.uk/api/prediction/P12023"
+    ]
+  },
+  "raw/alphafold/P12883.json": {
+    "bytes": 6121,
+    "retrieved": "2026-10-19",
+    "sha256": "b1eb97e6113a3bf2dce42d877628ecab26767dc006f79bb51121a48ab90c172c",
+    "urls": [
+      "https://alphafold.ebi.ac.uk/api/prediction/P12883"
+    ]
+  },
+  "raw/alphafold/P14151.json": {
+    "bytes": 5585,
+    "retrieved": "2026-10-19",
+    "sha256": "ce4584cf3dc842353f055d4ec553b665a388ab76e71fae2b51d19029981f823a",
+    "urls": [
+      "https://alphafold.ebi.ac.uk/api/prediction/P14151"
+    ]
+  },
+  "raw/alphafold/P16157.json": {
+    "bytes": 99259,
+    "retrieved": "2026-10-19",
+    "sha256": "98d4a140d0ec376490b21b2512ab1ca5277bc21017bfa447f5250812c2cd357a",
+    "urls": [
+      "https://alphafold.ebi.ac.uk/api/prediction/P16157"
+    ]
+  },
+  "raw/alphafold/P21333.json": {
+    "bytes": 21671,
+    "retrieved": "2026-10-19",
+    "sha256": "0115fc5e1c599ed0f781abf902a516541163f7ad588701e7f5b1ce2fc2a0f4aa",
+    "urls": [
+      "https://alphafold.ebi.ac.uk/api/prediction/P21333"
+    ]
+  },
+  "raw/alphafold/P21579.json": {
+    "bytes": 3102,
+    "retrieved": "2026-10-19",
+    "sha256": "a7ff7fff9cfc70311a9c0044e3d8b89b844af1cad53cf1ad426de384d5490314",
+    "urls": [
+      "https://alphafold.ebi.ac.uk/api/prediction/P21579"
+    ]
+  },
+  "raw/alphafold/P26039.json": {
+    "bytes": 7060,
+    "retrieved": "2026-10-19",
+    "sha256": "8963035a32b45d494639385e05b7f56787a7badecd7919f604e17573370ed79c",
+    "urls": [
+      "https://alphafold.ebi.ac.uk/api/prediction/P26039"
     ]
   },
   "raw/alphafold/P37840.json": {
@@ -500,6 +684,87 @@
       "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
     ]
   },
+  "raw/bmrb/P03069.json": {
+    "bytes": 186318,
+    "retrieved": "2026-10-19",
+    "sha256": "93b9da34d07dfd6afb60a6b5d105247684c1655e7b0da1edb3806a00e708cb93",
+    "urls": [
+      "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
+      "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
+    ]
+  },
+  "raw/bmrb/P04050.json": {
+    "bytes": 28571,
+    "retrieved": "2026-10-19",
+    "sha256": "2b9bd99f548ac23fcc61c43ff2e0dc308dc740a44506351548eda38707113a42",
+    "urls": [
+      "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
+      "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
+    ]
+  },
+  "raw/bmrb/P04156.json": {
+    "bytes": 232060,
+    "retrieved": "2026-10-19",
+    "sha256": "b3188e974503c21b031294ff272e24b537c0895d313c3c115f549c0c63dc92af",
+    "urls": [
+      "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
+      "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
+    ]
+  },
+  "raw/bmrb/P04275.json": {
+    "bytes": 22421,
+    "retrieved": "2026-10-19",
+    "sha256": "f5bde017355f176f591190d9f1f82701d78c1529ecbe17b5f73df218b0f849e6",
+    "urls": [
+      "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
+      "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
+    ]
+  },
+  "raw/bmrb/P04637.json": {
+    "bytes": 125144,
+    "retrieved": "2026-10-19",
+    "sha256": "0a785b996c9d9901f499c4cb1cd825f92c14eec3eb497afbcd164821439d8b1c",
+    "urls": [
+      "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
+      "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
+    ]
+  },
+  "raw/bmrb/P04925.json": {
+    "bytes": 125806,
+    "retrieved": "2026-10-19",
+    "sha256": "d05350f22aa6eb1bc1c0e938ab7f107a4d44931681cdb093ea6f2629a1091e4d",
+    "urls": [
+      "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
+      "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
+    ]
+  },
+  "raw/bmrb/P05067.json": {
+    "bytes": 477087,
+    "retrieved": "2026-10-19",
+    "sha256": "6b9189fa745bc92304a84c9d372b46b0e6fac2dea0b37f68ad8a1b3db471bdb2",
+    "urls": [
+      "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
+      "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
+    ]
+  },
+  "raw/bmrb/P05455.json": {
+    "bytes": 47202,
+    "retrieved": "2026-10-19",
+    "sha256": "9fbbc3d890ece05f5d948d9839400789accd4c4aea9d3b59963057a530a0bad6",
+    "urls": [
+      "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
+      "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
+    ]
+  },
+  "raw/bmrb/P05556.json": {
+    "bytes": 18276,
+    "retrieved": "2026-10-19",
+    "sha256": "e637fed5f2fed909c655ddb67593e449b1ed12a96b1328af40c82ffd6527fb25",
+    "urls": [
+      "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
+      "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
+    ]
+  },
   "raw/bmrb/P06654.json": {
     "bytes": 60909,
     "retrieved": "2026-10-19",
@@ -522,6 +787,42 @@
     "bytes": 71292,
     "retrieved": "2026-10-19",
     "sha256": "6a80030d32fd55e12ca62cc2d2462d0bfed90146dfd9d834bdca17d24d63ac41",
+    "urls": [
+      "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
+      "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
+    ]
+  },
+  "raw/bmrb/P07900.json": {
+    "bytes": 104763,
+    "retrieved": "2026-10-19",
+    "sha256": "8a93e62c0f6fbb4cff2aafe7947126c77780127a259334aa886f0f41c2e7fed5",
+    "urls": [
+      "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
+      "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
+    ]
+  },
+  "raw/bmrb/P08191.json": {
+    "bytes": 30640,
+    "retrieved": "2026-10-19",
+    "sha256": "2722bda9ff5669e677c6bf347801b61216ec2bad1f49e67b043bec1dd599409d",
+    "urls": [
+      "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
+      "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
+    ]
+  },
+  "raw/bmrb/P09055.json": {
+    "bytes": 9524,
+    "retrieved": "2026-10-19",
+    "sha256": "8093d6f2e1411d27833ce7fb90ddfb40afe8f4fd7b51325ef4a9b729f348ffda",
+    "urls": [
+      "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
+      "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
+    ]
+  },
+  "raw/bmrb/P09493.json": {
+    "bytes": 31131,
+    "retrieved": "2026-10-19",
+    "sha256": "90f9ac5dae682ff99696246ed46cab00f16f824cc47b9ca4962eb48130f39416",
     "urls": [
       "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
       "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
@@ -554,6 +855,15 @@
       "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
     ]
   },
+  "raw/bmrb/P0ACF8.json": {
+    "bytes": 28533,
+    "retrieved": "2026-10-19",
+    "sha256": "677f0cad505f5d6ab06b3bbb7c4d9c55cae7a56ea2209e13a1332cb8e535c84c",
+    "urls": [
+      "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
+      "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
+    ]
+  },
   "raw/bmrb/P0AE67.json": {
     "bytes": 46695,
     "retrieved": "2026-10-19",
@@ -567,6 +877,15 @@
     "bytes": 66218,
     "retrieved": "2026-10-19",
     "sha256": "e6e586ca7de35608a672e10f7709ea83239db8d1ecad091143b8ec94b6b24497",
+    "urls": [
+      "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
+      "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
+    ]
+  },
+  "raw/bmrb/P0AGE0.json": {
+    "bytes": 7874,
+    "retrieved": "2026-10-19",
+    "sha256": "dbbac11388503deb27c1c528ce552df2ae40341eb23255c9032656e430ec009f",
     "urls": [
       "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
       "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
@@ -590,10 +909,91 @@
       "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
     ]
   },
+  "raw/bmrb/P0DTC2.json": {
+    "bytes": 63080,
+    "retrieved": "2026-10-19",
+    "sha256": "f38f64de5e0cf8804fcc0a585e42689c301748d8cc175f2918787f76759c5b0c",
+    "urls": [
+      "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
+      "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
+    ]
+  },
   "raw/bmrb/P10636.json": {
     "bytes": 95293,
     "retrieved": "2026-10-19",
     "sha256": "c97d97fb0525ab6bedfe831440dee7517adfd7ee69073bc3e89387288b29f30c",
+    "urls": [
+      "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
+      "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
+    ]
+  },
+  "raw/bmrb/P12023.json": {
+    "bytes": 64187,
+    "retrieved": "2026-10-19",
+    "sha256": "4ee8ef7f2df7fa5c7c20beed90f061f0c04f87c72b170dfc26161a25834434cf",
+    "urls": [
+      "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
+      "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
+    ]
+  },
+  "raw/bmrb/P12883.json": {
+    "bytes": 8491,
+    "retrieved": "2026-10-19",
+    "sha256": "005ddb428795fc41740d88b523e1b99a868f7873e096a7a301b567baaee82fb1",
+    "urls": [
+      "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
+      "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
+    ]
+  },
+  "raw/bmrb/P14151.json": {
+    "bytes": 10791,
+    "retrieved": "2026-10-19",
+    "sha256": "4df202ac5f0a4d7a8d118cd7ce8d18ac14fdf6e885948bb802ce62aa975eb600",
+    "urls": [
+      "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
+      "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
+    ]
+  },
+  "raw/bmrb/P16157.json": {
+    "bytes": 8564,
+    "retrieved": "2026-10-19",
+    "sha256": "aa7a0ae3b9cfe352ace0e5335e4cabaf5a7647bd4bf8318d3dfbc62e75173c93",
+    "urls": [
+      "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
+      "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
+    ]
+  },
+  "raw/bmrb/P21333.json": {
+    "bytes": 18012,
+    "retrieved": "2026-10-19",
+    "sha256": "c55599ed98c11fa001be59216776b6a415d458a54423bcdbfacba5daf3f1ce2e",
+    "urls": [
+      "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
+      "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
+    ]
+  },
+  "raw/bmrb/P21579.json": {
+    "bytes": 9890,
+    "retrieved": "2026-10-19",
+    "sha256": "61b4ef6d60340c0bf869b26c6462e10c039035d575bcf2a6a43e5653f7154678",
+    "urls": [
+      "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
+      "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
+    ]
+  },
+  "raw/bmrb/P26039.json": {
+    "bytes": 172367,
+    "retrieved": "2026-10-19",
+    "sha256": "26e652333ca44715e89e631127bf4278aa2db7760240452bdbc9b5e21d3e8bf9",
+    "urls": [
+      "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
+      "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
+    ]
+  },
+  "raw/bmrb/P27694.json": {
+    "bytes": 14111,
+    "retrieved": "2026-10-19",
+    "sha256": "5aa4252661befc23f7b2d24ee2dc689a358eeb8a5c32ba05fd1bbb2ea54c417b",
     "urls": [
       "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
       "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
@@ -830,6 +1230,78 @@
       "https://disprot.org/api/search?acc=P03023&format=json"
     ]
   },
+  "raw/disprot/P03069.json": {
+    "bytes": 21119,
+    "retrieved": "2026-10-19",
+    "sha256": "6fddf17209f04b1d5139b31fc357b04850303e991b5671390f2416e27c92b468",
+    "urls": [
+      "https://disprot.org/api/search?acc=P03069&format=json"
+    ]
+  },
+  "raw/disprot/P04050.json": {
+    "bytes": 15289,
+    "retrieved": "2026-10-19",
+    "sha256": "485f7b99a4885261accb63b6444382cf36ba11f97f6b7b85f42ac45bc023803c",
+    "urls": [
+      "https://disprot.org/api/search?acc=P04050&format=json"
+    ]
+  },
+  "raw/disprot/P04156.json": {
+    "bytes": 23605,
+    "retrieved": "2026-10-19",
+    "sha256": "f52512f084df66ecdd0d41cb1dddf2c153e1def0c6804e90796bb8ada52c8116",
+    "urls": [
+      "https://disprot.org/api/search?acc=P04156&format=json"
+    ]
+  },
+  "raw/disprot/P04275.json": {
+    "bytes": 9017,
+    "retrieved": "2026-10-19",
+    "sha256": "aa58b02c3c01981c3f93f633d9628f90675d8bcf9d8a85d00bbed1ec8a55f7f0",
+    "urls": [
+      "https://disprot.org/api/search?acc=P04275&format=json"
+    ]
+  },
+  "raw/disprot/P04637.json": {
+    "bytes": 190180,
+    "retrieved": "2026-10-19",
+    "sha256": "869cbfa9efad337bb489b74f740e08b36d4269ef44b92e92aa73a30bb368ad9b",
+    "urls": [
+      "https://disprot.org/api/search?acc=P04637&format=json"
+    ]
+  },
+  "raw/disprot/P04925.json": {
+    "bytes": 52176,
+    "retrieved": "2026-10-19",
+    "sha256": "fb59b249b5b9deb586b772c2b0bf50b0e7f63bcf25cc6fab20a532be01712738",
+    "urls": [
+      "https://disprot.org/api/search?acc=P04925&format=json"
+    ]
+  },
+  "raw/disprot/P05067.json": {
+    "bytes": 19934,
+    "retrieved": "2026-10-19",
+    "sha256": "b18faab69ce9ed74bdf1bca466adc812015d4c6dd39556423c7ed364874bc84a",
+    "urls": [
+      "https://disprot.org/api/search?acc=P05067&format=json"
+    ]
+  },
+  "raw/disprot/P05455.json": {
+    "bytes": 9753,
+    "retrieved": "2026-10-19",
+    "sha256": "988b1c5ac41b19014ea4dba3e7c6a17c6f55812aefd209937d9b6ad680bf5687",
+    "urls": [
+      "https://disprot.org/api/search?acc=P05455&format=json"
+    ]
+  },
+  "raw/disprot/P05556.json": {
+    "bytes": 24379,
+    "retrieved": "2026-10-19",
+    "sha256": "956e9552f334c6c25a11c03703671273103a7728126c55358f8c0429f01eeafb",
+    "urls": [
+      "https://disprot.org/api/search?acc=P05556&format=json"
+    ]
+  },
   "raw/disprot/P06654.json": {
     "bytes": 140,
     "retrieved": "2026-10-19",
@@ -852,6 +1324,38 @@
     "sha256": "a53c2e6ae8693cd6c1ea65bd3010beb239f441934dc7ea0ad567bbb3af254ccc",
     "urls": [
       "https://disprot.org/api/search?acc=P07751&format=json"
+    ]
+  },
+  "raw/disprot/P07900.json": {
+    "bytes": 140,
+    "retrieved": "2026-10-19",
+    "sha256": "3e04ce8f7f8aa71656f11fedb347440f6eae1f877ec004ae6d285b8e21447e1a",
+    "urls": [
+      "https://disprot.org/api/search?acc=P07900&format=json"
+    ]
+  },
+  "raw/disprot/P08191.json": {
+    "bytes": 140,
+    "retrieved": "2026-10-19",
+    "sha256": "5e0c6834dd5af702f3ab0b3bea1aefd914602f2abe95c57b31cb5bc8bb47283c",
+    "urls": [
+      "https://disprot.org/api/search?acc=P08191&format=json"
+    ]
+  },
+  "raw/disprot/P09055.json": {
+    "bytes": 140,
+    "retrieved": "2026-10-19",
+    "sha256": "011c74bc805e2ab1ea89a5739a85198380ef0be2fb76e0b0d0728138d35e2e10",
+    "urls": [
+      "https://disprot.org/api/search?acc=P09055&format=json"
+    ]
+  },
+  "raw/disprot/P09493.json": {
+    "bytes": 140,
+    "retrieved": "2026-10-19",
+    "sha256": "841c480ba90da56b8c33da6afe7bf463eb5abf8a7943447f69f5c35c8327ea5d",
+    "urls": [
+      "https://disprot.org/api/search?acc=P09493&format=json"
     ]
   },
   "raw/disprot/P0A334.json": {
@@ -878,6 +1382,14 @@
       "https://disprot.org/api/search?acc=P0ABQ4&format=json"
     ]
   },
+  "raw/disprot/P0ACF8.json": {
+    "bytes": 140,
+    "retrieved": "2026-10-19",
+    "sha256": "c5d5d3296145a8a79932112336ef9627d34632df9fba6c2c6d5c7621802747da",
+    "urls": [
+      "https://disprot.org/api/search?acc=P0ACF8&format=json"
+    ]
+  },
   "raw/disprot/P0AE67.json": {
     "bytes": 140,
     "retrieved": "2026-10-19",
@@ -892,6 +1404,14 @@
     "sha256": "ca4dc2823ed94261ee9a49c3a250989c5c17bdf5b83ae711d4b36ddfdb315851",
     "urls": [
       "https://disprot.org/api/search?acc=P0AEX9&format=json"
+    ]
+  },
+  "raw/disprot/P0AGE0.json": {
+    "bytes": 5216,
+    "retrieved": "2026-10-19",
+    "sha256": "15ed943f4d62a9c5c14aeac58e36204b9b0b9b677457a0c072b27278a8fff34e",
+    "urls": [
+      "https://disprot.org/api/search?acc=P0AGE0&format=json"
     ]
   },
   "raw/disprot/P0CG48.json": {
@@ -910,12 +1430,76 @@
       "https://disprot.org/api/search?acc=P0DP23&format=json"
     ]
   },
+  "raw/disprot/P0DTC2.json": {
+    "bytes": 83595,
+    "retrieved": "2026-10-19",
+    "sha256": "087c854d24af13d63d82c863b54490941a43b31f80ab90c69f70a66357dc5e75",
+    "urls": [
+      "https://disprot.org/api/search?acc=P0DTC2&format=json"
+    ]
+  },
   "raw/disprot/P10636.json": {
     "bytes": 38456,
     "retrieved": "2026-10-19",
     "sha256": "f3a89dd21fc93626e98d1acbcba2c54e02bb16c9097040ddb0364624aca673d9",
     "urls": [
       "https://disprot.org/api/search?acc=P10636&format=json"
+    ]
+  },
+  "raw/disprot/P12023.json": {
+    "bytes": 140,
+    "retrieved": "2026-10-19",
+    "sha256": "a85794caa1d95eab25aca35fb1ea08c60f4d9a0c4030a25b19939cc0bf6eb960",
+    "urls": [
+      "https://disprot.org/api/search?acc=P12023&format=json"
+    ]
+  },
+  "raw/disprot/P12883.json": {
+    "bytes": 140,
+    "retrieved": "2026-10-19",
+    "sha256": "603ef999c9f4c7b3691338f5989fdf54894f7f5ca758a03e898d0c32aa49659b",
+    "urls": [
+      "https://disprot.org/api/search?acc=P12883&format=json"
+    ]
+  },
+  "raw/disprot/P14151.json": {
+    "bytes": 140,
+    "retrieved": "2026-10-19",
+    "sha256": "e35a40e740a55346eea25d7cab0e7f115008b64fdeada945e9f55b0592e13079",
+    "urls": [
+      "https://disprot.org/api/search?acc=P14151&format=json"
+    ]
+  },
+  "raw/disprot/P16157.json": {
+    "bytes": 140,
+    "retrieved": "2026-10-19",
+    "sha256": "c95499960126fc9724a362a022a29b675c28626e9b42b0925af0adfce87553ac",
+    "urls": [
+      "https://disprot.org/api/search?acc=P16157&format=json"
+    ]
+  },
+  "raw/disprot/P21333.json": {
+    "bytes": 13972,
+    "retrieved": "2026-10-19",
+    "sha256": "0d32004e584a15bd6daf88ad1ab46cdcc4619c7d4e7e1163db5573027d73cba5",
+    "urls": [
+      "https://disprot.org/api/search?acc=P21333&format=json"
+    ]
+  },
+  "raw/disprot/P21579.json": {
+    "bytes": 35154,
+    "retrieved": "2026-10-19",
+    "sha256": "3827fb7f52a402270c8de97b9f2a5e3c53328191ac5fa06c0dccaae906a912aa",
+    "urls": [
+      "https://disprot.org/api/search?acc=P21579&format=json"
+    ]
+  },
+  "raw/disprot/P26039.json": {
+    "bytes": 13885,
+    "retrieved": "2026-10-19",
+    "sha256": "c6350b36461d5d7b9afbd93434dc5f800a4dcb2cf71ff6dac87eede33ae46a8d",
+    "urls": [
+      "https://disprot.org/api/search?acc=P26039&format=json"
     ]
   },
   "raw/disprot/P37840.json": {
@@ -1142,6 +1726,78 @@
       "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P03023%22%7D&limit=500"
     ]
   },
+  "raw/mddb/P03069.json": {
+    "bytes": 14191,
+    "retrieved": "2026-10-19",
+    "sha256": "f883bb48cd9e6bf1a10817d24d975adc7a764c2d10deda91298716178c1e72f8",
+    "urls": [
+      "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P03069%22%7D&limit=500"
+    ]
+  },
+  "raw/mddb/P04050.json": {
+    "bytes": 195,
+    "retrieved": "2026-10-19",
+    "sha256": "10643bc86a85144e7c68b0d1869b3aa82f7de39983c945cfd0ab82ca106e394d",
+    "urls": [
+      "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P04050%22%7D&limit=500"
+    ]
+  },
+  "raw/mddb/P04156.json": {
+    "bytes": 195,
+    "retrieved": "2026-10-19",
+    "sha256": "58b0363dd89727d7a5c2668d9f4121c9b63faae6b426f34fcbb549857fa3a2c6",
+    "urls": [
+      "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P04156%22%7D&limit=500"
+    ]
+  },
+  "raw/mddb/P04275.json": {
+    "bytes": 195,
+    "retrieved": "2026-10-19",
+    "sha256": "9a55256170ac3c20ecc1d75ff8226548bff71e1e41e4d8fb19819893299f3f49",
+    "urls": [
+      "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P04275%22%7D&limit=500"
+    ]
+  },
+  "raw/mddb/P04637.json": {
+    "bytes": 6437,
+    "retrieved": "2026-10-19",
+    "sha256": "cde030c822f3cbf2b1088c8239ec8809a7d3bd398acd189b9014024d5bb3564b",
+    "urls": [
+      "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P04637%22%7D&limit=500"
+    ]
+  },
+  "raw/mddb/P04925.json": {
+    "bytes": 6875,
+    "retrieved": "2026-10-19",
+    "sha256": "6f3893433b490c74805f17413ff2b0de1a2f6c870fa688b2cddb692eb922a40c",
+    "urls": [
+      "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P04925%22%7D&limit=500"
+    ]
+  },
+  "raw/mddb/P05067.json": {
+    "bytes": 42162,
+    "retrieved": "2026-10-19",
+    "sha256": "a6c5016be3ff5122b05b49475ca84801e7fd1b4962d1af29c11cbebd106f6f60",
+    "urls": [
+      "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P05067%22%7D&limit=500"
+    ]
+  },
+  "raw/mddb/P05455.json": {
+    "bytes": 195,
+    "retrieved": "2026-10-19",
+    "sha256": "a021e4fc81ba91f406f583c229306d1d3b26e2fffdeaf92af2ced1f04e33f7ff",
+    "urls": [
+      "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P05455%22%7D&limit=500"
+    ]
+  },
+  "raw/mddb/P05556.json": {
+    "bytes": 195,
+    "retrieved": "2026-10-19",
+    "sha256": "4661194135188ea62cdd37a909801839df079b1720abf98ca2f4688cb145fdd9",
+    "urls": [
+      "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P05556%22%7D&limit=500"
+    ]
+  },
   "raw/mddb/P06654.json": {
     "bytes": 31060,
     "retrieved": "2026-10-19",
@@ -1164,6 +1820,38 @@
     "sha256": "07e5901aee9836e188541fd05b78e26f24dab1569bb32c769d582a62c2c502e1",
     "urls": [
       "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P07751%22%7D&limit=500"
+    ]
+  },
+  "raw/mddb/P07900.json": {
+    "bytes": 13971,
+    "retrieved": "2026-10-19",
+    "sha256": "1bd2b52cbdfa3c454eb0b4113920efd009116fc4c7bfacb5d0c5e00f4c06fc99",
+    "urls": [
+      "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P07900%22%7D&limit=500"
+    ]
+  },
+  "raw/mddb/P08191.json": {
+    "bytes": 195,
+    "retrieved": "2026-10-19",
+    "sha256": "4934a374ed7930035648ffd2435b715a236f77805431fa3cc5a1e9457b4cc474",
+    "urls": [
+      "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P08191%22%7D&limit=500"
+    ]
+  },
+  "raw/mddb/P09055.json": {
+    "bytes": 195,
+    "retrieved": "2026-10-19",
+    "sha256": "a53fd63a45eb0e31392be400d8545b71be036ef2348808100e964689eba4574d",
+    "urls": [
+      "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P09055%22%7D&limit=500"
+    ]
+  },
+  "raw/mddb/P09493.json": {
+    "bytes": 195,
+    "retrieved": "2026-10-19",
+    "sha256": "a03704340e8708462afa7afc18f44b636931eb3eb36b8ac4519be54708d0da6a",
+    "urls": [
+      "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P09493%22%7D&limit=500"
     ]
   },
   "raw/mddb/P0A334.json": {
@@ -1190,6 +1878,14 @@
       "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P0ABQ4%22%7D&limit=500"
     ]
   },
+  "raw/mddb/P0ACF8.json": {
+    "bytes": 6591,
+    "retrieved": "2026-10-19",
+    "sha256": "28347bb38bedf213c3631069f4846a02f67d956d7bebf3d226a8e4952f26f776",
+    "urls": [
+      "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P0ACF8%22%7D&limit=500"
+    ]
+  },
   "raw/mddb/P0AE67.json": {
     "bytes": 6982,
     "retrieved": "2026-10-19",
@@ -1204,6 +1900,14 @@
     "sha256": "77795caa40ce72600752d6e6685239ea0c1d7621929d85a821167b79c037e28d",
     "urls": [
       "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P0AEX9%22%7D&limit=500"
+    ]
+  },
+  "raw/mddb/P0AGE0.json": {
+    "bytes": 195,
+    "retrieved": "2026-10-19",
+    "sha256": "d86bec7c78d9cc157449613bcd884e3c27883adbdf8d730551531ad23c366432",
+    "urls": [
+      "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P0AGE0%22%7D&limit=500"
     ]
   },
   "raw/mddb/P0CG48.json": {
@@ -1222,12 +1926,76 @@
       "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P0DP23%22%7D&limit=500"
     ]
   },
+  "raw/mddb/P0DTC2.json": {
+    "bytes": 1165080,
+    "retrieved": "2026-10-19",
+    "sha256": "cdf0ad1bda48f62daf0fed9e3336acc107585aea7f6acd94cdeb133b0de0f033",
+    "urls": [
+      "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P0DTC2%22%7D&limit=500"
+    ]
+  },
   "raw/mddb/P10636.json": {
     "bytes": 195,
     "retrieved": "2026-10-19",
     "sha256": "46c97c854ec4aadeb81bd3a2a0270671cbda64c626fa7dd2eaecf8bf263044ea",
     "urls": [
       "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P10636%22%7D&limit=500"
+    ]
+  },
+  "raw/mddb/P12023.json": {
+    "bytes": 195,
+    "retrieved": "2026-10-19",
+    "sha256": "e4219d0bd04f1859c6003e65cf2599717d79d9401ea850a120fa894fc8cf72e2",
+    "urls": [
+      "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P12023%22%7D&limit=500"
+    ]
+  },
+  "raw/mddb/P12883.json": {
+    "bytes": 195,
+    "retrieved": "2026-10-19",
+    "sha256": "2e46cdf993ee7e5163978b00474f117481df7e73d19a48cbc1a06366c5865b12",
+    "urls": [
+      "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P12883%22%7D&limit=500"
+    ]
+  },
+  "raw/mddb/P14151.json": {
+    "bytes": 195,
+    "retrieved": "2026-10-19",
+    "sha256": "e4cf8ab874eb6f819535684ec7c7a6221c6f8688959c7ca313d7f7204abadaf9",
+    "urls": [
+      "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P14151%22%7D&limit=500"
+    ]
+  },
+  "raw/mddb/P16157.json": {
+    "bytes": 195,
+    "retrieved": "2026-10-19",
+    "sha256": "7ab620c1ede3b6aeef64b77c0423ec096149ace39166680a9b732a7a8d26a9c7",
+    "urls": [
+      "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P16157%22%7D&limit=500"
+    ]
+  },
+  "raw/mddb/P21333.json": {
+    "bytes": 195,
+    "retrieved": "2026-10-19",
+    "sha256": "cacc314ea6496ff422f5f0215616326ca86f4e5b9e5ea7b28e2de79a2661c6aa",
+    "urls": [
+      "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P21333%22%7D&limit=500"
+    ]
+  },
+  "raw/mddb/P21579.json": {
+    "bytes": 195,
+    "retrieved": "2026-10-19",
+    "sha256": "663fab867a798c4456df98388604639c4e69b7fd9a62bf67f54adec0608a96e2",
+    "urls": [
+      "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P21579%22%7D&limit=500"
+    ]
+  },
+  "raw/mddb/P26039.json": {
+    "bytes": 195,
+    "retrieved": "2026-10-19",
+    "sha256": "bc89395f1e379f22337b91a05566743766558d25b6ba6a4d8ca69360855054d5",
+    "urls": [
+      "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22P26039%22%7D&limit=500"
     ]
   },
   "raw/mddb/P37840.json": {
@@ -2348,6 +3116,78 @@
       "https://data.rcsb.org/graphql"
     ]
   },
+  "raw/pdb/P04050.json": {
+    "bytes": 2248298,
+    "retrieved": "2026-10-19",
+    "sha256": "86a88eb97ec6990cfacea24ba208c51437a044ddfbf1938f1f7f5146df39724c",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P04050%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P04156.json": {
+    "bytes": 96759,
+    "retrieved": "2026-10-19",
+    "sha256": "df4b5eaf59cd713dfe75cf1541bf23320d3af578d7eb8d9a48aa2075526668bb",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P04156%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P04275.json": {
+    "bytes": 91200,
+    "retrieved": "2026-10-19",
+    "sha256": "0eb2f4bd2c82f64ab5e2a18523ae0a64c14a86e87fba983bef0d10eacc4f0054",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P04275%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P04637.json": {
+    "bytes": 639823,
+    "retrieved": "2026-10-19",
+    "sha256": "e62bd049a61ab88a8698c650ec2033728f688425c4bf2eb1eb3e7d5bfd5f046b",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P04637%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P04925.json": {
+    "bytes": 45074,
+    "retrieved": "2026-10-19",
+    "sha256": "3aca879297dd43ef03da052bdfb02b3885da019d55d9858c261a952a18e723b3",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P04925%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P05067.json": {
+    "bytes": 436028,
+    "retrieved": "2026-10-19",
+    "sha256": "5f1b17e953904e1137b2c27a50eca57fcb7ed31b5acc5ae64c072160922ace08",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P05067%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P05455.json": {
+    "bytes": 18861,
+    "retrieved": "2026-10-19",
+    "sha256": "446448d3246e91eab698b5e51793845f47f153b2dee1a38e7325ac1f5b789a35",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P05455%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P05556.json": {
+    "bytes": 69684,
+    "retrieved": "2026-10-19",
+    "sha256": "06826286bfbeb2eb089e8f6e7532fdea9d0e630b8c95e529d25e533a7adafa51",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P05556%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
   "raw/pdb/P06654.json": {
     "bytes": 85439,
     "retrieved": "2026-10-19",
@@ -2372,6 +3212,42 @@
     "sha256": "f69d6d160cc8fd59a31e2f349a3297dbc8288d2d988c4edca0744e614d1d10a1",
     "urls": [
       "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P07751%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P07900.json": {
+    "bytes": 722892,
+    "retrieved": "2026-10-19",
+    "sha256": "ad546ce8ecb516a7362071f83aed9d731a191333befe1e7250c4cc26ab9351bd",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P07900%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P08191.json": {
+    "bytes": 161121,
+    "retrieved": "2026-10-19",
+    "sha256": "6e6b3e15111618bb7a1b7ae1fddee0b15f3ae74b95cc3416fb70022298b18cf6",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P08191%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P09055.json": {
+    "bytes": 5627,
+    "retrieved": "2026-10-19",
+    "sha256": "7afaff0395631dc278a282d5630b12e1b932b17688fe6c4666708e0192799613",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P09055%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P09493.json": {
+    "bytes": 37379,
+    "retrieved": "2026-10-19",
+    "sha256": "2569842c51a98a4d4728c3c4c35240a91c80cc006640dd87d481f7de268975db",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P09493%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
       "https://data.rcsb.org/graphql"
     ]
   },
@@ -2402,6 +3278,15 @@
       "https://data.rcsb.org/graphql"
     ]
   },
+  "raw/pdb/P0ACF8.json": {
+    "bytes": 6987,
+    "retrieved": "2026-10-19",
+    "sha256": "5efe08bd2a5e52fd53dc2476775e87b3f786d024f4e18b152da1fec9fa3c03b5",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P0ACF8%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
   "raw/pdb/P0AE67.json": {
     "bytes": 103493,
     "retrieved": "2026-10-19",
@@ -2417,6 +3302,15 @@
     "sha256": "39589a401d6319365b7d7e52136169260b381110570ebb65c28e3924e82e602b",
     "urls": [
       "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P0AEX9%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P0AGE0.json": {
+    "bytes": 24589,
+    "retrieved": "2026-10-19",
+    "sha256": "7209f69a766e2f70fb48f302db16a433b1f46f2d58cb2dc8e8827a72b82b3e07",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P0AGE0%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
       "https://data.rcsb.org/graphql"
     ]
   },
@@ -2438,12 +3332,93 @@
       "https://data.rcsb.org/graphql"
     ]
   },
+  "raw/pdb/P0DTC2.json": {
+    "bytes": 4953984,
+    "retrieved": "2026-10-19",
+    "sha256": "e84ddb27210f6663b102fdd20b3e9c40c1c03c11482fa6e285db62f9755c2b86",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P0DTC2%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
   "raw/pdb/P10636.json": {
     "bytes": 469786,
     "retrieved": "2026-10-19",
     "sha256": "1cedb01616187886f604d6bcd31bc9ba67ad550630e83acf4ee2475841acc075",
     "urls": [
       "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P10636%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P12023.json": {
+    "bytes": 10977,
+    "retrieved": "2026-10-19",
+    "sha256": "486ea6dea9886fbfb637b630078d006b5ec23660ec2ded69432dfa787074e223",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P12023%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P12883.json": {
+    "bytes": 94103,
+    "retrieved": "2026-10-19",
+    "sha256": "04614d1a03aef178a830fdebb7fb6f0fb893e7eb141cbde425f168d5838a0684",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P12883%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P14151.json": {
+    "bytes": 6668,
+    "retrieved": "2026-10-19",
+    "sha256": "db825d6f4a25af38e3a6fc7c7dd6c80aa95d37fccbfd80d6ad57c408f780839b",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P14151%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P16157.json": {
+    "bytes": 47151,
+    "retrieved": "2026-10-19",
+    "sha256": "af13d51d46dd63ba4af0f28f94f22c5c4f50b01215010ea8a0f26439b0bf7a17",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P16157%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P21333.json": {
+    "bytes": 42220,
+    "retrieved": "2026-10-19",
+    "sha256": "d78079813d5627e3351937b885459e3e97bce20bfef0cce767f118a3eda596b0",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P21333%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P21579.json": {
+    "bytes": 41841,
+    "retrieved": "2026-10-19",
+    "sha256": "d226f24b1835529dae43c6031dc8ff1a47dda3c033a211389e3db57e6adbe9dd",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P21579%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P26039.json": {
+    "bytes": 80035,
+    "retrieved": "2026-10-19",
+    "sha256": "6116ed6d126e33c1819ce0e96b86ccbebfc1bcb4d10e41588031c463bf878224",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P26039%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
+      "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/pdb/P27694.json": {
+    "bytes": 108750,
+    "retrieved": "2026-10-19",
+    "sha256": "fa7bca7ff09014d502ca6227d8a7adff65774ca7c66db479e98ea4c466d569ca",
+    "urls": [
+      "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22P27694%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
       "https://data.rcsb.org/graphql"
     ]
   },
@@ -2699,6 +3674,87 @@
       "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
     ]
   },
+  "raw/sasbdb/P03069.json": {
+    "bytes": 135,
+    "retrieved": "2026-10-19",
+    "sha256": "01b31b963daa0935db5a1baa8d751745ba944c3c1ce76d993f1c9052e9808522",
+    "urls": [
+      "https://www.sasbdb.org/search/?q=P03069",
+      "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
+    ]
+  },
+  "raw/sasbdb/P04050.json": {
+    "bytes": 14189,
+    "retrieved": "2026-10-19",
+    "sha256": "8c66b1af6037b64246c8f115087c7d4d96dbd22e67eb6955d09cc01b191ac68d",
+    "urls": [
+      "https://www.sasbdb.org/search/?q=P04050",
+      "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
+    ]
+  },
+  "raw/sasbdb/P04156.json": {
+    "bytes": 31448,
+    "retrieved": "2026-10-19",
+    "sha256": "0f5d2af61efe3c13aa04c6bc0143d26ea4f334788410737a05e88f30c2ba6e6e",
+    "urls": [
+      "https://www.sasbdb.org/search/?q=P04156",
+      "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
+    ]
+  },
+  "raw/sasbdb/P04275.json": {
+    "bytes": 109585,
+    "retrieved": "2026-10-19",
+    "sha256": "e2daef2a6c357933964babc34ad680f3f2ca252006ffe91b59bff6c6b5527f5f",
+    "urls": [
+      "https://www.sasbdb.org/search/?q=P04275",
+      "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
+    ]
+  },
+  "raw/sasbdb/P04637.json": {
+    "bytes": 36858,
+    "retrieved": "2026-10-19",
+    "sha256": "daa1041b38c2d1942e757d15a0960b342bfa957c78be57c7cada891c605ee651",
+    "urls": [
+      "https://www.sasbdb.org/search/?q=P04637",
+      "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
+    ]
+  },
+  "raw/sasbdb/P04925.json": {
+    "bytes": 33417,
+    "retrieved": "2026-10-19",
+    "sha256": "af7b0cdb0c28a6825652aacc90dbc27779cf04e24645e4467b297dab63eb5ff8",
+    "urls": [
+      "https://www.sasbdb.org/search/?q=P04925",
+      "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
+    ]
+  },
+  "raw/sasbdb/P05067.json": {
+    "bytes": 60339,
+    "retrieved": "2026-10-19",
+    "sha256": "207a68412e3842c13bfa32876acc94bbed9041633b37d51f6248f6e76ed01758",
+    "urls": [
+      "https://www.sasbdb.org/search/?q=P05067",
+      "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
+    ]
+  },
+  "raw/sasbdb/P05455.json": {
+    "bytes": 135,
+    "retrieved": "2026-10-19",
+    "sha256": "156b2decb74546a4f582d154409f63057f02b52a5ba40c1bcc8f21f2c54c794b",
+    "urls": [
+      "https://www.sasbdb.org/search/?q=P05455",
+      "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
+    ]
+  },
+  "raw/sasbdb/P05556.json": {
+    "bytes": 135,
+    "retrieved": "2026-10-19",
+    "sha256": "4bedfc7933f25235abc7270f6dc98b408eee433d2e536a614ff6974b8dd51190",
+    "urls": [
+      "https://www.sasbdb.org/search/?q=P05556",
+      "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
+    ]
+  },
   "raw/sasbdb/P06654.json": {
     "bytes": 135,
     "retrieved": "2026-10-19",
@@ -2723,6 +3779,42 @@
     "sha256": "43bf180895e774dacb2323b63393de8df98dbb0e305e619d13b9036a7346ac84",
     "urls": [
       "https://www.sasbdb.org/search/?q=P07751",
+      "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
+    ]
+  },
+  "raw/sasbdb/P07900.json": {
+    "bytes": 135,
+    "retrieved": "2026-10-19",
+    "sha256": "5da89fff731a3757f3042c44f25ffcbdb4419e34da83ef8887e91afae36076a8",
+    "urls": [
+      "https://www.sasbdb.org/search/?q=P07900",
+      "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
+    ]
+  },
+  "raw/sasbdb/P08191.json": {
+    "bytes": 135,
+    "retrieved": "2026-10-19",
+    "sha256": "2ca40b70a131dc43d20394b1c551681bbc04b7a2c52fec22b750b869aad70120",
+    "urls": [
+      "https://www.sasbdb.org/search/?q=P08191",
+      "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
+    ]
+  },
+  "raw/sasbdb/P09055.json": {
+    "bytes": 135,
+    "retrieved": "2026-10-19",
+    "sha256": "89984fe0809fdf795ad8e6d8cdab09262f9786b9279ff5838154e756c3dd8b81",
+    "urls": [
+      "https://www.sasbdb.org/search/?q=P09055",
+      "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
+    ]
+  },
+  "raw/sasbdb/P09493.json": {
+    "bytes": 135,
+    "retrieved": "2026-10-19",
+    "sha256": "947718716528784db4a1bd55f9b1d27087f55545177a3ace537fcf6dba7e2d4e",
+    "urls": [
+      "https://www.sasbdb.org/search/?q=P09493",
       "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
     ]
   },
@@ -2753,6 +3845,15 @@
       "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
     ]
   },
+  "raw/sasbdb/P0ACF8.json": {
+    "bytes": 135,
+    "retrieved": "2026-10-19",
+    "sha256": "5987c4379258fc978835feca3eb7f558e273db24c34badb8f2164035e4e99042",
+    "urls": [
+      "https://www.sasbdb.org/search/?q=P0ACF8",
+      "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
+    ]
+  },
   "raw/sasbdb/P0AE67.json": {
     "bytes": 135,
     "retrieved": "2026-10-19",
@@ -2768,6 +3869,15 @@
     "sha256": "07538519dc153ede714d84f7e82c730ffdec667b66ce169062f16761c5cbebde",
     "urls": [
       "https://www.sasbdb.org/search/?q=P0AEX9",
+      "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
+    ]
+  },
+  "raw/sasbdb/P0AGE0.json": {
+    "bytes": 135,
+    "retrieved": "2026-10-19",
+    "sha256": "86ec47bc5730ce1b5c8bc679fc5105fe7ae5d47dced746da2bb2ef3896514720",
+    "urls": [
+      "https://www.sasbdb.org/search/?q=P0AGE0",
       "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
     ]
   },
@@ -2789,12 +3899,84 @@
       "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
     ]
   },
+  "raw/sasbdb/P0DTC2.json": {
+    "bytes": 56581,
+    "retrieved": "2026-10-19",
+    "sha256": "72a634717cc0d88816549dea140f75856fdbeed2895f6142f2a96d2712388bd2",
+    "urls": [
+      "https://www.sasbdb.org/search/?q=P0DTC2",
+      "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
+    ]
+  },
   "raw/sasbdb/P10636.json": {
     "bytes": 74937,
     "retrieved": "2026-10-19",
     "sha256": "0904a1f5be7d8b5992be5fed8070906a0e1df3b6987e8ff5307ae9675ffab7bf",
     "urls": [
       "https://www.sasbdb.org/search/?q=P10636",
+      "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
+    ]
+  },
+  "raw/sasbdb/P12023.json": {
+    "bytes": 135,
+    "retrieved": "2026-10-19",
+    "sha256": "6541e45e18ce1fe37e7f30a4ed90072aaa13460a5eab7395e16c1a33f5edbc07",
+    "urls": [
+      "https://www.sasbdb.org/search/?q=P12023",
+      "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
+    ]
+  },
+  "raw/sasbdb/P12883.json": {
+    "bytes": 135,
+    "retrieved": "2026-10-19",
+    "sha256": "fc040127eac530561792b2eb454cb5ecfb429488157755e55b5c25a4173d6c1c",
+    "urls": [
+      "https://www.sasbdb.org/search/?q=P12883",
+      "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
+    ]
+  },
+  "raw/sasbdb/P14151.json": {
+    "bytes": 135,
+    "retrieved": "2026-10-19",
+    "sha256": "1831be76d91210102181d3f7e366b89c6653d3ebfa7e3782ab90e45f7784513d",
+    "urls": [
+      "https://www.sasbdb.org/search/?q=P14151",
+      "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
+    ]
+  },
+  "raw/sasbdb/P16157.json": {
+    "bytes": 135,
+    "retrieved": "2026-10-19",
+    "sha256": "9962271fd6858d75109247b96cdeda6503f91125f00299e1a3657c00b19e0913",
+    "urls": [
+      "https://www.sasbdb.org/search/?q=P16157",
+      "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
+    ]
+  },
+  "raw/sasbdb/P21333.json": {
+    "bytes": 130857,
+    "retrieved": "2026-10-19",
+    "sha256": "d113a97bbdd41770cef33f9a97edcfddf599d0a9b0a49a00a419373d0c04a661",
+    "urls": [
+      "https://www.sasbdb.org/search/?q=P21333",
+      "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
+    ]
+  },
+  "raw/sasbdb/P21579.json": {
+    "bytes": 135,
+    "retrieved": "2026-10-19",
+    "sha256": "38ff24b348fd3d9c103192d41d5b0662f4f94c831522e9687e17ab06073af823",
+    "urls": [
+      "https://www.sasbdb.org/search/?q=P21579",
+      "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
+    ]
+  },
+  "raw/sasbdb/P26039.json": {
+    "bytes": 135,
+    "retrieved": "2026-10-19",
+    "sha256": "4f13e667257ff7fc4a298d78ce7f456fe17451bec819c68c6d8a299d8f20796f",
+    "urls": [
+      "https://www.sasbdb.org/search/?q=P26039",
       "https://www.sasbdb.org/rest-api/entry/summary/<code>/"
     ]
   },
@@ -3029,6 +4211,78 @@
       "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
     ]
   },
+  "raw/smashbio/P03069.json": {
+    "bytes": 48021,
+    "retrieved": "2026-10-19",
+    "sha256": "998365f30f1e6b7db00d03c4254ab66988513928cc72e7b29ec8396252875114",
+    "urls": [
+      "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
+    ]
+  },
+  "raw/smashbio/P04050.json": {
+    "bytes": 157697,
+    "retrieved": "2026-10-19",
+    "sha256": "20b938653513bd693fc74dff0b273c1e1ce87bb9cd3958d7a08c23ab9ec79c12",
+    "urls": [
+      "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
+    ]
+  },
+  "raw/smashbio/P04156.json": {
+    "bytes": 125252,
+    "retrieved": "2026-10-19",
+    "sha256": "df4af886cdd58034be6777ac3c70cb21142de0060ff74e4e98cfd25e4baad398",
+    "urls": [
+      "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
+    ]
+  },
+  "raw/smashbio/P04275.json": {
+    "bytes": 514843,
+    "retrieved": "2026-10-19",
+    "sha256": "8363c0478320ffce352c88d09a2210234fb8a6dfc8476d02add79060b69646a5",
+    "urls": [
+      "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
+    ]
+  },
+  "raw/smashbio/P04637.json": {
+    "bytes": 129681,
+    "retrieved": "2026-10-19",
+    "sha256": "be638efb07699da97d8ff5e37b544f7992b7a199235d743ff2b7b66211068502",
+    "urls": [
+      "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
+    ]
+  },
+  "raw/smashbio/P04925.json": {
+    "bytes": 10490,
+    "retrieved": "2026-10-19",
+    "sha256": "874a7a7c169a6cba1d34c9d20dae0a821e89855efec8ae8939839161123e598a",
+    "urls": [
+      "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
+    ]
+  },
+  "raw/smashbio/P05067.json": {
+    "bytes": 276496,
+    "retrieved": "2026-10-19",
+    "sha256": "0952bdefe5f48c17dab254be46a68452caae5d1386545236f38889ecce030e39",
+    "urls": [
+      "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
+    ]
+  },
+  "raw/smashbio/P05455.json": {
+    "bytes": 73925,
+    "retrieved": "2026-10-19",
+    "sha256": "f993195246414bec20c9434e2c2b43b3421e899a46c5852f3385227df34c9252",
+    "urls": [
+      "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
+    ]
+  },
+  "raw/smashbio/P05556.json": {
+    "bytes": 2143748,
+    "retrieved": "2026-10-19",
+    "sha256": "f86b9a3d4cb9fa5df2bdc48c84fc3acc3af9c6bb811bd0ba289aceee968a301b",
+    "urls": [
+      "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
+    ]
+  },
   "raw/smashbio/P06654.json": {
     "bytes": 122419,
     "retrieved": "2026-10-19",
@@ -3049,6 +4303,38 @@
     "bytes": 285,
     "retrieved": "2026-10-19",
     "sha256": "ef2b15b96ae7e56029aa1282ba0e26239780a244d70ecaa02b3f15a8855b1b40",
+    "urls": [
+      "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
+    ]
+  },
+  "raw/smashbio/P07900.json": {
+    "bytes": 73823,
+    "retrieved": "2026-10-19",
+    "sha256": "e32197a2d4fd81d3796f46a888603ad9506c71ce3bda6abc1e89d0b9845a507b",
+    "urls": [
+      "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
+    ]
+  },
+  "raw/smashbio/P08191.json": {
+    "bytes": 129986,
+    "retrieved": "2026-10-19",
+    "sha256": "323f8aabc4762a8da55bf52aaee1f0780da966626bca059bfbe52f9695f0ebd5",
+    "urls": [
+      "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
+    ]
+  },
+  "raw/smashbio/P09055.json": {
+    "bytes": 111983,
+    "retrieved": "2026-10-19",
+    "sha256": "2f61e5e9927718e6a53f81dedbedcd4ada29dfa6150307db962fa2ba01c3fb67",
+    "urls": [
+      "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
+    ]
+  },
+  "raw/smashbio/P09493.json": {
+    "bytes": 212159,
+    "retrieved": "2026-10-19",
+    "sha256": "55a3aa2fdd81b6e96e95a8a9a6fb1340474f4b817cc506f34384b36f45c734dc",
     "urls": [
       "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
     ]
@@ -3077,6 +4363,14 @@
       "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
     ]
   },
+  "raw/smashbio/P0ACF8.json": {
+    "bytes": 64412,
+    "retrieved": "2026-10-19",
+    "sha256": "0dc2cf7624a9f8930816b0c73489b8e1057f26fdd59a046ba5bf93f1813d5af5",
+    "urls": [
+      "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
+    ]
+  },
   "raw/smashbio/P0AE67.json": {
     "bytes": 285,
     "retrieved": "2026-10-19",
@@ -3089,6 +4383,14 @@
     "bytes": 102759,
     "retrieved": "2026-10-19",
     "sha256": "449065250ed0ee437257c8aa7199f883b791f57b417b32cf783493b18f366e16",
+    "urls": [
+      "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
+    ]
+  },
+  "raw/smashbio/P0AGE0.json": {
+    "bytes": 199653,
+    "retrieved": "2026-10-19",
+    "sha256": "f6c9366ce191b6e95a9790f671465d218a66b5da6ff7e9e83f7a16c0b6666028",
     "urls": [
       "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
     ]
@@ -3109,10 +4411,74 @@
       "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
     ]
   },
+  "raw/smashbio/P0DTC2.json": {
+    "bytes": 334708,
+    "retrieved": "2026-10-19",
+    "sha256": "3c097c0b42c5a83da368021b71baed9aaae45a828f387488d26160cd887001bf",
+    "urls": [
+      "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
+    ]
+  },
   "raw/smashbio/P10636.json": {
     "bytes": 263387,
     "retrieved": "2026-10-19",
     "sha256": "f9a68fdfda30124a9776a00627c33e9fa5e4d174c3bc87ee0e141fa0c207929c",
+    "urls": [
+      "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
+    ]
+  },
+  "raw/smashbio/P12023.json": {
+    "bytes": 7514,
+    "retrieved": "2026-10-19",
+    "sha256": "79c004568b04c261148790101cba8663eb6f5557717df1929af403e31130241f",
+    "urls": [
+      "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
+    ]
+  },
+  "raw/smashbio/P12883.json": {
+    "bytes": 375235,
+    "retrieved": "2026-10-19",
+    "sha256": "ae61ee81c3a8056ba820715d39ec45ad1b302d480fbfaa3422d72e6d07532495",
+    "urls": [
+      "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
+    ]
+  },
+  "raw/smashbio/P14151.json": {
+    "bytes": 86915,
+    "retrieved": "2026-10-19",
+    "sha256": "ac3c3763677873653e59957df17ee7ab88fc825fb32d6e164fbf3e2762c77ad6",
+    "urls": [
+      "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
+    ]
+  },
+  "raw/smashbio/P16157.json": {
+    "bytes": 114863,
+    "retrieved": "2026-10-19",
+    "sha256": "12f9126793930f67a071bb19d5696069992f65c935251d1633f2267ac8028198",
+    "urls": [
+      "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
+    ]
+  },
+  "raw/smashbio/P21333.json": {
+    "bytes": 134799,
+    "retrieved": "2026-10-19",
+    "sha256": "e7d93d6da12792e538bb52f7f94409f8d9efed2811becb93924a30aa3eb61e6c",
+    "urls": [
+      "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
+    ]
+  },
+  "raw/smashbio/P21579.json": {
+    "bytes": 59483,
+    "retrieved": "2026-10-19",
+    "sha256": "f9a5ebc6574641fc77f8705f51af574262a94da7b8da66a9922f0ab8af89e5c8",
+    "urls": [
+      "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
+    ]
+  },
+  "raw/smashbio/P26039.json": {
+    "bytes": 40442,
+    "retrieved": "2026-10-19",
+    "sha256": "6517fec78df003a29e750a7800d31b051f79a5a3902f6108059032c7c1192f58",
     "urls": [
       "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
     ]
@@ -3357,6 +4723,70 @@
       "https://rest.uniprot.org/uniprotkb/P03069.json"
     ]
   },
+  "raw/uniprot/P04050.json": {
+    "bytes": 352811,
+    "retrieved": "2026-10-19",
+    "sha256": "727048ba5f3c016e2fbacbdfbfdef7ab5cf57d8222b8bd42eac612b9a6a2742f",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P04050.json"
+    ]
+  },
+  "raw/uniprot/P04156.json": {
+    "bytes": 268159,
+    "retrieved": "2026-10-19",
+    "sha256": "96cfd414f4ce227b47641d849b284b87dc9c520d60d33bc4e7c74f5d072a8dfe",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P04156.json"
+    ]
+  },
+  "raw/uniprot/P04275.json": {
+    "bytes": 407993,
+    "retrieved": "2026-10-19",
+    "sha256": "d43ab570a309181dc6fc90b4dd6bcbe03b4f72a801d67f0bff263ded42fa049f",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P04275.json"
+    ]
+  },
+  "raw/uniprot/P04637.json": {
+    "bytes": 1635536,
+    "retrieved": "2026-10-19",
+    "sha256": "efea173a854627bb57fa700fd8a16f3f7c21d0a439f27bf0ce9ef70951f7ca3c",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P04637.json"
+    ]
+  },
+  "raw/uniprot/P04925.json": {
+    "bytes": 137156,
+    "retrieved": "2026-10-19",
+    "sha256": "a74ff157c592d46717277bfcd4b1e7b4b9330a4b2e5e2f551000fe130f770f8b",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P04925.json"
+    ]
+  },
+  "raw/uniprot/P05067.json": {
+    "bytes": 894097,
+    "retrieved": "2026-10-19",
+    "sha256": "8f40bc2146136ba49ff92f0b7403c9eae4e4b375e811ed59d9eaa35e4784b78d",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P05067.json"
+    ]
+  },
+  "raw/uniprot/P05455.json": {
+    "bytes": 112716,
+    "retrieved": "2026-10-19",
+    "sha256": "e92c12b7ddea53eebb63cf67640b89590075e5b0f630d1a5fe37134c51c54cc7",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P05455.json"
+    ]
+  },
+  "raw/uniprot/P05556.json": {
+    "bytes": 385428,
+    "retrieved": "2026-10-19",
+    "sha256": "4b32301c7eab0fcd48e0b25260bca1b65fb5c9ea19cfa226292e580d04135a25",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P05556.json"
+    ]
+  },
   "raw/uniprot/P06654.json": {
     "bytes": 56776,
     "retrieved": "2026-10-19",
@@ -3379,6 +4809,38 @@
     "sha256": "5a958b9745d9c8b8f20475b39adaf07ed02593432da87f865251826e117fbc86",
     "urls": [
       "https://rest.uniprot.org/uniprotkb/P07751.json"
+    ]
+  },
+  "raw/uniprot/P07900.json": {
+    "bytes": 557643,
+    "retrieved": "2026-10-19",
+    "sha256": "f33bc8f12aba52773ada78d191559d62d9b2a743b5776580b81fc3c2c98e6782",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P07900.json"
+    ]
+  },
+  "raw/uniprot/P08191.json": {
+    "bytes": 96578,
+    "retrieved": "2026-10-19",
+    "sha256": "ddc255fa9584b50b196da0ed83a57251d1af611ae88f3b9e18f40449dd12541a",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P08191.json"
+    ]
+  },
+  "raw/uniprot/P09055.json": {
+    "bytes": 211196,
+    "retrieved": "2026-10-19",
+    "sha256": "1048b670e2edfe5a76a5fc56054fb9cb3e5c2ada7a3ff91e98b80970c0795389",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P09055.json"
+    ]
+  },
+  "raw/uniprot/P09493.json": {
+    "bytes": 154738,
+    "retrieved": "2026-10-19",
+    "sha256": "3aeae72a50e9361df24205db2cccb75b91de5a96bb9b72a84ea68954e17c2311",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P09493.json"
     ]
   },
   "raw/uniprot/P0A334.json": {
@@ -3405,6 +4867,14 @@
       "https://rest.uniprot.org/uniprotkb/P0ABQ4.json"
     ]
   },
+  "raw/uniprot/P0ACF8.json": {
+    "bytes": 151602,
+    "retrieved": "2026-10-19",
+    "sha256": "f8664347c076d3f247e16c56f0e035731867d45c086b3aa340cacdc601a24a65",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P0ACF8.json"
+    ]
+  },
   "raw/uniprot/P0AE67.json": {
     "bytes": 110223,
     "retrieved": "2026-10-19",
@@ -3419,6 +4889,14 @@
     "sha256": "2027c5b920606bc835be21dc7bfb8710a13de853f9823e774fe1116c595097e0",
     "urls": [
       "https://rest.uniprot.org/uniprotkb/P0AEX9.json"
+    ]
+  },
+  "raw/uniprot/P0AGE0.json": {
+    "bytes": 85477,
+    "retrieved": "2026-10-19",
+    "sha256": "2388b4cfa3605f1cab98bb77cddec1d7d26694675f311a8e134317a630f294ee",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P0AGE0.json"
     ]
   },
   "raw/uniprot/P0CG48.json": {
@@ -3437,12 +4915,84 @@
       "https://rest.uniprot.org/uniprotkb/P0DP23.json"
     ]
   },
+  "raw/uniprot/P0DTC2.json": {
+    "bytes": 1887881,
+    "retrieved": "2026-10-19",
+    "sha256": "3e1700d81ab247b9a293c3fd55136e637a17bd556f6edc2297d2129a541abe0d",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P0DTC2.json"
+    ]
+  },
   "raw/uniprot/P10636.json": {
     "bytes": 609447,
     "retrieved": "2026-10-19",
     "sha256": "9c29363e0c6116bdd855a1809ea15bd6d811677185410cb382bf50288c47c5cd",
     "urls": [
       "https://rest.uniprot.org/uniprotkb/P10636.json"
+    ]
+  },
+  "raw/uniprot/P12023.json": {
+    "bytes": 269252,
+    "retrieved": "2026-10-19",
+    "sha256": "2a63d3beda1bfa096e5c27a894be6ea765e57a1aa0e1d029e5ec1e9f16ee6ee4",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P12023.json"
+    ]
+  },
+  "raw/uniprot/P12883.json": {
+    "bytes": 457898,
+    "retrieved": "2026-10-19",
+    "sha256": "48b2ade05a0cbb965869b4489f378accdb8df59158e207014ce0c44a4ce129f8",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P12883.json"
+    ]
+  },
+  "raw/uniprot/P14151.json": {
+    "bytes": 117506,
+    "retrieved": "2026-10-19",
+    "sha256": "b0c17b140a8ed69f39c4473cc5388078960d9b027aef2aabf39dd9f82bf065bd",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P14151.json"
+    ]
+  },
+  "raw/uniprot/P16157.json": {
+    "bytes": 259034,
+    "retrieved": "2026-10-19",
+    "sha256": "c33889058825ea028a99f13ca9f2117a835659b4d2e8723e27e202b5c7e2659b",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P16157.json"
+    ]
+  },
+  "raw/uniprot/P21333.json": {
+    "bytes": 405300,
+    "retrieved": "2026-10-19",
+    "sha256": "adc33e9710c6fa95cc2979f14a9a6ae3011d55ea43fb4944ad2423bd68cef49c",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P21333.json"
+    ]
+  },
+  "raw/uniprot/P21579.json": {
+    "bytes": 154663,
+    "retrieved": "2026-10-19",
+    "sha256": "64be3696d6f5cddb8e87b4b60bb2b1a49c4699a76e68af6989d943ff3a0022f4",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P21579.json"
+    ]
+  },
+  "raw/uniprot/P26039.json": {
+    "bytes": 198828,
+    "retrieved": "2026-10-19",
+    "sha256": "82400f2f2ecce9079014f268d052a3cdd04a74084c2d6097e3ea2e15129e3539",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P26039.json"
+    ]
+  },
+  "raw/uniprot/P27694.json": {
+    "bytes": 199678,
+    "retrieved": "2026-10-19",
+    "sha256": "2cdc5ea753c81cbdb71ae0448b38551848fd2fc1df3ebf98efbf8be5b5193d4b",
+    "urls": [
+      "https://rest.uniprot.org/uniprotkb/P27694.json"
     ]
   },
   "raw/uniprot/P37840.json": {
