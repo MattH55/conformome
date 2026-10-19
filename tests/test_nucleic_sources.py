@@ -132,3 +132,14 @@ def test_bmrb_nucleic_acid_entries_say_how_they_match(checker):
     assert records["EV-BMRB-17655"]["construct"]["description"].endswith("contains this sequence")
     assert "(another construct)" in records["EV-BMRB-19381"]["construct"]["description"]
     assert bmrb in for_type("rna") and bmrb in for_type("dna") and bmrb in for_type("protein")
+
+
+def test_nakb_similar_sequence_needs_similar_length():
+    mol = {"sequence": "G" * 100, "rfam": ["RF00028"], "taxid": None, "taxa": [5911],
+           "similar": {"1HR2_1": {"identity": 0.99, "coverage": 1.0, "length": 100},
+                       "7EZ0_1": {"identity": 0.99, "coverage": 1.0, "length": 390}}}
+    base = {"entity": "1", "type": "RNA", "chains": "A", "description": "x", "rfam": {"RF00028"}, "taxid": 5911}
+    assert "similar sequence (99% identity" in nakb._match(dict(base, sequence="G" * 99 + "A"), mol, "1HR2")
+    # A whole intron that contains the domain is a different molecule, even with the family and organism.
+    assert nakb._match(dict(base, sequence="G" * 390), mol, "7EZ0") is None
+    assert "same Rfam family" in nakb._match(dict(base, sequence="A" * 110), mol, "9XYZ")
