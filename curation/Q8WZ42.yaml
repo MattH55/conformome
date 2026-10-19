@@ -25,4 +25,15 @@ assignments:
     state: I27-folded
     confidence: high
     justification: "NMR structure of folded Ig repeat 27; representative for the folded state."
+rules:
+  - id: i27-structures-folded
+    state: I27-folded
+    confidence: medium
+    justification: "Structure titled as I27 (I91); other titin domains are excluded by title."
+    match: {techniques: [xray, cryoem, nmr_structure, neutron, microed], title_any: ["I27", "I91", "IG REPEAT 27", "Ig27"]}
+  - id: i27-force-unfolded
+    state: I27-unfolded
+    confidence: low
+    justification: "SMASH-BIO force record whose publication title names I27 or I91; force unfolding reaches the unfolded state. Most values are extracted automatically."
+    match: {sources: [SMASH-BIO], publication_title_any: ["I27", "I91"]}
 transitions: []

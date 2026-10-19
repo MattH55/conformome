@@ -4,13 +4,14 @@
   "title": "Evidence",
   "description": "One experiment or deposit. Its mappings to states are listed here, each with who made it, confidence and justification.",
   "type": "object",
-  "required": ["evidence_id", "uniprot", "technique", "source_kind", "construct", "conditions", "observable", "mappings", "data_link", "provenance"],
+  "required": ["evidence_id", "uniprot", "technique", "source_kind", "title", "construct", "conditions", "observable", "mappings", "data_link", "provenance"],
   "additionalProperties": false,
   "properties": {
     "evidence_id": {"type": "string", "pattern": "^EV-[A-Za-z0-9_-]+$"},
     "uniprot": {"$ref": "common.schema.json#/$defs/uniprot"},
     "technique": {"type": "string", "pattern": "^[a-z0-9_]+$", "description": "Must appear in taxonomy/techniques.yaml."},
     "source_kind": {"enum": ["deposit", "literature", "computed"]},
+    "title": {"type": ["string", "null"], "description": "Title of the deposit, record or publication the evidence comes from."},
     "construct": {
       "type": "object",
       "required": ["description", "labels"],

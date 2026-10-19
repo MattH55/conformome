@@ -1,0 +1,34 @@
+# Peptidyl-prolyl cis-trans isomerase A (cyclophilin A), Homo sapiens. Draft: curator to review.
+uniprot: P62937
+name: Cyclophilin A
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: CypA-major
+    name: major (ground) state
+    basis: observed
+    representative_pdb: "3K0N"
+    description: Ground-state fold; the room-temperature structure 3K0N also models alternative side-chain conformers.
+  - id: CypA-minor
+    name: minor (excited) state
+    basis: inferred
+    representative_pdb: null
+    description: Low-population state exchanging with the ground state on the catalytic timescale, seen by NMR relaxation dispersion.
+    assumptions:
+      - Population and structure are inferred from relaxation dispersion fits and alternative conformers, not resolved directly.
+      - Assumes two-state exchange; no model is exported.
+assignments:
+  - {pdb: "3K0N", state: CypA-major, confidence: high, justification: "Room-temperature structure of CypA."}
+rules:
+  - id: cypa-structures-major
+    state: CypA-major
+    confidence: low
+    justification: "Experimental structure of CypA; the ground state dominates crystal and NMR structures."
+    match: {techniques: [xray, nmr_structure, neutron, cryoem]}
+  - id: cypa-relaxation-minor
+    state: CypA-minor
+    confidence: low
+    justification: "NMR relaxation entry; the minor state is defined by relaxation dispersion. Relaxation data also report on the major state."
+    match: {techniques: [nmr_dynamics]}
+transitions: []

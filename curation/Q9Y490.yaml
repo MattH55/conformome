@@ -1,0 +1,36 @@
+# Talin-1, Homo sapiens. Mechanosensitive adaptor; rod bundles unfold under force and expose vinculin-binding
+# sites. Draft: curator to review. Human talin has few PDB entries; most rod structures are of mouse talin.
+uniprot: Q9Y490
+name: Talin-1
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: talin-autoinhibited
+    name: autoinhibited, compact
+    basis: observed
+    representative_pdb: "6R9T"
+    description: Full-length talin-1 folded into a compact autoinhibited arrangement, as in 6R9T (cryo-EM, 6.2 Å).
+  - id: talin-rod-unfolded
+    name: rod unfolded under force (vinculin-binding sites exposed)
+    basis: inferred
+    representative_pdb: null
+    description: Rod helical bundles unfolded by mechanical load, exposing vinculin-binding helices.
+    assumptions:
+      - Defined from force spectroscopy of rod domains; no structure of the force-unfolded rod exists.
+      - Vinculin-bound VBS peptide structures show the exposed helix only, not the rod.
+      - Bundles are treated together; which bundles unfold at which force is not resolved here. No model is exported.
+assignments:
+  - {pdb: "6R9T", state: talin-autoinhibited, confidence: high, justification: "Title: cryo-EM structure of autoinhibited human talin-1."}
+rules:
+  - id: talin-vbs-vinculin
+    state: talin-rod-unfolded
+    confidence: low
+    justification: "Isolated talin vinculin-binding-site peptide bound to vinculin: the exposed helix, the end point of rod unfolding."
+    match: {techniques: [xray, cryoem, nmr_structure], title_any: ["vinculin binding site"]}
+  - id: talin-force-unfolding
+    state: talin-rod-unfolded
+    confidence: low
+    justification: "SMASH-BIO force record for talin classed as protein unfolding; rod unfolding under load. Most values are extracted automatically."
+    match: {sources: [SMASH-BIO], title_any: ["unfolding_protein"]}
+transitions: []

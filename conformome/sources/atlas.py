@@ -1,10 +1,10 @@
-"""ATLAS and MDDB: molecular dynamics trajectories and summaries.
+"""ATLAS: molecular dynamics of representative PDB chains.
 
-Status: stub. Planned: ATLAS and MDDB downloads by UniProt or PDB chain. Summaries become
-`md` evidence flagged as a computed prediction (source_kind "computed").
+Status: stub. MD is ingested from MDDB (`mddb`); ATLAS indexes trajectories by ECOD chain, not by
+UniProt, so a chain-to-accession lookup (SIFTS) is needed first.
 """
 
 from conformome.sources.base import fetch, parse  # noqa: F401  (stubs raise NotImplementedSource)
 
-NAME = "ATLAS / MDDB"
+NAME = "ATLAS"
 IMPLEMENTED = False

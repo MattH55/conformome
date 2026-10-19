@@ -16,4 +16,30 @@ assignments:
     state: Ub-folded
     confidence: high
     justification: "Native ubiquitin fold at 1.8 Å; representative for the folded state."
+rules:
+  - id: ub-structures-folded
+    state: Ub-folded
+    confidence: medium
+    justification: "Experimental structure containing ubiquitin; free and bound ubiquitin keep the native fold unless the title says otherwise."
+    match: {techniques: [xray, cryoem, nmr_structure, neutron, microed], title_none: ["unfolded", "denatured", "fibril", "amyloid"]}
+  - id: ub-nmr-folded
+    state: Ub-folded
+    confidence: low
+    justification: "NMR shift or relaxation entry for ubiquitin under native conditions."
+    match: {techniques: [nmr_shifts, nmr_dynamics], title_none: ["unfolded", "denatured", "urea", "a-state", "alcohol"]}
+  - id: ub-saxs-folded
+    state: Ub-folded
+    confidence: low
+    justification: "SAXS of ubiquitin alone under native conditions; samples with partners are excluded."
+    match: {techniques: [saxs_sans], title_none: ["unfolded", "denatured", "urea"], ligand_text_none: ["partner:"]}
+  - id: ub-md-folded
+    state: Ub-folded
+    confidence: low
+    justification: "Simulation started from a native ubiquitin structure (prediction)."
+    match: {techniques: [md]}
+  - id: ub-af-folded
+    state: Ub-folded
+    confidence: low
+    justification: "AlphaFold prediction of the native fold (prediction)."
+    match: {techniques: [af_prediction]}
 transitions: []

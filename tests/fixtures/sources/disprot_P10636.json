@@ -1,0 +1,375 @@
+{
+ "accession": "P10636",
+ "entries": [
+  {
+   "UniParc": "UPI000002D754",
+   "acc": "P10636-8",
+   "creator": "grivas",
+   "dataset": [
+    "Condensates-related proteins"
+   ],
+   "date": "2016-09-20T12:39:36.000Z",
+   "disorder_content": 1,
+   "disprot_consensus": {
+    "Biological process": [
+     {
+      "end": 441,
+      "start": 1,
+      "type": "F"
+     }
+    ],
+    "Structural state": [
+     {
+      "end": 441,
+      "start": 1,
+      "type": "D"
+     }
+    ],
+    "full": [
+     {
+      "end": 441,
+      "start": 1,
+      "type": "D"
+     }
+    ]
+   },
+   "disprot_id": "DP01100",
+   "features": {
+    "pfam": []
+   },
+   "genes": [
+    {
+     "name": {
+      "evidences": [
+       {
+        "code": "ECO:0000312",
+        "source": {
+         "id": "HGNC:6893",
+         "name": "HGNC",
+         "url": "https://www.genenames.org/cgi-bin/gene_symbol_report?hgnc_id=HGNC:6893"
+        }
+       }
+      ],
+      "value": "MAPT"
+     },
+     "synonyms": [
+      {
+       "value": "MAPTL"
+      },
+      {
+       "value": "MTBT1"
+      },
+      {
+       "value": "TAU"
+      }
+     ]
+    }
+   ],
+   "length": 441,
+   "name": "Isoform Tau-F of Microtubule-associated protein tau",
+   "ncbi_taxon_id": 9606,
+   "organism": "Homo sapiens",
+   "regions": [
+    {
+     "curator_id": "esalladini",
+     "curator_name": "Edoardo Salladini",
+     "curator_orcid": "0000-0002-5152-5953",
+     "date": "2022-02-14T09:00:00.000Z",
+     "disprot_namespace": "Structural state",
+     "ec_go": "EXP",
+     "ec_id": "ECO:0006210",
+     "ec_name": "small-angle X-ray scattering evidence used in manual assertion",
+     "ec_ontology": "ECO",
+     "end": 441,
+     "reference_html": "Structural studies of tau protein and Alzheimer paired helical filaments show no evidence for beta-structure. <i> Schweers O, Sch\u00f6nbrunn-Hanebeck E, Marx A, Mandelkow E. </i> J Biol Chem, 1994",
+     "reference_id": "7929085",
+     "reference_source": "pmid",
+     "region_id": "DP01100r001",
+     "released": "2022_03",
+     "start": 1,
+     "statement": [
+      {
+       "text": "Again tau is clearly different from a globular protein (Fig. 3b, bottom), it has the characteristics of a denatured protein.",
+       "type": "Results"
+      }
+     ],
+     "term_id": "IDPO:0000002",
+     "term_name": "disorder",
+     "term_namespace": "Structural state",
+     "term_ontology": "IDPO",
+     "validated": {
+      "curator_id": "vnugnes",
+      "curator_name": "Victoria Nugnes",
+      "timestamp": "2023-01-11T19:58:55.601Z"
+     },
+     "version": 3
+    },
+    {
+     "curator_id": "esalladini",
+     "curator_name": "Edoardo Salladini",
+     "curator_orcid": "0000-0002-5152-5953",
+     "date": "2022-02-14T09:00:00.000Z",
+     "disprot_namespace": "Structural state",
+     "ec_go": "EXP",
+     "ec_id": "ECO:0006228",
+     "ec_name": "Fourier-transform infrared spectroscopy evidence used in manual assertion",
+     "ec_ontology": "ECO",
+     "end": 441,
+     "reference_html": "Tau paired helical filaments from Alzheimer's disease brain and assembled in vitro are based on beta-structure in the core domain. <i> Barghorn S, Davies P, Mandelkow E. </i> Biochemistry, 2004",
+     "reference_id": "14769047",
+     "reference_source": "pmid",
+     "region_id": "DP01100r027",
+     "released": "2022_03",
+     "start": 1,
+     "statement": [
+      {
+       "text": "Soluble proteins K19, K18-\u0394K280, and full-length htau40-\u0394K280 exhibit FTIR maxima around 1645\u22121646 cm-1, consistent with the CD experiments and the dominance of the random coil conformation [Figure 6A\u2212C (dashed lines)].",
+       "type": "Results"
+      }
+     ],
+     "term_id": "IDPO:0000002",
+     "term_name": "disorder",
+     "term_namespace": "Structural state",
+     "term_ontology": "IDPO",
+     "validated": {
+      "curator_id": "vnugnes",
+      "curator_name": "Victoria Nugnes",
+      "timestamp": "2023-11-22T14:50:59.519Z"
+     },
+     "version": 2
+    },
+    {
+     "curator_id": "esalladini",
+     "curator_name": "Edoardo Salladini",
+     "curator_orcid": "0000-0002-5152-5953",
+     "date": "2022-02-14T09:00:00.000Z",
+     "disprot_namespace": "Disorder function",
+     "ec_go": "EXP",
+     "ec_id": "ECO:0006204",
+     "ec_name": "far-UV circular dichroism evidence used in manual assertion",
+     "ec_ontology": "ECO",
+     "end": 441,
+     "reference_html": "Tau paired helical filaments from Alzheimer's disease brain and assembled in vitro are based on beta-structure in the core domain. <i> Barghorn S, Davies P, Mandelkow E. </i> Biochemistry, 2004",
+     "reference_id": "14769047",
+     "reference_source": "pmid",
+     "region_id": "DP01100r028",
+     "released": "2022_03",
+     "start": 1,
+     "statement": [
+      {
+       "text": "The CD spectra change when tau is induced to aggregate into PHFs. Figure 4A\u2212C (solid lines) shows the PHF spectra after separation from soluble tau by a clearing spin. For three-repeat construct K19, the minimum shifts toward a higher wavelength, indicating a transition to a higher \u03b2-sheet content (Figure 4A). This change is even more pronounced for the FTDP-17 mutant of four-repeat construct K18 (K18-\u0394K280, Figure 4B), consistent with the strong tendency of this mutant to form PHFs due to an increased propensity for \u03b2-sheet formation (20, 23).",
+       "type": "Results"
+      }
+     ],
+     "term_comment": "Although deposition of amyloid fibrils is associated with diseases, e.g. Alzheimer's disease, amyloid formation is a normal process. Disease occurs when the balance between amyloid formation and clearance is disrupted (reviewed e.g. in PMID:29654159 and PMID:28937655). An example of a normal amyloid complex is composed of human RIP1 and RIP3 kinases  (PMID:22817896).",
+     "term_def": "\"The generation of amyloid fibrils, insoluble fibrous protein aggregates exhibiting beta sheet structure, from proteins.\" [GOC:cvs, GOC:jj, GOC:ppm, GOC:sj, PMID:21148556, PMID:22817896, PMID:28937655, PMID:29654159]",
+     "term_id": "GO:1990000",
+     "term_is_binding": false,
+     "term_is_obsolete": false,
+     "term_name": "amyloid fibril formation",
+     "term_namespace": "Biological process",
+     "term_not_annotate": false,
+     "term_ontology": "GO",
+     "validated": {
+      "curator_id": "vnugnes",
+      "curator_name": "Victoria Nugnes",
+      "timestamp": "2023-11-22T14:51:30.014Z"
+     },
+     "version": 3
+    },
+    {
+     "curator_id": "esalladini",
+     "curator_name": "Edoardo Salladini",
+     "curator_orcid": "0000-0002-5152-5953",
+     "date": "2022-02-14T09:00:00.000Z",
+     "disprot_namespace": "Disorder function",
+     "ec_go": "EXP",
+     "ec_id": "ECO:0006228",
+     "ec_name": "Fourier-transform infrared spectroscopy evidence used in manual assertion",
+     "ec_ontology": "ECO",
+     "end": 441,
+     "reference_html": "Tau paired helical filaments from Alzheimer's disease brain and assembled in vitro are based on beta-structure in the core domain. <i> Barghorn S, Davies P, Mandelkow E. </i> Biochemistry, 2004",
+     "reference_id": "14769047",
+     "reference_source": "pmid",
+     "region_id": "DP01100r029",
+     "released": "2022_03",
+     "start": 1,
+     "statement": [
+      {
+       "text": "Upon PHF polymerization, the spectra of the repeat constructs shift the maximum to \u223c1629 and 1626 cm-1 [Figure 6A,B (solid lines)], indicating a shift toward a high \u03b2-structure content (55, 56).",
+       "type": "Results"
+      }
+     ],
+     "term_comment": "Although deposition of amyloid fibrils is associated with diseases, e.g. Alzheimer's disease, amyloid formation is a normal process. Disease occurs when the balance between amyloid formation and clearance is disrupted (reviewed e.g. in PMID:29654159 and PMID:28937655). An example of a normal amyloid complex is composed of human RIP1 and RIP3 kinases  (PMID:22817896).",
+     "term_def": "\"The generation of amyloid fibrils, insoluble fibrous protein aggregates exhibiting beta sheet structure, from proteins.\" [GOC:cvs, GOC:jj, GOC:ppm, GOC:sj, PMID:21148556, PMID:22817896, PMID:28937655, PMID:29654159]",
+     "term_id": "GO:1990000",
+     "term_is_binding": false,
+     "term_is_obsolete": false,
+     "term_name": "amyloid fibril formation",
+     "term_namespace": "Biological process",
+     "term_not_annotate": false,
+     "term_ontology": "GO",
+     "validated": {
+      "curator_id": "vnugnes",
+      "curator_name": "Victoria Nugnes",
+      "timestamp": "2023-11-22T14:51:29.416Z"
+     },
+     "version": 3
+    }
+   ],
+   "regions_counter": 53,
+   "released": "2016_10",
+   "sequence": "MAEPRQEFEVMEDHAGTYGLGDRKDQGGYTMHQDQEGDTDAGLKESPLQTPTEDGSEEPGSETSDAKSTPTAEDVTAPLVDEGAPGKQAAAQPHTEIPEGTTAEEAGIGDTPSLEDEAAGHVTQARMVSKSKDGTGSDDKKAKGADGKTKIATPRGAAPPGQKGQANATRIPAKTPPAPKTPPSSGEPPKSGDRSGYSSPGSPGTPGSRSRTPSLPTPPTREPKKVAVVRTPPKSPSSAKSRLQTAPVPMPDLKNVKSKIGSTENLKHQPGGGKVQIINKKLDLSNVQSKCGSKDNIKHVPGGGSVQIVYKPVDLSKVTSKCGSLGNIHHKPGGGQVEVKSEKLDFKDRVQSKIGSLDNITHVPGGGNKKIETHKLTFRENAKAKTDHGAEIVYKSPVVSGDTSPRHLSNVSSTGSIDMVDSPQLATLADEVSASLAKQGL",
+   "taxonomy": [
+    "Eukaryota",
+    "Metazoa",
+    "Chordata",
+    "Craniata",
+    "Vertebrata",
+    "Euteleostomi",
+    "Mammalia",
+    "Eutheria",
+    "Euarchontoglires",
+    "Primates",
+    "Haplorrhini",
+    "Catarrhini",
+    "Hominidae",
+    "Homo"
+   ],
+   "uniref100": "",
+   "uniref50": "",
+   "uniref90": ""
+  },
+  {
+   "acc": "P10636-2",
+   "creator": "esalladini",
+   "date": "2021-11-22T08:59:23.636Z",
+   "disorder_content": 1,
+   "disprot_consensus": {
+    "Structural state": [
+     {
+      "end": 352,
+      "start": 1,
+      "type": "D"
+     }
+    ],
+    "full": [
+     {
+      "end": 352,
+      "start": 1,
+      "type": "D"
+     }
+    ]
+   },
+   "disprot_id": "DP03552",
+   "features": {
+    "gene3D": [],
+    "pfam": []
+   },
+   "genes": [
+    {
+     "name": {
+      "evidences": [
+       {
+        "code": "ECO:0000312",
+        "source": {
+         "id": "HGNC:6893",
+         "name": "HGNC",
+         "url": "https://www.genenames.org/cgi-bin/gene_symbol_report?hgnc_id=HGNC:6893"
+        }
+       }
+      ],
+      "value": "MAPT"
+     },
+     "synonyms": [
+      {
+       "value": "MAPTL"
+      },
+      {
+       "value": "MTBT1"
+      },
+      {
+       "value": "TAU"
+      }
+     ]
+    }
+   ],
+   "length": 352,
+   "name": "Isoform Fetal-tau of Microtubule-associated protein tau",
+   "ncbi_taxon_id": 9606,
+   "organism": "Homo sapiens",
+   "regions": [
+    {
+     "curator_id": "esalladini",
+     "curator_name": "Edoardo Salladini",
+     "curator_orcid": "0000-0002-5152-5953",
+     "date": "2022-02-14T09:00:00.000Z",
+     "disprot_namespace": "Structural state",
+     "ec_go": "EXP",
+     "ec_id": "ECO:0006210",
+     "ec_name": "small-angle X-ray scattering evidence used in manual assertion",
+     "ec_ontology": "ECO",
+     "end": 352,
+     "reference_html": "Domain conformation of tau protein studied by solution small-angle X-ray scattering. <i> Mylonas E, Hascher A, Bernad\u00f3 P, Blackledge M, Mandelkow E, Svergun DI. </i> Biochemistry, 2008",
+     "reference_id": "18771286",
+     "reference_source": "pmid",
+     "region_id": "DP03552r001",
+     "released": "2022_03",
+     "start": 1,
+     "statement": [
+      {
+       "text": "All the profiles are featureless, and the Kratky plots [s2I(s) vs s] are without apparent peaks (Supporting Information Figure 3), which is typical for unfolded proteins.",
+       "type": "Results"
+      },
+      {
+       "text": "Table 1 indicates that the larger constructs (ht23 and ht40) have Rg values close to or smaller than the predicted random coil values, which are shown by ref 29 to agree well with the experimental data from chemically unfolded proteins (note that as tau constructs are not denatured using chemicals the random coil estimations cannot be considered ideal predictions, but they do provide a useful guidance).",
+       "type": "Results"
+      },
+      {
+       "text": "For full length constructs (ht40 and ht23), little difference from the pool distribution was observed (typical models of ht40 selected from the random pools are displayed in Figure 4 to demonstrate that the protein is indeed rather unstructured).",
+       "type": "Results"
+      }
+     ],
+     "term_go_domain": null,
+     "term_id": "IDPO:0000002",
+     "term_name": "disorder",
+     "term_namespace": "Structural state",
+     "term_ontology": "IDPO",
+     "term_xref": null,
+     "unpublished": true,
+     "validated": {
+      "curator_id": "fquaglia",
+      "curator_name": "Federica Quaglia",
+      "timestamp": "2021-11-22T14:38:33.671Z"
+     },
+     "version": 1
+    }
+   ],
+   "regions_counter": 1,
+   "released": "2021_12",
+   "sequence": "MAEPRQEFEVMEDHAGTYGLGDRKDQGGYTMHQDQEGDTDAGLKAEEAGIGDTPSLEDEAAGHVTQARMVSKSKDGTGSDDKKAKGADGKTKIATPRGAAPPGQKGQANATRIPAKTPPAPKTPPSSGEPPKSGDRSGYSSPGSPGTPGSRSRTPSLPTPPTREPKKVAVVRTPPKSPSSAKSRLQTAPVPMPDLKNVKSKIGSTENLKHQPGGGKVQIVYKPVDLSKVTSKCGSLGNIHHKPGGGQVEVKSEKLDFKDRVQSKIGSLDNITHVPGGGNKKIETHKLTFRENAKAKTDHGAEIVYKSPVVSGDTSPRHLSNVSSTGSIDMVDSPQLATLADEVSASLAKQGL",
+   "taxonomy": [
+    "Eukaryota",
+    "Metazoa",
+    "Chordata",
+    "Craniata",
+    "Vertebrata",
+    "Euteleostomi",
+    "Mammalia",
+    "Eutheria",
+    "Euarchontoglires",
+    "Primates",
+    "Haplorrhini",
+    "Catarrhini",
+    "Hominidae",
+    "Homo"
+   ],
+   "uniref100": "",
+   "uniref50": "",
+   "uniref90": ""
+  }
+ ],
+ "retrieved": "2026-10-19",
+ "url": "https://disprot.org/api/search?acc=P10636&format=json",
+ "_note": "Real response retrieved 2026-10-19, trimmed for size."
+}

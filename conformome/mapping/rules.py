@@ -1,6 +1,9 @@
 """Mapping rules. Each returns mapping records; nothing here decides silently.
 
 curator_assignment  the curator named the evidence and the state (who = curator:<name>)
+curated rule        the curator wrote criteria in curation/<acc>.yaml (who = rule:<rule id>).
+                    Evidence matched by rules for two different states stays unmapped and is
+                    listed as ambiguous; a curator assignment always wins over rules.
 anchor_rmsd         a structure clusters with an anchor when its C-alpha RMSD, after
                     superposition on shared residues, is within a cut-off (who = rule:anchor_rmsd).
                     rmsd_ca() is implemented and tested; it is not yet wired to coordinate
@@ -20,6 +23,66 @@ def curator_assignment(curator: str, state_id: str, confidence: str, justificati
         "justification": justification,
         "rule": "curator_assignment",
     }
+
+
+def _ligands(ev: dict) -> set[str]:
+    return {l.upper() for l in ev["conditions"].get("ligands") or []}
+
+
+def _text(ev: dict) -> str:
+    return f"{ev.get('title') or ''} {ev['construct']['description']}".lower()
+
+
+def rule_matches(match: dict, ev: dict) -> bool:
+    """True when the evidence meets every criterion given. Absent criteria are not checked."""
+    ligands, text = _ligands(ev), _text(ev)
+    ligand_text = " | ".join(ev["conditions"].get("ligands") or []).lower()
+    checks = {
+        "techniques": lambda v: ev["technique"] in v,
+        "sources": lambda v: ev["provenance"]["source"] in v,
+        "observable_types": lambda v: ev["observable"]["type"] in v,
+        "environment": lambda v: ev["conditions"]["environment"] in ([v] if isinstance(v, str) else v),
+        "ligands_any": lambda v: bool(ligands & {x.upper() for x in v}),
+        "ligands_all": lambda v: {x.upper() for x in v} <= ligands,
+        "ligands_none": lambda v: not (ligands & {x.upper() for x in v}),
+        "no_ligands": lambda v: (not ligands) == bool(v),
+        "ligand_text_any": lambda v: any(w.lower() in ligand_text for w in v),
+        "ligand_text_none": lambda v: not any(w.lower() in ligand_text for w in v),
+        "title_any": lambda v: any(w.lower() in text for w in v),
+        "title_all": lambda v: all(w.lower() in text for w in v),
+        "title_none": lambda v: not any(w.lower() in text for w in v),
+        # Title only, not the construct: source-assigned entity names can be generic.
+        "publication_title_any": lambda v: any(w.lower() in (ev.get("title") or "").lower() for w in v),
+    }
+    return all(checks[key](value) for key, value in match.items())
+
+
+def rule_mapping(rule: dict) -> dict:
+    return {
+        "state_id": rule["state"],
+        "who": f"rule:{rule['id']}",
+        "confidence": rule["confidence"],
+        "justification": rule["justification"],
+        "rule": rule["id"],
+    }
+
+
+def apply_rules(evidence: list[dict], rules: list[dict]) -> list[dict]:
+    """Add rule mappings in place. Returns the ambiguous items (rules point to different states)."""
+    ambiguous = []
+    for ev in evidence:
+        if any(m["who"].startswith("curator:") for m in ev["mappings"]):
+            continue
+        hits = [r for r in rules if rule_matches(r["match"], ev)]
+        states = []
+        for r in hits:
+            if r["state"] not in states:
+                states.append(r["state"])
+        if len(states) == 1:
+            ev["mappings"].append(rule_mapping(hits[0]))
+        elif len(states) > 1:
+            ambiguous.append({"evidence_id": ev["evidence_id"], "states": states, "rules": [r["id"] for r in hits]})
+    return ambiguous
 
 
 def rmsd_ca(coords_a: np.ndarray, coords_b: np.ndarray) -> float:

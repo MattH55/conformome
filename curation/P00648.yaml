@@ -1,0 +1,75 @@
+# Barnase, Bacillus amyloliquefaciens. Draft: curator to review.
+uniprot: P00648
+name: Barnase
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: Barnase-native
+    name: native fold
+    basis: observed
+    representative_pdb: "1A2P"
+    description: Native fold of wild-type barnase, as in 1A2P (1.5 Å).
+  - id: Barnase-unfolded
+    name: unfolded
+    basis: inferred
+    representative_pdb: null
+    description: Unfolded ensemble reached by denaturant, temperature or force. No observed structure.
+    assumptions:
+      - Treated as a single ensemble; residual structure and intermediates are not resolved.
+      - Defined by indirect measurements (denaturation, NMR of denatured samples, force spectroscopy); no model is exported.
+assignments:
+  - pdb: "1A2P"
+    state: Barnase-native
+    confidence: high
+    justification: "Representative native structure; title and UniProt mapping checked against RCSB."
+rules:
+  - id: barnase-structures-native
+    state: Barnase-native
+    confidence: medium
+    justification: "Experimental structure of this small single-domain protein; deposited structures show the native fold unless the title says otherwise."
+    match:
+      techniques: [xray, cryoem, nmr_structure, neutron, microed]
+      title_none: ["fibril", "amyloid", "unfolded", "denatured", "molten", "swapped"]
+  - id: barnase-nmr-shifts-native
+    state: Barnase-native
+    confidence: low
+    justification: "Chemical shift assignment of the folded protein; shift-only entries rarely describe non-native states unless titled so."
+    match:
+      techniques: [nmr_shifts, nmr_dynamics]
+      title_none: ["unfolded", "denatured", "urea", "molten", "fibril", "amyloid"]
+  - id: barnase-saxs-native
+    state: Barnase-native
+    confidence: low
+    justification: "SAXS of the protein alone in solution under native conditions; samples with partners and denatured samples are excluded."
+    match:
+      techniques: [saxs_sans]
+      title_none: ["unfolded", "denatured", "urea", "complex"]
+      ligand_text_none: ["partner:"]
+  - id: barnase-md-native
+    state: Barnase-native
+    confidence: low
+    justification: "Simulation started from a native structure (prediction)."
+    match:
+      techniques: [md]
+  - id: barnase-af-native
+    state: Barnase-native
+    confidence: low
+    justification: "AlphaFold prediction of the native fold (prediction, not a measurement)."
+    match:
+      techniques: [af_prediction]
+  - id: barnase-denatured-nmr
+    state: Barnase-unfolded
+    confidence: medium
+    justification: "NMR data titled as unfolded or denatured describe the unfolded ensemble."
+    match:
+      techniques: [nmr_shifts, nmr_dynamics]
+      title_any: ["unfolded", "denatured", "urea"]
+  - id: barnase-force-unfolding
+    state: Barnase-unfolded
+    confidence: low
+    justification: "SMASH-BIO force record classed as protein unfolding; mapped to the unfolded state the molecule reaches. Most SMASH-BIO values are extracted automatically."
+    match:
+      sources: [SMASH-BIO]
+      title_any: ["experiment class: unfolding_protein", "unfolding_protein"]
+transitions: []

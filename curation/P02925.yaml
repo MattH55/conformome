@@ -1,0 +1,27 @@
+# Ribose import binding protein RbsB, Escherichia coli (strain K12). Draft: curator to review.
+uniprot: P02925
+name: Ribose-binding protein (RbsB)
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: RBP-open
+    name: open, ligand-free
+    basis: observed
+    representative_pdb: "1URP"
+    description: Ligand-free open form, as in 1URP.
+  - id: RBP-closed
+    name: closed, ribose-bound
+    basis: observed
+    representative_pdb: "2DRI"
+    description: Closed form with D-ribose bound, as in 2DRI.
+assignments:
+  - {pdb: "1URP", state: RBP-open, confidence: high, justification: "Ligand-free D-ribose-binding protein."}
+  - {pdb: "2DRI", state: RBP-closed, confidence: high, justification: "Ribose (RIP) bound."}
+rules:
+  - id: rbp-ribose-closed
+    state: RBP-closed
+    confidence: high
+    justification: "Ribose (RIP) bound closes the two domains."
+    match: {ligands_any: [RIP]}
+transitions: []

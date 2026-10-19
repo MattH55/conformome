@@ -1,0 +1,57 @@
+# Staphylococcal nuclease, Staphylococcus aureus. Draft: curator to review.
+uniprot: P00644
+name: Staphylococcal nuclease (SNase)
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: SNase-apo
+    name: native, ligand-free
+    basis: observed
+    representative_pdb: "1EY0"
+    description: Native fold of wild-type SNase without inhibitor, as in 1EY0 (1.6 Å).
+  - id: SNase-pdTp
+    name: native, Ca2+ and pdTp bound
+    basis: observed
+    representative_pdb: "1SNC"
+    description: Ternary complex with Ca2+ and the inhibitor pdTp, as in 1SNC.
+  - id: SNase-unfolded
+    name: unfolded
+    basis: inferred
+    representative_pdb: null
+    description: Unfolded ensemble reached by denaturant, pressure or temperature. No observed structure.
+    assumptions:
+      - Treated as a single ensemble; residual structure is not resolved.
+      - Defined by indirect measurements; no model is exported.
+assignments:
+  - pdb: "1EY0"
+    state: SNase-apo
+    confidence: high
+    justification: "Wild-type, ligand-free structure; representative of the apo state."
+  - pdb: "1SNC"
+    state: SNase-pdTp
+    confidence: high
+    justification: "Ca2+ and pdTp ternary complex; representative of the inhibitor-bound state."
+rules:
+  - id: snase-pdtp-bound
+    state: SNase-pdTp
+    confidence: high
+    justification: "pdTp (ligand THP) bound in the active site."
+    match:
+      ligands_any: [THP]
+  - id: snase-apo-structures
+    state: SNase-apo
+    confidence: low
+    justification: "Experimental structure without pdTp; variants (for example the Δ+PHS series) are still native folds."
+    match:
+      techniques: [xray, nmr_structure, cryoem, neutron]
+      ligands_none: [THP]
+      title_none: ["unfolded", "denatured", "fragment"]
+  - id: snase-denatured-nmr
+    state: SNase-unfolded
+    confidence: medium
+    justification: "NMR data titled as unfolded or denatured."
+    match:
+      techniques: [nmr_shifts, nmr_dynamics]
+      title_any: ["unfolded", "denatured", "urea", "fragment"]
+transitions: []

@@ -37,5 +37,18 @@ def test_fixture_coverage_grid_and_single_method_states(fixture_paths):
     coverage = read_json(fixture_paths.build / "Q00000" / "mapped.json")["coverage"]
     assert coverage["techniques"] == ["xray", "cryoem", "nmr_structure"]
     assert coverage["cells"]["FX-open"] == {"xray": 1, "cryoem": 0, "nmr_structure": 0}
-    assert coverage["cells"]["FX-closed"] == {"xray": 0, "cryoem": 1, "nmr_structure": 0}
+    assert coverage["cells"]["FX-closed"] == {"xray": 0, "cryoem": 2, "nmr_structure": 0}
     assert coverage["single_method_states"] == ["FX-open", "FX-closed", "FX-intermediate"]
+    assert coverage["unmapped_evidence"] == 1
+
+
+def test_fixture_rules_map_and_flag_ambiguity(fixture_paths):
+    generate(fixture_paths)
+    mapped = read_json(fixture_paths.build / "Q00000" / "mapped.json")
+    by_id = {e["evidence_id"]: e for e in mapped["evidence"]}
+    assert [m["who"] for m in by_id["EV-PDB-9FX5-1"]["mappings"]] == ["rule:fx-substrate-closed"]
+    assert by_id["EV-PDB-9FX4-1"]["mappings"] == []
+    assert mapped["ambiguous"] == [{"evidence_id": "EV-PDB-9FX4-1", "states": ["FX-closed", "FX-open"],
+                                    "rules": ["fx-substrate-closed", "fx-open-title"]}]
+    # 9FX1 says "open" and is X-ray, but the curator's assignment stands alone.
+    assert [m["who"] for m in by_id["EV-PDB-9FX1-1"]["mappings"]] == ["curator:fixture-author"]

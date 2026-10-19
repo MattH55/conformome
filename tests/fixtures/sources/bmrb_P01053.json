@@ -1,0 +1,922 @@
+{
+ "accession": "P01053",
+ "entries": {
+  "1869": {
+   "1869": {
+    "entry_information": [
+     {
+      "category": "entry_information",
+      "loops": [
+       {
+        "category": "_Entry_author",
+        "data": [
+         [
+          "1",
+          "Mogens",
+          "Kjaer",
+          ".",
+          ".",
+          ".",
+          "1869"
+         ],
+         [
+          "2",
+          "Svend",
+          "Ludvigsen",
+          ".",
+          ".",
+          ".",
+          "1869"
+         ],
+         [
+          "3",
+          "Ole",
+          "Sorensen",
+          ".",
+          "W.",
+          ".",
+          "1869"
+         ],
+         [
+          "4",
+          "Lydia",
+          "Denys",
+          ".",
+          "A.",
+          ".",
+          "1869"
+         ],
+         [
+          "5",
+          "Jens",
+          "Kindtler",
+          ".",
+          ".",
+          ".",
+          "1869"
+         ],
+         [
+          "6",
+          "Flemming",
+          "Poulsen",
+          ".",
+          "M.",
+          ".",
+          "1869"
+         ]
+        ],
+        "tags": [
+         "Ordinal",
+         "Given_name",
+         "Family_name",
+         "First_initial",
+         "Middle_initials",
+         "Family_title",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_Data_set",
+        "data": [
+         [
+          "assigned_chemical_shifts",
+          "1",
+          "1869"
+         ]
+        ],
+        "tags": [
+         "Type",
+         "Count",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_Datum",
+        "data": [
+         [
+          "1H chemical shifts",
+          "514",
+          "1869"
+         ]
+        ],
+        "tags": [
+         "Type",
+         "Count",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_Release",
+        "data": [
+         [
+          "4",
+          ".",
+          ".",
+          "2010-06-16",
+          ".",
+          "revision",
+          "BMRB",
+          "Complete natural source information",
+          "1869"
+         ],
+         [
+          "3",
+          ".",
+          ".",
+          "1999-06-14",
+          ".",
+          "revision",
+          "BMRB",
+          "Converted to BMRB NMR-STAR V 2.1 format",
+          "1869"
+         ],
+         [
+          "2",
+          ".",
+          ".",
+          "1996-03-25",
+          ".",
+          "reformat",
+          "BMRB",
+          "Converted to the BMRB 1996-03-01 STAR flat-file format",
+          "1869"
+         ],
+         [
+          "1",
+          ".",
+          ".",
+          "1995-07-31",
+          ".",
+          "original",
+          "BMRB",
+          "Last release in original BMRB flat-file format",
+          "1869"
+         ]
+        ],
+        "tags": [
+         "Release_number",
+         "Format_type",
+         "Format_version",
+         "Date",
+         "Submission_date",
+         "Type",
+         "Author",
+         "Detail",
+         "Entry_ID"
+        ]
+       }
+      ],
+      "name": "entry_information",
+      "tag_prefix": "_Entry",
+      "tags": [
+       [
+        "Sf_category",
+        "entry_information"
+       ],
+       [
+        "Sf_framecode",
+        "entry_information"
+       ],
+       [
+        "ID",
+        "1869"
+       ],
+       [
+        "Title",
+        "Sequence specific assignment of the proton nuclear magnetic resonance spectrum \nof barley serine proteinase inhibitor 2\n"
+       ],
+       [
+        "Type",
+        "macromolecule"
+       ],
+       [
+        "Version_type",
+        "update"
+       ],
+       [
+        "Submission_date",
+        "1995-07-31"
+       ],
+       [
+        "Accession_date",
+        "1996-03-25"
+       ],
+       [
+        "Last_release_date",
+        "."
+       ],
+       [
+        "Original_release_date",
+        "."
+       ],
+       [
+        "Origination",
+        "BMRB"
+       ],
+       [
+        "NMR_STAR_version",
+        "3.1.1.61"
+       ],
+       [
+        "Original_NMR_STAR_version",
+        "2.1"
+       ],
+       [
+        "Experimental_method",
+        "NMR"
+       ],
+       [
+        "Experimental_method_subtype",
+        "."
+       ],
+       [
+        "Details",
+        "."
+       ],
+       [
+        "BMRB_internal_directory_name",
+        "."
+       ]
+      ]
+     }
+    ],
+    "sample_conditions": [
+     {
+      "category": "sample_conditions",
+      "loops": [
+       {
+        "category": "_Sample_condition_variable",
+        "data": [
+         [
+          "pH",
+          "4.2",
+          ".",
+          "na",
+          "1869",
+          "1"
+         ],
+         [
+          "temperature",
+          "315",
+          ".",
+          "K",
+          "1869",
+          "1"
+         ]
+        ],
+        "tags": [
+         "Type",
+         "Val",
+         "Val_err",
+         "Val_units",
+         "Entry_ID",
+         "Sample_condition_list_ID"
+        ]
+       }
+      ],
+      "name": "sample_condition_set_one",
+      "tag_prefix": "_Sample_condition_list",
+      "tags": [
+       [
+        "Sf_category",
+        "sample_conditions"
+       ],
+       [
+        "Sf_framecode",
+        "sample_condition_set_one"
+       ],
+       [
+        "Entry_ID",
+        "1869"
+       ],
+       [
+        "ID",
+        "1"
+       ],
+       [
+        "Details",
+        "."
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "1870": {
+   "1870": {
+    "entry_information": [
+     {
+      "category": "entry_information",
+      "loops": [
+       {
+        "category": "_Entry_author",
+        "data": [
+         [
+          "1",
+          "Mogens",
+          "Kjaer",
+          ".",
+          ".",
+          ".",
+          "1870"
+         ],
+         [
+          "2",
+          "Svend",
+          "Ludvigsen",
+          ".",
+          ".",
+          ".",
+          "1870"
+         ],
+         [
+          "3",
+          "Ole",
+          "Sorensen",
+          ".",
+          "W.",
+          ".",
+          "1870"
+         ],
+         [
+          "4",
+          "Lydia",
+          "Denys",
+          ".",
+          "A.",
+          ".",
+          "1870"
+         ],
+         [
+          "5",
+          "Jens",
+          "Kindtler",
+          ".",
+          ".",
+          ".",
+          "1870"
+         ],
+         [
+          "6",
+          "Flemming",
+          "Poulsen",
+          ".",
+          "M.",
+          ".",
+          "1870"
+         ]
+        ],
+        "tags": [
+         "Ordinal",
+         "Given_name",
+         "Family_name",
+         "First_initial",
+         "Middle_initials",
+         "Family_title",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_Data_set",
+        "data": [
+         [
+          "assigned_chemical_shifts",
+          "1",
+          "1870"
+         ]
+        ],
+        "tags": [
+         "Type",
+         "Count",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_Datum",
+        "data": [
+         [
+          "1H chemical shifts",
+          "449",
+          "1870"
+         ]
+        ],
+        "tags": [
+         "Type",
+         "Count",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_Release",
+        "data": [
+         [
+          "5",
+          ".",
+          ".",
+          "2010-06-16",
+          ".",
+          "revision",
+          "BMRB",
+          "Complete natural source information",
+          "1870"
+         ],
+         [
+          "4",
+          ".",
+          ".",
+          "1999-06-14",
+          ".",
+          "revision",
+          "BMRB",
+          "Converted to BMRB NMR-STAR V 2.1 format",
+          "1870"
+         ],
+         [
+          "3",
+          ".",
+          ".",
+          "1996-04-13",
+          ".",
+          "revision",
+          "BMRB",
+          "Link to the Protein Data Bank added",
+          "1870"
+         ],
+         [
+          "2",
+          ".",
+          ".",
+          "1996-03-25",
+          ".",
+          "reformat",
+          "BMRB",
+          "Converted to the BMRB 1996-03-01 STAR flat-file format",
+          "1870"
+         ],
+         [
+          "1",
+          ".",
+          ".",
+          "1995-07-31",
+          ".",
+          "original",
+          "BMRB",
+          "Last release in original BMRB flat-file format",
+          "1870"
+         ]
+        ],
+        "tags": [
+         "Release_number",
+         "Format_type",
+         "Format_version",
+         "Date",
+         "Submission_date",
+         "Type",
+         "Author",
+         "Detail",
+         "Entry_ID"
+        ]
+       }
+      ],
+      "name": "entry_information",
+      "tag_prefix": "_Entry",
+      "tags": [
+       [
+        "Sf_category",
+        "entry_information"
+       ],
+       [
+        "Sf_framecode",
+        "entry_information"
+       ],
+       [
+        "ID",
+        "1870"
+       ],
+       [
+        "Title",
+        "Sequence specific assignment of the proton nuclear magnetic resonance spectrum \nof barley serine proteinase inhibitor 2\n"
+       ],
+       [
+        "Type",
+        "macromolecule"
+       ],
+       [
+        "Version_type",
+        "update"
+       ],
+       [
+        "Submission_date",
+        "1995-07-31"
+       ],
+       [
+        "Accession_date",
+        "1996-04-13"
+       ],
+       [
+        "Last_release_date",
+        "."
+       ],
+       [
+        "Original_release_date",
+        "."
+       ],
+       [
+        "Origination",
+        "BMRB"
+       ],
+       [
+        "NMR_STAR_version",
+        "3.1.1.61"
+       ],
+       [
+        "Original_NMR_STAR_version",
+        "2.1"
+       ],
+       [
+        "Experimental_method",
+        "NMR"
+       ],
+       [
+        "Experimental_method_subtype",
+        "."
+       ],
+       [
+        "Details",
+        "."
+       ],
+       [
+        "BMRB_internal_directory_name",
+        "."
+       ]
+      ]
+     }
+    ],
+    "sample_conditions": [
+     {
+      "category": "sample_conditions",
+      "loops": [
+       {
+        "category": "_Sample_condition_variable",
+        "data": [
+         [
+          "pH",
+          "4.2",
+          ".",
+          "na",
+          "1870",
+          "1"
+         ],
+         [
+          "temperature",
+          "315",
+          ".",
+          "K",
+          "1870",
+          "1"
+         ]
+        ],
+        "tags": [
+         "Type",
+         "Val",
+         "Val_err",
+         "Val_units",
+         "Entry_ID",
+         "Sample_condition_list_ID"
+        ]
+       }
+      ],
+      "name": "sample_condition_set_one",
+      "tag_prefix": "_Sample_condition_list",
+      "tags": [
+       [
+        "Sf_category",
+        "sample_conditions"
+       ],
+       [
+        "Sf_framecode",
+        "sample_condition_set_one"
+       ],
+       [
+        "Entry_ID",
+        "1870"
+       ],
+       [
+        "ID",
+        "1"
+       ],
+       [
+        "Details",
+        "."
+       ]
+      ]
+     }
+    ]
+   }
+  },
+  "1871": {
+   "1871": {
+    "entry_information": [
+     {
+      "category": "entry_information",
+      "loops": [
+       {
+        "category": "_Entry_author",
+        "data": [
+         [
+          "1",
+          "Mogens",
+          "Kjaer",
+          ".",
+          ".",
+          ".",
+          "1871"
+         ],
+         [
+          "2",
+          "Svend",
+          "Ludvigsen",
+          ".",
+          ".",
+          ".",
+          "1871"
+         ],
+         [
+          "3",
+          "Ole",
+          "Sorensen",
+          ".",
+          "W.",
+          ".",
+          "1871"
+         ],
+         [
+          "4",
+          "Lydia",
+          "Denys",
+          ".",
+          "A.",
+          ".",
+          "1871"
+         ],
+         [
+          "5",
+          "Jens",
+          "Kindtler",
+          ".",
+          ".",
+          ".",
+          "1871"
+         ],
+         [
+          "6",
+          "Flemming",
+          "Poulsen",
+          ".",
+          "M.",
+          ".",
+          "1871"
+         ]
+        ],
+        "tags": [
+         "Ordinal",
+         "Given_name",
+         "Family_name",
+         "First_initial",
+         "Middle_initials",
+         "Family_title",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_Data_set",
+        "data": [
+         [
+          "assigned_chemical_shifts",
+          "1",
+          "1871"
+         ]
+        ],
+        "tags": [
+         "Type",
+         "Count",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_Datum",
+        "data": [
+         [
+          "1H chemical shifts",
+          "2",
+          "1871"
+         ]
+        ],
+        "tags": [
+         "Type",
+         "Count",
+         "Entry_ID"
+        ]
+       },
+       {
+        "category": "_Release",
+        "data": [
+         [
+          "4",
+          ".",
+          ".",
+          "2010-06-16",
+          ".",
+          "revision",
+          "BMRB",
+          "Complete natural source information",
+          "1871"
+         ],
+         [
+          "3",
+          ".",
+          ".",
+          "1999-06-14",
+          ".",
+          "revision",
+          "BMRB",
+          "Converted to BMRB NMR-STAR V 2.1 format",
+          "1871"
+         ],
+         [
+          "2",
+          ".",
+          ".",
+          "1996-03-25",
+          ".",
+          "reformat",
+          "BMRB",
+          "Converted to the BMRB 1996-03-01 STAR flat-file format",
+          "1871"
+         ],
+         [
+          "1",
+          ".",
+          ".",
+          "1995-07-31",
+          ".",
+          "original",
+          "BMRB",
+          "Last release in original BMRB flat-file format",
+          "1871"
+         ]
+        ],
+        "tags": [
+         "Release_number",
+         "Format_type",
+         "Format_version",
+         "Date",
+         "Submission_date",
+         "Type",
+         "Author",
+         "Detail",
+         "Entry_ID"
+        ]
+       }
+      ],
+      "name": "entry_information",
+      "tag_prefix": "_Entry",
+      "tags": [
+       [
+        "Sf_category",
+        "entry_information"
+       ],
+       [
+        "Sf_framecode",
+        "entry_information"
+       ],
+       [
+        "ID",
+        "1871"
+       ],
+       [
+        "Title",
+        "Sequence specific assignment of the proton nuclear magnetic resonance spectrum \nof barley serine proteinase inhibitor 2\n"
+       ],
+       [
+        "Type",
+        "macromolecule"
+       ],
+       [
+        "Version_type",
+        "update"
+       ],
+       [
+        "Submission_date",
+        "1995-07-31"
+       ],
+       [
+        "Accession_date",
+        "1996-03-25"
+       ],
+       [
+        "Last_release_date",
+        "."
+       ],
+       [
+        "Original_release_date",
+        "."
+       ],
+       [
+        "Origination",
+        "BMRB"
+       ],
+       [
+        "NMR_STAR_version",
+        "3.1.1.61"
+       ],
+       [
+        "Original_NMR_STAR_version",
+        "2.1"
+       ],
+       [
+        "Experimental_method",
+        "NMR"
+       ],
+       [
+        "Experimental_method_subtype",
+        "."
+       ],
+       [
+        "Details",
+        "."
+       ],
+       [
+        "BMRB_internal_directory_name",
+        "."
+       ]
+      ]
+     }
+    ],
+    "sample_conditions": [
+     {
+      "category": "sample_conditions",
+      "loops": [
+       {
+        "category": "_Sample_condition_variable",
+        "data": [
+         [
+          "pH",
+          "4.2",
+          ".",
+          "na",
+          "1871",
+          "1"
+         ],
+         [
+          "temperature",
+          "315",
+          ".",
+          "K",
+          "1871",
+          "1"
+         ]
+        ],
+        "tags": [
+         "Type",
+         "Val",
+         "Val_err",
+         "Val_units",
+         "Entry_ID",
+         "Sample_condition_list_ID"
+        ]
+       }
+      ],
+      "name": "sample_condition_set_one",
+      "tag_prefix": "_Sample_condition_list",
+      "tags": [
+       [
+        "Sf_category",
+        "sample_conditions"
+       ],
+       [
+        "Sf_framecode",
+        "sample_condition_set_one"
+       ],
+       [
+        "Entry_ID",
+        "1871"
+       ],
+       [
+        "ID",
+        "1"
+       ],
+       [
+        "Details",
+        "."
+       ]
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "map_url": "https://api.bmrb.io/v2/mappings/uniprot/bmrb?format=json",
+ "retrieved": "2026-10-19",
+ "_note": "Real response retrieved 2026-10-19, trimmed for size."
+}

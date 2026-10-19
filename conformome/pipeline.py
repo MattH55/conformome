@@ -15,7 +15,8 @@ from conformome.common import (
 )
 from conformome.mapping.conflicts import find_conflicts, not_compared
 from conformome.mapping.curation import load_curation
-from conformome.mapping.rules import curator_assignment
+from conformome.mapping.rules import apply_rules, curator_assignment
+from conformome.sources import IMPLEMENTED
 from conformome.sources import pdb as pdb_source
 
 CURATION_URL = "https://github.com/matth55/conformome/blob/main/curation/{}"
@@ -36,12 +37,22 @@ def _representatives(paths: Paths, accessions: list[str]) -> list[str]:
 
 
 def download(paths: Paths, accessions: list[str]) -> None:
+    """Fetch UniProt and every implemented source. A failing optional source is logged, not fatal."""
     retrieved = today()
+    failures = []
     for acc in accessions:
         print(f"download {acc}: UniProt entry")
         protein_source.fetch(paths, acc, retrieved)
-        print(f"download {acc}: PDB entries")
-        pdb_source.fetch(paths, acc, retrieved)
+        for module in IMPLEMENTED:
+            try:
+                module.fetch(paths, acc, retrieved)
+            except Exception as err:  # network or API failure: record it and carry on
+                if module is pdb_source:
+                    raise
+                failures.append({"uniprot": acc, "source": module.NAME, "error": f"{type(err).__name__}: {err}"})
+                print(f"download {acc}: {module.NAME} FAILED ({err})")
+                continue
+            print(f"download {acc}: {module.NAME} ok")
     for pdb_id in _representatives(paths, accessions):
         for ext in ("cif", "pdb"):
             url = MODEL_URL.format(pdb_id, ext)
@@ -54,7 +65,9 @@ def download(paths: Paths, accessions: list[str]) -> None:
             (paths.raw / rel).parent.mkdir(parents=True, exist_ok=True)
             (paths.raw / rel).write_bytes(data)
             record_download(paths, f"raw/{rel}", [url], data)
-            print(f"download {pdb_id}.{ext}: {len(data)} bytes")
+    write_json(paths.raw / "download_failures.json", failures)
+    if failures:
+        print(f"download: {len(failures)} optional source fetches failed; see data/raw/download_failures.json")
 
 
 def ingest(paths: Paths, accessions: list[str]) -> None:
@@ -62,30 +75,38 @@ def ingest(paths: Paths, accessions: list[str]) -> None:
     taxonomy = load_taxonomy(paths.taxonomy / "techniques.yaml")
     for acc in accessions:
         out = paths.build / acc
-        protein_raw = protein_source.load_raw(paths, acc)
-        protein = protein_source.parse(protein_raw, acc)
+        protein = protein_source.parse(protein_source.load_raw(paths, acc), acc)
         errors = check(validators["protein"], protein)
         if errors:
             raise ValueError(f"{acc} protein record invalid: {errors}")
         write_json(out / "protein.json", protein)
 
-        pdb_raw = pdb_source.load_raw(paths, acc)
-        evidence = pdb_source.parse(pdb_raw, acc, pdb_raw["retrieved"])
-        for ev in evidence:
-            errors = evidence_errors(validators, taxonomy, ev)
-            if errors:
-                raise ValueError(f"{ev['evidence_id']} invalid: {errors}")
+        evidence, report = [], {"uniprot": acc, "sources": {}}
+        for module in IMPLEMENTED:
+            raw = module.load_raw(paths, acc)
+            if raw is None:
+                if module is pdb_source:
+                    raise FileNotFoundError(f"{acc}: no PDB download; run make download")
+                report["sources"][module.NAME] = {"status": "not downloaded", "evidence_items": 0, "not_ingested": []}
+                continue
+            records = module.parse(raw, acc, raw["retrieved"])
+            for ev in records:
+                errors = evidence_errors(validators, taxonomy, ev)
+                if errors:
+                    raise ValueError(f"{ev['evidence_id']} invalid: {errors}")
+            skipped = module.not_ingested(raw, acc) if hasattr(module, "not_ingested") else []
+            report["sources"][module.NAME] = {"status": "ingested", "evidence_items": len(records),
+                                              "retrieved": raw["retrieved"], "not_ingested": skipped}
+            evidence += records
+        ids = [ev["evidence_id"] for ev in evidence]
+        if len(set(ids)) != len(ids):
+            dupes = sorted({i for i in ids if ids.count(i) > 1})
+            raise ValueError(f"{acc}: duplicate evidence ids {dupes[:5]}")
+        report["evidence_items"] = len(evidence)
         write_json(out / "evidence.json", evidence)
-        skipped = pdb_source.unmapped_entries(pdb_raw)
-        write_json(out / "ingest.json", {
-            "uniprot": acc,
-            "pdb_entries": len(pdb_raw["entries"]),
-            "evidence_items": len(evidence),
-            "not_ingested": skipped,
-        })
-        methods = collections.Counter(s["method"] for s in skipped)
-        print(f"ingest {acc}: {len(evidence)} evidence items from {len(pdb_raw['entries'])} PDB entries; "
-              f"not ingested (no technique mapping): {dict(methods) or 'none'}")
+        write_json(out / "ingest.json", report)
+        summary = ", ".join(f"{name} {s['evidence_items']}" for name, s in report["sources"].items())
+        print(f"ingest {acc}: {len(evidence)} evidence items ({summary})")
 
 
 def evidence_errors(validators: dict, taxonomy: dict, ev: dict) -> list[str]:
@@ -123,10 +144,17 @@ def map_protein(paths: Paths, acc: str) -> None:
     evidence = read_json(out / "evidence.json")
     by_id = {ev["evidence_id"]: ev for ev in evidence}
     for a in cur.assignments:
-        if a["evidence_id"] not in by_id:
-            raise ValueError(f"{acc}: assignment names unknown evidence {a['evidence_id']}")
-        by_id[a["evidence_id"]]["mappings"].append(
-            curator_assignment(cur.curator, a["state"], a["confidence"], a["justification"]))
+        if a.get("pdb"):
+            # A PDB ID stands for every entity of this protein in that entry.
+            targets = [ev for ev in evidence if ev["provenance"]["source"] == pdb_source.NAME
+                       and ev["provenance"]["deposit_id"] == str(a["pdb"])]
+        else:
+            targets = [by_id[a["evidence_id"]]] if a["evidence_id"] in by_id else []
+        if not targets:
+            raise ValueError(f"{acc}: assignment names unknown evidence {a.get('evidence_id') or a.get('pdb')}")
+        for ev in targets:
+            ev["mappings"].append(curator_assignment(cur.curator, a["state"], a["confidence"], a["justification"]))
+    ambiguous = apply_rules(evidence, cur.rules)
 
     states = []
     for s in cur.states:
@@ -164,6 +192,7 @@ def map_protein(paths: Paths, acc: str) -> None:
         "states": states,
         "transitions": transitions,
         "evidence": evidence,
+        "ambiguous": ambiguous,
         "conflicts": find_conflicts(evidence),
         "not_compared": not_compared(evidence),
         "coverage": coverage_grid(states, evidence, technique_order),
@@ -171,8 +200,9 @@ def map_protein(paths: Paths, acc: str) -> None:
     # evidence.json stays as ingest wrote it; mapping reads it again on every run, so it must not change here.
     write_json(out / "mapped.json", mapped)
     mapped_states = sum(1 for ev in evidence if ev["mappings"])
-    print(f"map {acc}: {len(states)} states, {len(evidence)} evidence ({mapped_states} mapped), "
-          f"{len(mapped['conflicts'])} conflicts, {len(transitions)} transitions")
+    by_rule = sum(1 for ev in evidence for m in ev["mappings"] if m["who"].startswith("rule:"))
+    print(f"map {acc}: {len(states)} states, {len(evidence)} evidence ({mapped_states} mapped, {by_rule} by rule, "
+          f"{len(ambiguous)} ambiguous), {len(mapped['conflicts'])} conflicts, {len(transitions)} transitions")
 
 
 def models(paths: Paths, acc: str) -> None:

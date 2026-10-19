@@ -1,0 +1,38 @@
+# pH-gated potassium channel KcsA, Streptomyces lividans. Draft: curator to review.
+uniprot: P0A334
+name: KcsA potassium channel
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: KcsA-closed-conductive
+    name: gate closed, selectivity filter conductive (high K+)
+    basis: observed
+    representative_pdb: "1K4C"
+    description: Inner gate closed and selectivity filter in the conductive conformation at high K+, as in 1K4C.
+  - id: KcsA-closed-collapsed
+    name: gate closed, selectivity filter collapsed (low K+)
+    basis: observed
+    representative_pdb: "1K4D"
+    description: Selectivity filter collapsed at low K+, as in 1K4D.
+  - id: KcsA-open-inactivated
+    name: gate open, filter inactivated
+    basis: observed
+    representative_pdb: "3F5W"
+    description: Inner gate open (32 Å at T112) with an inactivated filter, as in 3F5W.
+assignments:
+  - {pdb: "1K4C", state: KcsA-closed-conductive, confidence: high, justification: "KcsA-Fab complex at high K+."}
+  - {pdb: "1K4D", state: KcsA-closed-collapsed, confidence: high, justification: "KcsA-Fab complex at low K+."}
+  - {pdb: "3F5W", state: KcsA-open-inactivated, confidence: high, justification: "Title: open-inactivated state, 32 Å opening at T112."}
+rules:
+  - id: kcsa-open-title
+    state: KcsA-open-inactivated
+    confidence: medium
+    justification: "Title describes an open or partially open gate."
+    match: {title_any: ["open"]}
+  - id: kcsa-low-k-title
+    state: KcsA-closed-collapsed
+    confidence: medium
+    justification: "Title describes low K+ conditions, where the filter collapses."
+    match: {title_any: ["low concentration of K", "low K+", "low potassium"], title_none: ["open"]}
+transitions: []

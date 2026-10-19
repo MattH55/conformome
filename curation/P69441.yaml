@@ -24,4 +24,15 @@ assignments:
     state: ADK-closed
     confidence: high
     justification: "Ap5A-bound structure with closed LID and NMP domains; representative for ADK-closed."
+rules:
+  - id: adk-ap5a-closed
+    state: ADK-closed
+    confidence: medium
+    justification: "Bisubstrate inhibitor Ap5A (AP5) bound; it closes the LID and NMP domains."
+    match: {ligands_any: [AP5]}
+  - id: adk-apo-open
+    state: ADK-open
+    confidence: low
+    justification: "Crystal structure with no ligand; apo E. coli ADK crystallises open, but this is not checked per entry."
+    match: {techniques: [xray], no_ligands: true}
 transitions: []

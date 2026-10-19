@@ -1,0 +1,32 @@
+# GTPase HRas, Homo sapiens. Draft: curator to review.
+uniprot: P01112
+name: HRas
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: Ras-GDP
+    name: GDP-bound (inactive)
+    basis: observed
+    representative_pdb: "4Q21"
+    description: GDP-bound switch conformation, as in 4Q21.
+  - id: Ras-GTP
+    name: GTP-analogue-bound (active)
+    basis: observed
+    representative_pdb: "5P21"
+    description: GppNHp-bound active switch conformation, as in 5P21 (1.35 Å). State 1 and state 2 are not separated.
+assignments:
+  - {pdb: "4Q21", state: Ras-GDP, confidence: high, justification: "GDP and Mg2+ bound."}
+  - {pdb: "5P21", state: Ras-GTP, confidence: high, justification: "GppNHp (GNP) bound, triphosphate conformation."}
+rules:
+  - id: ras-gdp
+    state: Ras-GDP
+    confidence: high
+    justification: "GDP bound and no GTP analogue present."
+    match: {ligands_any: [GDP], ligands_none: [GNP, GCP, GSP, GTP]}
+  - id: ras-gtp-analogue
+    state: Ras-GTP
+    confidence: high
+    justification: "GTP or a non-hydrolysable analogue (GNP, GCP, GSP) bound."
+    match: {ligands_any: [GNP, GCP, GSP, GTP], ligands_none: [GDP]}
+transitions: []

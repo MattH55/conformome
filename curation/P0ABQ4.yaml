@@ -1,0 +1,33 @@
+# Dihydrofolate reductase, Escherichia coli (strain K12). Draft: curator to review.
+# Closed and occluded follow Sawaya and Kraut (1997); the curator should confirm the anchor assignments.
+uniprot: P0ABQ4
+name: Dihydrofolate reductase (DHFR)
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: DHFR-closed
+    name: closed (Met20 loop closed over folate and NADP+)
+    basis: observed
+    representative_pdb: "1RX2"
+    description: Met20 loop closed over the bound folate and NADP+, a model of the Michaelis complex, as in 1RX2.
+  - id: DHFR-occluded
+    name: occluded (product-analogue complexes)
+    basis: observed
+    representative_pdb: "1RX4"
+    description: Met20 loop occluding the nicotinamide site in complexes with the product analogue 5,10-dideazatetrahydrofolate, as in 1RX4.
+assignments:
+  - {pdb: "1RX2", state: DHFR-closed, confidence: medium, justification: "Folate and NADP+ complex; closed in Sawaya and Kraut (1997). Confirm."}
+  - {pdb: "1RX4", state: DHFR-occluded, confidence: medium, justification: "Dideazatetrahydrofolate complex; occluded in Sawaya and Kraut (1997). Confirm."}
+rules:
+  - id: dhfr-folate-nadp-closed
+    state: DHFR-closed
+    confidence: medium
+    justification: "Folate with NADP+ bound: the Michaelis-complex mimic, closed in E. coli DHFR."
+    match: {ligands_all: [FOL, NAP]}
+  - id: dhfr-ddthf-occluded
+    state: DHFR-occluded
+    confidence: medium
+    justification: "Product analogue 5,10-dideazatetrahydrofolate (DDF) bound: occluded in E. coli DHFR."
+    match: {ligands_any: [DDF]}
+transitions: []

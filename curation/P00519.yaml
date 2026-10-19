@@ -1,0 +1,49 @@
+# Tyrosine-protein kinase ABL1, Homo sapiens. Kinase-domain conformations. Draft: curator to review.
+uniprot: P00519
+name: Abl kinase (ABL1)
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: Abl-DFG-out
+    name: DFG-out inactive (type II inhibitor-bound)
+    basis: observed
+    representative_pdb: "2HYY"
+    description: Kinase domain with DFG flipped out, bound to imatinib, as in 2HYY (human).
+  - id: Abl-active
+    name: active-like DFG-in (dasatinib-bound)
+    basis: observed
+    representative_pdb: "2GQG"
+    description: Activated kinase domain bound to dasatinib, as in 2GQG.
+  - id: Abl-Src-like-inactive
+    name: Src-like inactive
+    basis: observed
+    representative_pdb: "2G2I"
+    description: Src-like inactive kinase-domain conformation, as in 2G2I.
+  - id: Abl-autoinhibited
+    name: autoinhibited (SH3-SH2 clamp, myristate-bound)
+    basis: observed
+    representative_pdb: "2FO0"
+    description: SH3 and SH2 domains clamped on the kinase with myristate in the C-lobe pocket, as in 2FO0.
+assignments:
+  - {pdb: "2HYY", state: Abl-DFG-out, confidence: high, justification: "Human Abl kinase domain with imatinib (STI)."}
+  - {pdb: "2GQG", state: Abl-active, confidence: high, justification: "Dasatinib bound to the activated kinase domain."}
+  - {pdb: "2G2I", state: Abl-Src-like-inactive, confidence: high, justification: "Title: Src-like inactive conformation."}
+  - {pdb: "2FO0", state: Abl-autoinhibited, confidence: medium, justification: "SH3-SH2 unit with myristate; the entry covers active and inactive forms, so medium."}
+rules:
+  - id: abl-type2-dfg-out
+    state: Abl-DFG-out
+    confidence: medium
+    justification: "Imatinib (STI) or nilotinib (NIL) bound; type II inhibitors bind the DFG-out conformation."
+    match: {ligands_any: [STI, NIL]}
+  - id: abl-dasatinib-active
+    state: Abl-active
+    confidence: medium
+    justification: "Dasatinib (1N1) bound; it binds the active, DFG-in conformation."
+    match: {ligands_any: [1N1]}
+  - id: abl-myristate-autoinhibited
+    state: Abl-autoinhibited
+    confidence: medium
+    justification: "Myristate (MYR) in the C-lobe pocket marks the assembled, autoinhibited form."
+    match: {ligands_any: [MYR]}
+transitions: []

@@ -1,0 +1,49 @@
+# Alpha-spectrin SH3 domain, Gallus gallus. Draft: curator to review.
+uniprot: P07751
+name: Alpha-spectrin SH3 domain
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: SH3-native
+    name: native fold
+    basis: observed
+    representative_pdb: "1SHG"
+    description: Native fold of the alpha-spectrin SH3 domain, as in 1SHG.
+  - id: SH3-unfolded
+    name: unfolded
+    basis: inferred
+    representative_pdb: null
+    description: Unfolded ensemble reached by denaturant, temperature or force. No observed structure.
+    assumptions:
+      - Treated as a single ensemble; residual structure and intermediates are not resolved.
+      - Defined by indirect measurements (denaturation, NMR of denatured samples, force spectroscopy); no model is exported.
+assignments:
+  - pdb: "1SHG"
+    state: SH3-native
+    confidence: high
+    justification: "Representative native structure; title and UniProt mapping checked against RCSB."
+rules:
+  - id: sh3-structures-native
+    state: SH3-native
+    confidence: medium
+    justification: "Experimental structure titled as the SH3 domain; the UniProt entry covers the whole spectrin chain, so other repeats are excluded by title."
+    match:
+      techniques: [xray, cryoem, nmr_structure, neutron, microed]
+      title_any: ["SH3"]
+      title_none: ["fibril", "amyloid", "unfolded", "denatured", "molten", "swapped"]
+  - id: sh3-denatured-nmr
+    state: SH3-unfolded
+    confidence: medium
+    justification: "NMR data titled as unfolded or denatured describe the unfolded ensemble."
+    match:
+      techniques: [nmr_shifts, nmr_dynamics]
+      title_any: ["unfolded", "denatured", "urea"]
+  - id: sh3-force-unfolding
+    state: SH3-unfolded
+    confidence: low
+    justification: "SMASH-BIO force record classed as protein unfolding; mapped to the unfolded state the molecule reaches. Most SMASH-BIO values are extracted automatically."
+    match:
+      sources: [SMASH-BIO]
+      title_any: ["experiment class: unfolding_protein", "unfolding_protein"]
+transitions: []

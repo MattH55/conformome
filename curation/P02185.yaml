@@ -1,0 +1,54 @@
+# Myoglobin, Physeter macrocephalus (sperm whale). Draft: curator to review.
+uniprot: P02185
+name: Myoglobin
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: Mb-deoxy
+    name: deoxy (ferrous, unliganded)
+    basis: observed
+    representative_pdb: "1A6N"
+    description: Ferrous heme with no distal ligand, as in 1A6N (1.15 Å).
+  - id: Mb-oxy
+    name: oxy (O2-bound)
+    basis: observed
+    representative_pdb: "1A6M"
+    description: O2 bound to the ferrous heme, as in 1A6M (1.0 Å).
+  - id: Mb-CO
+    name: carbonmonoxy (CO-bound)
+    basis: observed
+    representative_pdb: "1A6G"
+    description: CO bound to the ferrous heme, as in 1A6G (1.15 Å).
+  - id: Mb-aquomet
+    name: aquomet (ferric, water-bound)
+    basis: observed
+    representative_pdb: "1A6K"
+    description: Ferric heme with a water ligand, as in 1A6K (1.1 Å).
+assignments:
+  - {pdb: "1A6N", state: Mb-deoxy, confidence: high, justification: "Title: deoxy-myoglobin, atomic resolution."}
+  - {pdb: "1A6M", state: Mb-oxy, confidence: high, justification: "Title: oxy-myoglobin; OXY ligand present."}
+  - {pdb: "1A6G", state: Mb-CO, confidence: high, justification: "Title: carbonmonoxy-myoglobin; CMO ligand present."}
+  - {pdb: "1A6K", state: Mb-aquomet, confidence: high, justification: "Title: aquomet-myoglobin."}
+rules:
+  - id: mb-co-ligand
+    state: Mb-CO
+    confidence: high
+    justification: "CO (ligand CMO) bound to the heme."
+    match: {ligands_any: [CMO]}
+  - id: mb-o2-ligand
+    state: Mb-oxy
+    confidence: high
+    justification: "O2 (ligand OXY) bound to the heme."
+    match: {ligands_any: [OXY]}
+  - id: mb-deoxy-title
+    state: Mb-deoxy
+    confidence: medium
+    justification: "Title says deoxy and no CO, O2 or NO ligand is present."
+    match: {title_any: ["deoxy"], ligands_none: [CMO, OXY, "NO"]}
+  - id: mb-met-title
+    state: Mb-aquomet
+    confidence: medium
+    justification: "Title says aquomet or metmyoglobin."
+    match: {title_any: ["aquomet", "metmyoglobin", "met-myoglobin", "met myoglobin"]}
+transitions: []

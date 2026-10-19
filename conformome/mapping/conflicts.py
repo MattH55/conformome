@@ -1,7 +1,7 @@
 """Conflict detection. Disagreements are flagged on the page, never averaged away.
 
 Two evidence items conflict when they are mapped to the same state, report the same observable
-type and unit, have comparable conditions, both carry an uncertainty, and their values differ by
+type and unit, have comparable conditions (including the same construct and buffer), both carry an uncertainty, and their values differ by
 more than the combined uncertainty. Items without uncertainties are not compared, and this is
 recorded in the conflicts panel rather than assumed to agree.
 """
@@ -11,19 +11,27 @@ from __future__ import annotations
 import math
 from itertools import combinations
 
-COMPARABLE_TYPES = {"population", "distance", "rate", "delta_g", "unfolding_force", "rupture_force",
-                    "exchange_rate", "fret_efficiency", "radius_of_gyration", "lifetime"}
+# Force observables are left out: unfolding and rupture forces depend on loading rate, which the
+# conditions schema does not record, so values from different pulling protocols are not comparable.
+COMPARABLE_TYPES = {"population", "distance", "rate", "delta_g", "exchange_rate", "fret_efficiency",
+                    "radius_of_gyration", "lifetime"}
 
 
-def condition_signature(conditions: dict) -> tuple:
-    """Conditions are comparable when environment, temperature, pH and ligands match (rounded)."""
+def condition_signature(conditions: dict, construct: str | None = None) -> tuple:
+    """Comparable when environment, temperature, pH, buffer, ligands and construct match (rounded).
+
+    The construct is part of the signature so that mutants, fragments and complexes are not compared
+    with each other; the buffer string stands in for salt, which most sources do not record separately.
+    """
     temp = conditions.get("temperature_c")
     ph = conditions.get("ph")
     return (
         conditions.get("environment"),
         None if temp is None else round(temp / 5) * 5,
         None if ph is None else round(ph * 2) / 2,
+        (conditions.get("buffer") or "").strip().lower(),
         tuple(sorted(conditions.get("ligands") or [])),
+        construct,
     )
 
 
@@ -34,7 +42,8 @@ def find_conflicts(evidence: list[dict]) -> list[dict]:
         if obs["type"] not in COMPARABLE_TYPES or obs["value"] is None:
             continue
         for m in ev["mappings"]:
-            key = (m["state_id"], obs["type"], obs["unit"], condition_signature(ev["conditions"]))
+            key = (m["state_id"], obs["type"], obs["unit"],
+                   condition_signature(ev["conditions"], ev.get("construct", {}).get("description")))
             by_state_type.setdefault(key, []).append(ev)
 
     conflicts = []

@@ -25,4 +25,10 @@ assignments:
     state: CaM-Ca4-collapsed
     confidence: high
     justification: "Trifluoperazine-bound collapsed form; representative for CaM-Ca4-collapsed."
+rules:
+  - id: cam-tfp-collapsed
+    state: CaM-Ca4-collapsed
+    confidence: medium
+    justification: "Trifluoperazine (TFP) bound; the lobes collapse around the drug."
+    match: {ligands_any: [TFP]}
 transitions: []

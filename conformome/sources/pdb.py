@@ -14,6 +14,7 @@ import urllib.parse
 
 from conformome.common import fetch_url, read_json, record_download, write_json
 
+KEY = "pdb"
 NAME = "RCSB PDB"
 IMPLEMENTED = True
 LICENCE = "CC0 1.0 (wwPDB archive data)"
@@ -30,6 +31,10 @@ METHOD_TECHNIQUE = {
     "NEUTRON DIFFRACTION": "neutron",
     "SOLUTION NMR": "nmr_structure",
     "SOLID-STATE NMR": "nmr_structure",
+    # Integrative models (PDB-IHM, now distributed through the PDB) carry no exptl block; RCSB labels
+    # them experimental_method "Integrative". They are inferred structures and are labelled as such.
+    "INTEGRATIVE": "integrative",
+    "SOLUTION SCATTERING": "saxs_sans",
 }
 
 GRAPHQL_QUERY = """
@@ -50,6 +55,7 @@ query($ids: [String!]!) {
       rcsb_polymer_entity_container_identifiers { entity_id auth_asym_ids uniprot_ids }
     }
     nonpolymer_entities { nonpolymer_comp { chem_comp { id name } } }
+    branched_entities { rcsb_branched_entity { pdbx_description } }
   }
 }
 """
@@ -103,7 +109,10 @@ def fetch(paths, accession: str, retrieved: str) -> dict:
 
 def _method(entry: dict) -> str | None:
     methods = [m["method"] for m in entry.get("exptl") or []]
-    return methods[0] if methods else None
+    if methods:
+        return methods[0]
+    fallback = (entry.get("rcsb_entry_info") or {}).get("experimental_method")
+    return fallback.upper() if fallback else None
 
 
 def _number(value) -> float | None:
@@ -146,9 +155,13 @@ def unmapped_methods(raw: dict) -> dict[str, int]:
 
 
 def unmapped_entries(raw: dict) -> list[dict]:
-    """Entries not ingested, with the reason: integrative or computational models have no experimental method."""
+    """Entries not ingested because their experimental method has no technique mapping."""
     return [{"pdb_id": e["rcsb_id"], "method": _method(e), "title": e["struct"]["title"]}
             for e in raw["entries"] if _method(e) not in METHOD_TECHNIQUE]
+
+
+def not_ingested(raw: dict, accession: str) -> list[dict]:
+    return [{"id": u["pdb_id"], "reason": f"method {u['method']} has no technique mapping"} for u in unmapped_entries(raw)]
 
 
 def parse(raw: dict, accession: str, retrieved: str) -> list[dict]:
@@ -163,6 +176,9 @@ def parse(raw: dict, accession: str, retrieved: str) -> list[dict]:
         doi = (entry.get("rcsb_primary_citation") or {}).get("pdbx_database_id_DOI")
         ligands = sorted({np["nonpolymer_comp"]["chem_comp"]["id"] for np in entry.get("nonpolymer_entities") or []
                           if np.get("nonpolymer_comp")})
+        # Oligosaccharides are branched entities, not nonpolymer ligands (maltose in 1ANF, for example).
+        ligands += sorted({f"branched: {b['rcsb_branched_entity']['pdbx_description']}"
+                           for b in entry.get("branched_entities") or [] if (b.get("rcsb_branched_entity") or {}).get("pdbx_description")})
         for poly in entry["polymer_entities"]:
             ident = poly["rcsb_polymer_entity_container_identifiers"]
             if accession not in (ident.get("uniprot_ids") or []):
@@ -175,6 +191,7 @@ def parse(raw: dict, accession: str, retrieved: str) -> list[dict]:
                 "uniprot": accession,
                 "technique": technique,
                 "source_kind": "deposit",
+                "title": (entry.get("struct") or {}).get("title"),
                 "construct": {"description": f"{description} (chains {chains})", "labels": []},
                 "conditions": {
                     "environment": "in_vitro",
@@ -184,7 +201,7 @@ def parse(raw: dict, accession: str, retrieved: str) -> list[dict]:
                     "salt_mM": None,
                     "ligands": ligands,
                     "applied_force_pn": None,
-                    "notes": "Entry-level ligand list. pH and temperature are null when not deposited in machine-readable fields.",
+                    "notes": "Entry-level ligand list; oligosaccharides appear as branched entities. pH and temperature are null when not deposited in machine-readable fields.",
                 },
                 "observable": {
                     "type": "resolution" if resolution is not None else "structure",
@@ -206,5 +223,6 @@ def parse(raw: dict, accession: str, retrieved: str) -> list[dict]:
     return records
 
 
-def load_raw(paths, accession: str) -> dict:
-    return read_json(paths.raw / f"pdb/{accession}.json")
+def load_raw(paths, accession: str) -> dict | None:
+    path = paths.raw / f"pdb/{accession}.json"
+    return read_json(path) if path.exists() else None

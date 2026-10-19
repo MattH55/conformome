@@ -1,0 +1,32 @@
+# Chemotaxis protein CheY, Escherichia coli (strain K12). Draft: curator to review.
+uniprot: P0AE67
+name: CheY
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: CheY-inactive
+    name: inactive (unphosphorylated)
+    basis: observed
+    representative_pdb: "3CHY"
+    description: Unphosphorylated receiver domain, as in 3CHY.
+  - id: CheY-active
+    name: active (BeF3- phosphoryl mimic)
+    basis: observed
+    representative_pdb: "1FQW"
+    description: Activated conformation with BeF3- bound as a phosphoryl analogue, as in 1FQW.
+assignments:
+  - {pdb: "3CHY", state: CheY-inactive, confidence: high, justification: "Unphosphorylated CheY, 1.7 Å."}
+  - {pdb: "1FQW", state: CheY-active, confidence: high, justification: "Title: activated CheY; BeF3- (BEF) bound."}
+rules:
+  - id: chey-bef3-active
+    state: CheY-active
+    confidence: high
+    justification: "BeF3- (BEF) bound: phosphoryl mimic that activates CheY."
+    match: {ligands_any: [BEF]}
+  - id: chey-unphosphorylated
+    state: CheY-inactive
+    confidence: low
+    justification: "Structure without a phosphoryl mimic; usually inactive, but mutants can be partly active."
+    match: {techniques: [xray, nmr_structure], ligands_none: [BEF, PO3, AF3, ALF, MGF]}
+transitions: []

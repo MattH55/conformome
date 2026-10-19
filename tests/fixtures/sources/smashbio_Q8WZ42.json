@@ -1,0 +1,508 @@
+{
+ "accession": "Q8WZ42",
+ "records": [
+  {
+   "annotations": {
+    "analysis_models": [
+     "WLC",
+     "FJC",
+     "Arrhenius"
+    ],
+    "analysis_software": [
+     "MATLAB",
+     "Origin"
+    ],
+    "disease_relevance": [],
+    "funding": [
+     "National Natural Science Foundation of China",
+     "National Natural Science Foundation of China (National Science Foundation of China)"
+    ],
+    "instrument_vendor": "custom",
+    "keywords": []
+   },
+   "assay": {
+    "attachment_chemistry": [
+     "His-tag/Ni-NTA"
+    ],
+    "bead_functionalization": [
+     "Ni-NTA"
+    ],
+    "bead_material": "superparamagnetic",
+    "experiment_class": [
+     "receptor_ligand_adhesion",
+     "rheology_cell",
+     "unfolding_protein"
+    ],
+    "trap_control": [
+     "force_ramp"
+    ]
+   },
+   "biological_system": {
+    "cell": {
+     "cell_identity": "Cardiomyocyte / muscle fibre",
+     "cell_ontology": {
+      "id": "CL:0000746",
+      "scheme": "cl",
+      "verified": false
+     }
+    },
+    "entities": [
+     {
+      "entity_type": "protein",
+      "evidence": {
+       "confidence": "low",
+       "method": "gazetteer",
+       "note": "organism not stated in abstract; default ortholog assigned",
+       "snippet": "\u2026hanically weak and highly dynamic state of mechanosensitive titin Ig domains induced by proline isomerization. Titin, essenti\u2026"
+      },
+      "gene_symbol": "TTN",
+      "identifiers": [
+       {
+        "id": "Q8WZ42",
+        "scheme": "uniprot",
+        "verified": true
+       }
+      ],
+      "name": "Titin (Ig/FnIII domains, e.g. I27/I91)",
+      "organism": {
+       "name": "Homo sapiens",
+       "ncbi_taxon": 9606
+      },
+      "role": "unspecified"
+     },
+     {
+      "entity_type": "protein",
+      "evidence": {
+       "confidence": "medium",
+       "method": "gazetteer",
+       "snippet": "\u2026lly weak and highly dynamic state of mechanosensitive titin Ig domains induced by proline isomerization. Titin, essential for mech\u2026"
+      },
+      "identifiers": [],
+      "name": "Immunoglobulin-like domain",
+      "role": "unspecified"
+     },
+     {
+      "entity_type": "cell",
+      "evidence": {
+       "confidence": "medium",
+       "method": "gazetteer",
+       "snippet": "\u2026, essential for mechano-homeostasis in cardiac and skeletal sarcomere, contains numerous mechanosensitive immunoglobulin-like (Ig\u2026"
+      },
+      "identifiers": [
+       {
+        "id": "CL:0000746",
+        "scheme": "cl",
+        "verified": false
+       }
+      ],
+      "name": "Cardiomyocyte / muscle fibre",
+      "role": "unspecified"
+     }
+    ],
+    "organisms": [],
+    "system_class": [
+     "receptor_ligand_adhesion",
+     "rheology_cell",
+     "unfolding_protein"
+    ],
+    "table3_columns": [
+     "Nucleic acid or protein unfolding",
+     "Receptor-ligand / adhesion (extension)",
+     "Rheology"
+    ]
+   },
+   "curation": {
+    "last_updated": "2026-10-10",
+    "level": "auto_fulltext"
+   },
+   "data_availability": {
+    "accessions": [
+     {
+      "id": "1G1C",
+      "scheme": "pdb"
+     }
+    ],
+    "code": [],
+    "datasets": [
+     {
+      "id": "http://www.ebi.ac.uk/biostudies/studies/S-EPMC11926396?xr=true",
+      "journal_mirror": true,
+      "linked_by": [
+       "europepmc_datalinks"
+      ],
+      "relation": "IsReferencedBy",
+      "repository": "BioStudies",
+      "resource_type": "dataset",
+      "scheme": "url",
+      "title": "Mechanically weak and highly dynamic state of mechanosensitive titin Ig domains induced by proline isomerization.",
+      "url": "http://www.ebi.ac.uk/biostudies/studies/S-EPMC11926396?xr=true"
+     }
+    ],
+    "fulltext_checked": true,
+    "has_any_data": true,
+    "has_linked_code": false,
+    "has_linked_dataset": false,
+    "raw_traces_available": false,
+    "repositories": [],
+    "statement": "Data availabilityUnless otherwise stated, all data supporting the results of this study can be found in the article, Supplementary, and source data files. Sequence information of key constructs is included in Supplementary Information. AlphaFold-predicted structures are available as source data files. The predicted models are subject to the AlphaFold Server Output Terms of Use (available at alphafoldserver.com/output-terms). No modifications were made to the original predictions, and all structures were used strictly for non-commercial, scientific research purposes. Key plasmids are available upon request from the corresponding authors. Source data are provided in this paper.",
+    "statement_classes": [
+     "source_data_supplement",
+     "journal_supplement",
+     "on_request"
+    ],
+    "status": "source_data_supplement",
+    "supplementary_files": [
+     "41467_2025_57989_MOESM1_ESM.pdf",
+     "41467_2025_57989_MOESM2_ESM.pdf",
+     "41467_2025_57989_MOESM3_ESM.pdf",
+     "41467_2025_57989_MOESM4_ESM.zip"
+    ]
+   },
+   "fair_completeness": {
+    "assay": 0.4,
+    "construct": 0.5,
+    "data": 0.67,
+    "hardware": 0.33,
+    "overall": 0.53,
+    "solution": 0.75
+   },
+   "hardware": {
+    "calibration_technique": [
+     "thermal_noise_cantilever"
+    ],
+    "custom_built": true,
+    "make_of_setup": "custom",
+    "temperature": {
+     "evidence": {
+      "confidence": "medium",
+      "method": "regex_fulltext_methods",
+      "snippet": "\u2026ws cysteine oxidation, consisting of 1X PBS and 1% BSA. The experiments were conducted at 22 \u00b1 1 oC. The magnetic tweezers setup has a temporal resolution of 200 Hz and a spatial resolution\u2026"
+     },
+     "unit": "K",
+     "value": 295.15
+    }
+   },
+   "publication": {
+    "abstract": "Titin, essential for mechano-homeostasis in cardiac and skeletal sarcomere, contains numerous mechanosensitive immunoglobulin-like (Ig) domains in its I-band region. However, how proline isomerization and cysteine-mediated disulfide bond collectively regulate Ig domain dynamics within the physiological force range remains unclear. Here, we use single-molecule force spectroscopy to quantify the proximal Ig1 domain, revealing that proline isomerization leads to two native states-trans and cis states-with distinct mechanical and thermal stabilities. The trans-Ig1 unfolds at forces of \u00a0~ 5 pN, which is over 50 pN lower than that of cis-Ig1, and unfolds 1000 times faster under physiological forces. Furthermore, such proline induced dual-state is likely shared feature across majority of I-band Ig domains. Additionally, reduced cis- and trans-Ig1 exhibit catch-slip bond unfolding, while oxidized forms display slip-catch-slip unfolding. This study offers insight into effective modulation of proline isomerization and disulfide bond in regulating mechanosensitive proteins within the physiological force range.",
+    "affiliations": [
+     "Department of Physics, Research Institute for Biomimetics and Soft Matter, Fujian Provincial Key Lab for Soft Functional Materials Research, Xiamen University, Xiamen, China.",
+     "Department of Biochemistry and Division of Orthopaedic Surgery of the Second Affiliated Hospital, Zhejiang University School of Medicine, Hangzhou, China.",
+     "Department of Physics, Research Institute for Biomimetics and Soft Matter, Fujian Provincial Key Lab for Soft Functional Materials Research, Xiamen University, Xiamen, China.",
+     "Department of Biochemistry and Division of Orthopaedic Surgery of the Second Affiliated Hospital, Zhejiang University School of Medicine, Hangzhou, China."
+    ],
+    "authors": [
+     "Wang Y",
+     "Ye J",
+     "Liu X",
+     "Zhang Z",
+     "Shang F",
+     "Qi X",
+     "Zhang Y",
+     "Du J",
+     "Sun H",
+     "Xu J",
+     "Chen H",
+     "Yu M",
+     "Le S"
+    ],
+    "cited_by": 11,
+    "doi": "10.1038/s41467-025-57989-y",
+    "funders": [
+     "National Natural Science Foundation of China",
+     "National Natural Science Foundation of China (National Science Foundation of China)"
+    ],
+    "journal": "Nature communications",
+    "license": "cc by-nc-nd",
+    "mesh_terms": [
+     "Humans",
+     "Disulfides",
+     "Proline",
+     "Mechanotransduction, Cellular",
+     "Isomerism",
+     "Protein Unfolding",
+     "Connectin",
+     "Immunoglobulin Domains"
+    ],
+    "open_access": true,
+    "pmcid": "PMC11926396",
+    "pmid": "40113761",
+    "publication_date": "2025-03-20",
+    "title": "Mechanically weak and highly dynamic state of mechanosensitive titin Ig domains induced by proline isomerization.",
+    "year": 2025
+   },
+   "record_id": "SMFS-000508",
+   "results": [
+    {
+     "quantity": "unfolding_force",
+     "source": {
+      "confidence": "medium",
+      "extraction": "auto_regex",
+      "location": "abstract",
+      "snippet": "The trans-Ig1 unfolds at forces of \u00a0~ 5 pN, which is over 50 pN lower than that of cis-Ig1, and unfolds 1000 times faster"
+     },
+     "statistic": "single_value",
+     "unit": "pN",
+     "value": 5.0
+    }
+   ],
+   "schema_version": "3.1.0",
+   "scope": {
+    "article_kind": "primary_research",
+    "reasons": [
+     "technique+bio+force"
+    ],
+    "tier": "core"
+   },
+   "solution": {
+    "buffer": "Tris",
+    "components": [
+     {
+      "concentration": {
+       "unit": "mM",
+       "value": 50.0
+      },
+      "name": "Tris"
+     },
+     {
+      "concentration": {
+       "unit": "mM",
+       "value": 500.0
+      },
+      "name": "NaCl"
+     },
+     {
+      "concentration": {
+       "unit": "%",
+       "value": 10.0
+      },
+      "name": "glycerol"
+     },
+     {
+      "concentration": {
+       "unit": "mM",
+       "value": 20.0
+      },
+      "name": "imidazole"
+     },
+     {
+      "concentration": {
+       "unit": "mM",
+       "value": 1.0
+      },
+      "name": "\u03b2-Mercaptoethanol"
+     },
+     {
+      "concentration": {
+       "unit": "mM",
+       "value": 200.0
+      },
+      "name": "imidazole"
+     },
+     {
+      "concentration": {
+       "unit": "mM",
+       "value": 5.0
+      },
+      "name": "DTT"
+     },
+     {
+      "concentration": {
+       "unit": "%",
+       "value": 1.0
+      },
+      "name": "BSA"
+     },
+     {
+      "concentration": {
+       "unit": "mM",
+       "value": 2.5
+      },
+      "name": "DTT"
+     }
+    ],
+    "pH": 7.5
+   },
+   "technique": {
+    "correlative_modalities": [],
+    "evidence_queries": [
+     "afm_smfs",
+     "force_spectroscopy_generic"
+    ],
+    "force_application_geometry": "cantilever_tip_surface",
+    "multiplexed": false,
+    "primary": "afm_smfs",
+    "secondary": []
+   }
+  },
+  {
+   "annotations": {
+    "analysis_models": [],
+    "analysis_software": [],
+    "disease_relevance": [],
+    "funding": [
+     "ANRF Core Research Grant",
+     "Department of Biotechnology, Ministry of Science and Technology, India"
+    ],
+    "keywords": [
+     "Magnetic Tweezers",
+     "Damping",
+     "Titin",
+     "Interdomain Linkers"
+    ]
+   },
+   "assay": {
+    "bead_geometry": "bead_surface",
+    "experiment_class": [
+     "rheology_cell",
+     "unfolding_protein"
+    ],
+    "trap_control": [
+     "force_clamp",
+     "constant_force",
+     "oscillatory"
+    ]
+   },
+   "biological_system": {
+    "entities": [
+     {
+      "entity_type": "protein",
+      "evidence": {
+       "confidence": "low",
+       "method": "gazetteer",
+       "note": "organism not stated in abstract; default ortholog assigned",
+       "snippet": "\u2026rs tune the energy dissipation of immunoglobulin domains in titin. Mechanical forces are central to biological function, with\u2026"
+      },
+      "gene_symbol": "TTN",
+      "identifiers": [
+       {
+        "id": "Q8WZ42",
+        "scheme": "uniprot",
+        "verified": true
+       }
+      ],
+      "name": "Titin (Ig/FnIII domains, e.g. I27/I91)",
+      "organism": {
+       "name": "Homo sapiens",
+       "ncbi_taxon": 9606
+      },
+      "role": "unspecified"
+     },
+     {
+      "entity_type": "protein",
+      "evidence": {
+       "confidence": "medium",
+       "method": "gazetteer",
+       "snippet": "Interdomain linkers tune the energy dissipation of immunoglobulin domains in titin. Mechanical forces are central to biological funct\u2026"
+      },
+      "identifiers": [],
+      "name": "Immunoglobulin-like domain",
+      "role": "unspecified"
+     }
+    ],
+    "organisms": [],
+    "system_class": [
+     "rheology_cell",
+     "unfolding_protein"
+    ],
+    "table3_columns": [
+     "Nucleic acid or protein unfolding",
+     "Rheology"
+    ]
+   },
+   "curation": {
+    "last_updated": "2026-10-10",
+    "level": "auto_abstract"
+   },
+   "data_availability": {
+    "accessions": [],
+    "code": [],
+    "datasets": [],
+    "fulltext_checked": false,
+    "has_any_data": false,
+    "has_linked_code": false,
+    "has_linked_dataset": false,
+    "raw_traces_available": false,
+    "repositories": [],
+    "statement": "",
+    "statement_classes": [],
+    "status": "unknown_no_fulltext",
+    "supplementary_files": []
+   },
+   "fair_completeness": {
+    "assay": 0.4,
+    "construct": 0.5,
+    "data": 0.0,
+    "hardware": 0.0,
+    "overall": 0.18,
+    "solution": 0.0
+   },
+   "hardware": {},
+   "publication": {
+    "abstract": "Mechanical forces are central to biological function, with mechanosensitive multidomain proteins (MDPs) such as titin translating strain into adaptive responses. While damping is well recognized at the tissue level in muscles, how it emerges from a multidomain protein connected by interdomain linkers (IDLs) has remained unclear. Here, using magnetic tweezers, we probe engineered titin I27 dimers connected by three distinct synthetic linkers (RS, GG, and GGGSGGGG) under both equilibrium constant force clamp and far-from-equilibrium oscillatory force pulse protocols. We show that folded domains exhibit unfolding along with deformations under load and that IDLs act as molecular regulators of damping. Rigid linkers promote stepwise, cooperative unfolding and faster energy dissipation, showing overdamped response, whereas flexible linkers favor gradual, viscoelastic transitions with energy-conserving underdamped behavior. Furthermore, increased domain stability correlates with enhanced damping capacity. Our work provides experimental evidence of single protein-level damping, revealing how nature encodes long-term durability into its molecular machines.",
+    "affiliations": [
+     "Department of Chemical Sciences, Indian Institute of Science Education and Research Mohali, Punjab, India.",
+     "Department of Chemical Sciences, Indian Institute of Science Education and Research Mohali, Punjab, India.",
+     "Department of Chemical Sciences, Indian Institute of Science Education and Research Mohali, Punjab, India."
+    ],
+    "authors": [
+     "Saha P",
+     "Joshi T",
+     "Bhati GK",
+     "Adarsh A",
+     "Bisht D",
+     "Rakshit S"
+    ],
+    "cited_by": 0,
+    "doi": "10.1002/pro.70663",
+    "funders": [
+     "ANRF Core Research Grant",
+     "Department of Biotechnology, Ministry of Science and Technology, India"
+    ],
+    "journal": "Protein science : a publication of the Protein Society",
+    "keywords": [
+     "Magnetic Tweezers",
+     "Damping",
+     "Titin",
+     "Interdomain Linkers"
+    ],
+    "mesh_terms": [
+     "Humans",
+     "Models, Molecular",
+     "Connectin",
+     "Immunoglobulin Domains"
+    ],
+    "open_access": false,
+    "pmid": "42226344",
+    "publication_date": "2026-07-01",
+    "title": "Interdomain linkers tune the energy dissipation of immunoglobulin domains in titin.",
+    "year": 2026
+   },
+   "record_id": "SMFS-000147",
+   "results": [],
+   "schema_version": "3.1.0",
+   "scope": {
+    "article_kind": "primary_research",
+    "reasons": [
+     "technique+bio+force"
+    ],
+    "tier": "core"
+   },
+   "solution": {},
+   "technique": {
+    "correlative_modalities": [],
+    "evidence_queries": [
+     "magnetic_tweezers",
+     "generic_smfs"
+    ],
+    "force_application_geometry": "bead_on_surface_magnetic",
+    "multiplexed": false,
+    "primary": "magnetic_tweezers",
+    "secondary": []
+   }
+  }
+ ],
+ "release_sha256": "8fa4bc181a295625375b6fd0b5cbd13c20d708703661bf25cea2c5f41ccf727f",
+ "release_url": "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz",
+ "retrieved": "2026-10-19",
+ "_note": "Real response retrieved 2026-10-19, trimmed for size."
+}

@@ -91,3 +91,12 @@ def test_curator_assignment_record_shape():
     rec = curator_assignment("A. Curator", "S-open", "high", "Anchor match.")
     assert rec == {"state_id": "S-open", "who": "curator:A. Curator", "confidence": "high",
                    "justification": "Anchor match.", "rule": "curator_assignment"}
+
+
+def test_different_constructs_are_not_compared():
+    a, b = ev("EV-A", 0.30, 0.01), ev("EV-B", 0.60, 0.01)
+    a["construct"] = {"description": "wild type"}
+    b["construct"] = {"description": "L99A mutant"}
+    assert find_conflicts([a, b]) == []
+    b["construct"] = {"description": "wild type"}
+    assert len(find_conflicts([a, b])) == 1

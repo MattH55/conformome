@@ -24,4 +24,15 @@ assignments:
     state: LacI-operator
     confidence: high
     justification: "Repressor bound to operator DNA with ONPF; representative for the operator-bound state."
+rules:
+  - id: laci-iptg
+    state: LacI-IPTG
+    confidence: high
+    justification: "IPTG (IPT) bound."
+    match: {ligands_any: [IPT]}
+  - id: laci-operator-title
+    state: LacI-operator
+    confidence: medium
+    justification: "Title names operator DNA and no inducer is bound."
+    match: {title_any: ["operator"], ligands_none: [IPT]}
 transitions: []

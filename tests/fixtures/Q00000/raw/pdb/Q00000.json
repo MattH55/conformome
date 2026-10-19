@@ -6,7 +6,9 @@
   "entry_ids": [
     "9FX1",
     "9FX2",
-    "9FX3"
+    "9FX3",
+    "9FX4",
+    "9FX5"
   ],
   "entries": [
     {
@@ -161,6 +163,121 @@
         }
       ],
       "nonpolymer_entities": null
+    },
+    {
+      "rcsb_id": "9FX4",
+      "struct": {
+        "title": "Fixture kinase, open with substrate"
+      },
+      "exptl": [
+        {
+          "method": "X-RAY DIFFRACTION"
+        }
+      ],
+      "rcsb_entry_info": {
+        "resolution_combined": [
+          2.4
+        ],
+        "experimental_method": "X-RAY DIFFRACTION"
+      },
+      "rcsb_accession_info": {
+        "initial_release_date": "2020-01-01T00:00:00Z"
+      },
+      "rcsb_primary_citation": {
+        "pdbx_database_id_DOI": "10.9999/synthetic.9fx4"
+      },
+      "diffrn": [
+        {
+          "ambient_temp": 100.0
+        }
+      ],
+      "exptl_crystal_grow": [
+        {
+          "pH": 7.2,
+          "temp": null
+        }
+      ],
+      "pdbx_nmr_exptl_sample_conditions": null,
+      "polymer_entities": [
+        {
+          "rcsb_id": "9FX4_1",
+          "rcsb_polymer_entity": {
+            "pdbx_description": "Fixture kinase"
+          },
+          "rcsb_polymer_entity_container_identifiers": {
+            "entity_id": "1",
+            "auth_asym_ids": [
+              "A"
+            ],
+            "uniprot_ids": [
+              "Q00000"
+            ]
+          }
+        }
+      ],
+      "nonpolymer_entities": [
+        {
+          "nonpolymer_comp": {
+            "chem_comp": {
+              "id": "SUB",
+              "name": "SUB"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "rcsb_id": "9FX5",
+      "struct": {
+        "title": "Fixture kinase, closed with substrate bound"
+      },
+      "exptl": [
+        {
+          "method": "ELECTRON MICROSCOPY"
+        }
+      ],
+      "rcsb_entry_info": {
+        "resolution_combined": [
+          3.1
+        ],
+        "experimental_method": "ELECTRON MICROSCOPY"
+      },
+      "rcsb_accession_info": {
+        "initial_release_date": "2020-01-01T00:00:00Z"
+      },
+      "rcsb_primary_citation": {
+        "pdbx_database_id_DOI": "10.9999/synthetic.9fx5"
+      },
+      "diffrn": null,
+      "exptl_crystal_grow": null,
+      "pdbx_nmr_exptl_sample_conditions": null,
+      "polymer_entities": [
+        {
+          "rcsb_id": "9FX5_1",
+          "rcsb_polymer_entity": {
+            "pdbx_description": "Fixture kinase"
+          },
+          "rcsb_polymer_entity_container_identifiers": {
+            "entity_id": "1",
+            "auth_asym_ids": [
+              "A"
+            ],
+            "uniprot_ids": [
+              "Q00000"
+            ]
+          }
+        }
+      ],
+      "nonpolymer_entities": [
+        {
+          "nonpolymer_comp": {
+            "chem_comp": {
+              "id": "SUB",
+              "name": "SUB"
+            }
+          }
+        }
+      ]
     }
   ]
 }

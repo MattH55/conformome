@@ -10,6 +10,7 @@ def valid_evidence():
         "uniprot": "P69441",
         "technique": "xray",
         "source_kind": "deposit",
+        "title": None,
         "construct": {"description": "test", "labels": []},
         "conditions": {"environment": "in_vitro", "temperature_c": None, "ph": None, "buffer": None,
                        "salt_mM": None, "ligands": [], "applied_force_pn": None, "notes": None},

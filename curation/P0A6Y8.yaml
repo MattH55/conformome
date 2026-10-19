@@ -1,0 +1,22 @@
+# Chaperone protein DnaK (Hsp70), Escherichia coli (strain K12). Draft: curator to review.
+uniprot: P0A6Y8
+name: DnaK (Hsp70)
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: DnaK-ADP-undocked
+    name: ADP state, domains undocked
+    basis: observed
+    representative_pdb: "2KHO"
+    description: Nucleotide-binding and substrate-binding domains undocked, lid closed, ADP bound, as in 2KHO (NMR-RDC and X-ray).
+  - id: DnaK-ATP-docked
+    name: ATP state, domains docked
+    basis: observed
+    representative_pdb: "4B9Q"
+    description: Domains docked with the lid open, ATP bound, as in 4B9Q.
+assignments:
+  - {pdb: "2KHO", state: DnaK-ADP-undocked, confidence: high, justification: "Full-length DnaK with ADP and substrate, NMR-RDC refined."}
+  - {pdb: "4B9Q", state: DnaK-ATP-docked, confidence: high, justification: "Title: open conformation of ATP-bound DnaK."}
+rules: []
+transitions: []

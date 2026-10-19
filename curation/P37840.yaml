@@ -34,4 +34,35 @@ assignments:
     state: aS-fibril
     confidence: high
     justification: "Cryo-EM fibril; representative for the fibril state. Polymorph not separated."
+rules:
+  - id: as-fibril-title
+    state: aS-fibril
+    confidence: high
+    justification: "Structure titled as a fibril, filament or amyloid polymorph."
+    match: {techniques: [xray, cryoem, nmr_structure, neutron, microed], title_any: ["fibril", "filament", "fiber", "fibre", "amyloid", "polymorph"]}
+  - id: as-micelle-title
+    state: aS-micelle-helix
+    confidence: medium
+    justification: "Structure titled as micelle-bound."
+    match: {title_any: ["micelle"]}
+  - id: as-disprot-disorder
+    state: aS-disordered
+    confidence: medium
+    justification: "DisProt region annotated as disorder."
+    match: {sources: [DisProt], title_any: ["disorder, residues"]}
+  - id: as-integrative-monomer
+    state: aS-disordered
+    confidence: medium
+    justification: "Integrative ensemble of the monomer."
+    match: {techniques: [integrative], title_any: ["monomer"]}
+  - id: as-nmr-monomer
+    state: aS-disordered
+    confidence: low
+    justification: "NMR entry not titled as fibril, micelle, membrane or complex: most describe the free monomer."
+    match: {techniques: [nmr_shifts, nmr_dynamics], title_none: ["fibril", "micelle", "membrane", "vesicle", "lipid", "bound", "complex", "oligomer"]}
+  - id: as-saxs-monomer
+    state: aS-disordered
+    confidence: low
+    justification: "SAXS of alpha-synuclein alone, not titled as fibril, oligomer or complex."
+    match: {techniques: [saxs_sans], title_none: ["fibril", "oligomer", "complex"], ligand_text_none: ["partner:"]}
 transitions: []

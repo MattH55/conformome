@@ -24,4 +24,25 @@ assignments:
     state: MBP-closed-maltose
     confidence: high
     justification: "Maltose-bound closed structure; representative for the closed state."
+rules:
+  - id: mbp-maltodextrin-closed
+    state: MBP-closed-maltose
+    confidence: medium
+    justification: "Linear alpha-1,4 maltodextrin bound (branched entity); maltose and maltodextrins close MBP."
+    match: {ligand_text_any: ["glucopyranose-(1-4)"], ligand_text_none: ["cyclo"]}
+  - id: mbp-maltose-ligand-closed
+    state: MBP-closed-maltose
+    confidence: medium
+    justification: "Maltose (MAL) or maltotriose (MLR) bound as a nonpolymer ligand."
+    match: {ligands_any: [MAL, MLR]}
+  - id: mbp-cyclodextrin-open
+    state: MBP-open-apo
+    confidence: medium
+    justification: "Beta-cyclodextrin binds without closing MBP (as in 1DMB)."
+    match: {ligand_text_any: ["cyclo"]}
+  - id: mbp-sugar-free-open
+    state: MBP-open-apo
+    confidence: low
+    justification: "Structure with no maltodextrin bound; MBP is open without sugar. Many entries are MBP fusions, so low."
+    match: {techniques: [xray, cryoem], ligands_none: [MAL, MLR], ligand_text_none: ["glucopyranose", "cyclo"]}
 transitions: []

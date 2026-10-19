@@ -1,0 +1,33 @@
+# Beta-2 adrenergic receptor, Homo sapiens. Draft: curator to review.
+uniprot: P07550
+name: Beta-2 adrenergic receptor
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: B2AR-inactive
+    name: inactive (inverse agonist-bound)
+    basis: observed
+    representative_pdb: "2RH1"
+    description: Inactive receptor bound to the inverse agonist carazolol, as in 2RH1 (T4 lysozyme fusion).
+  - id: B2AR-active
+    name: active (Gs-coupled)
+    basis: observed
+    representative_pdb: "3SN6"
+    description: Agonist-bound receptor in complex with Gs, as in 3SN6.
+assignments:
+  - {pdb: "2RH1", state: B2AR-inactive, confidence: high, justification: "Carazolol (CAU) bound receptor-T4L fusion."}
+  - {pdb: "3SN6", state: B2AR-active, confidence: high, justification: "Receptor-Gs complex."}
+  - {pdb: "3P0G", state: B2AR-active, confidence: high, justification: "Title: nanobody-stabilized active state."}
+rules:
+  - id: b2ar-inverse-agonist
+    state: B2AR-inactive
+    confidence: medium
+    justification: "Carazolol (CAU) or timolol (TIM) bound: inverse agonist or antagonist structures are inactive."
+    match: {ligands_any: [CAU, TIM]}
+  - id: b2ar-active-title
+    state: B2AR-active
+    confidence: medium
+    justification: "Title describes a G protein complex or a nanobody-stabilised active state."
+    match: {title_any: ["Gs protein", "nanobody-stabilized", "active state"], title_none: ["inactive"]}
+transitions: []

@@ -1,0 +1,48 @@
+# Microtubule-associated protein tau, Homo sapiens. Draft: curator to review.
+uniprot: P10636
+name: Tau
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: tau-disordered
+    name: disordered monomer
+    basis: inferred
+    representative_pdb: null
+    description: Intrinsically disordered monomer in solution. No observed structure.
+    assumptions:
+      - No observed structure of the free monomer exists; the state is defined by disorder evidence (DisProt, NMR, SAXS).
+      - Treated as a single ensemble; transient local structure is not resolved. No model is exported.
+  - id: tau-filament
+    name: amyloid filament
+    basis: observed
+    representative_pdb: "5O3L"
+    description: Cross-beta filament core, as in 5O3L (paired helical filament from Alzheimer's disease brain). Filament folds are not separated.
+  - id: tau-microtubule
+    name: microtubule-bound
+    basis: observed
+    representative_pdb: "6CVN"
+    description: Repeat region bound along the microtubule surface, as in 6CVN.
+assignments:
+  - {pdb: "5O3L", state: tau-filament, confidence: high, justification: "Paired helical filament, cryo-EM."}
+  - {pdb: "6CVN", state: tau-microtubule, confidence: high, justification: "Synthetic tau (R2x4) bound to the microtubule, cryo-EM."}
+rules:
+  - id: tau-filament-title
+    state: tau-filament
+    confidence: high
+    justification: "Structure titled as a filament or fibril."
+    match:
+      techniques: [cryoem, nmr_structure, microed, xray]
+      title_any: ["filament", "fibril", "amyloid"]
+      title_none: ["microtubule"]
+  - id: tau-microtubule-title
+    state: tau-microtubule
+    confidence: medium
+    justification: "Structure titled as bound to microtubules."
+    match: {title_any: ["microtubule"]}
+  - id: tau-disprot-disorder
+    state: tau-disordered
+    confidence: medium
+    justification: "DisProt region annotated as disorder."
+    match: {sources: [DisProt], title_any: ["disorder, residues"]}
+transitions: []

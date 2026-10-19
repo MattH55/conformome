@@ -1,9 +1,22 @@
 {
+  "ambiguous": [
+    {
+      "evidence_id": "EV-PDB-9FX4-1",
+      "rules": [
+        "fx-substrate-closed",
+        "fx-open-title"
+      ],
+      "states": [
+        "FX-closed",
+        "FX-open"
+      ]
+    }
+  ],
   "conflicts": [],
   "coverage": {
     "cells": {
       "FX-closed": {
-        "cryoem": 1,
+        "cryoem": 2,
         "nmr_structure": 0,
         "xray": 0
       },
@@ -33,7 +46,7 @@
       "cryoem",
       "nmr_structure"
     ],
-    "unmapped_evidence": 0
+    "unmapped_evidence": 1
   },
   "curation": {
     "as_of": "2026-01-15",
@@ -50,7 +63,7 @@
         "ligands": [
           "ATP"
         ],
-        "notes": "Entry-level ligand list. pH and temperature are null when not deposited in machine-readable fields.",
+        "notes": "Entry-level ligand list; oligosaccharides appear as branched entities. pH and temperature are null when not deposited in machine-readable fields.",
         "ph": 7.2,
         "salt_mM": null,
         "temperature_c": -173.15
@@ -86,6 +99,7 @@
       },
       "source_kind": "deposit",
       "technique": "xray",
+      "title": "Fixture kinase, open apo",
       "uniprot": "Q00000"
     },
     {
@@ -94,7 +108,7 @@
         "buffer": null,
         "environment": "in_vitro",
         "ligands": [],
-        "notes": "Entry-level ligand list. pH and temperature are null when not deposited in machine-readable fields.",
+        "notes": "Entry-level ligand list; oligosaccharides appear as branched entities. pH and temperature are null when not deposited in machine-readable fields.",
         "ph": null,
         "salt_mM": null,
         "temperature_c": null
@@ -130,6 +144,7 @@
       },
       "source_kind": "deposit",
       "technique": "cryoem",
+      "title": "Fixture kinase, closed with substrate",
       "uniprot": "Q00000"
     },
     {
@@ -138,7 +153,7 @@
         "buffer": null,
         "environment": "in_vitro",
         "ligands": [],
-        "notes": "Entry-level ligand list. pH and temperature are null when not deposited in machine-readable fields.",
+        "notes": "Entry-level ligand list; oligosaccharides appear as branched entities. pH and temperature are null when not deposited in machine-readable fields.",
         "ph": 6.5,
         "salt_mM": null,
         "temperature_c": 24.85
@@ -174,10 +189,97 @@
       },
       "source_kind": "deposit",
       "technique": "nmr_structure",
+      "title": "Fixture kinase, NMR ensemble",
+      "uniprot": "Q00000"
+    },
+    {
+      "conditions": {
+        "applied_force_pn": null,
+        "buffer": null,
+        "environment": "in_vitro",
+        "ligands": [
+          "SUB"
+        ],
+        "notes": "Entry-level ligand list; oligosaccharides appear as branched entities. pH and temperature are null when not deposited in machine-readable fields.",
+        "ph": 7.2,
+        "salt_mM": null,
+        "temperature_c": -173.15
+      },
+      "construct": {
+        "description": "Fixture kinase (chains A)",
+        "labels": []
+      },
+      "data_link": "https://www.rcsb.org/structure/9FX4",
+      "evidence_id": "EV-PDB-9FX4-1",
+      "mappings": [],
+      "observable": {
+        "type": "resolution",
+        "uncertainty": null,
+        "unit": "Å",
+        "value": 2.4
+      },
+      "provenance": {
+        "deposit_id": "9FX4",
+        "doi": "10.9999/synthetic.9fx4",
+        "licence": "CC0 1.0 (wwPDB archive data)",
+        "retrieved": "2026-01-15",
+        "source": "RCSB PDB",
+        "url": "https://www.rcsb.org/structure/9FX4"
+      },
+      "source_kind": "deposit",
+      "technique": "xray",
+      "title": "Fixture kinase, open with substrate",
+      "uniprot": "Q00000"
+    },
+    {
+      "conditions": {
+        "applied_force_pn": null,
+        "buffer": null,
+        "environment": "in_vitro",
+        "ligands": [
+          "SUB"
+        ],
+        "notes": "Entry-level ligand list; oligosaccharides appear as branched entities. pH and temperature are null when not deposited in machine-readable fields.",
+        "ph": null,
+        "salt_mM": null,
+        "temperature_c": null
+      },
+      "construct": {
+        "description": "Fixture kinase (chains A)",
+        "labels": []
+      },
+      "data_link": "https://www.rcsb.org/structure/9FX5",
+      "evidence_id": "EV-PDB-9FX5-1",
+      "mappings": [
+        {
+          "confidence": "medium",
+          "justification": "Synthetic rule: substrate-bound structures are closed.",
+          "rule": "fx-substrate-closed",
+          "state_id": "FX-closed",
+          "who": "rule:fx-substrate-closed"
+        }
+      ],
+      "observable": {
+        "type": "resolution",
+        "uncertainty": null,
+        "unit": "Å",
+        "value": 3.1
+      },
+      "provenance": {
+        "deposit_id": "9FX5",
+        "doi": "10.9999/synthetic.9fx5",
+        "licence": "CC0 1.0 (wwPDB archive data)",
+        "retrieved": "2026-01-15",
+        "source": "RCSB PDB",
+        "url": "https://www.rcsb.org/structure/9FX5"
+      },
+      "source_kind": "deposit",
+      "technique": "cryoem",
+      "title": "Fixture kinase, closed with substrate bound",
       "uniprot": "Q00000"
     }
   ],
-  "not_compared": 3,
+  "not_compared": 5,
   "states": [
     {
       "assumptions": [],

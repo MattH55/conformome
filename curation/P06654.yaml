@@ -16,4 +16,15 @@ assignments:
     state: GB1-native
     confidence: high
     justification: "Native B1 domain at 2.07 Å; representative for the native fold."
+rules:
+  - id: gb1-structures-native
+    state: GB1-native
+    confidence: medium
+    justification: "Structure titled as the B1 domain; the UniProt entry covers all protein G domains, so other domains are excluded by title."
+    match: {techniques: [xray, cryoem, nmr_structure, neutron, microed], title_any: ["GB1", "B1 domain", "B1 immunoglobulin", "protein G B1", "B1 IgG"], title_none: ["unfolded", "denatured", "swapped", "fibril"]}
+  - id: gb1-nmr-native
+    state: GB1-native
+    confidence: low
+    justification: "NMR entry titled as GB1 under native conditions."
+    match: {techniques: [nmr_shifts, nmr_dynamics], title_any: ["GB1", "B1 domain"], title_none: ["unfolded", "denatured", "urea"]}
 transitions: []

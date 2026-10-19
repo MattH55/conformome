@@ -90,7 +90,9 @@ def build_errors(paths: Paths, accessions: list[str]) -> list[str]:
             errors.append(f"{acc}: build/{acc}/mapped.json missing; run make map")
             continue
         cur_path = paths.curation / f"{acc}.yaml"
-        errors += [f"{acc}: {e}" for e in load_curation(cur_path, acc).errors]
+        cur = load_curation(cur_path, acc)
+        errors += [f"{acc}: {e}" for e in cur.errors]
+        rule_ids = {r["id"] for r in cur.rules}
 
         protein = read_json(out / "protein.json")
         errors += [f"{acc} protein: {e}" for e in check(validators["protein"], protein)]
@@ -107,6 +109,13 @@ def build_errors(paths: Paths, accessions: list[str]) -> list[str]:
             for m in ev["mappings"]:
                 if m["state_id"] not in states:
                     errors.append(f"{acc} {ev['evidence_id']}: mapping names unknown state {m['state_id']}")
+                if m["who"].startswith("rule:") and m["who"][5:] not in rule_ids:
+                    errors.append(f"{acc} {ev['evidence_id']}: mapping cites rule {m['who'][5:]}, not in {cur_path.name}")
+            if len({m["state_id"] for m in ev["mappings"]}) != len(ev["mappings"]):
+                errors.append(f"{acc} {ev['evidence_id']}: mapped twice to the same state")
+        for amb in mapped.get("ambiguous", []):
+            if amb["evidence_id"] not in evidence_ids:
+                errors.append(f"{acc} ambiguous item {amb['evidence_id']}: unknown evidence")
         for t in mapped["transitions"]:
             errors += [f"{acc} transition {t.get('transition_id')}: {e}" for e in check(validators["transition"], t)]
             for side in ("from_state", "to_state"):

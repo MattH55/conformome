@@ -43,6 +43,24 @@ def test_temperature_from_kelvin_and_string_values():
 
 
 def test_unmapped_methods_are_counted_not_ingested():
-    raw = {"entries": [{"rcsb_id": "9ZZZ", "exptl": [{"method": "SOLUTION SCATTERING"}]}]}
-    assert pdb.unmapped_methods(raw) == {"SOLUTION SCATTERING": 1}
+    raw = {"entries": [{"rcsb_id": "9ZZZ", "exptl": [{"method": "FIBER DIFFRACTION"}], "struct": {"title": "x"}}]}
+    assert pdb.unmapped_methods(raw) == {"FIBER DIFFRACTION": 1}
+    assert pdb.not_ingested(raw, "P69441") == [{"id": "9ZZZ", "reason": "method FIBER DIFFRACTION has no technique mapping"}]
     assert pdb.parse(raw, "P69441", "2026-10-19") == []
+
+
+def test_integrative_entries_are_ingested_and_labelled(repo_paths):
+    entry = {
+        "rcsb_id": "9A08", "exptl": None, "struct": {"title": "Structures of multiple states resolved by FRET"},
+        "rcsb_entry_info": {"resolution_combined": None, "experimental_method": "Integrative"},
+        "rcsb_primary_citation": None, "diffrn": None, "exptl_crystal_grow": None,
+        "pdbx_nmr_exptl_sample_conditions": None, "nonpolymer_entities": None,
+        "polymer_entities": [{"rcsb_polymer_entity": {"pdbx_description": "Endolysin"},
+                              "rcsb_polymer_entity_container_identifiers": {"entity_id": "1", "auth_asym_ids": ["A"],
+                                                                            "uniprot_ids": ["P00720"]}}],
+    }
+    [rec] = pdb.parse({"entries": [entry]}, "P00720", "2026-10-19")
+    assert rec["technique"] == "integrative"
+    assert rec["observable"] == {"type": "structure", "value": None, "unit": None, "uncertainty": None}
+    assert rec["title"].startswith("Structures of multiple states")
+    assert check(load_validators(repo_paths.schema)["evidence"], rec) == []

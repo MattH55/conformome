@@ -25,4 +25,5 @@ assignments:
     state: Hsp90-NTD-apo
     confidence: high
     justification: "N-terminal domain only, ligand-free; representative for the NTD apo state."
+rules: []
 transitions: []

@@ -33,4 +33,10 @@ assignments:
     state: T4L-L99A-benzene
     confidence: high
     justification: "L99A cavity with buried benzene; representative for the benzene-bound state."
+rules:
+  - id: t4l-l99a-benzene
+    state: T4L-L99A-benzene
+    confidence: high
+    justification: "Title names L99A and benzene (BNZ) is bound in the cavity."
+    match: {title_any: ["L99A"], ligands_any: [BNZ]}
 transitions: []

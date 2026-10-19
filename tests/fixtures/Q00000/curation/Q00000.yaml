@@ -37,4 +37,18 @@ assignments:
     state: FX-intermediate
     confidence: low
     justification: "Synthetic NMR ensemble, ambiguous between open and intermediate."
+rules:
+  - id: fx-substrate-closed
+    state: FX-closed
+    confidence: medium
+    justification: "Synthetic rule: substrate-bound structures are closed."
+    match:
+      ligands_any: [SUB]
+  - id: fx-open-title
+    state: FX-open
+    confidence: low
+    justification: "Synthetic rule: X-ray entries whose title says open."
+    match:
+      techniques: [xray]
+      title_any: ["open"]
 transitions: []

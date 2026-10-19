@@ -1,0 +1,75 @@
+# Hen egg-white lysozyme, Gallus gallus. Draft: curator to review.
+uniprot: P00698
+name: Hen egg-white lysozyme
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-19
+states:
+  - id: HEWL-native
+    name: native fold
+    basis: observed
+    representative_pdb: "193L"
+    description: Native fold of hen lysozyme, as in 193L (tetragonal, 1.33 Å).
+  - id: HEWL-unfolded
+    name: unfolded
+    basis: inferred
+    representative_pdb: null
+    description: Unfolded ensemble reached by denaturant, temperature or force. No observed structure.
+    assumptions:
+      - Treated as a single ensemble; residual structure and intermediates are not resolved.
+      - Defined by indirect measurements (denaturation, NMR of denatured samples, force spectroscopy); no model is exported.
+assignments:
+  - pdb: "193L"
+    state: HEWL-native
+    confidence: high
+    justification: "Representative native structure; title and UniProt mapping checked against RCSB."
+rules:
+  - id: hewl-structures-native
+    state: HEWL-native
+    confidence: medium
+    justification: "Experimental structure of this small single-domain protein; deposited structures show the native fold unless the title says otherwise."
+    match:
+      techniques: [xray, cryoem, nmr_structure, neutron, microed]
+      title_none: ["fibril", "amyloid", "unfolded", "denatured", "molten", "swapped"]
+  - id: hewl-nmr-shifts-native
+    state: HEWL-native
+    confidence: low
+    justification: "Chemical shift assignment of the folded protein; shift-only entries rarely describe non-native states unless titled so."
+    match:
+      techniques: [nmr_shifts, nmr_dynamics]
+      title_none: ["unfolded", "denatured", "urea", "molten", "fibril", "amyloid"]
+  - id: hewl-saxs-native
+    state: HEWL-native
+    confidence: low
+    justification: "SAXS of the protein alone in solution under native conditions; samples with partners and denatured samples are excluded."
+    match:
+      techniques: [saxs_sans]
+      title_none: ["unfolded", "denatured", "urea", "complex"]
+      ligand_text_none: ["partner:"]
+  - id: hewl-md-native
+    state: HEWL-native
+    confidence: low
+    justification: "Simulation started from a native structure (prediction)."
+    match:
+      techniques: [md]
+  - id: hewl-af-native
+    state: HEWL-native
+    confidence: low
+    justification: "AlphaFold prediction of the native fold (prediction, not a measurement)."
+    match:
+      techniques: [af_prediction]
+  - id: hewl-denatured-nmr
+    state: HEWL-unfolded
+    confidence: medium
+    justification: "NMR data titled as unfolded or denatured describe the unfolded ensemble."
+    match:
+      techniques: [nmr_shifts, nmr_dynamics]
+      title_any: ["unfolded", "denatured", "urea"]
+  - id: hewl-force-unfolding
+    state: HEWL-unfolded
+    confidence: low
+    justification: "SMASH-BIO force record classed as protein unfolding; mapped to the unfolded state the molecule reaches. Most SMASH-BIO values are extracted automatically."
+    match:
+      sources: [SMASH-BIO]
+      title_any: ["experiment class: unfolding_protein", "unfolding_protein"]
+transitions: []

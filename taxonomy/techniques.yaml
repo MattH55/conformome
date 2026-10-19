@@ -13,7 +13,7 @@ techniques:
     basis: observed
     prediction: false
     resolution_class: atomic
-    observables: [structure, resolution, b_factor]
+    observables: [structure, resolution, b_factor, disorder_region]
     description: Electron density from diffraction of protein crystals. Conformations are crystal-packing dependent.
   - id: cryoem
     name: Cryo-electron microscopy
@@ -21,7 +21,7 @@ techniques:
     basis: observed
     prediction: false
     resolution_class: atomic
-    observables: [structure, resolution, class_population]
+    observables: [structure, resolution, class_population, disorder_region]
     description: Single-particle or tomographic reconstruction. Class populations from classification are inferred from particle counts.
   - id: microed
     name: Microcrystal electron diffraction
@@ -55,15 +55,23 @@ techniques:
     basis: inferred
     prediction: false
     resolution_class: residue
-    observables: [relaxation_rate, exchange_rate, chemical_shift_difference, population, protection_factor]
+    observables: [relaxation_rate, exchange_rate, chemical_shift_difference, population, protection_factor, disorder_region]
     description: Relaxation (R1, R2, NOE) and relaxation dispersion (CPMG, R1rho) report on exchange between states and their populations and rates.
+  - id: nmr_shifts
+    name: NMR chemical shift assignment
+    category: solution_ensemble
+    basis: inferred
+    prediction: false
+    resolution_class: residue
+    observables: [chemical_shift, secondary_structure_propensity, disorder_region]
+    description: Assigned chemical shifts. Report on secondary structure, folding and disorder per residue; states are inferred from them.
   - id: saxs_sans
     name: SAXS / SANS
     category: solution_ensemble
     basis: inferred
     prediction: false
     resolution_class: global
-    observables: [radius_of_gyration, distance_distribution, shape_parameter]
+    observables: [radius_of_gyration, distance_distribution, shape_parameter, disorder_region, structure]
     description: Small-angle scattering profiles. Models are fitted to the scattering curve and are not unique.
   - id: epr_deer
     name: EPR / DEER
@@ -71,7 +79,7 @@ techniques:
     basis: inferred
     prediction: false
     resolution_class: residue
-    observables: [distance, distance_distribution]
+    observables: [distance, distance_distribution, disorder_region]
     description: Spin-label distance distributions between labelled residues.
   - id: cd
     name: Circular dichroism
@@ -79,7 +87,7 @@ techniques:
     basis: inferred
     prediction: false
     resolution_class: global
-    observables: [secondary_structure_fraction, cd_signal, melting_temperature]
+    observables: [secondary_structure_fraction, cd_signal, melting_temperature, disorder_region]
     description: Far-UV and near-UV CD. Secondary-structure fractions depend on the deconvolution method.
   - id: ftir_raman
     name: FTIR / Raman spectroscopy
@@ -87,7 +95,7 @@ techniques:
     basis: inferred
     prediction: false
     resolution_class: global
-    observables: [secondary_structure_fraction, band_shift]
+    observables: [secondary_structure_fraction, band_shift, disorder_region]
     description: Vibrational spectroscopy of backbone amide bands and side chains.
   - id: fluorescence
     name: Fluorescence spectroscopy
@@ -95,7 +103,7 @@ techniques:
     basis: inferred
     prediction: false
     resolution_class: global
-    observables: [emission_shift, lifetime, anisotropy, quenching_constant]
+    observables: [emission_shift, lifetime, anisotropy, quenching_constant, disorder_region]
     description: Intrinsic or extrinsic fluorescence, lifetimes and anisotropy.
   - id: ensemble_fret
     name: Ensemble FRET
@@ -103,7 +111,7 @@ techniques:
     basis: inferred
     prediction: false
     resolution_class: residue
-    observables: [fret_efficiency, distance]
+    observables: [fret_efficiency, distance, disorder_region]
     description: Bulk FRET efficiency between donor and acceptor labels.
 
   # ---- single molecule
@@ -113,7 +121,7 @@ techniques:
     basis: inferred
     prediction: false
     resolution_class: single_molecule
-    observables: [fret_efficiency, population, transition_rate, dwell_time]
+    observables: [fret_efficiency, population, transition_rate, dwell_time, disorder_region]
     description: FRET efficiency histograms and dwell times from individual molecules.
   - id: force_spectroscopy
     name: Force spectroscopy
@@ -121,7 +129,7 @@ techniques:
     basis: inferred
     prediction: false
     resolution_class: single_molecule
-    observables: [unfolding_force, rupture_force, unfolding_rate, contour_length_increment, free_energy_difference]
+    observables: [unfolding_force, rupture_force, unfolding_rate, contour_length_increment, free_energy_difference, refolding_force, unbinding_force, adhesion_force, contour_length, persistence_length, folding_free_energy, distance_to_transition_state, folding_rate, rate_constant_zero_force, step_size, stall_force, velocity, dwell_time, bond_lifetime, loading_rate, elastic_modulus, molecular_stiffness, equilibrium_force, overstretching_force, torque, study_record]
     description: Optical or magnetic tweezers and AFM-based single-molecule force spectroscopy, including SMASH-BIO records.
   - id: hs_afm
     name: High-speed AFM imaging
@@ -163,7 +171,7 @@ techniques:
     basis: inferred
     prediction: false
     resolution_class: residue
-    observables: [exchange_rate, protection_factor, deuterium_uptake]
+    observables: [exchange_rate, protection_factor, deuterium_uptake, disorder_region]
     description: Deuterium uptake by peptide and residue region. Protection is interpreted through a structural model.
   - id: xl_ms
     name: Crosslinking MS
@@ -179,7 +187,7 @@ techniques:
     basis: inferred
     prediction: false
     resolution_class: global
-    observables: [collision_cross_section, population, mass]
+    observables: [collision_cross_section, population, mass, disorder_region]
     description: Gas-phase conformers and their collision cross sections. Gas-phase conformations may differ from solution.
   - id: limited_proteolysis
     name: Limited proteolysis
@@ -187,7 +195,7 @@ techniques:
     basis: inferred
     prediction: false
     resolution_class: domain
-    observables: [protease_susceptibility, population]
+    observables: [protease_susceptibility, population, disorder_region]
     description: Cleavage patterns that report on accessible regions. Read-out is by gel or MS.
   - id: footprinting
     name: Covalent footprinting
@@ -221,7 +229,7 @@ techniques:
     basis: inferred
     prediction: false
     resolution_class: global
-    observables: [sedimentation_coefficient, population]
+    observables: [sedimentation_coefficient, population, disorder_region]
     description: Sedimentation velocity and equilibrium; reports on oligomeric state and shape.
   - id: dls
     name: Dynamic light scattering
@@ -229,8 +237,25 @@ techniques:
     basis: inferred
     prediction: false
     resolution_class: global
-    observables: [hydrodynamic_radius, population]
+    observables: [hydrodynamic_radius, population, disorder_region]
     description: Hydrodynamic radius distributions.
+
+  - id: gel_electrophoresis
+    name: Gel electrophoresis (anomalous mobility)
+    category: stability
+    basis: inferred
+    prediction: false
+    resolution_class: global
+    observables: [gel_mobility, disorder_region]
+    description: SDS-PAGE or native PAGE mobility. Anomalous mobility is used as indirect evidence of disorder.
+  - id: sec
+    name: Size-exclusion chromatography
+    category: stability
+    basis: inferred
+    prediction: false
+    resolution_class: global
+    observables: [hydrodynamic_radius, disorder_region]
+    description: Elution volume against standards gives an apparent size; expanded disordered chains elute early.
 
   # ---- in cell
   - id: in_cell_nmr
@@ -259,13 +284,29 @@ techniques:
     description: Limited proteolysis of proteins in lysate or intact cells.
 
   # ---- computational (predictions, flagged on the site)
+  - id: integrative
+    name: Integrative modelling
+    category: computational
+    basis: inferred
+    prediction: false
+    resolution_class: atomic
+    observables: [structure]
+    description: Models built by combining several kinds of experimental restraints (PDB-IHM). Experiment-driven, but the structure is fitted, not resolved.
+  - id: af_prediction
+    name: AlphaFold prediction
+    category: computational
+    basis: inferred
+    prediction: true
+    resolution_class: atomic
+    observables: [structure, plddt]
+    description: Single predicted structure from AlphaFold DB, with per-residue confidence (pLDDT). A prediction, not a measurement.
   - id: md
     name: Molecular dynamics
     category: computational
     basis: inferred
     prediction: true
     resolution_class: atomic
-    observables: [rmsd, population, free_energy_difference, transition_rate]
+    observables: [rmsd, population, free_energy_difference, transition_rate, disorder_region, trajectory]
     description: Simulation trajectories. Sampling and force-field choices are assumptions.
   - id: msm
     name: Markov state model

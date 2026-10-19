@@ -13,7 +13,7 @@ import shutil
 from pathlib import Path
 
 from conformome.common import Paths, load_taxonomy, load_yaml, read_json, write_json
-from conformome.sources import REGISTRY
+from conformome.sources import IMPLEMENTED, REGISTRY
 from conformome.validate import sources_table
 
 MOLSTAR_VERSION = "5.11.0"  # published 2026-07-19; at least two weeks old at the time of this build
@@ -52,6 +52,7 @@ th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--border);vert
 th{background:var(--code);font-weight:600;position:sticky;top:0}
 td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
 tr.single td{background:var(--warn-bg)}
+#coverage-grid td:first-child{min-width:11rem}
 td.hit{font-weight:600;color:var(--observed)}
 .badge{display:inline-block;font-size:0.78rem;font-weight:600;padding:1px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
 .badge-observed{color:var(--observed);background:var(--observed-bg)}
@@ -235,6 +236,7 @@ def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: l
              f'<div class="stat"><b>{sum(1 for e in evidence if e["mappings"])}</b>mapped to a state</div>'
              f'<div class="stat"><b>{len(states)}</b>states</div>'
              f'<div class="stat"><b>{len(techniques)}</b>techniques</div>'
+             f'<div class="stat"><b>{len({e["provenance"]["source"] for e in evidence})}</b>sources</div>'
              f'<div class="stat"><b>{len(mapped["conflicts"])}</b>conflicts</div></div>')
 
     # Coverage grid
@@ -254,7 +256,8 @@ def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: l
             '<div class="scroll"><table id="coverage-grid"><thead><tr><th>State</th><th>Basis</th>'
             f'{head}<th class="num">Total</th></tr></thead><tbody>{"".join(rows)}</tbody></table></div>'
             f'<p class="muted">Unmapped evidence: {coverage["unmapped_evidence"]} of {len(evidence)} items. '
-            'Mapping is by curator decision in this version; see About for the rules.</p>')
+            'Mappings come from curator assignments and curated rules; see About for how rules work.</p>')
+    grid += _sources_panel(evidence, mapped.get("ambiguous", []), state_name)
 
     # Viewer
     model_data = []
@@ -332,6 +335,8 @@ def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: l
 
     # Evidence table
     tech_options = "".join(f'<option value="{esc(t)}">{esc(t)}</option>' for t in techniques)
+    source_options = "".join(f'<option value="{esc(s)}">{esc(s)}</option>'
+                             for s in sorted({ev["provenance"]["source"] for ev in evidence}))
     env_options = "".join(f'<option value="{esc(e)}">{esc(e.replace("_", " "))}</option>'
                           for e in sorted({ev["conditions"]["environment"] for ev in evidence}))
     erows = []
@@ -342,15 +347,17 @@ def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: l
             f'<br><span class="muted">{esc(m["justification"])}</span>' for m in ev["mappings"]) or '<span class="muted">unmapped</span>'
         link = esc(ev["data_link"] or "#")
         text = " ".join([ev["evidence_id"], ev["technique"], ev["conditions"]["environment"], ev["construct"]["description"],
+                         ev.get("title") or "",
                          ev["provenance"]["source"], ev["provenance"]["deposit_id"] or ""] +
                         [m["state_id"] for m in ev["mappings"]]).lower()
         erows.append(
             f'<tr data-technique="{esc(ev["technique"])}" data-environment="{esc(ev["conditions"]["environment"])}" '
-            f'data-mapped="{mapped_flag}" data-text="{esc(text)}">'
+            f'data-source="{esc(ev["provenance"]["source"])}" data-mapped="{mapped_flag}" data-text="{esc(text)}">'
             f'<td><a href="{link}">{esc(ev["evidence_id"])}</a><br><span class="muted">{esc(ev["provenance"]["source"])}</span></td>'
             f'<td><a href="{root}technique/{esc(ev["technique"])}/index.html">{esc(ev["technique"])}</a></td>'
             f'<td>{fmt_obs(ev["observable"])}</td><td>{fmt_conditions(ev["conditions"])}'
-            f'<br><span class="muted">{esc(ev["construct"]["description"])}</span></td><td>{mappings}</td></tr>')
+            f'<br><span class="muted">{esc(ev.get("title") or "")}{" · " if ev.get("title") else ""}'
+            f'{esc(ev["construct"]["description"])}</span></td><td>{mappings}</td></tr>')
     evidence_html = (
         '<h2>Evidence</h2>'
         '<p class="sub">One row per deposit or experiment. Filter by technique, environment or text. Unmapped evidence is listed too.</p>'
@@ -358,6 +365,7 @@ def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: l
         '<input id="ev-text" type="search" placeholder="Search evidence, state, source" aria-label="Search evidence">'
         f'<select id="ev-technique" data-attr="data-technique" aria-label="Technique"><option value="">All techniques</option>{tech_options}</select>'
         f'<select id="ev-environment" data-attr="data-environment" aria-label="Environment"><option value="">All environments</option>{env_options}</select>'
+        f'<select id="ev-source" data-attr="data-source" aria-label="Source"><option value="">All sources</option>{source_options}</select>'
         '<select id="ev-mapped" data-attr="data-mapped" aria-label="Mapping"><option value="">Mapped and unmapped</option>'
         '<option value="yes">Mapped only</option><option value="no">Unmapped only</option></select>'
         '</div><p class="muted" id="ev-table-count"></p>'
@@ -365,7 +373,7 @@ def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: l
         '<th>Observable</th><th>Conditions</th><th>Mapped to state</th></tr></thead>'
         f'<tbody>{"".join(erows)}</tbody></table></div>')
     evidence_scripts = (f'<script>{SCRIPT_FILTER}'
-                        'conformomeFilter("ev-table",["ev-technique","ev-environment","ev-mapped"],"ev-text");</script>')
+                        'conformomeFilter("ev-table",["ev-technique","ev-environment","ev-source","ev-mapped"],"ev-text");</script>')
 
     # Conflicts
     if mapped["conflicts"]:
@@ -397,6 +405,32 @@ def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: l
                 description=f"Conformational states and techniques for {protein['name']} ({acc})")
 
 
+def _sources_panel(evidence: list[dict], ambiguous: list[dict], state_name: dict) -> str:
+    by_source: dict[str, list[int]] = {}
+    by_rule: dict[str, int] = {}
+    for ev in evidence:
+        row = by_source.setdefault(ev["provenance"]["source"], [0, 0])
+        row[0] += 1
+        row[1] += bool(ev["mappings"])
+        for m in ev["mappings"]:
+            if m["who"].startswith("rule:"):
+                by_rule[m["who"][5:]] = by_rule.get(m["who"][5:], 0) + 1
+    rows = "".join(f'<tr><td>{esc(s)}</td><td class="num">{n}</td><td class="num">{k}</td></tr>'
+                   for s, (n, k) in sorted(by_source.items()))
+    html_out = ('<h3>Sources</h3><div class="scroll"><table><thead><tr><th>Source</th>'
+                f'<th class="num">Evidence</th><th class="num">Mapped</th></tr></thead><tbody>{rows}</tbody></table></div>')
+    if by_rule:
+        html_out += ('<h3>Curated rules applied</h3><ul>'
+                     + "".join(f'<li><code>{esc(r)}</code>: {n} items</li>' for r, n in sorted(by_rule.items())) + '</ul>')
+    if ambiguous:
+        items = "".join(f'<li>{esc(a["evidence_id"])}: rules {esc(", ".join(a["rules"]))} point to '
+                        f'{esc(", ".join(state_name.get(s, s) for s in a["states"]))}</li>' for a in ambiguous[:50])
+        more = f'<p class="muted">and {len(ambiguous) - 50} more.</p>' if len(ambiguous) > 50 else ""
+        html_out += (f'<h3>Ambiguous evidence ({len(ambiguous)})</h3><p class="muted">Matched by rules for different '
+                     f'states, so left unmapped for a curator to decide.</p><ul>{items}</ul>{more}')
+    return html_out
+
+
 def _diagram(states: list[dict], transitions: list[dict]) -> str:
     if not states:
         return '<p class="muted">No states defined.</p>'
@@ -425,7 +459,7 @@ def _diagram(states: list[dict], transitions: list[dict]) -> str:
     return "".join(parts)
 
 
-def _index_page(rows: list[dict]) -> str:
+def _index_page(rows: list[dict], source_names: list[str]) -> str:
     def curation_cell(draft: bool) -> str:
         return '<span class="badge badge-draft">draft</span>' if draft else "reviewed"
 
@@ -437,18 +471,18 @@ def _index_page(rows: list[dict]) -> str:
             f'<td><a href="protein/{esc(r["acc"])}/index.html">{esc(r["name"])}</a></td>'
             f'<td>{esc(r["acc"])}</td><td>{esc(r["organism"])}</td>'
             f'<td class="num">{r["techniques"]}</td><td class="num">{r["states"]}</td>'
-            f'<td class="num">{r["evidence"]}</td><td class="num">{r["mapped"]}</td>'
+            f'<td class="num">{r["sources"]}</td><td class="num">{r["evidence"]}</td><td class="num">{r["mapped"]}</td>'
             f'<td>{curation_cell(r["draft"])}</td></tr>')
     rows_html = "".join(body_lines)
     body = ('<h1>Conformome</h1>'
             '<p class="sub">An index of every technique that has probed a protein’s conformation, organised around '
             'shared conformational states. Observed and inferred are kept apart on every page.</p>'
-            '<div class="banner"><b>Pilot.</b> Ten proteins, drafted from RCSB PDB metadata and draft curation. '
-            'Literature, BMRB, SASBDB, PED and SMASH-BIO evidence is not yet included.</div>'
+            f'<div class="banner"><b>Pilot.</b> {len(rows)} proteins. Evidence from {esc(", ".join(source_names))}. '
+            'Curation is a draft that no curator has reviewed yet; literature extraction, PED and PDB-IHM restraints are not yet included.</div>'
             '<div class="controls"><input id="p-text" type="search" placeholder="Search by name, UniProt or organism" '
             'aria-label="Search proteins"></div><p class="muted" id="p-table-count"></p>'
             '<div class="scroll"><table id="p-table"><thead><tr><th>Protein</th><th>UniProt</th><th>Organism</th>'
-            '<th class="num">Techniques</th><th class="num">States</th><th class="num">Evidence</th>'
+            '<th class="num">Techniques</th><th class="num">States</th><th class="num">Sources</th><th class="num">Evidence</th>'
             '<th class="num">Mapped</th><th>Curation</th></tr></thead>'
             f'<tbody>{rows_html}</tbody></table></div>')
     scripts = f'<script>{SCRIPT_FILTER}conformomeFilter("p-table",[],"p-text");</script>'
@@ -491,6 +525,7 @@ def build_site(paths: Paths, accessions: list[str]) -> None:
             "acc": acc, "name": protein["name"], "organism": protein["organism"]["name"],
             "techniques": len(mapped["coverage"]["techniques"]), "states": len(mapped["states"]),
             "evidence": len(mapped["evidence"]), "mapped": sum(1 for e in mapped["evidence"] if e["mappings"]),
+            "sources": len({e["provenance"]["source"] for e in mapped["evidence"]}),
             "draft": draft,
         })
         for t in mapped["coverage"]["techniques"]:
@@ -533,7 +568,7 @@ def build_site(paths: Paths, accessions: list[str]) -> None:
         page_dir.mkdir(parents=True)
         (page_dir / "index.html").write_text(_technique_page(t_id, tech, covered), encoding="utf-8")
 
-    (site / "index.html").write_text(_index_page(summaries), encoding="utf-8")
+    (site / "index.html").write_text(_index_page(summaries, [m.NAME for m in IMPLEMENTED]), encoding="utf-8")
     _write_about(paths, site)
     _write_downloads(paths, site, accessions)
     (site / "CNAME").write_text("conformome.org\n", encoding="utf-8")
