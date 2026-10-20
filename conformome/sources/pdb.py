@@ -10,9 +10,11 @@ parse: one evidence item per deposited polymer entity whose UniProt mapping incl
 from __future__ import annotations
 
 import json
+import math
 import urllib.parse
 
-from conformome.common import fetch_url, read_json, record_download, write_json
+from conformome.common import fetch_url, read_json
+from conformome.sources.base import commit_json
 
 KEY = "pdb"
 NAME = "RCSB PDB"
@@ -95,7 +97,7 @@ def search_entry_ids(accession: str, cache_dir) -> tuple[list[str], str]:
 def fetch(paths, accession: str, retrieved: str) -> dict:
     cache = paths.raw / "_cache"
     ids, search_url = search_entry_ids(accession, cache)
-    entries, gql_urls = [], []
+    entries, urls, bodies = [], [search_url], [None]
     for start in range(0, len(ids), BATCH):
         chunk = ids[start:start + BATCH]
         body = json.dumps({"query": GRAPHQL_QUERY, "variables": {"ids": chunk}}).encode()
@@ -104,7 +106,8 @@ def fetch(paths, accession: str, retrieved: str) -> dict:
         if payload.get("errors"):
             raise RuntimeError(f"RCSB GraphQL error for {accession}: {payload['errors'][0]['message']}")
         entries.extend(e for e in payload["data"]["entries"] if e)
-        gql_urls.append(GRAPHQL_URL)
+        urls.append(GRAPHQL_URL)
+        bodies.append(body)
     raw = {
         "accession": accession,
         "retrieved": retrieved,
@@ -112,10 +115,7 @@ def fetch(paths, accession: str, retrieved: str) -> dict:
         "entry_ids": ids,
         "entries": entries,
     }
-    rel = f"pdb/{accession}.json"
-    write_json(paths.raw / rel, raw)
-    record_download(paths, f"raw/{rel}", [search_url, GRAPHQL_URL], (paths.raw / rel).read_bytes())
-    return raw
+    return commit_json(paths, f"pdb/{accession}.json", raw, urls, bodies)
 
 
 def _method(entry: dict) -> str | None:
@@ -127,23 +127,40 @@ def _method(entry: dict) -> str | None:
 
 
 def _number(value) -> float | None:
-    """mmCIF values can arrive as strings through GraphQL; non-numeric text means unknown."""
+    """mmCIF values can arrive as strings through GraphQL; non-numeric text, NaN and infinity mean unknown."""
     try:
-        return float(value)
+        out = float(value)
     except (TypeError, ValueError):
         return None
+    return out if math.isfinite(out) else None
+
+
+def _celsius(value, *, nmr: bool = False) -> float | None:
+    """Crystal-growth and NMR sample temperatures. Values above 200 are kelvin; the rest are °C.
+
+    Data-collection temperature (diffrn.ambient_temp, often 100 K) is not the sample condition.
+    A result outside −50 to 150 °C is dropped rather than stored as −173 or 298.
+    """
+    raw = _number(value)
+    if raw is None:
+        return None
+    celsius = raw - 273.15 if raw > 200 else raw
+    if nmr and raw < 0:
+        return None
+    if celsius < -50 or celsius > 150:
+        return None
+    return round(celsius, 2)
 
 
 def _temperature_c(entry: dict) -> float | None:
-    # mmCIF defines these temperatures in kelvin.
-    for block in entry.get("diffrn") or []:
-        kelvin = _number(block.get("ambient_temp"))
-        if kelvin is not None:
-            return round(kelvin - 273.15, 2)
+    for block in entry.get("exptl_crystal_grow") or []:
+        sample = _celsius(block.get("temp"))
+        if sample is not None:
+            return sample
     for block in entry.get("pdbx_nmr_exptl_sample_conditions") or []:
-        kelvin = _number(block.get("temperature"))
-        if kelvin is not None:
-            return round(kelvin - 273.15, 2)
+        sample = _celsius(block.get("temperature"), nmr=True)
+        if sample is not None:
+            return sample
     return None
 
 

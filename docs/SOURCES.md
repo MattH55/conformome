@@ -1,6 +1,6 @@
 # Sources and licences
 
-Each source module in `conformome/sources/` has a row here. `make validate` checks that every module has a row, that the licence is recorded (not `TBD`), that `status` matches the module's `IMPLEMENTED` flag, and that sources marked `redistribute: no` do not appear in any downloadable file. Where a licence is marked **verify**, the licence was not checked against the source's own terms in this version and must be confirmed before a public release.
+Each source module in `conformome/sources/` has a row here. `make validate` checks that every module has a row, that the licence is recorded (not `TBD`), and that `status` matches the module's `IMPLEMENTED` flag. A download may contain evidence only when this table says `redistribute: yes` and the record's own `provenance.licence` is listed in `zenodo/redistribution.yaml`. An unknown source, a missing licence, and a licence that contains "not stated", "all rights reserved", "noncommercial" or "no derivatives" are left out of `downloads/` and out of `search/evidence.json`. Conflicts, state populations and transitions in a bundle may cite only evidence that remains in that bundle. Where a licence is marked **verify**, the licence was not checked against the source's own terms in this version and must be confirmed before a public release. The rows below still say `yes` for those sources, so their current stored strings are redistributed.
 
 | Source | Module | Status | Licence | Redistribute | Notes |
 |---|---|---|---|---|---|

@@ -31,8 +31,9 @@ def fetch(paths, accession: str, retrieved: str) -> dict:
     entries = {}
     for bmrb_id in ids:
         entries[bmrb_id] = json.loads(fetch_url(ENTRY_URL.format(bmrb_id), cache_dir=paths.raw / "_cache"))
+    urls = [MAP_URL] + [ENTRY_URL.format(bmrb_id) for bmrb_id in ids]
     return save_raw(paths, KEY, accession, {"accession": accession, "retrieved": retrieved, "map_url": MAP_URL,
-                                            "entries": entries}, [MAP_URL, ENTRY_URL.format("<id>")])
+                                            "entries": entries}, urls)
 
 
 def load_raw(paths, accession: str) -> dict | None:
@@ -68,7 +69,17 @@ def _sample(data: dict, bmrb_id: str) -> tuple[float | None, float | None]:
         kind = (row.get("Type") or "").lower()
         if kind == "temperature" and temp is None:
             unit = (row.get("Val_units") or "").strip().lower()
-            temp = kelvin_to_c(row.get("Val")) if unit in ("k", "kelvin") else number(row.get("Val"))
+            raw = number(row.get("Val"))
+            if raw is None:
+                temp = None
+            elif unit in ("k", "kelvin") or (not unit and raw > 200):
+                temp = kelvin_to_c(raw)
+            elif not unit or unit in ("c", "celsius", "degc", "°c"):
+                temp = raw
+            else:
+                temp = None
+            if temp is not None and not -50 <= temp <= 150:
+                temp = None
         elif kind == "ph" and ph is None:
             ph = number(row.get("Val"))
     return temp, ph

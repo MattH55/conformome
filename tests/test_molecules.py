@@ -37,6 +37,12 @@ def test_molecule_ids_and_types():
     assert molecule_type("URS000000AAAA_666") == "rna"
     assert molecule_type(dna_id(TELO)) == "dna"
     assert molecule_type("CPX-1234") == "complex"
+    with pytest.raises(ValueError):
+        molecule_type("not-an-id")
+    with pytest.raises(ValueError):
+        molecule_type("urs000000aaaa_666")
+    with pytest.raises(ValueError):
+        molecule_type("URS000000AAAA")
     assert dna_id(TELO) == dna_id(TELO.lower()) and dna_id(TELO) != dna_id(TELO + "T")
 
 

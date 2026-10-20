@@ -39,6 +39,7 @@ def test_fixture_coverage_grid_and_single_method_states(fixture_paths):
     assert coverage["cells"]["FX-open"] == {"xray": 1, "cryoem": 0, "nmr_structure": 0}
     assert coverage["cells"]["FX-closed"] == {"xray": 0, "cryoem": 2, "nmr_structure": 0}
     assert coverage["single_method_states"] == ["FX-open", "FX-closed", "FX-intermediate"]
+    assert coverage["no_evidence_states"] == []
     assert coverage["unmapped_evidence"] == 1
 
 

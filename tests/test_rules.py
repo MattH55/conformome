@@ -56,6 +56,28 @@ def test_two_rules_for_the_same_state_give_one_mapping():
     assert [m["who"] for m in items[0]["mappings"]] == ["rule:closed-ligand"]
 
 
+def test_word_boundaries_and_title_does_not_read_the_construct():
+    assert rule_matches({"title_none": ["bound"]}, ev("a", title="unbound monomer"))
+    assert not rule_matches({"title_none": ["bound"]}, ev("a", title="bound form"))
+    assert not rule_matches({"title_any": ["I27"]}, ev("a", title="domain I275"))
+    assert rule_matches({"title_any": ["I27"]}, ev("a", title="Ig repeat I27"))
+    item = ev("a", title="crystal structure")
+    item["construct"]["description"] = "open form"
+    assert not rule_matches({"title_any": ["open"]}, item)
+    assert rule_matches({"construct_any": ["open"]}, item)
+
+
+def test_highest_confidence_rule_for_one_state_wins():
+    rules = RULES + [
+        {"id": "closed-high", "state": "closed", "confidence": "high", "justification": "stronger",
+         "match": {"ligands_any": ["AP5"]}},
+    ]
+    items = [ev("a", ligands=["AP5"])]
+    apply_rules(items, rules)
+    assert items[0]["mappings"][0]["who"] == "rule:closed-high"
+    assert items[0]["mappings"][0]["confidence"] == "high"
+
+
 def test_curator_assignment_wins_over_rules():
     curator = {"state_id": "open", "who": "curator:x", "confidence": "high", "justification": "j", "rule": None}
     items = [ev("a", ligands=["AP5"], mappings=[curator])]

@@ -8,7 +8,8 @@ from __future__ import annotations
 
 import json
 
-from conformome.common import fetch_url, read_json, record_download, write_json
+from conformome.common import fetch_url, read_json, write_json
+from conformome.sources.base import commit_json
 
 NAME = "UniProtKB"
 LICENCE = "CC BY 4.0 (UniProt)"
@@ -20,10 +21,7 @@ def fetch(paths, accession: str, retrieved: str) -> dict:
     url = ENTRY_URL.format(accession)
     data = fetch_url(url, cache_dir=paths.raw / "_cache")
     raw = {"retrieved": retrieved, "url": url, "entry": json.loads(data)}
-    rel = f"uniprot/{accession}.json"
-    write_json(paths.raw / rel, raw)
-    record_download(paths, f"raw/{rel}", [url], (paths.raw / rel).read_bytes())
-    return raw
+    return commit_json(paths, f"uniprot/{accession}.json", raw, [url])
 
 
 def parse(raw: dict, accession: str) -> dict:

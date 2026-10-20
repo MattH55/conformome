@@ -23,14 +23,16 @@ CLOSERS = {v: k for k, v in BRACKETS.items()}
 
 
 def molecule_type(molecule_id: str) -> str:
-    """The molecule type implied by an ID's scheme."""
-    if molecule_id.startswith("URS"):
+    """The molecule type implied by an ID's scheme. An unrecognised ID is not a protein."""
+    if UNIPROT.fullmatch(molecule_id):
+        return "protein"
+    if re.fullmatch(r"URS[0-9A-F]{10}_[0-9]+", molecule_id):
         return "rna"
-    if molecule_id.startswith("DNA-"):
+    if re.fullmatch(r"DNA-[0-9a-f]{12}", molecule_id):
         return "dna"
-    if molecule_id.startswith("CPX-"):
+    if molecule_id.startswith("CPX-") and len(molecule_id) > 4:
         return "complex"
-    return "protein"
+    raise ValueError(f"unrecognised molecule id {molecule_id!r}")
 
 
 def dna_id(sequence: str) -> str:

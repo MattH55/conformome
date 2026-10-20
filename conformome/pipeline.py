@@ -11,7 +11,8 @@ import urllib.error
 
 from conformome import protein as protein_source
 from conformome.common import (
-    Paths, check, fetch_url, load_taxonomy, load_validators, load_yaml, read_json, record_download, today, write_json,
+    Paths, REPO_ROOT, cache_retrieved, check, fetch_url, load_taxonomy, load_validators, load_yaml,
+    read_json, record_download, sha256_bytes, today, write_json,
 )
 from conformome.mapping.conflicts import find_conflicts, not_compared
 from conformome.mapping.curation import curation_for
@@ -115,7 +116,9 @@ def download(paths: Paths, accessions: list[str]) -> None:
             rel = f"pdb-files/{pdb_id}.{ext}"
             (paths.raw / rel).parent.mkdir(parents=True, exist_ok=True)
             (paths.raw / rel).write_bytes(data)
-            record_download(paths, f"raw/{rel}", [url], data)
+            record_download(paths, f"raw/{rel}", [url], data,
+                            retrieved=cache_retrieved(paths.raw / "_cache", url),
+                            content_sha=sha256_bytes(data))
     write_json(paths.raw / "download_failures.json", failures)
     if failures:
         print(f"download: {len(failures)} optional source fetches failed; see data/raw/download_failures.json")
@@ -154,11 +157,50 @@ def ingest(paths: Paths, accessions: list[str]) -> None:
         if len(set(ids)) != len(ids):
             dupes = sorted({i for i in ids if ids.count(i) > 1})
             raise ValueError(f"{acc}: duplicate evidence ids {dupes[:5]}")
+        evidence.sort(key=lambda ev: ev["evidence_id"])
         report["evidence_items"] = len(evidence)
         write_json(out / "evidence.json", evidence)
         write_json(out / "ingest.json", report)
         summary = ", ".join(f"{name} {s['evidence_items']}" for name, s in report["sources"].items())
         print(f"ingest {acc}: {len(evidence)} evidence items ({summary})")
+    write_build_record(paths)
+
+
+def write_build_record(paths: Paths) -> None:
+    """Git commit, package versions and hashes of the inputs that are not raw downloads.
+
+    Written to build/BUILD.json on each ingest. It is not committed: a later ingest replaces it.
+    """
+    import subprocess
+    import sys
+    from importlib.metadata import PackageNotFoundError, version
+
+    def pkg(name: str) -> str | None:
+        try:
+            return version(name)
+        except PackageNotFoundError:
+            return None
+
+    git = subprocess.run(["git", "rev-parse", "HEAD"], cwd=REPO_ROOT, capture_output=True, text=True)
+    inputs = {}
+    for folder in (paths.curation, paths.taxonomy):
+        if not folder.exists():
+            continue
+        for path in sorted(p for p in folder.rglob("*") if p.is_file()):
+            try:
+                key = str(path.relative_to(REPO_ROOT)).replace("\\", "/")
+            except ValueError:
+                key = path.name
+            inputs[key] = sha256_bytes(path.read_bytes())
+    targets = paths.curation.parent / "targets.yaml"
+    if targets.exists():
+        inputs["targets.yaml"] = sha256_bytes(targets.read_bytes())
+    write_json(paths.build / "BUILD.json", {
+        "git_commit": git.stdout.strip() if git.returncode == 0 else None,
+        "python": sys.version.split()[0],
+        "packages": {name: pkg(name) for name in ("PyYAML", "jsonschema", "referencing", "numpy", "pytest")},
+        "input_sha256": inputs,
+    })
 
 
 def evidence_errors(validators: dict, taxonomy: dict, ev: dict) -> list[str]:
@@ -171,7 +213,15 @@ def evidence_errors(validators: dict, taxonomy: dict, ev: dict) -> list[str]:
     return errors
 
 
-def coverage_grid(states: list[dict], evidence: list[dict], technique_order: list[str]) -> dict:
+def coverage_grid(states: list[dict], evidence: list[dict], technique_order: list[str],
+                  predictions: set[str] | None = None) -> dict:
+    """Count mapped evidence per state and technique.
+
+    single_method_states ignores prediction techniques (AlphaFold, MD, and the other
+    prediction: true rows). A state with no experimental technique is no_evidence, not
+    a one-method state. nmr_shifts and nmr_dynamics stay separate techniques.
+    """
+    predicted = predictions or set()
     present = {ev["technique"] for ev in evidence}
     techniques = [t for t in technique_order if t in present]
     cells = {s["state_id"]: {t: 0 for t in techniques} for s in states}
@@ -188,16 +238,22 @@ def coverage_grid(states: list[dict], evidence: list[dict], technique_order: lis
                 cur = levels[m["state_id"]].get(ev["technique"])
                 if cur is None or rank[ev["data_level"]] < rank[cur]:
                     levels[m["state_id"]][ev["technique"]] = ev["data_level"]
-    single = [sid for sid, row in cells.items() if sum(1 for n in row.values() if n) == 1]
+
+    def experimental(row: dict) -> int:
+        return sum(1 for technique, n in row.items() if n and technique not in predicted)
+
+    single = [sid for sid, row in cells.items() if experimental(row) == 1]
+    empty = [sid for sid, row in cells.items() if experimental(row) == 0]
     unmapped = sum(1 for ev in evidence if not ev["mappings"])
     return {"techniques": techniques, "states": [s["state_id"] for s in states], "cells": cells, "data_levels": levels,
-            "single_method_states": single, "unmapped_evidence": unmapped}
+            "single_method_states": single, "no_evidence_states": empty, "unmapped_evidence": unmapped}
 
 
 def map_protein(paths: Paths, acc: str) -> None:
     validators = load_validators(paths.schema)
     taxonomy_list = load_yaml(paths.taxonomy / "techniques.yaml")["techniques"]
     technique_order = [t["id"] for t in taxonomy_list]
+    predictions = {t["id"] for t in taxonomy_list if t.get("prediction")}
     cur = curation_for(paths.curation, acc)
     if cur.errors:
         raise ValueError("; ".join(cur.errors))
@@ -214,6 +270,11 @@ def map_protein(paths: Paths, acc: str) -> None:
         if not targets:
             raise ValueError(f"{acc}: assignment names unknown evidence {a.get('evidence_id') or a.get('pdb')}")
         for ev in targets:
+            already = {m["state_id"] for m in ev["mappings"] if str(m.get("who") or "").startswith("curator:")}
+            if already and a["state"] not in already:
+                raise ValueError(f"{acc}: {ev['evidence_id']} is assigned to {sorted(already | {a['state']})}")
+            if a["state"] in already:
+                continue
             ev["mappings"].append(curator_assignment(cur.curator, a["state"], a["confidence"], a["justification"]))
     ambiguous = apply_rules(evidence, cur.rules)
 
@@ -257,9 +318,9 @@ def map_protein(paths: Paths, acc: str) -> None:
         "transitions": transitions,
         "evidence": evidence,
         "ambiguous": ambiguous,
-        "conflicts": find_conflicts(evidence),
-        "not_compared": not_compared(evidence),
-        "coverage": coverage_grid(states, evidence, technique_order),
+        "conflicts": find_conflicts(evidence, predictions),
+        "not_compared": not_compared(evidence, predictions),
+        "coverage": coverage_grid(states, evidence, technique_order, predictions),
     }
     # evidence.json stays as ingest wrote it; mapping reads it again on every run, so it must not change here.
     write_json(out / "mapped.json", mapped)
@@ -288,11 +349,13 @@ def models(paths: Paths, acc: str) -> None:
                    and any(m["state_id"] == state["state_id"] for m in e["mappings"])), None)
         if ev is None:
             raise ValueError(f"{state['state_id']}: representative {rep} is not mapped to this state")
+        exported = set()
         for ext, fmt, header in (("cif", "mmCIF", _cif_header), ("pdb", "PDB", _pdb_header)):
             src = paths.raw / f"pdb-files/{rep}.{ext}"
             if not src.exists():
                 print(f"models {state['state_id']}: {src.name} not downloaded; skipped")
                 continue
+            exported.add(ext)
             rel = f"{state['state_id']}.{ext}"
             dest = out / "models" / rel
             dest.parent.mkdir(parents=True, exist_ok=True)
@@ -319,9 +382,10 @@ def models(paths: Paths, acc: str) -> None:
             for err in check(validators["model"], record):
                 raise ValueError(f"{record['model_id']} invalid: {err}")
             records.append(record)
-        for s in mapped["states"]:
-            if s["state_id"] == state["state_id"]:
-                s["representative_model"] = f"{state['state_id']}-cif"
+        if "cif" in exported:
+            for s in mapped["states"]:
+                if s["state_id"] == state["state_id"]:
+                    s["representative_model"] = f"{state['state_id']}-cif"
     write_json(out / "models.json", records)
     write_json(out / "mapped.json", mapped)
     print(f"models {acc}: {len(records)} model files")

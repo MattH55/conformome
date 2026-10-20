@@ -22,11 +22,17 @@ PAGE_URL = "https://disprot.org/{}"
 STRUCTURAL = {"structural state", "structural transition"}
 
 # Most specific phrases first. Matched against the lower-cased ECO evidence name.
+# None means the name is recognised and deliberately not ingested (it would get the wrong basis).
 ECO_TECHNIQUE = [
-    ("single-molecule", "smfret"),
+    ("negative stain", None),
+    ("negative-stain", None),
+    ("force spectroscopy", "force_spectroscopy"),
+    ("single-molecule fret", "smfret"),
+    ("smfret", "smfret"),
     ("fluorescence resonance energy transfer", "ensemble_fret"),
     ("hydrogen deuterium exchange", "hdx_ms"),
     ("electron paramagnetic resonance", "epr_deer"),
+    ("relaxation", "nmr_dynamics"),
     ("nuclear magnetic resonance", "nmr_shifts"),
     ("circular dichroism", "cd"),
     ("infrared", "ftir_raman"),
@@ -50,14 +56,18 @@ ECO_TECHNIQUE = [
 
 def technique_for(eco_name: str) -> str | None:
     name = (eco_name or "").lower()
-    return next((tech for phrase, tech in ECO_TECHNIQUE if phrase in name), None)
+    for phrase, tech in ECO_TECHNIQUE:
+        if phrase in name:
+            return tech
+    return None
 
 
 def fetch(paths, accession: str, retrieved: str) -> dict:
     url = SEARCH_URL.format(accession)
     data = json.loads(fetch_url(url, cache_dir=paths.raw / "_cache"))
-    # Entries can be annotated to an isoform (P10636-8 for 2N4R tau); keep them, with the isoform recorded.
-    entries = [e for e in data.get("data", []) if (e.get("acc") or "").split("-")[0] == accession]
+    # Exact accession only. An isoform page (P10636-8) does not inherit the canonical entry,
+    # and the canonical page does not mix isoform residue numbers into the canonical sequence.
+    entries = [e for e in data.get("data", []) if (e.get("acc") or "") == accession]
     return save_raw(paths, KEY, accession, {"accession": accession, "retrieved": retrieved, "url": url,
                                             "entries": entries}, [url])
 
@@ -66,15 +76,18 @@ def load_raw(paths, accession: str) -> dict | None:
     return _load(paths, KEY, accession)
 
 
-def _regions(raw: dict):
+def _regions(raw: dict, accession: str):
+    """Regions of this accession only. An isoform (P10636-8) is a different page from P10636."""
     for entry in raw["entries"]:
+        if (entry.get("acc") or "") != accession:
+            continue
         for region in entry.get("regions") or []:
             yield entry, region
 
 
 def not_ingested(raw: dict, accession: str) -> list[dict]:
     out = []
-    for _, r in _regions(raw):
+    for _, r in _regions(raw, accession):
         if (r.get("term_namespace") or "").lower() not in STRUCTURAL:
             out.append({"id": r.get("region_id"), "reason": f"term not structural ({r.get('term_name')})"})
         elif technique_for(r.get("ec_name")) is None:
@@ -84,7 +97,7 @@ def not_ingested(raw: dict, accession: str) -> list[dict]:
 
 def parse(raw: dict, accession: str, retrieved: str) -> list[dict]:
     records = []
-    for entry, r in _regions(raw):
+    for entry, r in _regions(raw, accession):
         technique = technique_for(r.get("ec_name"))
         if (r.get("term_namespace") or "").lower() not in STRUCTURAL or technique is None:
             continue
@@ -97,8 +110,7 @@ def parse(raw: dict, accession: str, retrieved: str) -> list[dict]:
             technique=technique,
             source_kind="literature",
             title=f"DisProt {disprot_id}: {r.get('term_name')}, residues {start}-{end}",
-            construct=(f"residues {start}-{end}" + (f" of isoform {entry['acc']}" if entry.get("acc") != accession else "")
-                       + f"; evidence: {r.get('ec_name')}"),
+            construct=(f"residues {start}-{end} of {entry.get('acc') or accession}; evidence: {r.get('ec_name')}"),
             conds=conditions("in_vitro", notes="DisProt annotations do not record sample conditions."),
             obs_type="disorder_region",
             value=(end - start + 1) if isinstance(start, int) and isinstance(end, int) else None,

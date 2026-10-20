@@ -29,7 +29,7 @@ rules:
     state: KcsA-open-inactivated
     confidence: medium
     justification: "Title describes an open or partially open gate."
-    match: {title_any: ["open"]}
+    match: {techniques: [xray, cryoem, nmr_structure, neutron, microed], title_any: ["open"]}
   - id: kcsa-low-k-title
     state: KcsA-closed-collapsed
     confidence: medium

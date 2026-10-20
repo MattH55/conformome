@@ -13,8 +13,7 @@ import shutil
 from pathlib import Path
 
 from conformome.common import Paths, load_taxonomy, load_yaml, read_json, write_json
-from conformome.sources import IMPLEMENTED, REGISTRY
-from conformome.validate import sources_table
+from conformome.sources import IMPLEMENTED
 
 MOLSTAR_VERSION = "5.11.0"  # published 2026-07-19; at least two weeks old at the time of this build
 MOLSTAR_BASE = f"https://cdn.jsdelivr.net/npm/molstar@{MOLSTAR_VERSION}/build/viewer/"
@@ -444,10 +443,15 @@ def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: l
                         f'{", ".join(esc(e) for e in c["evidence_ids"])}<br><span class="muted">{esc(c["reason"])}</span></li>'
                         for c in mapped["conflicts"])
         conflicts = f'<ul>{items}</ul>'
+    from conformome.mapping.conflicts import CONFLICT_SIGMA
+    omitted = (f'<p class="muted">{mapped["not_compared"]} mapped evidence items were not compared '
+               '(missing conditions, no partner under the same conditions, a non-positive uncertainty, '
+               'or a prediction). Absence of a conflict is not agreement. '
+               f'A conflict here means the values differ by more than {CONFLICT_SIGMA} combined standard deviations.</p>')
+    if mapped["conflicts"]:
+        conflicts += omitted
     else:
-        conflicts = ('<p>No conflicts found among comparable evidence.</p>'
-                     f'<p class="muted">{mapped["not_compared"]} evidence items could not be compared: they lack a comparable '
-                     'observable type, a value, or an uncertainty. Absence of a conflict here is not agreement.</p>')
+        conflicts = '<p>No conflicts found among comparable evidence.</p>' + omitted
     conflicts_html = f'<h2>Conflicts</h2>{conflicts}'
 
     downloads = [f'<li><a href="{root}downloads/proteins/{esc(acc)}.json">Protein bundle (JSON)</a></li>']
@@ -678,16 +682,41 @@ def _technique_page(tid: str, tech: dict, covered: list[dict]) -> str:
 DATA_LEVEL_LABEL = {"raw": "raw", "processed": "proc", "reported": "rep"}
 
 
+def _public_records(records: list[dict], kept_ids: set[str]) -> list[dict]:
+    """Drop evidence ids that are not in the redistributable bundle. Pages keep the full build."""
+    out = []
+    for record in records:
+        record = json.loads(json.dumps(record))
+        pop = record.get("population")
+        if isinstance(pop, dict) and "evidence_ids" in pop:
+            ids = [eid for eid in pop["evidence_ids"] if eid in kept_ids]
+            if ids:
+                pop["evidence_ids"] = ids
+            else:
+                record["population"] = None
+        if isinstance(record.get("evidence_ids"), list):
+            record["evidence_ids"] = [eid for eid in record["evidence_ids"] if eid in kept_ids]
+        out.append(record)
+    return out
+
+
 def build_site(paths: Paths, accessions: list[str]) -> None:
     site = paths.site
     if site.exists():
         shutil.rmtree(site)
     site.mkdir(parents=True)
     taxonomy = load_taxonomy(paths.taxonomy / "techniques.yaml")
-    sources = sources_table(paths)
-    redistributable = {mod.NAME: sources.get(key, {}).get("redistribute", "no").lower() != "no"
-                       for key, mod in REGISTRY.items()}
-    redistributable.setdefault("Conformome curation", True)
+    from conformome.validate import _redistribution, allowed_source_names, licence_redistributable
+    allowed = allowed_source_names(paths)
+    policy = _redistribution(paths)
+    allowed_licences = set(policy["allow"])
+    deny_phrases = policy["deny_if_contains"]
+    deny_sources = policy["deny_sources"]
+
+    def _keep(ev: dict) -> bool:
+        prov = ev["provenance"]
+        return (prov["source"] in allowed and prov["source"] not in deny_sources
+                and licence_redistributable(prov.get("licence"), allowed_licences, deny_phrases))
 
     summaries, bundles, all_lines, search_rows = [], {}, [], []
     technique_acc: dict[str, list[dict]] = {}
@@ -710,6 +739,8 @@ def build_site(paths: Paths, accessions: list[str]) -> None:
         })
         state_names = {s["state_id"]: s["name"] for s in mapped["states"]}
         for e in mapped["evidence"]:
+            if not _keep(e):
+                continue
             search_rows.append([
                 e["evidence_id"], acc, e["technique"], e["provenance"]["source"], e["provenance"]["deposit_id"] or "",
                 (e.get("title") or "")[:200], e["construct"]["description"][:160], " ".join(e["conditions"]["ligands"])[:160],
@@ -718,15 +749,17 @@ def build_site(paths: Paths, accessions: list[str]) -> None:
         for t in mapped["coverage"]["techniques"]:
             count = sum(1 for e in mapped["evidence"] if e["technique"] == t)
             technique_acc.setdefault(t, []).append({"acc": acc, "name": protein["name"], "count": count})
-        evidence_out = [e for e in mapped["evidence"] if redistributable.get(e["provenance"]["source"], True)]
+        evidence_out = [e for e in mapped["evidence"] if _keep(e)]
+        kept_ids = {e["evidence_id"] for e in evidence_out}
+        conflicts_out = [c for c in mapped["conflicts"] if all(eid in kept_ids for eid in c["evidence_ids"])]
         bundle = {
             "molecule_id": acc,
             "molecule": protein,
             "curation": mapped["curation"],
-            "states": mapped["states"],
-            "transitions": mapped["transitions"],
+            "states": _public_records(mapped["states"], kept_ids),
+            "transitions": _public_records(mapped["transitions"], kept_ids),
             "evidence": evidence_out,
-            "conflicts": mapped["conflicts"],
+            "conflicts": conflicts_out,
             "coverage": mapped["coverage"],
             "models": models,
         }

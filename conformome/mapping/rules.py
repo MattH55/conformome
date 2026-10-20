@@ -12,7 +12,11 @@ anchor_rmsd         a structure clusters with an anchor when its C-alpha RMSD, a
 
 from __future__ import annotations
 
+import re
+
 import numpy as np
+
+_CONFIDENCE = {"high": 3, "medium": 2, "low": 1}
 
 
 def curator_assignment(curator: str, state_id: str, confidence: str, justification: str) -> dict:
@@ -29,13 +33,28 @@ def _ligands(ev: dict) -> set[str]:
     return {l.upper() for l in ev["conditions"].get("ligands") or []}
 
 
-def _text(ev: dict) -> str:
-    return f"{ev.get('title') or ''} {ev['construct']['description']}".lower()
+def _has_word(word: str, text: str) -> bool:
+    """Whole word, case-insensitive. 'bound' does not match 'unbound', and 'I27' does not match 'I275'."""
+    return re.search(rf"\b{re.escape(word)}\b", text, flags=re.IGNORECASE) is not None
+
+
+def _words(words, text: str, *, how: str) -> bool:
+    found = [_has_word(w, text) for w in words]
+    if how == "any":
+        return any(found)
+    if how == "all":
+        return all(found)
+    return not any(found)
 
 
 def rule_matches(match: dict, ev: dict) -> bool:
-    """True when the evidence meets every criterion given. Absent criteria are not checked."""
-    ligands, text = _ligands(ev), _text(ev)
+    """True when the evidence meets every criterion given. Absent criteria are not checked.
+
+    title_* reads the deposit title only. construct_* reads the construct description only.
+    """
+    ligands = _ligands(ev)
+    title = ev.get("title") or ""
+    construct = (ev.get("construct") or {}).get("description") or ""
     ligand_text = " | ".join(ev["conditions"].get("ligands") or []).lower()
     checks = {
         "techniques": lambda v: ev["technique"] in v,
@@ -48,11 +67,13 @@ def rule_matches(match: dict, ev: dict) -> bool:
         "no_ligands": lambda v: (not ligands) == bool(v),
         "ligand_text_any": lambda v: any(w.lower() in ligand_text for w in v),
         "ligand_text_none": lambda v: not any(w.lower() in ligand_text for w in v),
-        "title_any": lambda v: any(w.lower() in text for w in v),
-        "title_all": lambda v: all(w.lower() in text for w in v),
-        "title_none": lambda v: not any(w.lower() in text for w in v),
-        # Title only, not the construct: source-assigned entity names can be generic.
-        "publication_title_any": lambda v: any(w.lower() in (ev.get("title") or "").lower() for w in v),
+        "title_any": lambda v: _words(v, title, how="any"),
+        "title_all": lambda v: _words(v, title, how="all"),
+        "title_none": lambda v: _words(v, title, how="none"),
+        "construct_any": lambda v: _words(v, construct, how="any"),
+        "construct_all": lambda v: _words(v, construct, how="all"),
+        "construct_none": lambda v: _words(v, construct, how="none"),
+        "publication_title_any": lambda v: _words(v, title, how="any"),
     }
     return all(checks[key](value) for key, value in match.items())
 
@@ -79,7 +100,9 @@ def apply_rules(evidence: list[dict], rules: list[dict]) -> list[dict]:
             if r["state"] not in states:
                 states.append(r["state"])
         if len(states) == 1:
-            ev["mappings"].append(rule_mapping(hits[0]))
+            same = [r for r in hits if r["state"] == states[0]]
+            best = max(same, key=lambda r: _CONFIDENCE.get(r["confidence"], 0))
+            ev["mappings"].append(rule_mapping(best))
         elif len(states) > 1:
             ambiguous.append({"evidence_id": ev["evidence_id"], "states": states, "rules": [r["id"] for r in hits]})
     return ambiguous

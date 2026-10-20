@@ -1,0 +1,7 @@
+# Direct dependencies, pinned to the versions used when the review fixes were tested.
+# Install with: pip install -r requirements.lock
+PyYAML==6.0.3
+jsonschema==4.26.0
+referencing==0.37.0
+numpy==2.5.4
+pytest==9.1.1

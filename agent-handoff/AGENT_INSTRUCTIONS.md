@@ -2,6 +2,8 @@
 
 Work in the clone of `https://github.com/MattH55/conformome` on branch `paper/ore` (pushed). Continue on that branch.
 
+The code review in `CODE_REVIEW_DETAIL.md` and `REPO_REVIEW.md` (fixes 1–16, except the default-branch rename and Enforce HTTPS) is already applied on this branch. Do not revert the 3σ conflict rule, the word-boundary mapper, the licence allow-list, or the parser fixes. Corpus counts in the manuscript that say "to be filled" are waiting on a full `make map`; do not type them. Do not rename the default branch. Do not publish.
+
 The default branch on GitHub is `ccr-ebb336f7-3qzi9h`, at the same commit as local `main` (`863b5ef`). There is no `origin/main`. Open the pull request into `ccr-ebb336f7-3qzi9h`. Do not merge it. `paper/ore` is already two commits ahead of that default: audit tooling (`a888021`) and this handoff. PR #2 is the open audit pull request; leave it alone.
 
 Local path on the author's machine: `C:\Users\matth\OneDrive\Documents\PhD\Conformome`. A fresh clone of `paper/ore` is fine.
@@ -33,7 +35,7 @@ The manuscript is written as a six-nucleic-acid paper with RMDB, reactivity prof
 | --- | --- |
 | Eight sources, including RMDB | No RMDB module. Protein sources are PDB, BMRB, SASBDB, DisProt, AlphaFold DB, MDDB, SMASH-BIO. RNA/DNA sources are NAKB and Rfam only. PDB, BMRB, SASBDB, SMASH-BIO and MDDB are not queried for nucleic acids (`MOLECULE_TYPES` is unset, so they default to protein). |
 | Six nucleic acids, each with draft curation | `targets.yaml` has two: `URS000080DF85_672` (add adenine riboswitch, 13 records: 12 NAKB X-ray, 1 Rfam) and `DNA-6f16b68e4fba` (telomeric G-quadruplex `AGGGTTAGGGTTAGGGTTAGGG`, anchor PDB `143D`, 14 NAKB records: 10 X-ray, 4 NMR structures). Draft curation exists only for the riboswitch (3 observed states, 10 mapped, 3 unmapped, 0 conflicts). The G-quadruplex has no curation file, no states and no mappings. Missing from `targets.yaml`: preQ1, HIV-1 TAR, *Tetrahymena* P4–P6, SARS-CoV-2 frameshifting element. |
-| Cations are part of the conflict rule | `conditions.ions` exists. `conformome/mapping/conflicts.py` `condition_signature` does not read ions or magnesium. |
+| Cations are part of the conflict rule | `comparable()` requires the same ion species, each concentration within a factor of two. A missing ion list is not comparable. NAKB is still the only source that fills `conditions.ions`. |
 | Reactivity profiles in the downloads | No `profiles/` directory and no source writes them. |
 | A Molecules page and per-molecule bundles | The nav still says Proteins. Nucleic-acid pages are served at `/protein/<id>/`. Bundles go to `downloads/proteins/`. |
 | 17,522 evidence records, 7 sources | Those are the protein rows. The same build has 27 further nucleic-acid records (17,549 evidence records in total). `paper/scripts/stats.py` skips any `molecule.json` whose type is not `protein`, which is why a stats file would hide them. |
@@ -77,7 +79,7 @@ The strings stored on the records, counted from the current `build/*/evidence.js
 
 None of those equal `CC0-1.0` or `CC-BY-4.0`. Filtering on those two tokens drops every evidence record. Do not do that.
 
-Replace the SPDX list in `zenodo/redistribution.yaml` with the strings that `docs/SOURCES.md` allows, copied from the records, plus `deny_sources` for SMASH-BIO and literature. Keep a record when its stored licence is on that list. MDDB is per record: allow the exact sentence above where it appears, and exclude a record whose licence is missing or `not stated`. A new string encountered on a `redistribute: yes` source is excluded, printed, and listed for the author. It is not relabelled.
+`zenodo/redistribution.yaml` now lists those stored strings, plus `deny_sources` for SMASH-BIO and literature. The site and the validator use that file. Keep a record when its stored licence is on that list. MDDB is per record: the exact sentence above is allowed, and a record whose licence is missing, `not stated`, or any other sentence is excluded. A new string encountered on a `redistribute: yes` source is excluded. It is not relabelled. Do not put the SPDX tokens `CC0-1.0` and `CC-BY-4.0` back.
 
 `EXCLUDED.tsv` has three columns: source, licence value, number of records excluded. SMASH-BIO must appear there. PDB, DisProt and AlphaFold must not, unless a record's own string is absent from the list.
 

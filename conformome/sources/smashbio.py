@@ -21,14 +21,14 @@ import json
 import os
 from pathlib import Path
 
-from conformome.common import fetch_url, record_download, sha256_bytes
+from conformome.common import cache_retrieved, fetch_url, record_download, sha256_bytes
 from conformome.sources.base import conditions, evidence, load_raw as _load, number, save_raw
 
 KEY = "smashbio"
 NAME = "SMASH-BIO"
 LICENCE = "not stated by the source"
 IMPLEMENTED = True
-RELEASE_URL = "https://raw.githubusercontent.com/MattH55/smash-bio/main/website/downloads/smash-smfs-records.jsonl.gz"
+RELEASE_URL = "https://raw.githubusercontent.com/MattH55/smash-bio/v1.0.0-paper/website/downloads/smash-smfs-records.jsonl.gz"
 IN_CELL = {"tension_sensors"}
 _release_cache: dict[str, tuple[list[dict], str, str]] = {}
 
@@ -42,7 +42,10 @@ def _release(paths) -> tuple[list[dict], str, str]:
         rel = "smashbio/release.jsonl.gz"
         (paths.raw / rel).parent.mkdir(parents=True, exist_ok=True)
         (paths.raw / rel).write_bytes(data)
-        record_download(paths, f"raw/{rel}", [f"file://{local}" if local else url], data)
+        source = f"file://{local}" if local else url
+        record_download(paths, f"raw/{rel}", [source], data,
+                        retrieved=None if local else cache_retrieved(paths.raw / "_cache", url),
+                        content_sha=sha256_bytes(data))
         records = [json.loads(line) for line in gzip.open(io.BytesIO(data), "rt", encoding="utf-8") if line.strip()]
         _release_cache[key] = (records, f"file://{local}" if local else url, sha256_bytes(data))
     return _release_cache[key]
