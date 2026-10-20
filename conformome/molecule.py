@@ -85,6 +85,21 @@ def secondary_structure_errors(ss: dict, sequence: str | None) -> list[str]:
     return errors
 
 
+def nucleic_acid_info(paths, molecule_id: str) -> dict:
+    """Sequence, Rfam families and taxon of an RNA or DNA page, from the identity file download wrote."""
+    from conformome import dna, rnacentral  # identity modules import sources, which import this module
+    if molecule_type(molecule_id) == "rna":
+        raw = rnacentral.load_raw(paths, molecule_id)
+        if raw is None:
+            raise FileNotFoundError(f"{molecule_id}: download the RNAcentral entry first")
+        return {"type": "rna", "sequence": raw["entry"]["sequence"].upper(),
+                "rfam": sorted({h["rfam"] for h in rnacentral.rfam_hits(raw)}), "taxid": rnacentral.split(molecule_id)[1]}
+    raw = dna.load_raw(paths, molecule_id)
+    if raw is None:
+        raise FileNotFoundError(f"{molecule_id}: download the DNA anchor entry first")
+    return {"type": "dna", "sequence": raw["sequence"], "rfam": [], "taxid": None}
+
+
 def load_vocabularies(directory: Path) -> dict[str, dict]:
     """taxonomy/state_vocabularies/<id>.yaml, keyed on id."""
     return {(v := load_yaml(p))["id"]: v for p in sorted(directory.glob("*.yaml"))}

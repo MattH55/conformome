@@ -56,6 +56,7 @@ def rule_matches(match: dict, ev: dict) -> bool:
     title = ev.get("title") or ""
     construct = (ev.get("construct") or {}).get("description") or ""
     ligand_text = " | ".join(ev["conditions"].get("ligands") or []).lower()
+    ions = {i["ion"] for i in ev["conditions"].get("ions") or []}
     checks = {
         "techniques": lambda v: ev["technique"] in v,
         "sources": lambda v: ev["provenance"]["source"] in v,
@@ -67,6 +68,8 @@ def rule_matches(match: dict, ev: dict) -> bool:
         "no_ligands": lambda v: (not ligands) == bool(v),
         "ligand_text_any": lambda v: any(w.lower() in ligand_text for w in v),
         "ligand_text_none": lambda v: not any(w.lower() in ligand_text for w in v),
+        "ions_any": lambda v: bool(ions & set(v)),
+        "ions_none": lambda v: not (ions & set(v)),
         "title_any": lambda v: _words(v, title, how="any"),
         "title_all": lambda v: _words(v, title, how="all"),
         "title_none": lambda v: _words(v, title, how="none"),

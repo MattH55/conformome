@@ -1,0 +1,61 @@
+name: Build all
+
+# Full rebuild of every molecule in targets.yaml (download -> ingest -> map -> models -> site -> validate),
+# without publishing. Use it to populate the data for a branch and inspect it before merging:
+# the built site and a per-molecule summary are uploaded as workflow artifacts.
+# Runs on pushes to claude/** branches and on demand. Deploying to conformome.org stays with deploy.yml.
+on:
+  push:
+    branches: ["claude/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-all-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: pyproject.toml
+      - run: pip install -e ".[test]"
+      # Same weekly cache as deploy.yml; caches saved on a branch are visible only to that branch.
+      - id: week
+        run: echo "week=$(date -u +%G-%V)" >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v4
+        with:
+          path: data/raw
+          key: raw-${{ steps.week.outputs.week }}-${{ hashFiles('targets.yaml', 'curation/*.yaml') }}
+          restore-keys: raw-${{ steps.week.outputs.week }}-
+      - name: Download raw inputs
+        run: make download
+      - name: Build and validate
+        run: make validate
+      - name: Summary
+        if: always()
+        run: python -m conformome.summary >> "$GITHUB_STEP_SUMMARY"
+      - name: Per-molecule summary file
+        if: always()
+        run: python -m conformome.summary > build-summary.md
+      # site/dist holds only what may be redistributed (validate checks the downloads); build/ is not uploaded
+      # because it carries records from sources whose licence forbids redistribution.
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: conformome-site
+          path: |
+            site/dist
+            build-summary.md
+            data/MANIFEST.json
+            data/raw/download_failures.json
+          if-no-files-found: warn
+          retention-days: 14

@@ -34,7 +34,7 @@ These are in the schema; no source fills them yet.
 One evidence item per experiment or deposit:
 
 - RCSB PDB: one item per polymer entity whose UniProt mapping includes the accession.
-- NAKB (RNA and DNA): one item per nucleic-acid entity with exactly the molecule's sequence, or, for RNA, in the same Rfam family and organism (another construct of the same RNA; the item says which).
+- NAKB (RNA and DNA): one item per nucleic-acid entity with exactly the molecule's sequence, a similar sequence (RCSB sequence search, 90% identity over 90% of the molecule) or, for RNA, the same Rfam family and organism. Other constructs must be 0.8-1.25 times the molecule's length; the item says which rule matched.
 - Rfam (RNA): one item per family hit, with the fraction of the sequence the covariance model covers. Labelled as a prediction.
 - BMRB: one item per entry in BMRB's UniProt mapping.
 - SASBDB: one item per entry whose sample lists a molecule with this UniProt code (radius of gyration with its error).
