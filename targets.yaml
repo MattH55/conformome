@@ -9,6 +9,9 @@
 #   multi-source-1: at least one PDB structure, one BMRB deposit and one SMASH-BIO record, with 8 or more
 #                   BMRB deposits or SMASH-BIO records (selected 2026-10-19 from the BMRB UniProt mapping
 #                   and the SMASH-BIO release)
+#   multi-source-2: 8 or more SMASH-BIO records carrying a verified UniProt identifier for the protein, not already
+#                   listed (selected 2026-10-20 by scripts/select_smash_targets.py from the SMASH-BIO release;
+#                   names are SMASH-BIO entity labels, page titles come from UniProt)
 targets:
   - {uniprot: P00519, batch: pilot-2, name: "Abl kinase (ABL1)"}
   - {uniprot: P00644, batch: pilot-2, name: "Staphylococcal nuclease (SNase)"}
@@ -96,3 +99,50 @@ targets:
   - {uniprot: Q9UM54, batch: multi-source-1, name: "Unconventional myosin-VI (Homo sapiens)"}
   - {molecule_id: URS000080DF85_672, batch: nucleic-acid-1, name: "add adenine riboswitch aptamer (Vibrio vulnificus)"}
   - {molecule_id: DNA-6f16b68e4fba, batch: nucleic-acid-1, name: "Human telomeric G-quadruplex d[AG3(T2AG3)3]", anchor_pdb: "143D", organism: {name: Homo sapiens, taxon_id: 9606}}
+  - {uniprot: P60709, batch: multi-source-2, name: "Actin filament"}
+  - {uniprot: P07437, batch: multi-source-2, name: "Microtubule (αβ-tubulin)"}
+  - {uniprot: P0A8V2, batch: multi-source-2, name: "RNA polymerase (bacterial)"}
+  - {uniprot: P22629, batch: multi-source-2, name: "Streptavidin"}
+  - {uniprot: P02671, batch: multi-source-2, name: "Fibrinogen / fibrin"}
+  - {uniprot: P12830, batch: multi-source-2, name: "Cadherin (classical)"}
+  - {uniprot: P01848, batch: multi-source-2, name: "T-cell receptor"}
+  - {uniprot: P18206, batch: multi-source-2, name: "Vinculin"}
+  - {uniprot: P08670, batch: multi-source-2, name: "Intermediate filament (vimentin)"}
+  - {uniprot: Q16623, batch: multi-source-2, name: "SNARE complex (syntaxin-1/SNAP-25/VAMP2)"}
+  - {uniprot: P04439, batch: multi-source-2, name: "peptide–MHC"}
+  - {uniprot: P12882, batch: multi-source-2, name: "Skeletal muscle myosin II"}
+  - {uniprot: Q9Y4I1, batch: multi-source-2, name: "Myosin V"}
+  - {uniprot: P0A7G6, batch: multi-source-2, name: "RecA recombinase"}
+  - {uniprot: P16109, batch: multi-source-2, name: "P-selectin"}
+  - {uniprot: Q14683, batch: multi-source-2, name: "Cohesin"}
+  - {uniprot: P35221, batch: multi-source-2, name: "αE-catenin"}
+  - {uniprot: P15941, batch: multi-source-2, name: "Mucin"}
+  - {uniprot: P60710, batch: multi-source-2, name: "Actin filament"}
+  - {uniprot: P07359, batch: multi-source-2, name: "Platelet glycoprotein Ibα"}
+  - {uniprot: Q51918, batch: multi-source-2, name: "Protein L (B1 domain)"}
+  - {uniprot: P02701, batch: multi-source-2, name: "Avidin"}
+  - {uniprot: P29751, batch: multi-source-2, name: "Actin filament"}
+  - {uniprot: P0ABB0, batch: multi-source-2, name: "F1Fo ATP synthase"}
+  - {uniprot: Q14242, batch: multi-source-2, name: "PSGL-1"}
+  - {uniprot: P0ABZ1, batch: multi-source-2, name: "Bacterial flagellar motor"}
+  - {uniprot: P52732, batch: multi-source-2, name: "Kinesin-5 (Eg5)"}
+  - {uniprot: P0A6H1, batch: multi-source-2, name: "ClpX/ClpXP protease"}
+  - {uniprot: P35222, batch: multi-source-2, name: "β-catenin"}
+  - {uniprot: P15502, batch: multi-source-2, name: "Elastin / elastin-like polypeptide"}
+  - {uniprot: P08394, batch: multi-source-2, name: "RecBCD"}
+  - {uniprot: P24821, batch: multi-source-2, name: "Tenascin"}
+  - {uniprot: P15043, batch: multi-source-2, name: "RecQ helicase"}
+  - {uniprot: P05787, batch: multi-source-2, name: "Keratin intermediate filament"}
+  - {uniprot: P10408, batch: multi-source-2, name: "Sec translocon"}
+  - {uniprot: P16581, batch: multi-source-2, name: "E-selectin"}
+  - {uniprot: Q12756, batch: multi-source-2, name: "Kinesin-3 (KIF1A)"}
+  - {uniprot: Q8VDD5, batch: multi-source-2, name: "Myosin"}
+  - {uniprot: P07271, batch: multi-source-2, name: "Pif1 helicase"}
+  - {uniprot: P0ACF0, batch: multi-source-2, name: "HU (nucleoid protein)"}
+  - {uniprot: P60711, batch: multi-source-2, name: "Actin filament"}
+  - {uniprot: O95347, batch: multi-source-2, name: "Condensin"}
+  - {uniprot: Q76LX8, batch: multi-source-2, name: "ADAMTS13"}
+  - {uniprot: P11276, batch: multi-source-2, name: "Fibronectin (FnIII domains)"}
+  - {uniprot: P61764, batch: multi-source-2, name: "Munc18-1"}
+  - {uniprot: P02920, batch: multi-source-2, name: "Lactose permease LacY"}
+  - {uniprot: P13738, batch: multi-source-2, name: "Na+/H+ antiporter NhaA"}
