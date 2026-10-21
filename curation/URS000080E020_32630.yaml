@@ -1,0 +1,43 @@
+# preQ1 class-I riboswitch aptamer (3FU2 construct). Draft: curator to review.
+# 3FU2 (2.85 Å, Ca2+) and BMRB 17106 are the only records with this exact 34-nt sequence in this release.
+# The ligand-free state is defined from the literature on this aptamer (a partly folded hairpin that
+# docks into the H-type pseudoknot when preQ1 binds); no ligand-free structure of this construct is
+# ingested, so that state is inferred and has no evidence mapped yet.
+molecule_id: URS000080E020_32630
+name: preQ1-I riboswitch aptamer
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-20
+states:
+  - id: PREQ1-free
+    name: ligand-free (hairpin, pseudoknot not formed)
+    basis: inferred
+    representative_pdb: null
+    family_label: {vocabulary: riboswitch, terms: {aptamer: aptamer_unbound}}
+    description: >-
+      Aptamer without preQ1: the P1 hairpin forms but the 3' A-rich tail is not docked into the
+      pseudoknot. No ligand-free structure of this construct is in the release.
+    assumptions:
+      - Defined from published NMR and force-spectroscopy work on preQ1-I aptamers, not from a structure of this construct.
+      - Treated as one ensemble; partly docked forms are not separated.
+      - No model is exported.
+  - id: PREQ1-bound
+    name: preQ1-bound H-type pseudoknot
+    basis: observed
+    representative_pdb: "3FU2"
+    family_label: {vocabulary: riboswitch, terms: {aptamer: aptamer_bound}}
+    description: >-
+      H-type pseudoknot folded around preQ1 (modelled as PRF), as in 3FU2 (X-ray, 2.85 Å, Ca2+).
+      The 3FU2 chain is this page's exact 34-nt sequence.
+assignments:
+  - {pdb: "3FU2", state: PREQ1-bound, confidence: high, justification: "Title: cocrystal structure of a class-I preQ1 riboswitch; preQ1 (PRF) modelled; exact sequence."}
+  - {evidence_id: "EV-BMRB-17106", state: PREQ1-bound, confidence: high, justification: "Title: solution structure of the class-I preQ1 aptamer bound to preQ1; same construct."}
+rules:
+  - id: preq1-ligand-bound
+    state: PREQ1-bound
+    confidence: medium
+    justification: "Structure with preQ1 (PRF) modelled; preQ1-bound aptamers share the pseudoknot fold."
+    match:
+      techniques: [xray, cryoem, nmr_structure, neutron, microed]
+      ligands_any: [PRF]
+transitions: []

@@ -1,0 +1,37 @@
+# SARS-CoV-2 frameshift stimulation element (88 nt). Draft: curator to review.
+# 6XRZ (cryo-EM, 6.9 Å) is this exact 88-nt construct. BMRB 52427 and 52428 are longer constructs
+# (116 and 123 nt) of the programmed-frameshift element, so they are left unmapped. Alternative folds
+# are reported by chemical probing in cells and in vitro and by other cryo-EM and NMR studies; they
+# are pooled as one inferred state here.
+molecule_id: URS00021ED9B3_2697049
+name: SARS-CoV-2 frameshift stimulation element
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-20
+states:
+  - id: FSE-pseudoknot
+    name: three-stem pseudoknot
+    basis: observed
+    representative_pdb: "6XRZ"
+    description: >-
+      Three-stem H-type pseudoknot, as in 6XRZ (cryo-EM, 6.9 Å), the 88-nt construct on this page.
+  - id: FSE-alternative
+    name: alternative conformations
+    basis: inferred
+    representative_pdb: null
+    description: >-
+      Folds other than the three-stem pseudoknot (for example two-stem and alternative stem 1 or
+      stem 3 pairings) reported from chemical probing and other structures.
+    assumptions:
+      - Defined from chemical-probing ensembles and alternative published models; their populations depend on construct length, conditions and the cellular context.
+      - Several alternative folds are pooled; no model is exported.
+assignments:
+  - {pdb: "6XRZ", state: FSE-pseudoknot, confidence: high, justification: "Title: the 28-kDa frameshift stimulation element from the SARS-CoV-2 genome; exact 88-nt construct."}
+rules:
+  - id: fse-rfam-consensus
+    state: FSE-pseudoknot
+    confidence: low
+    justification: "Rfam covariation model of the coronavirus frameshifting element, whose consensus is the pseudoknot (prediction)."
+    match:
+      sources: [Rfam]
+transitions: []

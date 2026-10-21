@@ -647,6 +647,39 @@
       "https://alphafold.ebi.ac.uk/api/prediction/Q9Y490"
     ]
   },
+  "raw/bmrb/DNA-6f16b68e4fba.json": {
+    "bytes": 527291,
+    "retrieved": "2026-10-20",
+    "sha256": "667667f6a0bbc961dbc42327605974159d3e1e8d3e7f5adeeff403153d8f1e7c",
+    "urls": [
+      "https://api.bmrb.io/v2/search/fasta/AGGGTTAGGGTTAGGGTTAGGG?type=dna",
+      "https://api.bmrb.io/v2/entry/16356?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/17655?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/19381?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/19387?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/19402?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/19435?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/19448?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/25378?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/27652?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/30402?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/31254?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/34034?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/34035?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/34062?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/34086?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/34331?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/34332?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/34467?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/34714?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/34978?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/36116?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/36159?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/36160?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/36267?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/36268?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample"
+    ]
+  },
   "raw/bmrb/O00571.json": {
     "bytes": 103268,
     "retrieved": "2026-10-19",
@@ -1376,6 +1409,61 @@
       "https://api.bmrb.io/v2/entry/<id>?saveframe_category=entry_information&saveframe_category=sample_conditions"
     ]
   },
+  "raw/bmrb/URS000080DF85_672.json": {
+    "bytes": 244,
+    "retrieved": "2026-10-20",
+    "sha256": "33656ee5ae18bc1f370ecf61db6d906ed2c772940793980580bc2a3455a8eac1",
+    "urls": [
+      "https://api.bmrb.io/v2/search/fasta/CGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUG?type=rna"
+    ]
+  },
+  "raw/bmrb/URS000080E020_32630.json": {
+    "bytes": 49285,
+    "retrieved": "2026-10-20",
+    "sha256": "0111659504d2975ba0d2cb6f01ba928f327dd508339cee0ee51a15bca9ee4be4",
+    "urls": [
+      "https://api.bmrb.io/v2/search/fasta/AGAGGUUCUAGCUACACCCUCUAUAAAAAACUAA?type=rna",
+      "https://api.bmrb.io/v2/entry/17106?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample"
+    ]
+  },
+  "raw/bmrb/URS000080E052_32630.json": {
+    "bytes": 333,
+    "retrieved": "2026-10-20",
+    "sha256": "9db1d5a46b3015bc401c91ccc9b1eb10974a538697200a90b92f501087202ed7",
+    "urls": [
+      "https://api.bmrb.io/v2/search/fasta/GAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUC?type=rna"
+    ]
+  },
+  "raw/bmrb/URS000080E14B_11676.json": {
+    "bytes": 420435,
+    "retrieved": "2026-10-20",
+    "sha256": "e0a8e9c2106b57d23fe3dcb3c2d38a721cf3ce4d5ba5463b15193a0464fd2b04",
+    "urls": [
+      "https://api.bmrb.io/v2/search/fasta/GGCAGAUCUGAGCCUGGGAGCUCUCUGCC?type=rna",
+      "https://api.bmrb.io/v2/entry/16877?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/16941?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/17408?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/30046?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/30049?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/30051?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/30452?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/30510?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/30788?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/31099?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/31106?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/31259?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample"
+    ]
+  },
+  "raw/bmrb/URS00021ED9B3_2697049.json": {
+    "bytes": 31085,
+    "retrieved": "2026-10-20",
+    "sha256": "8122baa8b972017853ed8331b3283ac487848edf380d24b700e77dd108c90455",
+    "urls": [
+      "https://api.bmrb.io/v2/search/fasta/GUUUUUAAACGGGUUUGCGGUGUAAGUGCAGCCCGUCUUACACCGUGCGGCACAGGCACUAGUACUGAUGUCGUAUACAGGGCUUUUG?type=rna",
+      "https://api.bmrb.io/v2/entry/52427?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample",
+      "https://api.bmrb.io/v2/entry/52428?saveframe_category=entry_information&saveframe_category=sample_conditions&saveframe_category=sample"
+    ]
+  },
   "raw/disprot/O00571.json": {
     "bytes": 5018,
     "retrieved": "2026-10-19",
@@ -2022,6 +2110,14 @@
     "sha256": "b817f9dc79a06d72295156bd7f19f9fd0750f9086ab976d9c28369784064640e",
     "urls": [
       "https://disprot.org/api/search?acc=Q9Y490&format=json"
+    ]
+  },
+  "raw/dna/DNA-6f16b68e4fba.json": {
+    "bytes": 1315,
+    "retrieved": "2026-10-20",
+    "sha256": "ee73d1dfd918639e58b4baeaa3ed6c043dba3be11bc4dc16a1935b99e6cb256f",
+    "urls": [
+      "https://www.nakb.org/node/solr/nakb/select?q=pdbid%3A143D&fl=pdbid%2Cndbid%2Ctitle%2Cexptlmethod%2Cresolution%2CDOI%2Cpolymer.entity_id%2Cpolymer.authorchains%2Cpolymer.description%2Cpolymer.type%2Cpolymer.taxid%2Cpolymer.sequence_canonical%2Crfamentity%2Crfamids%2Cnonpolymers%2Creleased&wt=json&rows=2000"
     ]
   },
   "raw/mddb/O00571.json": {
@@ -2672,6 +2768,78 @@
       "https://mmb.mddbr.eu/api/rest/v1/projects?query=%7B%22metadata.REFERENCES%22%3A%20%22Q9Y490%22%7D&limit=500"
     ]
   },
+  "raw/nakb/DNA-6f16b68e4fba.json": {
+    "bytes": 11283,
+    "retrieved": "2026-10-20",
+    "sha256": "b0b1e645efae7c62e7ddd5ae6ecf839fd6db014ed264bbd79433581761bc1ff5",
+    "urls": [
+      "https://www.nakb.org/node/solr/nakb/select?q=naseq%3A%22AGGGTTAGGGTTAGGGTTAGGG%22&fl=pdbid%2Cndbid%2Ctitle%2Cexptlmethod%2Cresolution%2CDOI%2Cpolymer.entity_id%2Cpolymer.authorchains%2Cpolymer.description%2Cpolymer.type%2Cpolymer.taxid%2Cpolymer.sequence_canonical%2Crfamentity%2Crfamids%2Cnonpolymers%2Creleased&wt=json&rows=2000",
+      "https://search.rcsb.org/rcsbsearch/v2/query"
+    ]
+  },
+  "raw/nakb/URS000080DF85_672.json": {
+    "bytes": 13943,
+    "retrieved": "2026-10-20",
+    "sha256": "35b1d1da2d73a64836c7f3d992464855c672f517a925e639acbbecc7dd74a82a",
+    "urls": [
+      "https://www.nakb.org/node/solr/nakb/select?q=naseq%3A%22CGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUG%22&fl=pdbid%2Cndbid%2Ctitle%2Cexptlmethod%2Cresolution%2CDOI%2Cpolymer.entity_id%2Cpolymer.authorchains%2Cpolymer.description%2Cpolymer.type%2Cpolymer.taxid%2Cpolymer.sequence_canonical%2Crfamentity%2Crfamids%2Cnonpolymers%2Creleased&wt=json&rows=2000",
+      "https://search.rcsb.org/rcsbsearch/v2/query",
+      "https://www.nakb.org/node/solr/nakb/select?q=rfamids%3ARF00167+AND+polymer.taxid%3A672&fl=pdbid%2Cndbid%2Ctitle%2Cexptlmethod%2Cresolution%2CDOI%2Cpolymer.entity_id%2Cpolymer.authorchains%2Cpolymer.description%2Cpolymer.type%2Cpolymer.taxid%2Cpolymer.sequence_canonical%2Crfamentity%2Crfamids%2Cnonpolymers%2Creleased&wt=json&rows=2000"
+    ]
+  },
+  "raw/nakb/URS000080E020_32630.json": {
+    "bytes": 35271,
+    "retrieved": "2026-10-20",
+    "sha256": "1f8294f93253ac813ec5bf4044d6ec3a1020212d09569ad062d815a4f6d4914f",
+    "urls": [
+      "https://www.nakb.org/node/solr/nakb/select?q=naseq%3A%22AGAGGUUCUAGCUACACCCUCUAUAAAAAACUAA%22&fl=pdbid%2Cndbid%2Ctitle%2Cexptlmethod%2Cresolution%2CDOI%2Cpolymer.entity_id%2Cpolymer.authorchains%2Cpolymer.description%2Cpolymer.type%2Cpolymer.taxid%2Cpolymer.sequence_canonical%2Crfamentity%2Crfamids%2Cnonpolymers%2Creleased&wt=json&rows=2000",
+      "https://search.rcsb.org/rcsbsearch/v2/query"
+    ]
+  },
+  "raw/nakb/URS000080E052_32630.json": {
+    "bytes": 71181,
+    "retrieved": "2026-10-20",
+    "sha256": "31d62e45be0fb5b05c76acecccbd905a63de13ef42a391fba56fb11f934c48ff",
+    "urls": [
+      "https://www.nakb.org/node/solr/nakb/select?q=naseq%3A%22GAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUC%22&fl=pdbid%2Cndbid%2Ctitle%2Cexptlmethod%2Cresolution%2CDOI%2Cpolymer.entity_id%2Cpolymer.authorchains%2Cpolymer.description%2Cpolymer.type%2Cpolymer.taxid%2Cpolymer.sequence_canonical%2Crfamentity%2Crfamids%2Cnonpolymers%2Creleased&wt=json&rows=2000",
+      "https://search.rcsb.org/rcsbsearch/v2/query"
+    ]
+  },
+  "raw/nakb/URS000080E14B_11676.json": {
+    "bytes": 58001,
+    "retrieved": "2026-10-20",
+    "sha256": "8e4ada928d72f0f68c4e88421a90bc9433d20a54e06aba2e11df9b5bbe37a419",
+    "urls": [
+      "https://www.nakb.org/node/solr/nakb/select?q=naseq%3A%22GGCAGAUCUGAGCCUGGGAGCUCUCUGCC%22&fl=pdbid%2Cndbid%2Ctitle%2Cexptlmethod%2Cresolution%2CDOI%2Cpolymer.entity_id%2Cpolymer.authorchains%2Cpolymer.description%2Cpolymer.type%2Cpolymer.taxid%2Cpolymer.sequence_canonical%2Crfamentity%2Crfamids%2Cnonpolymers%2Creleased&wt=json&rows=2000",
+      "https://search.rcsb.org/rcsbsearch/v2/query"
+    ]
+  },
+  "raw/nakb/URS00021ED9B3_2697049.json": {
+    "bytes": 132747,
+    "retrieved": "2026-10-20",
+    "sha256": "4a4cf813e9d16af33753e915435787a8d54e4392208e794e9b265743d4194798",
+    "urls": [
+      "https://www.nakb.org/node/solr/nakb/select?q=naseq%3A%22GUUUUUAAACGGGUUUGCGGUGUAAGUGCAGCCCGUCUUACACCGUGCGGCACAGGCACUAGUACUGAUGUCGUAUACAGGGCUUUUG%22&fl=pdbid%2Cndbid%2Ctitle%2Cexptlmethod%2Cresolution%2CDOI%2Cpolymer.entity_id%2Cpolymer.authorchains%2Cpolymer.description%2Cpolymer.type%2Cpolymer.taxid%2Cpolymer.sequence_canonical%2Crfamentity%2Crfamids%2Cnonpolymers%2Creleased&wt=json&rows=2000",
+      "https://search.rcsb.org/rcsbsearch/v2/query",
+      "https://www.nakb.org/node/solr/nakb/select?q=rfamids%3ARF00507+AND+polymer.taxid%3A2697049&fl=pdbid%2Cndbid%2Ctitle%2Cexptlmethod%2Cresolution%2CDOI%2Cpolymer.entity_id%2Cpolymer.authorchains%2Cpolymer.description%2Cpolymer.type%2Cpolymer.taxid%2Cpolymer.sequence_canonical%2Crfamentity%2Crfamids%2Cnonpolymers%2Creleased&wt=json&rows=2000"
+    ]
+  },
+  "raw/pdb-files/143D.cif": {
+    "bytes": 433752,
+    "retrieved": "2026-10-20",
+    "sha256": "afda89b271db9c11b32e10866f80113087649901a494f43ce1445956c4eb9cc3",
+    "urls": [
+      "https://files.rcsb.org/download/143D.cif"
+    ]
+  },
+  "raw/pdb-files/143D.pdb": {
+    "bytes": 371466,
+    "retrieved": "2026-10-20",
+    "sha256": "c7bde4c4300704daadc77e280bd8736cce0e984e73f56b9f2ec1652ddef5ccf8",
+    "urls": [
+      "https://files.rcsb.org/download/143D.pdb"
+    ]
+  },
   "raw/pdb-files/193L.cif": {
     "bytes": 169277,
     "retrieved": "2026-10-19",
@@ -2816,6 +2984,38 @@
       "https://files.rcsb.org/download/1ANF.pdb"
     ]
   },
+  "raw/pdb-files/1ANR.cif": {
+    "bytes": 1689943,
+    "retrieved": "2026-10-20",
+    "sha256": "2d11d9eafa3779ca00b78911dde4ea5c7ebe4d22c4f2de0c3c3cf5c9828014f3",
+    "urls": [
+      "https://files.rcsb.org/download/1ANR.cif"
+    ]
+  },
+  "raw/pdb-files/1ANR.pdb": {
+    "bytes": 1528470,
+    "retrieved": "2026-10-20",
+    "sha256": "7add2acea65b8417ffc932f7a9c6e20ccf95acae2e511b15ec116873174a8e7a",
+    "urls": [
+      "https://files.rcsb.org/download/1ANR.pdb"
+    ]
+  },
+  "raw/pdb-files/1ARJ.cif": {
+    "bytes": 1857117,
+    "retrieved": "2026-10-20",
+    "sha256": "92e6365559fd251bb9edebcec857ad6ff7a3c0f68598772478d3f01ccfeeabbf",
+    "urls": [
+      "https://files.rcsb.org/download/1ARJ.cif"
+    ]
+  },
+  "raw/pdb-files/1ARJ.pdb": {
+    "bytes": 1576260,
+    "retrieved": "2026-10-20",
+    "sha256": "46c091cad0650bf5215e42e6d4a0772ba9d509f2e779034ae8b7cc11611fa955",
+    "urls": [
+      "https://files.rcsb.org/download/1ARJ.pdb"
+    ]
+  },
   "raw/pdb-files/1CLL.cif": {
     "bytes": 192662,
     "retrieved": "2026-10-19",
@@ -2912,6 +3112,22 @@
       "https://files.rcsb.org/download/1GFL.pdb"
     ]
   },
+  "raw/pdb-files/1GID.cif": {
+    "bytes": 799372,
+    "retrieved": "2026-10-20",
+    "sha256": "455e21122b9eff39266dca435a3a78ee622d3976e38050568f5ef8e80d28e1ce",
+    "urls": [
+      "https://files.rcsb.org/download/1GID.cif"
+    ]
+  },
+  "raw/pdb-files/1GID.pdb": {
+    "bytes": 606771,
+    "retrieved": "2026-10-20",
+    "sha256": "5e5365f900792975aab3b00d8620877db46037f64666d82cc40f6e0ad63089eb",
+    "urls": [
+      "https://files.rcsb.org/download/1GID.pdb"
+    ]
+  },
   "raw/pdb-files/1JW4.cif": {
     "bytes": 370431,
     "retrieved": "2026-10-19",
@@ -2958,6 +3174,22 @@
     "sha256": "f5667d3787565df58d48a614a47ca151bf01c224ca465a8d6689d4d40a90d6aa",
     "urls": [
       "https://files.rcsb.org/download/1K4D.pdb"
+    ]
+  },
+  "raw/pdb-files/1KF1.cif": {
+    "bytes": 108397,
+    "retrieved": "2026-10-20",
+    "sha256": "8f25b1fe6658173f323a7628620514d2adbbed690683cad0c314ea0ddd505d99",
+    "urls": [
+      "https://files.rcsb.org/download/1KF1.cif"
+    ]
+  },
+  "raw/pdb-files/1KF1.pdb": {
+    "bytes": 75330,
+    "retrieved": "2026-10-20",
+    "sha256": "3bfc3e9cb0fdd3fdade5d36ae7f3d55fa2ca536fcc4492cc650e7f0d2603365a",
+    "urls": [
+      "https://files.rcsb.org/download/1KF1.pdb"
     ]
   },
   "raw/pdb-files/1L83.cif": {
@@ -3136,6 +3368,22 @@
       "https://files.rcsb.org/download/1XQ8.pdb"
     ]
   },
+  "raw/pdb-files/1Y26.cif": {
+    "bytes": 236216,
+    "retrieved": "2026-10-20",
+    "sha256": "99b1118f0af4add047b9bc60760c8f0e5d0b288a1b25a63a6f4e1516aab7eb5b",
+    "urls": [
+      "https://files.rcsb.org/download/1Y26.cif"
+    ]
+  },
+  "raw/pdb-files/1Y26.pdb": {
+    "bytes": 176499,
+    "retrieved": "2026-10-20",
+    "sha256": "03f58169ed96e29d0d03e5f947ba432d5a3092084369e1cf1d93b3b1efa79b22",
+    "urls": [
+      "https://files.rcsb.org/download/1Y26.pdb"
+    ]
+  },
   "raw/pdb-files/2CG9.cif": {
     "bytes": 1299491,
     "retrieved": "2026-10-19",
@@ -3182,6 +3430,22 @@
     "sha256": "4bb0398e05a34fcba530e1afd2696e0f5822c190787fc78d29fdcd5b06c16b35",
     "urls": [
       "https://files.rcsb.org/download/2DRI.pdb"
+    ]
+  },
+  "raw/pdb-files/2E4I.cif": {
+    "bytes": 100437,
+    "retrieved": "2026-10-20",
+    "sha256": "0ca71044d82835e48fd3e91a51401a4164d2ae1421c1032eb30fb8359bfe9a87",
+    "urls": [
+      "https://files.rcsb.org/download/2E4I.cif"
+    ]
+  },
+  "raw/pdb-files/2E4I.pdb": {
+    "bytes": 83268,
+    "retrieved": "2026-10-20",
+    "sha256": "3752c711d9bb1767d9d9ad48f84441dafd8288eb59153fba0d2b2455afaf5352",
+    "urls": [
+      "https://files.rcsb.org/download/2E4I.pdb"
     ]
   },
   "raw/pdb-files/2FO0.cif": {
@@ -3360,6 +3624,22 @@
       "https://files.rcsb.org/download/3F5W.pdb"
     ]
   },
+  "raw/pdb-files/3FU2.cif": {
+    "bytes": 272035,
+    "retrieved": "2026-10-20",
+    "sha256": "eb33096b9d4c24489ed0e1ca037c810592694df585938b90584b27fb6558cd9e",
+    "urls": [
+      "https://files.rcsb.org/download/3FU2.cif"
+    ]
+  },
+  "raw/pdb-files/3FU2.pdb": {
+    "bytes": 210438,
+    "retrieved": "2026-10-20",
+    "sha256": "b4b7378312b602380ea844e0950a0abe15cb7859467d6486bf3456ffccde694c",
+    "urls": [
+      "https://files.rcsb.org/download/3FU2.pdb"
+    ]
+  },
   "raw/pdb-files/3K0N.cif": {
     "bytes": 475492,
     "retrieved": "2026-10-19",
@@ -3440,6 +3720,22 @@
       "https://files.rcsb.org/download/4Q21.pdb"
     ]
   },
+  "raw/pdb-files/5E54.cif": {
+    "bytes": 598081,
+    "retrieved": "2026-10-20",
+    "sha256": "5759a27be55ee62031ea1e35a746e68540c892ca3df7ee33371df731be334707",
+    "urls": [
+      "https://files.rcsb.org/download/5E54.cif"
+    ]
+  },
+  "raw/pdb-files/5E54.pdb": {
+    "bytes": 492885,
+    "retrieved": "2026-10-20",
+    "sha256": "d44262d55fda4abf919be50b038f3f6445d97efa6f8cb2a5bd660d36f103f434",
+    "urls": [
+      "https://files.rcsb.org/download/5E54.pdb"
+    ]
+  },
   "raw/pdb-files/5O3L.cif": {
     "bytes": 1068872,
     "retrieved": "2026-10-19",
@@ -3488,6 +3784,22 @@
       "https://files.rcsb.org/download/5PTI.pdb"
     ]
   },
+  "raw/pdb-files/5SWD.cif": {
+    "bytes": 605407,
+    "retrieved": "2026-10-20",
+    "sha256": "7d6bb5fb3b763b99728b64fd0b9d7c26c4ac8c170c50d29badf120636751dcbb",
+    "urls": [
+      "https://files.rcsb.org/download/5SWD.cif"
+    ]
+  },
+  "raw/pdb-files/5SWD.pdb": {
+    "bytes": 506655,
+    "retrieved": "2026-10-20",
+    "sha256": "1710347fb9c2c2204e4dd3942b79953a2fc6bdb455ac4556836fd07ab8a534c4",
+    "urls": [
+      "https://files.rcsb.org/download/5SWD.pdb"
+    ]
+  },
   "raw/pdb-files/6A6B.cif": {
     "bytes": 521965,
     "retrieved": "2026-10-19",
@@ -3534,6 +3846,22 @@
     "sha256": "012714b6d0be2ea14191a212cb6181e8f3f7007e257accbe7d11951afbf15f9a",
     "urls": [
       "https://files.rcsb.org/download/6R9T.pdb"
+    ]
+  },
+  "raw/pdb-files/6XRZ.cif": {
+    "bytes": 2478429,
+    "retrieved": "2026-10-20",
+    "sha256": "e66531bcf4a3ebc083dbc85c5a4ceb0068e8b20cdc51a470eb443029c8fb7e9c",
+    "urls": [
+      "https://files.rcsb.org/download/6XRZ.cif"
+    ]
+  },
+  "raw/pdb-files/6XRZ.pdb": {
+    "bytes": 2294730,
+    "retrieved": "2026-10-20",
+    "sha256": "07ade7c684da62d00cbce960aa87b2de5c2874d85f446d0c16c0396334dfbb42",
+    "urls": [
+      "https://files.rcsb.org/download/6XRZ.pdb"
     ]
   },
   "raw/pdb/O00571.json": {
@@ -4263,6 +4591,180 @@
     "urls": [
       "https://search.rcsb.org/rcsbsearch/v2/query?json=%7B%22query%22%3A%20%7B%22type%22%3A%20%22terminal%22%2C%20%22service%22%3A%20%22text%22%2C%20%22parameters%22%3A%20%7B%22attribute%22%3A%20%22rcsb_polymer_entity_container_identifiers.reference_sequence_identifiers.database_accession%22%2C%20%22operator%22%3A%20%22exact_match%22%2C%20%22value%22%3A%20%22Q9Y490%22%7D%7D%2C%20%22request_options%22%3A%20%7B%22paginate%22%3A%20%7B%22start%22%3A%200%2C%20%22rows%22%3A%2010000%7D%7D%2C%20%22return_type%22%3A%20%22polymer_entity%22%7D",
       "https://data.rcsb.org/graphql"
+    ]
+  },
+  "raw/rfam/URS000080DF85_672.json": {
+    "bytes": 2394,
+    "retrieved": "2026-10-20",
+    "sha256": "046455a949b0164b11ba1040ef5544c5b69a3296f40f94ae16c50f62bfe4c018",
+    "urls": [
+      "https://rfam.org/family/RF00167?content-type=application/json",
+      "https://rfam.org/family/RF00167/alignment/stockholm?gzip=0"
+    ]
+  },
+  "raw/rfam/URS000080E020_32630.json": {
+    "bytes": 147,
+    "retrieved": "2026-10-20",
+    "sha256": "bc322c7abac451665928e52172ce6c5a4e547085c2dc97ec0fb0c4ef70f382f6",
+    "urls": []
+  },
+  "raw/rfam/URS000080E052_32630.json": {
+    "bytes": 148,
+    "retrieved": "2026-10-20",
+    "sha256": "a92dd6a914ff672eab95090c44f7142b9fc0b0ca033d2579301423c425591567",
+    "urls": []
+  },
+  "raw/rfam/URS000080E14B_11676.json": {
+    "bytes": 147,
+    "retrieved": "2026-10-20",
+    "sha256": "11c3ca30c20a77ea87251afc3ba4206e0da39431f0565b4ee072e2d687e04e48",
+    "urls": []
+  },
+  "raw/rfam/URS00021ED9B3_2697049.json": {
+    "bytes": 2371,
+    "retrieved": "2026-10-20",
+    "sha256": "afbf9a9f01253d07dea9e1e772d33845688d781941beecad1359e7e3b0a3cd23",
+    "urls": [
+      "https://rfam.org/family/RF00507?content-type=application/json",
+      "https://rfam.org/family/RF00507/alignment/stockholm?gzip=0"
+    ]
+  },
+  "raw/rmdb/URS000080DF85_672.json": {
+    "bytes": 118037,
+    "retrieved": "2026-10-20",
+    "sha256": "92a4646c6ce5eda5713449edabfbb5458e641027e6cffeb0a9054788ea861dd0",
+    "urls": [
+      "https://rmdb.stanford.edu/manifest.json",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-riboswitches/ADDRSW_1M7_0001.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-riboswitches/ADDRSW_1M7_0002.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-riboswitches/ADDRSW_1M7_0003.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-riboswitches/ADDSC_1M7_0001.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-riboswitches/ADDSC_1M7_0002.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-riboswitches/ADDSC_1M7_0003.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-riboswitches/ADDSC_1M7_0004.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-riboswitches/ADDSC_1M7_0005.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-riboswitches/ADDSC_1M7_0006.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-riboswitches/ADDAPO_DCP_0000.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-riboswitches/ADDHLO_DCP_0000.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-riboswitches/ADDRSW_1M7_0005.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-riboswitches/ADDRSW_1M7_0006.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-riboswitches/ADDRSW_CMC_0005.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-riboswitches/ADDRSW_DMS_0005.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-riboswitches/ADDRSW_DMS_0006.rdat"
+    ]
+  },
+  "raw/rmdb/URS000080E020_32630.json": {
+    "bytes": 14128,
+    "retrieved": "2026-10-20",
+    "sha256": "46bfb96827f8e1f8ef32b27bdf100b83edcbcd0efaa6c59c11d6cedcd7b7275c",
+    "urls": [
+      "https://rmdb.stanford.edu/manifest.json"
+    ]
+  },
+  "raw/rmdb/URS000080E052_32630.json": {
+    "bytes": 14021179,
+    "retrieved": "2026-10-20",
+    "sha256": "15c362e1b4033fb4071a7e9a5a1142854fdd7d5133446ebe0f00edc189b42585",
+    "urls": [
+      "https://rmdb.stanford.edu/manifest.json",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-general/TRIBSC_1M7_0001.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-general/TRIBSC_1M7_0002.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-general/TRIBSC_1M7_0003.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-general/TRIBSC_1M7_0004.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-general/TRIBSC_1M7_0005.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-general/TRIBSC_1M7_0006.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_1M7_0001.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_1M7_0002.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_1M7_0003.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_DMS_0005.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_DMS_0006.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_DMS_0007.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_DMS_0008.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_DMS_0009.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_DMS_0010.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_DMS_0011.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_DMS_0012.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_DMS_0013.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_DMS_0014.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_DMS_0015.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_DMS_0016.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_MCA_0000.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_MCA_0001.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_MCA_0002.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_MCA_0003.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_MCA_0004.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_MCA_0005.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_DCP_0000.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_RSQ_0001.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_WT2_0000.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_1M7_0005.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_1M7_0006.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/TRP4P6_CMC_0005.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-general/P4P61_MGTI_0001.rdat"
+    ]
+  },
+  "raw/rmdb/URS000080E14B_11676.json": {
+    "bytes": 14123,
+    "retrieved": "2026-10-20",
+    "sha256": "bd654dae2527d07c40bff57d8911e2b0497e5cf2aec1b6b24b0498716abde345",
+    "urls": [
+      "https://rmdb.stanford.edu/manifest.json"
+    ]
+  },
+  "raw/rmdb/URS00021ED9B3_2697049.json": {
+    "bytes": 212939,
+    "retrieved": "2026-10-20",
+    "sha256": "b461e4ed37828544a428d87cab9eab5272011bf320d64ac3ad32852559f06a5e",
+    "urls": [
+      "https://rmdb.stanford.edu/manifest.json",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/COVID_FSE_0603.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/NOMOD_FSE_0507.rdat",
+      "https://github.com/DasLab/rmdb.github.io/releases/download/data-rna-structures/PLUSFSE_COV_0502.rdat"
+    ]
+  },
+  "raw/rnacentral/URS000080DF85_672.json": {
+    "bytes": 3055,
+    "retrieved": "2026-10-20",
+    "sha256": "f10d09d2bd13748d0b39ae37c76ba5ec5fb966c7d271cffca810e97da92f9c80",
+    "urls": [
+      "https://rnacentral.org/api/v1/rna/URS000080DF85_672/?format=json",
+      "https://rnacentral.org/api/v1/rna/URS000080DF85/rfam-hits/672?format=json"
+    ]
+  },
+  "raw/rnacentral/URS000080E020_32630.json": {
+    "bytes": 597,
+    "retrieved": "2026-10-20",
+    "sha256": "0f119c4bfd27484477a15911b1994156b62d14ef1f32a86fa2c9c88b5e898c36",
+    "urls": [
+      "https://rnacentral.org/api/v1/rna/URS000080E020_32630/?format=json",
+      "https://rnacentral.org/api/v1/rna/URS000080E020/rfam-hits/32630?format=json"
+    ]
+  },
+  "raw/rnacentral/URS000080E052_32630.json": {
+    "bytes": 764,
+    "retrieved": "2026-10-20",
+    "sha256": "fdfc5eb295c275324086da48ae33796ad695dec6e2da718a10685fdf4369ee97",
+    "urls": [
+      "https://rnacentral.org/api/v1/rna/URS000080E052_32630/?format=json",
+      "https://rnacentral.org/api/v1/rna/URS000080E052/rfam-hits/32630?format=json"
+    ]
+  },
+  "raw/rnacentral/URS000080E14B_11676.json": {
+    "bytes": 717,
+    "retrieved": "2026-10-20",
+    "sha256": "4be9b48932e050ee8c47ef7c7d7932f978e6b4a65a7820a23fad8747bcef2579",
+    "urls": [
+      "https://rnacentral.org/api/v1/rna/URS000080E14B_11676/?format=json",
+      "https://rnacentral.org/api/v1/rna/URS000080E14B/rfam-hits/11676?format=json"
+    ]
+  },
+  "raw/rnacentral/URS00021ED9B3_2697049.json": {
+    "bytes": 2628,
+    "retrieved": "2026-10-20",
+    "sha256": "b178fb03dcb1d1600837ee11ef5c7b8f5517d30776db0a663ca3046533b43f7b",
+    "urls": [
+      "https://rnacentral.org/api/v1/rna/URS00021ED9B3_2697049/?format=json",
+      "https://rnacentral.org/api/v1/rna/URS00021ED9B3/rfam-hits/2697049?format=json"
     ]
   },
   "raw/sasbdb/O00571.json": {

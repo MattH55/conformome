@@ -109,3 +109,19 @@ def test_different_constructs_are_not_compared():
     assert find_conflicts([a, b]) == []
     b["construct"] = {"description": "wild type"}
     assert len(find_conflicts([a, b])) == 1
+
+
+def test_k_and_na_items_are_never_compared():
+    k = ev("EV-K", 0.30, 0.01, ions=[{"ion": "K+", "concentration_mM": 100.0}])
+    na = ev("EV-NA", 0.90, 0.01, ions=[{"ion": "Na+", "concentration_mM": 100.0}])
+    assert not comparable(k, na)
+    assert find_conflicts([k, na]) == []
+
+
+def test_mg_more_than_a_factor_of_two_apart_is_not_compared():
+    low = ev("EV-LO", 0.30, 0.01, ions=[{"ion": "Mg2+", "concentration_mM": 1.0}])
+    high = ev("EV-HI", 0.90, 0.01, ions=[{"ion": "Mg2+", "concentration_mM": 10.0}])
+    near = ev("EV-NEAR", 0.90, 0.01, ions=[{"ion": "Mg2+", "concentration_mM": 1.5}])
+    assert not comparable(low, high)
+    assert comparable(low, near)
+    assert len(find_conflicts([low, high, near])) == 1

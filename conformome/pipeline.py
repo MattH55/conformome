@@ -14,6 +14,7 @@ from conformome.common import (
     Paths, REPO_ROOT, cache_retrieved, check, fetch_url, load_taxonomy, load_validators, load_yaml,
     read_json, record_download, sha256_bytes, today, write_json,
 )
+from conformome.mapping.agreement import score_mappings
 from conformome.mapping.conflicts import find_conflicts, not_compared
 from conformome.mapping.curation import curation_for
 from conformome.mapping.rules import apply_rules, curator_assignment
@@ -307,6 +308,7 @@ def map_protein(paths: Paths, acc: str) -> None:
             },
         })
     transitions = [dict(t, molecule_id=acc) for t in cur.transitions]
+    score_mappings(evidence, states)
 
     for rec in states:
         for err in check(validators["state"], rec):

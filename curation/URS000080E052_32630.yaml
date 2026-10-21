@@ -1,0 +1,52 @@
+# Tetrahymena group I intron P4-P6 domain (158 nt). Draft: curator to review.
+# All crystal structures in this release are Mg2+-folded (1GID is the wild-type anchor; the others are
+# point mutants, a deletion and a Fab complex, which keep the tertiary fold). The secondary-structure-
+# only state is the form without Mg2+ described by folding studies (SAXS, hydroxyl-radical
+# footprinting, SHAPE); it has no structure and is inferred.
+molecule_id: URS000080E052_32630
+name: Tetrahymena group I intron P4-P6 domain
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-20
+states:
+  - id: P4P6-folded
+    name: Mg2+-folded tertiary structure
+    basis: observed
+    representative_pdb: "1GID"
+    description: >-
+      Tertiary fold with the tetraloop-receptor docking and the A-rich bulge, held by Mg2+, as in 1GID
+      (X-ray, 2.5 Å, Mg2+ and cobalt hexammine). The 1GID chain is this page's 158-nt sequence.
+  - id: P4P6-secondary
+    name: secondary structure only (no Mg2+)
+    basis: inferred
+    representative_pdb: null
+    description: >-
+      Helices formed but not docked, the state reached in monovalent salt without Mg2+.
+    assumptions:
+      - Defined from published folding studies (SAXS, hydroxyl-radical footprinting, chemical probing); no structure exists.
+      - The ensemble of undocked helix arrangements is treated as one state; no model is exported.
+assignments:
+  - {pdb: "1GID", state: P4P6-folded, confidence: high, justification: "Title: crystal structure of a group I ribozyme domain; Mg2+ modelled; exact sequence."}
+rules:
+  - id: p4p6-mg-structure-folded
+    state: P4P6-folded
+    confidence: medium
+    justification: "Crystal or cryo-EM structure with Mg2+ in the conditions; point mutants and Fab complexes keep the Mg2+-folded tertiary structure."
+    match:
+      techniques: [xray, cryoem]
+      ions_any: ["Mg2+"]
+  - id: p4p6-probing-mg-folded
+    state: P4P6-folded
+    confidence: low
+    justification: "Chemical-probing data collected with Mg2+; reports mostly the folded state."
+    match:
+      sources: [RMDB]
+      ions_any: ["Mg2+"]
+  - id: p4p6-probing-no-mg-secondary
+    state: P4P6-secondary
+    confidence: low
+    justification: "Chemical-probing data collected without Mg2+; reports the secondary-structure-only state."
+    match:
+      sources: [RMDB]
+      ions_none: ["Mg2+"]
+transitions: []
