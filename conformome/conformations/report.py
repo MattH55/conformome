@@ -54,6 +54,21 @@ def main() -> None:
     print("| Molecule | from dot-bracket | from coordinates | force segments | accepted | predictions |")
     print("|---|---|---|---|---|---|")
     print("\n".join(rows))
+    print("\n## Predicted contour length released on complete unfolding, per conformation\n")
+    print("| Conformation | ΔLc (nm) | interval (nm) | structured residues | end-to-end (nm) |")
+    print("|---|---|---|---|---|")
+    for acc in target_accessions(paths):
+        f = paths.build / acc / "conformations.json"
+        if not f.exists():
+            continue
+        for c in read_json(f)["conformations"]:
+            d = {x["quantity"]: x for x in c["derived"]}
+            rel = d.get("contour_length_released_nm")
+            if rel:
+                lo, hi = rel["parameters"]["interval_nm"]
+                e2e = d.get("end_to_end_distance_nm", {}).get("value")
+                print(f"| {c['conformation_id']} | {rel['value']:.1f} | {lo:.1f}–{hi:.1f} | "
+                      f"{rel['parameters']['n_structured']} | {e2e if e2e is not None else 'n/a'} |")
     print("\n## Predicted vs measured contour length released (accepted best matches)\n")
     print("| Molecule | Conformation | predicted ΔLc (nm) | n segments | median measured (nm) |")
     print("|---|---|---|---|---|")

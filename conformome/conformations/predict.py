@@ -29,6 +29,7 @@ ASSUMPTIONS = [
     "Nearest-neighbour secondary-structure energies only; tertiary contacts, pseudoknots and ligand binding are not modelled.",
     "Force acts on the 5' and 3' ends; unpaired exterior nucleotides stretch as a worm-like chain and each exterior helix as a rigid 2 nm rod.",
     "Occupancies are equilibrium values; real pulling at finite loading rate departs from them (see kinetics).",
+    "Curated references are compared on their nested base pairs only; pseudoknot and kissing-loop pairs are dropped.",
     "For sequences longer than 36 nt the ensemble is truncated to 5 kcal/mol above the MFE plus the unzipping paths of the reference structures, which under-counts partly folded alternatives.",
 ]
 
@@ -66,8 +67,24 @@ def predict(paths, acc: str) -> dict | None:
     molecule = read_json(out_dir / "molecule.json")
     if molecule["molecule_type"] != "rna" or not molecule.get("sequence"):
         return None
-    seq = molecule["sequence"].upper().replace("T", "U")
+    full_seq = molecule["sequence"].upper().replace("T", "U")
     mapped = read_json(out_dir / "mapped.json")
+    # Curated secondary structures may cover only the construct studied (e.g. an aptamer within a longer RNA).
+    # Predict on the region the curated structures cover, so that predictions and references are comparable.
+    # Pseudoknot and kissing-loop brackets ([] {} <> Aa) are not in the nested model; references keep nested pairs.
+    curated, region = {}, (1, len(full_seq))
+    for st in mapped["states"]:
+        ss = st.get("secondary_structure")
+        if not ss:
+            continue
+        start, db = ss.get("start", 1), ss["dot_bracket"]
+        nested = "".join(ch if ch in "()." else "." for ch in db)
+        curated[st["state_id"]] = (start, nested)
+    windows = {(start, start + len(db) - 1) for start, db in curated.values()}
+    if len(windows) == 1:  # every curated structure covers the same window: predict on it
+        region = windows.pop()
+    seq = full_seq[region[0] - 1:region[1]]
+    curated = {k: db for k, (start, db) in curated.items() if start == region[0] and len(db) == len(seq)}
     model = ForceModel(seq, "rna", temperature_c=25.0, salt_m=0.15)
     version = RNA.__version__
     run_id = f"PR-{acc}-vienna{version.replace('.', '')}-eq"
@@ -78,12 +95,6 @@ def predict(paths, acc: str) -> dict | None:
     open_chain = "." * len(seq)
     predicted = {f"min{i + 1}": s for i, (s, _) in enumerate(minima)}
     predicted["open"] = open_chain
-    curated = {}
-    for st in mapped["states"]:
-        ss = st.get("secondary_structure")
-        if ss and ss.get("start", 1) == 1 and len(ss["dot_bracket"]) == len(seq) and set(ss["dot_bracket"]) <= set("()."):
-            curated[st["state_id"]] = ss["dot_bracket"]
-
     refs = {**{f"pred:{k}": v for k, v in predicted.items()}, **{f"curated:{k}": v for k, v in curated.items()}}
     full = len(seq) <= FULL_ENSEMBLE_MAX_NT
     curve = model.macrostate_curve(refs, FORCES, delta_kcal=None if full else WINDOW_KCAL, unzipping_paths=not full)
@@ -95,7 +106,7 @@ def predict(paths, acc: str) -> dict | None:
     for name, s in predicted.items():
         energy = model.energy_kcal(s)
         n_un, n_hel = exterior_loop(s)
-        pairs = [[i + 1, j + 1] for i, j in enumerate(_pair_table(s)) if j > i]
+        pairs = [[i + 1, j + 1] for i, j in enumerate(_pair_table(s)) if j > i]  # region-relative
         span = geometry.structured_span(geometry.segments_from_dot_bracket(s), ("paired",)) if pairs else None
         derived = [{"quantity": "n_base_pairs", "value": len(pairs), "unit": "count", "method": "dot-bracket",
                     "parameters": {}, "assumptions": []}]
@@ -110,10 +121,11 @@ def predict(paths, acc: str) -> dict | None:
             "basis": "inferred", "prediction": True,
             "method": dict(method, parameters=dict(method["parameters"], folding_free_energy_kcal=round(energy, 2),
                                                     exterior_unpaired=n_un, exterior_helices=n_hel)),
-            "coverage": {"start": 1, "end": len(seq), "numbering": "molecule"},
-            "representations": {"secondary_structure": {"scheme": "dot_bracket", "string": s, "start": 1},
-                                "segments": geometry.segments_from_dot_bracket(s),
-                                "contacts": {"kind": "base_pairs", "cutoff_nm": None, "pairs": pairs}},
+            "coverage": {"start": region[0], "end": region[1], "numbering": "molecule"},
+            "representations": {"secondary_structure": {"scheme": "dot_bracket", "string": s, "start": region[0]},
+                                "segments": geometry.segments_from_dot_bracket(s, region[0]),
+                                "contacts": {"kind": "base_pairs", "cutoff_nm": None,
+                                             "pairs": [[i + region[0] - 1, j + region[0] - 1] for i, j in pairs]}},
             "derived": derived, "assumptions": ASSUMPTIONS, "status": "computed", "provenance": _prov(acc),
         })
     run = {"run_id": run_id, "molecule_id": acc, "method": method,
