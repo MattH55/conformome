@@ -77,7 +77,9 @@ jobs:
         run: python -m conformome.summary >> "$GITHUB_STEP_SUMMARY"
       - name: Per-molecule summary file
         if: always()
-        run: python -m conformome.summary > build-summary.md
+        run: |
+          python -m conformome.summary > build-summary.md
+          python -m conformome.conformations.report > conformations-summary.md || true
       # site/dist holds only what may be redistributed (validate checks the downloads); build/ is not uploaded
       # because it carries records from sources whose licence forbids redistribution.
       - uses: actions/upload-artifact@v4
@@ -96,7 +98,7 @@ jobs:
         run: |
           set -e
           mkdir -p /tmp/report
-          cp -f build-summary.md download.log build.log validate.log tests.log /tmp/report/ 2>/dev/null || true
+          cp -f build-summary.md conformations-summary.md download.log build.log validate.log tests.log /tmp/report/ 2>/dev/null || true
           cp -f data/raw/download_failures.json data/MANIFEST.json /tmp/report/ 2>/dev/null || true
           tail -n 300 download.log > /tmp/report/download.tail.log 2>/dev/null || true
           cd /tmp/report
