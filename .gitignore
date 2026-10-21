@@ -5,6 +5,21 @@ build/
 site/dist/
 paper/out/
 paper/figures/_screens/
+# Throwaway investigation probes (never part of a PR)
+scratch_*
+# Generated data release and its staging (rebuilt by scripts/make_data_release.py)
+release/
+# Download/upload bundles and ad-hoc run logs (never committed)
+*.zip
+*.log
+*.err
+baseline_counts.txt
+# Figures rendered by paper/scripts/* are build outputs, not source
+paper/figures/
+# Root copies of briefs that are version-controlled under paper/ and agent-handoff/
+conformome-paper-BRIEF.md
+conformome-AUDIT_BRIEF.md
+Conformome.docx
 # Python
 __pycache__/
 *.egg-info/
