@@ -91,6 +91,14 @@ def _readme(counts: dict, sources: list[tuple[str, str, int]], nucleic: list[str
     licence_note = "" if licence_full else (
         "\nThe LICENSE file is a pointer to the CC BY 4.0 legal code because the legal text "
         "could not be downloaded during this build.\n")
+    if counts["profiles"]:
+        profiles_row = (f"| `profiles.zip` | {counts['profiles']} per-nucleotide reactivity profiles, one file per "
+                        "chemical-probing evidence item (`profiles/<evidence_id>.json`), in the shape the website "
+                        "serves under `downloads/profiles/`. |")
+        profiles_note = f"`profiles.zip` holds {counts['profiles']} reactivity profiles (RMDB)."
+    else:
+        profiles_row = "| `profiles.zip` | Empty. This build has no per-nucleotide reactivity profiles. |"
+        profiles_note = "`profiles.zip` has no entries."
     return f"""# Conformome pilot release v{VERSION}: data
 
 An index of experimental and computational evidence on biomolecular conformation: proteins, RNA and DNA.
@@ -101,7 +109,7 @@ Cite as: Halma MTJ. Conformome pilot release v{VERSION}: conformational-state ev
 
 ## Contents
 
-This deposit was built from the local `build/` directory. It is not the six-nucleic-acid set named in the manuscript draft.
+This deposit was assembled from the pipeline's `build/` directory; `manifest.json` records every raw input behind it.
 
 Nucleic acids included:
 
@@ -121,7 +129,7 @@ Counts below are two different totals. **Corpus** is every evidence record in `b
 | --- | --- |
 | `all-records.jsonl` | Every archived record, one JSON object per line. `record_type` is `molecule`, `state`, `transition`, `evidence` or `model`. |
 | `molecules.zip` | One JSON bundle per molecule (`molecules/<molecule_id>.json`). Evidence that failed the licence filter is omitted. |
-| `profiles.zip` | Empty. This build has no per-nucleotide reactivity profiles. |
+{profiles_row}
 | `schemas.zip` | JSON Schemas for every record type and their shared definitions. |
 | `techniques.yaml` | Technique taxonomy. |
 | `curation.zip` | Per-molecule curation files. Draft files are included with their status field unchanged. |
@@ -142,7 +150,7 @@ Conformome's own records, curation files, schemas and taxonomy in this deposit a
 
 SMASH-BIO and literature are not redistributed. Any other evidence whose stored licence is absent from `zenodo/redistribution.yaml` is listed in `EXCLUDED.tsv` and is not in `all-records.jsonl`. BMRB, SASBDB and NAKB strings that contain "verify" are included because that is the string stored on the records; those terms still need the author's confirmation before a public Zenodo publish. MDDB is included only when the record carries the allowed project sentence.
 
-`profiles.zip` has no entries.
+{profiles_note}
 
 ## Placeholders for the author
 
@@ -186,6 +194,7 @@ def main() -> None:
 
     jsonl = bytearray()
     molecule_members: list[tuple[str, bytes]] = []
+    profile_members: list[tuple[str, bytes]] = []
     excluded: Counter[tuple[str, str]] = Counter()
     source_licences: dict[str, Counter[str]] = {}
     counts = {k: 0 for k in (
@@ -237,6 +246,16 @@ def main() -> None:
                 excluded[(prov.get("source") or "(no source)", prov.get("licence") or "(none)")] += 1
         counts["archived_evidence"] += len(kept)
         kept_ids = {ev["evidence_id"] for ev in kept}
+        # Reactivity profiles travel as one sidecar per evidence item, the same shape the site
+        # serves under downloads/profiles/, so a record's data_ref resolves inside the deposit.
+        for ev in kept:
+            if ev.get("profile"):
+                sidecar = {"evidence_id": ev["evidence_id"], "molecule_id": acc, "technique": ev["technique"],
+                           "profile": ev["profile"], "conditions": ev["conditions"], "provenance": ev["provenance"]}
+                profile_members.append((
+                    f"profiles/{ev['evidence_id']}.json",
+                    (json.dumps(sidecar, indent=2, ensure_ascii=False, sort_keys=True, allow_nan=False) + "\n").encode("utf-8"),
+                ))
         conflicts = [c for c in (mapped.get("conflicts") or []) if all(eid in kept_ids for eid in c.get("evidence_ids") or [])]
         bundle = {
             "molecule_id": acc,
@@ -264,6 +283,7 @@ def main() -> None:
             jsonl += _line("model", model)
 
     counts["techniques"] = len(techniques)
+    counts["profiles"] = len(profile_members)
 
     schema_members = [(f"schemas/{p.name}", p.read_bytes()) for p in sorted(paths.schema.glob("*.json"))]
     curation_members = [(f"curation/{p.name}", p.read_bytes()) for p in sorted(paths.curation.glob("*.yaml"))]
@@ -285,7 +305,7 @@ def main() -> None:
     files = {
         "all-records.jsonl": bytes(jsonl),
         "molecules.zip": _zip_bytes(molecule_members),
-        "profiles.zip": _zip_bytes([]),
+        "profiles.zip": _zip_bytes(profile_members),
         "schemas.zip": _zip_bytes(schema_members),
         "techniques.yaml": techniques_bytes,
         "curation.zip": _zip_bytes(curation_members),
@@ -317,7 +337,8 @@ def main() -> None:
     print(f"wrote {ZIP_PATH} ({ZIP_PATH.stat().st_size} bytes)")
     print(f"unpacked copy: {RELEASE}")
     print(f"molecules {counts['molecules']} (protein {counts['proteins']}, rna {counts['rna']}, dna {counts['dna']})")
-    print(f"evidence corpus {counts['corpus_evidence']}; archived {counts['archived_evidence']}")
+    print(f"evidence corpus {counts['corpus_evidence']}; archived {counts['archived_evidence']}; "
+          f"reactivity profiles {counts['profiles']}")
     print("excluded:")
     print(excluded_text, end="")
     if not licence_full:

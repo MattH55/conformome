@@ -5,6 +5,7 @@ from __future__ import annotations
 import datetime as dt
 import hashlib
 import json
+import os
 import time
 import urllib.error
 import urllib.request
@@ -62,8 +63,23 @@ def read_json(path: Path):
 
 
 def write_json(path: Path, obj) -> None:
+    """Write atomically: the text goes to a sibling temp file that then replaces the target.
+
+    The manifest is rewritten after every fetch, and a sync client (OneDrive, Dropbox) can hold
+    the target open for a moment; the replace is retried briefly instead of failing the run.
+    """
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(obj, indent=2, ensure_ascii=False, sort_keys=True, allow_nan=False) + "\n", encoding="utf-8")
+    text = json.dumps(obj, indent=2, ensure_ascii=False, sort_keys=True, allow_nan=False) + "\n"
+    tmp = path.with_name(path.name + ".tmp")
+    for attempt in range(6):
+        try:
+            tmp.write_text(text, encoding="utf-8")
+            os.replace(tmp, path)
+            return
+        except OSError:
+            if attempt == 5:
+                raise
+            time.sleep(0.5 * (attempt + 1))
 
 
 def load_yaml(path: Path):
