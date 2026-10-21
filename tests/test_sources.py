@@ -69,6 +69,23 @@ def test_sasbdb_rg_in_nm_and_partners_recorded():
     assert any(l.startswith("partner: ") for l in partnered["conditions"]["ligands"])
 
 
+def test_sasbdb_records_salts_and_variants_from_the_deposit():
+    records, _ = run(sasbdb, "sasbdb_P0CG48.json", "P0CG48")
+    by = {r["provenance"]["deposit_id"]: r for r in records}
+    # The buffer names the salt; the sample name of the partner entry adds a second one.
+    assert by["SASDCG7"]["conditions"]["ions"] == [{"ion": "Na+", "concentration_mM": 150.0}]
+    assert by["SASDCG7"]["conditions"]["salt_mM"] == 150.0
+    assert by["SASDBR3"]["conditions"]["ions"] == [
+        {"ion": "Na+", "concentration_mM": 200.0}, {"ion": "Zn2+", "concentration_mM": 0.01}]
+    assert by["SASDBR3"]["conditions"]["salt_mM"] == 200.01
+    # HEPES is the buffer, not the salt; ZnSO4 is a salt and is not read as a mutation.
+    assert by["SASDBR3"]["construct"]["labels"] == ["c87k", "k92a", "wild-type"]
+    assert "ZnSO4" not in "".join(by["SASDBR3"]["construct"]["labels"])
+    assert "Salts as deposited: Na+ 200 mM, Zn2+ 0.01 mM." in by["SASDBR3"]["conditions"]["notes"]
+    for record in records:
+        assert "NaCl" in record["conditions"]["notes"]  # the raw buffer string is kept
+
+
 def test_disprot_keeps_an_isoform_on_its_own_page_only():
     canonical, raw = run(disprot, "disprot_P10636.json", "P10636")
     isoform, _ = run(disprot, "disprot_P10636.json", "P10636-8")

@@ -132,6 +132,15 @@ def fmt_conditions(c: dict) -> str:
         parts.append(f"{c['temperature_c']:g} °C")
     if c.get("ph") is not None:
         parts.append(f"pH {c['ph']:g}")
+    if c.get("buffer"):
+        parts.append(f"buffer {c['buffer']}")
+    ions = c.get("ions") or []
+    if ions:
+        parts.append("ions " + ", ".join(
+            item["ion"] + ("" if item.get("concentration_mM") is None
+                           else f" {item['concentration_mM']:g} mM") for item in ions))
+    elif c.get("salt_mM") is not None:
+        parts.append(f"salt {c['salt_mM']:g} mM")
     if c.get("ligands"):
         parts.append("ligands " + ", ".join(c["ligands"]))
     if c.get("applied_force_pn") is not None:
@@ -403,6 +412,7 @@ def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: l
     erows = []
     for ev in evidence:
         mapped_flag = "yes" if ev["mappings"] else "no"
+        labels = ", ".join(ev["construct"].get("labels") or [])
         mappings = "<br>".join(
             f'{esc(state_name.get(m["state_id"], m["state_id"]))} · {esc(m["who"])} · {esc(m["confidence"])}'
             f'<br><span class="muted">{esc(m["justification"])}</span>' for m in ev["mappings"]) or '<span class="muted">unmapped</span>'
@@ -418,7 +428,8 @@ def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: l
             f'<td><a href="{root}technique/{esc(ev["technique"])}/index.html">{esc(ev["technique"])}</a></td>'
             f'<td>{fmt_obs(ev["observable"])}</td><td>{fmt_conditions(ev["conditions"])}'
             f'<br><span class="muted">{esc(ev.get("title") or "")}{" · " if ev.get("title") else ""}'
-            f'{esc(ev["construct"]["description"])}</span></td><td>{mappings}</td></tr>')
+            f'{esc(ev["construct"]["description"])}'
+            f'{(" · " + esc(labels)) if labels else ""}</span></td><td>{mappings}</td></tr>')
     evidence_html = (
         '<h2>Evidence</h2>'
         '<p class="sub">One row per deposit or experiment. Filter by technique, environment or text. Unmapped evidence is listed too.</p>'
@@ -578,11 +589,11 @@ def _home_page(summaries: list[dict], techniques: list[str]) -> str:
         f'{_states_label(len(s["state_list"]))}</div></div>' for s in featured)
     body = f"""
 <h1 style="font-size:2.1rem">Conformome</h1>
-<p class="sub" style="font-size:1.15rem;max-width:46rem">A database of experimental entries that probe protein conformation, each in its own way.</p>
-<p style="max-width:46rem">Every technique sees a protein's shape differently. Crystallography resolves atoms in a lattice. Cryo-EM sees
+<p class="sub" style="font-size:1.15rem;max-width:46rem">A database of experimental entries that probe biomolecular conformation, each in its own way.</p>
+<p style="max-width:46rem">Every technique sees a biomolecule's shape differently. Crystallography resolves atoms in a lattice. Cryo-EM sees
 particles frozen in ice. NMR reports how each residue moves. Small-angle scattering measures overall size in solution. Force
 spectroscopy pulls a single molecule apart and records how it gives way. Simulations and predictions say what a model expects.
-Conformome gathers these entries for each protein, keeps them side by side with their conditions and provenance, and maps them
+Conformome gathers these entries for each protein and nucleic acid, keeps them side by side with their conditions and provenance, and maps them
 onto shared conformational states, so you can see which techniques support which state, and where they disagree.</p>
 <form class="searchbar" action="search/index.html" method="get" role="search" style="max-width:46rem">
 <input name="q" type="search" placeholder="Search proteins, states, PDB or BMRB IDs, ligands, titles" aria-label="Search Conformome">
@@ -623,7 +634,7 @@ has reviewed yet, and the rest list their evidence without states. Corrections a
 <a href="{REPO_URL}/blob/HEAD/docs/CONTRIBUTING.md">CONTRIBUTING</a>.</div>
 """
     return page("Home", body, "", description="Conformome: a database of experimental entries that probe "
-                "protein conformation, each in its own way, mapped onto shared conformational states.")
+                "biomolecular conformation, each in its own way, mapped onto shared conformational states.")
 
 
 def _proteins_page(rows: list[dict], source_names: list[str], techniques: list[str], taxonomy: dict) -> str:
