@@ -1,0 +1,22 @@
+# Evidence that may appear in downloads and in the Zenodo data archive.
+# These are the licence strings stored on records, not SPDX tokens.
+# A string that is not listed here is excluded. Do not relabel it.
+# Confirm a new string against the source's terms before adding it.
+allow:
+  - "CC0 1.0 (wwPDB archive data)"   # RCSB PDB
+  - "CC0 1.0 (verify)"                # BMRB
+  - "CC BY 4.0 (verify)"              # SASBDB
+  - "CC BY 4.0"                       # DisProt, AlphaFold DB
+  - "CC0 1.0"                         # Rfam
+  - "PDB-derived fields: CC0 1.0 (wwPDB archive); NAKB annotations not used"
+  - "This trajectory dataset is released under a Creative Commons Attribution 4.0 International Public License"  # MDDB, one project sentence
+deny_if_contains:
+  - "not stated"
+  - "all rights reserved"
+  - "noncommercial"
+  - "non-commercial"
+  - "no derivatives"
+  - "noderiv"
+deny_sources:
+  - "SMASH-BIO"
+  - "Literature (Europe PMC)"

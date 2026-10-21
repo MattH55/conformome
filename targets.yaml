@@ -96,3 +96,7 @@ targets:
   - {uniprot: Q9UM54, batch: multi-source-1, name: "Unconventional myosin-VI (Homo sapiens)"}
   - {molecule_id: URS000080DF85_672, batch: nucleic-acid-1, name: "add adenine riboswitch aptamer (Vibrio vulnificus)"}
   - {molecule_id: DNA-6f16b68e4fba, batch: nucleic-acid-1, name: "Human telomeric G-quadruplex d[AG3(T2AG3)3]", anchor_pdb: "143D", organism: {name: Homo sapiens, taxon_id: 9606}}
+  - {molecule_id: URS000080E020_32630, batch: nucleic-acid-1, name: "preQ1-I riboswitch aptamer (3FU2 construct)"}
+  - {molecule_id: URS000080E14B_11676, batch: nucleic-acid-1, name: "HIV-1 TAR RNA, apical 29-nt element"}
+  - {molecule_id: URS000080E052_32630, batch: nucleic-acid-1, name: "Tetrahymena group I intron P4-P6 domain"}
+  - {molecule_id: URS00021ED9B3_2697049, batch: nucleic-acid-1, name: "SARS-CoV-2 frameshift stimulation element"}

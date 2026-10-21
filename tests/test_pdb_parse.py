@@ -1,6 +1,8 @@
 import json
 from pathlib import Path
 
+import pytest
+
 from conformome.common import check, load_validators
 from conformome.sources import pdb
 
@@ -32,12 +34,21 @@ def test_records_validate_and_carry_conditions_and_provenance(repo_paths):
     assert records["1AKE"]["conditions"]["ligands"] == ["AP5"]
 
 
-def test_temperature_from_kelvin_and_string_values():
-    entry = {"diffrn": [{"ambient_temp": 100.0}], "exptl_crystal_grow": None, "pdbx_nmr_exptl_sample_conditions": None}
-    assert pdb._temperature_c(entry) == -173.15
+def test_temperature_uses_crystal_growth_and_rejects_implausible_values():
+    collection = {"diffrn": [{"ambient_temp": 100.0}], "exptl_crystal_grow": None,
+                  "pdbx_nmr_exptl_sample_conditions": None}
+    assert pdb._temperature_c(collection) is None
+    grown = {"diffrn": [{"ambient_temp": 100.0}], "exptl_crystal_grow": [{"temp": 293.0, "pH": 7.0}],
+             "pdbx_nmr_exptl_sample_conditions": None}
+    assert pdb._temperature_c(grown) == pytest.approx(19.85)
+    room = {"diffrn": None, "exptl_crystal_grow": [{"temp": 20}], "pdbx_nmr_exptl_sample_conditions": None}
+    assert pdb._temperature_c(room) == 20
     nmr = {"diffrn": None, "pdbx_nmr_exptl_sample_conditions": [{"temperature": "298.0", "pH": "6.5"}],
            "exptl_crystal_grow": None}
-    assert pdb._temperature_c(nmr) == 24.85
+    assert pdb._temperature_c(nmr) == pytest.approx(24.85)
+    celsius = {"diffrn": None, "pdbx_nmr_exptl_sample_conditions": [{"temperature": "25"}],
+               "exptl_crystal_grow": None}
+    assert pdb._temperature_c(celsius) == 25
     assert pdb._ph(nmr) == 6.5
     assert pdb._temperature_c({"diffrn": None, "pdbx_nmr_exptl_sample_conditions": [{"temperature": "n/a"}]}) is None
 

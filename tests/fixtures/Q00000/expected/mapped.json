@@ -42,6 +42,7 @@
         "xray": "processed"
       }
     },
+    "no_evidence_states": [],
     "single_method_states": [
       "FX-open",
       "FX-closed",
@@ -78,7 +79,7 @@
         "notes": "Entry-level ligand list; oligosaccharides appear as branched entities. pH and temperature are null when not deposited in machine-readable fields.",
         "ph": 7.2,
         "salt_mM": null,
-        "temperature_c": -173.15
+        "temperature_c": null
       },
       "construct": {
         "description": "Fixture kinase (chains A)",
@@ -227,7 +228,7 @@
         "notes": "Entry-level ligand list; oligosaccharides appear as branched entities. pH and temperature are null when not deposited in machine-readable fields.",
         "ph": 7.2,
         "salt_mM": null,
-        "temperature_c": -173.15
+        "temperature_c": null
       },
       "construct": {
         "description": "Fixture kinase (chains A)",
@@ -311,7 +312,7 @@
     }
   ],
   "molecule_id": "Q00000",
-  "not_compared": 5,
+  "not_compared": 4,
   "states": [
     {
       "assumptions": [],
@@ -338,7 +339,7 @@
     {
       "assumptions": [],
       "basis": "observed",
-      "description": "Synthetic closed state, mapped from the cryo-EM entry 9FX2 but not exported.",
+      "description": "Synthetic closed state, represented by synthetic entry 9FX2.",
       "family_label": null,
       "molecule_id": "Q00000",
       "name": "closed with substrate",

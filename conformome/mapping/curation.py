@@ -4,7 +4,7 @@ Shape (see curation/README.md):
     uniprot (proteins) or molecule_id, name, curator, status (draft|reviewed), as_of, states, assignments, rules, transitions
 Assignments are the curator's evidence-to-state decisions. Each one becomes a mapping record
 with who = "curator:<curator>", the stated confidence and justification.
-Rules are the curator's declarative criteria (technique, source, ligands, title words). Each match
+Rules are the curator's declarative criteria (technique, source, ligands, title and construct words). Each match
 becomes a mapping record with who = "rule:<rule id>" and the rule's confidence and justification.
 """
 
@@ -19,8 +19,8 @@ CONFIDENCE = {"high", "medium", "low"}
 STATE_KEYS = {"id", "name", "basis", "representative_pdb", "description", "assumptions", "parent",
               "secondary_structure", "family_label", "population"}
 MATCH_KEYS = {"techniques", "sources", "observable_types", "environment", "ligands_any", "ligands_all",
-              "ligands_none", "no_ligands", "ligand_text_any", "ligand_text_none", "title_any", "title_all",
-              "title_none", "publication_title_any"}
+              "ligands_none", "no_ligands", "ligand_text_any", "ligand_text_none", "ions_any", "ions_none", "title_any", "title_all",
+              "title_none", "construct_any", "construct_all", "construct_none", "publication_title_any"}
 
 
 @dataclass

@@ -14,8 +14,8 @@ states:
     name: closed with substrate
     basis: observed
     parent: null
-    representative_pdb: null
-    description: Synthetic closed state, mapped from the cryo-EM entry 9FX2 but not exported.
+    representative_pdb: "9FX2"
+    description: Synthetic closed state, represented by synthetic entry 9FX2.
   - id: FX-intermediate
     name: intermediate I1
     basis: inferred

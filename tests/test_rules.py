@@ -1,10 +1,12 @@
+from conformome.common import REPO_ROOT
+from conformome.mapping.curation import load_curation
 from conformome.mapping.rules import apply_rules, rule_matches
 
 
-def ev(eid, technique="xray", ligands=(), title="", source="RCSB PDB", mappings=None):
+def ev(eid, technique="xray", ligands=(), title="", source="RCSB PDB", mappings=None, construct=""):
     return {
         "evidence_id": eid, "technique": technique, "title": title,
-        "construct": {"description": "", "labels": []},
+        "construct": {"description": construct, "labels": []},
         "conditions": {"environment": "in_vitro", "ligands": list(ligands)},
         "observable": {"type": "resolution"},
         "provenance": {"source": source},
@@ -56,8 +58,71 @@ def test_two_rules_for_the_same_state_give_one_mapping():
     assert [m["who"] for m in items[0]["mappings"]] == ["rule:closed-ligand"]
 
 
+def test_word_boundaries_and_title_does_not_read_the_construct():
+    assert rule_matches({"title_none": ["bound"]}, ev("a", title="unbound monomer"))
+    assert not rule_matches({"title_none": ["bound"]}, ev("a", title="bound form"))
+    assert not rule_matches({"title_any": ["I27"]}, ev("a", title="domain I275"))
+    assert rule_matches({"title_any": ["I27"]}, ev("a", title="Ig repeat I27"))
+    item = ev("a", title="crystal structure")
+    item["construct"]["description"] = "open form"
+    assert not rule_matches({"title_any": ["open"]}, item)
+    assert rule_matches({"construct_any": ["open"]}, item)
+
+
+def test_highest_confidence_rule_for_one_state_wins():
+    rules = RULES + [
+        {"id": "closed-high", "state": "closed", "confidence": "high", "justification": "stronger",
+         "match": {"ligands_any": ["AP5"]}},
+    ]
+    items = [ev("a", ligands=["AP5"])]
+    apply_rules(items, rules)
+    assert items[0]["mappings"][0]["who"] == "rule:closed-high"
+    assert items[0]["mappings"][0]["confidence"] == "high"
+
+
 def test_curator_assignment_wins_over_rules():
     curator = {"state_id": "open", "who": "curator:x", "confidence": "high", "justification": "j", "rule": None}
     items = [ev("a", ligands=["AP5"], mappings=[curator])]
     assert apply_rules(items, RULES) == []
     assert items[0]["mappings"] == [curator]
+
+
+def hewl_rules():
+    return load_curation(REPO_ROOT / "curation" / "P00698.yaml", "P00698").rules
+
+
+def mapped_to(item):
+    return {m["state_id"] for m in item["mappings"]}
+
+
+def test_hewl_fibril_saxs_does_not_leak_into_native():
+    """A lysozyme amyloid-fibril SAXS sample must map to HEWL-fibril, never HEWL-native (SASDMJ4/SASDMY3)."""
+    rules = hewl_rules()
+    fibril = ev("EV-SASBDB-SASDMJ4", technique="saxs_sans", title=" SAXS study",
+               construct="lysozyme amyloid fibril")
+    fibrils = ev("EV-SASBDB-SASDMY3", technique="saxs_sans",
+                 title="hen egg white lysozyme amyloid fibrils", construct="lysozyme amyloid fibril")
+    apply_rules([fibril, fibrils], rules)
+    assert mapped_to(fibril) == {"HEWL-fibril"}
+    assert mapped_to(fibrils) == {"HEWL-fibril"}
+    assert "HEWL-native" not in mapped_to(fibril) | mapped_to(fibrils)
+
+
+def test_hewl_native_saxs_still_maps_native():
+    """Lysozyme SAXS with no fibril wording is unaffected by the new guards."""
+    native = ev("EV-SASBDB-NATIVE", technique="saxs_sans",
+                title="Small angle x-ray scattering of hen egg white lysozyme",
+                construct="lysozyme")
+    apply_rules([native], hewl_rules())
+    assert mapped_to(native) == {"HEWL-native"}
+
+
+def test_hewl_fibril_nanoparticle_composite_stays_unmapped():
+    """A fibril grown on a nanoparticle partner is a composite, not a plain lysozyme state."""
+    comp = ev("EV-SASBDB-SASDM44", technique="saxs_sans",
+              title="lysozyme amyloid fibrils with fe3o4 nanoparticles",
+              construct="lysozyme amyloid fibril with fe3o4 nanoparticles",
+              ligands=["partner: Fe3O4 nanoparticles; nominal diameter 10 nm"])
+    apply_rules([comp], hewl_rules())
+    assert comp["mappings"] == []
+

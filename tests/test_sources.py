@@ -27,7 +27,7 @@ def checker(repo_paths):
     (alphafold, "alphafold_P69441.json", "P69441"),
     (bmrb, "bmrb_P01053.json", "P01053"),
     (sasbdb, "sasbdb_P0CG48.json", "P0CG48"),
-    (disprot, "disprot_P10636.json", "P10636"),
+    (disprot, "disprot_P10636.json", "P10636-8"),
     (mddb, "mddb_P01053.json", "P01053"),
     (smashbio, "smashbio_Q8WZ42.json", "Q8WZ42"),
 ])
@@ -69,14 +69,36 @@ def test_sasbdb_rg_in_nm_and_partners_recorded():
     assert any(l.startswith("partner: ") for l in partnered["conditions"]["ligands"])
 
 
-def test_disprot_keeps_isoform_entries_and_reports_non_structural_terms():
-    records, raw = run(disprot, "disprot_P10636.json", "P10636")
-    assert all("of isoform P10636-" in r["construct"]["description"] for r in records)
-    assert all(r["observable"]["type"] == "disorder_region" for r in records)
-    reasons = {x["reason"] for x in disprot.not_ingested(raw, "P10636")}
+def test_sasbdb_records_salts_and_variants_from_the_deposit():
+    records, _ = run(sasbdb, "sasbdb_P0CG48.json", "P0CG48")
+    by = {r["provenance"]["deposit_id"]: r for r in records}
+    # The buffer names the salt; the sample name of the partner entry adds a second one.
+    assert by["SASDCG7"]["conditions"]["ions"] == [{"ion": "Na+", "concentration_mM": 150.0}]
+    assert by["SASDCG7"]["conditions"]["salt_mM"] == 150.0
+    assert by["SASDBR3"]["conditions"]["ions"] == [
+        {"ion": "Na+", "concentration_mM": 200.0}, {"ion": "Zn2+", "concentration_mM": 0.01}]
+    assert by["SASDBR3"]["conditions"]["salt_mM"] == 200.01
+    # HEPES is the buffer, not the salt; ZnSO4 is a salt and is not read as a mutation.
+    assert by["SASDBR3"]["construct"]["labels"] == ["c87k", "k92a", "wild-type"]
+    assert "ZnSO4" not in "".join(by["SASDBR3"]["construct"]["labels"])
+    assert "Salts as deposited: Na+ 200 mM, Zn2+ 0.01 mM." in by["SASDBR3"]["conditions"]["notes"]
+    for record in records:
+        assert "NaCl" in record["conditions"]["notes"]  # the raw buffer string is kept
+
+
+def test_disprot_keeps_an_isoform_on_its_own_page_only():
+    canonical, raw = run(disprot, "disprot_P10636.json", "P10636")
+    isoform, _ = run(disprot, "disprot_P10636.json", "P10636-8")
+    assert canonical == []
+    assert isoform and all("P10636-8" in r["construct"]["description"] for r in isoform)
+    assert all(r["observable"]["type"] == "disorder_region" for r in isoform)
+    reasons = {x["reason"] for x in disprot.not_ingested(raw, "P10636-8")}
     assert any(reason.startswith("term not structural") for reason in reasons)
     assert disprot.technique_for("far-UV circular dichroism evidence used in manual assertion") == "cd"
     assert disprot.technique_for("single-molecule FRET evidence") == "smfret"
+    assert disprot.technique_for("force spectroscopy evidence") == "force_spectroscopy"
+    assert disprot.technique_for("NMR relaxation evidence") == "nmr_dynamics"
+    assert disprot.technique_for("negative stain electron microscopy") is None
     assert disprot.technique_for("spectrometry evidence used in manual assertion") is None
 
 
@@ -101,7 +123,7 @@ def test_smashbio_results_and_study_records_carry_extraction_level():
     (alphafold, "alphafold_P69441.json", "P69441", "processed"),
     (bmrb, "bmrb_P01053.json", "P01053", "processed"),
     (sasbdb, "sasbdb_P0CG48.json", "P0CG48", "processed"),
-    (disprot, "disprot_P10636.json", "P10636", "reported"),
+    (disprot, "disprot_P10636.json", "P10636-8", "reported"),
     (mddb, "mddb_P01053.json", "P01053", "processed"),
     (smashbio, "smashbio_Q8WZ42.json", "Q8WZ42", "reported"),
 ])

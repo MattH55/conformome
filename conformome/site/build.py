@@ -1,4 +1,4 @@
-"""Static site: index, protein, technique, about and downloads pages.
+"""Static site: index, molecule, technique, about and downloads pages.
 
 Every number and every table on the site is generated from build/ (mapped.json, models.json,
 molecule.json), taxonomy/techniques.yaml, schema/ and docs/. Nothing here is hand-edited HTML.
@@ -13,8 +13,7 @@ import shutil
 from pathlib import Path
 
 from conformome.common import Paths, load_taxonomy, load_yaml, read_json, write_json
-from conformome.sources import IMPLEMENTED, REGISTRY
-from conformome.validate import sources_table
+from conformome.sources import IMPLEMENTED
 
 MOLSTAR_VERSION = "5.11.0"  # published 2026-07-19; at least two weeks old at the time of this build
 MOLSTAR_BASE = f"https://cdn.jsdelivr.net/npm/molstar@{MOLSTAR_VERSION}/build/viewer/"
@@ -127,12 +126,36 @@ def fmt_obs(obs: dict) -> str:
     return f"{esc(obs['type'])}: {obs['value']:g}{esc(unit)}{esc(unc)}"
 
 
+def fmt_ions(ions: list[dict]) -> str:
+    return ", ".join(i["ion"] + (f" {i['concentration_mM']:g} mM" if i.get("concentration_mM") is not None else "")
+                     for i in ions)
+
+
+TYPE_LABEL = {"protein": "protein", "rna": "RNA", "dna": "DNA", "complex": "complex"}
+
+
+def type_badge(mtype: str) -> str:
+    return f'<span class="chip">{esc(TYPE_LABEL.get(mtype, mtype))}</span>'
+
+
+def is_partial(ev: dict) -> bool:
+    """A construct that covers part of the molecule or sits inside a longer one, as the source module says."""
+    text = ev["construct"]["description"].lower()
+    return "partial construct" in text or "another construct" in text
+
+
 def fmt_conditions(c: dict) -> str:
     parts = [c["environment"].replace("_", " ")]
     if c.get("temperature_c") is not None:
         parts.append(f"{c['temperature_c']:g} °C")
     if c.get("ph") is not None:
         parts.append(f"pH {c['ph']:g}")
+    if c.get("buffer"):
+        parts.append(f"buffer {c['buffer']}")
+    if c.get("ions"):
+        parts.append("ions " + fmt_ions(c["ions"]))
+    elif c.get("salt_mM") is not None:
+        parts.append(f"salt {c['salt_mM']:g} mM")
     if c.get("ligands"):
         parts.append("ligands " + ", ".join(c["ligands"]))
     if c.get("applied_force_pn") is not None:
@@ -155,7 +178,7 @@ def page(title: str, body: str, root: str, scripts: str = "", head_extra: str = 
 <body>
 <header class="site"><nav>
 <a class="brand" href="{root}index.html">Conformome</a>
-<a href="{root}proteins/index.html">Proteins</a>
+<a href="{root}molecules/index.html">Molecules</a>
 <a href="{root}search/index.html">Search</a>
 <a href="{root}about/index.html">About and methods</a>
 <a href="{root}downloads/index.html">Downloads</a>
@@ -260,6 +283,8 @@ def _state_extras(s: dict) -> str:
     if s.get("family_label"):
         fl = s["family_label"]
         terms = ", ".join(f"{k}: {v}" for k, v in fl["terms"].items())
+        if fl["vocabulary"] == "g_quadruplex" and fl["terms"].get("topology"):
+            out += f'<p><span class="badge badge-observed">G4 topology: {esc(fl["terms"]["topology"])}</span></p>'
         out += (f'<p class="muted">Family vocabulary <a href="../../downloads/taxonomy/state_vocabularies/{esc(fl["vocabulary"])}.yaml">'
                 f'{esc(fl["vocabulary"])}</a>: {esc(terms)}</p>')
     if s.get("population"):
@@ -268,8 +293,31 @@ def _state_extras(s: dict) -> str:
         out += f'<p class="muted">Population {p["value"]:.2f}{unc} ({esc(p["method"])})</p>'
     if s.get("secondary_structure"):
         ss = s["secondary_structure"]
-        out += f'<pre class="dotbracket">{esc(ss["dot_bracket"])}</pre><p class="muted">Pairing from {esc(ss["source"])}</p>'
+        out += f'<p class="muted">Pairing from {esc(ss["source"])}; aligned to the sequence under Sequence and pairing.</p>'
     return out
+
+
+def _sequence_panel(mol: dict, states: list[dict], width: int = 60) -> str:
+    """Nucleic acids: the reference sequence in blocks, each state's dot-bracket aligned under it (plain monospace)."""
+    seq = mol.get("sequence") or ""
+    if not seq or mol.get("molecule_type", "protein") == "protein":
+        return ""
+    tracks = [(s["state_id"], " " * (s["secondary_structure"].get("start", 1) - 1) + s["secondary_structure"]["dot_bracket"])
+              for s in states if s.get("secondary_structure")]
+    label_w = max([len("sequence")] + [len(sid) for sid, _ in tracks])
+    lines = []
+    for i in range(0, len(seq), width):
+        n = min(width, len(seq) - i)
+        ruler = "".join(str((i + j + 1) // 10 % 10) if (i + j + 1) % 10 == 0 else " " for j in range(n))
+        lines.append(f'{"":<{label_w}}  {ruler}')
+        lines.append(f'{"sequence":<{label_w}}  {seq[i:i + width]}  {i + n}')
+        lines += [f"{sid:<{label_w}}  {db[i:i + width]}" for sid, db in tracks if db[i:i + width].strip()]
+        lines.append("")
+    legend = ("'.' unpaired, brackets pair (letters and [] {} <> for pseudoknots), '+' marks tetrad guanines; "
+              "the ruler gives the tens digit of every tenth position." if tracks else "No state has a secondary structure yet.")
+    return ('<h2>Sequence and pairing</h2>'
+            f'<p class="sub">Reference sequence ({len(seq)} nt) with each state\'s pairing aligned under it. {esc(legend)}</p>'
+            f'<div class="scroll"><pre class="dotbracket" style="margin:8px;line-height:1.35">{esc(chr(10).join(lines).rstrip())}</pre></div>')
 
 
 def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: list[dict], taxonomy: dict) -> str:
@@ -283,13 +331,15 @@ def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: l
 
     banner = ""
     if mapped["curation"]["status"] == "uncurated":
-        banner = ('<div class="banner"><b>States not yet curated.</b> Every evidence item for this protein is listed, '
+        banner = ('<div class="banner"><b>States not yet curated.</b> Every evidence item for this molecule is listed, '
                   'but no states are defined yet, so nothing is mapped. See CONTRIBUTING to curate it.</div>')
     elif draft:
         banner = ('<div class="banner"><b>Draft curation.</b> States and evidence-to-state mappings have not been '
                   'reviewed by a curator. Treat the grid and models as provisional.</div>')
 
+    mtype = protein.get("molecule_type", "protein")
     stats = (f'<div class="stats">'
+             f'<div class="stat"><b>{esc(TYPE_LABEL.get(mtype, mtype))}</b>molecule type</div>'
              f'<div class="stat"><b>{len(evidence)}</b>evidence items</div>'
              f'<div class="stat"><b>{sum(1 for e in evidence if e["mappings"])}</b>mapped to a state</div>'
              f'<div class="stat"><b>{len(states)}</b>states</div>'
@@ -357,7 +407,11 @@ def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: l
                    'var p=document.createElement("p");p.textContent=d.assumptions;det.appendChild(s);det.appendChild(p);info.appendChild(det);}'
                    'if(!window.molstar){document.getElementById("viewer").textContent="The 3D viewer could not load. Models are in the downloads.";'
                    'show(0);return;}'
-                   'molstar.Viewer.create("viewer",{layoutIsExpanded:false,layoutShowControls:false,'
+                   # Small nucleic acids would get ball-and-stick from the auto preset; ask for the cartoon preset.
+                   + (f'var na={json.dumps(mtype != "protein")};'
+                      'var PC=molstar.PluginConfig,cfg=(na&&PC&&PC.Structure&&PC.Structure.DefaultRepresentationPreset)'
+                      '?[[PC.Structure.DefaultRepresentationPreset,"polymer-cartoon"]]:[];')
+                   + 'molstar.Viewer.create("viewer",{layoutIsExpanded:false,layoutShowControls:false,config:cfg,'
                    'layoutShowSequence:false,layoutShowLog:false,layoutShowRemoteState:false,viewportShowExpand:false})'
                    '.then(function(viewer){'
                    'function load(i){var d=data[i];show(i);viewer.plugin.clear().then(function(){'
@@ -368,7 +422,7 @@ def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: l
                    '</script>')
         head_extra = (f'<link rel="stylesheet" href="{MOLSTAR_BASE}molstar.css">')
     else:
-        viewer = ('<h2>Structure</h2><p class="muted">No state models are exported for this protein yet. '
+        viewer = ('<h2>Structure</h2><p class="muted">No state models are exported for this molecule yet. '
                   'Observed states export the representative PDB entry; inferred states need fitted models, not yet built.</p>')
         scripts = ""
         head_extra = ""
@@ -401,25 +455,35 @@ def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: l
                              for s in sorted({ev["provenance"]["source"] for ev in evidence}))
     env_options = "".join(f'<option value="{esc(e)}">{esc(e.replace("_", " "))}</option>'
                           for e in sorted({ev["conditions"]["environment"] for ev in evidence}))
+
+    def ion_key(ev: dict) -> str:
+        return ", ".join(sorted({i["ion"] for i in ev["conditions"].get("ions") or []})) or "none stated"
+    ion_options = "".join(f'<option value="{esc(k)}">ions: {esc(k)}</option>' for k in sorted({ion_key(ev) for ev in evidence}))
     erows = []
     for ev in evidence:
         mapped_flag = "yes" if ev["mappings"] else "no"
+        labels = ", ".join(ev["construct"].get("labels") or [])
         mappings = "<br>".join(
             f'{esc(state_name.get(m["state_id"], m["state_id"]))} · {esc(m["who"])} · {esc(m["confidence"])}'
-            f'<br><span class="muted">{esc(m["justification"])}</span>' for m in ev["mappings"]) or '<span class="muted">unmapped</span>'
+            + (f' · <span title="{esc(m["agreement"]["method"])}">AUC {m["agreement"]["score"]:.2f}</span>' if m.get("agreement") else "")
+            + f'<br><span class="muted">{esc(m["justification"])}</span>' for m in ev["mappings"]) or '<span class="muted">unmapped</span>'
         link = esc(ev["data_link"] or "#")
+        partial = ' <span class="chip">partial construct</span>' if is_partial(ev) else ""
+        if ev.get("profile"):
+            partial += f' <a class="chip" href="{root}downloads/profiles/{esc(ev["evidence_id"])}.json">profile</a>'
         text = " ".join([ev["evidence_id"], ev["technique"], ev["conditions"]["environment"], ev["construct"]["description"],
                          ev.get("title") or "",
                          ev["provenance"]["source"], ev["provenance"]["deposit_id"] or ""] +
                         [m["state_id"] for m in ev["mappings"]]).lower()
         erows.append(
             f'<tr id="{esc(ev["evidence_id"])}" data-technique="{esc(ev["technique"])}" data-environment="{esc(ev["conditions"]["environment"])}" '
-            f'data-source="{esc(ev["provenance"]["source"])}" data-mapped="{mapped_flag}" data-text="{esc(text)}">'
+            f'data-source="{esc(ev["provenance"]["source"])}" data-ions="{esc(ion_key(ev))}" data-mapped="{mapped_flag}" data-text="{esc(text)}">'
             f'<td><a href="{link}">{esc(ev["evidence_id"])}</a><br><span class="muted">{esc(ev["provenance"]["source"])}</span></td>'
             f'<td><a href="{root}technique/{esc(ev["technique"])}/index.html">{esc(ev["technique"])}</a></td>'
-            f'<td>{fmt_obs(ev["observable"])}</td><td>{fmt_conditions(ev["conditions"])}'
+            f'<td>{fmt_obs(ev["observable"])}{partial}</td><td>{fmt_conditions(ev["conditions"])}'
             f'<br><span class="muted">{esc(ev.get("title") or "")}{" · " if ev.get("title") else ""}'
-            f'{esc(ev["construct"]["description"])}</span></td><td>{mappings}</td></tr>')
+            f'{esc(ev["construct"]["description"])}'
+            f'{(" · " + esc(labels)) if labels else ""}</span></td><td>{mappings}</td></tr>')
     evidence_html = (
         '<h2>Evidence</h2>'
         '<p class="sub">One row per deposit or experiment. Filter by technique, environment or text. Unmapped evidence is listed too.</p>'
@@ -428,6 +492,7 @@ def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: l
         f'<select id="ev-technique" data-attr="data-technique" aria-label="Technique"><option value="">All techniques</option>{tech_options}</select>'
         f'<select id="ev-environment" data-attr="data-environment" aria-label="Environment"><option value="">All environments</option>{env_options}</select>'
         f'<select id="ev-source" data-attr="data-source" aria-label="Source"><option value="">All sources</option>{source_options}</select>'
+        f'<select id="ev-ions" data-attr="data-ions" aria-label="Ions"><option value="">Any ions</option>{ion_options}</select>'
         '<select id="ev-mapped" data-attr="data-mapped" aria-label="Mapping"><option value="">Mapped and unmapped</option>'
         '<option value="yes">Mapped only</option><option value="no">Unmapped only</option></select>'
         '</div><p class="muted" id="ev-table-count"></p>'
@@ -435,7 +500,7 @@ def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: l
         '<th>Observable</th><th>Conditions</th><th>Mapped to state</th></tr></thead>'
         f'<tbody>{"".join(erows)}</tbody></table></div>')
     evidence_scripts = (f'<script>{SCRIPT_FILTER}'
-                        'conformomeFilter("ev-table",["ev-technique","ev-environment","ev-source","ev-mapped"],"ev-text");</script>')
+                        'conformomeFilter("ev-table",["ev-technique","ev-environment","ev-source","ev-ions","ev-mapped"],"ev-text");</script>')
 
     # Conflicts
     if mapped["conflicts"]:
@@ -444,13 +509,18 @@ def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: l
                         f'{", ".join(esc(e) for e in c["evidence_ids"])}<br><span class="muted">{esc(c["reason"])}</span></li>'
                         for c in mapped["conflicts"])
         conflicts = f'<ul>{items}</ul>'
+    from conformome.mapping.conflicts import CONFLICT_SIGMA
+    omitted = (f'<p class="muted">{mapped["not_compared"]} mapped evidence items were not compared '
+               '(missing conditions, no partner under the same conditions, a non-positive uncertainty, '
+               'or a prediction). Absence of a conflict is not agreement. '
+               f'A conflict here means the values differ by more than {CONFLICT_SIGMA} combined standard deviations.</p>')
+    if mapped["conflicts"]:
+        conflicts += omitted
     else:
-        conflicts = ('<p>No conflicts found among comparable evidence.</p>'
-                     f'<p class="muted">{mapped["not_compared"]} evidence items could not be compared: they lack a comparable '
-                     'observable type, a value, or an uncertainty. Absence of a conflict here is not agreement.</p>')
+        conflicts = '<p>No conflicts found among comparable evidence.</p>' + omitted
     conflicts_html = f'<h2>Conflicts</h2>{conflicts}'
 
-    downloads = [f'<li><a href="{root}downloads/proteins/{esc(acc)}.json">Protein bundle (JSON)</a></li>']
+    downloads = [f'<li><a href="{root}downloads/molecules/{esc(acc)}.json">Molecule bundle (JSON)</a></li>']
     for m in models:
         downloads.append(f'<li><a href="{root}downloads/{esc(m["file"])}">{esc(m["model_id"])}</a> '
                          f'<span class="muted">({esc(m["format"])}, {esc(m["basis"])})</span></li>')
@@ -461,7 +531,7 @@ def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: l
     body = (
         f'<h1>{esc(protein["name"])}</h1>'
         f'<p class="sub">{_identity_line(acc, protein)}</p>'
-        f'{banner}{stats}{grid}{viewer}{states_html}{evidence_html}{conflicts_html}{downloads_html}')
+        f'{banner}{stats}{grid}{_sequence_panel(protein, states)}{viewer}{states_html}{evidence_html}{conflicts_html}{downloads_html}')
     return page(protein["name"], body, root, scripts=scripts + evidence_scripts, head_extra=head_extra,
                 description=f"Conformational states and techniques for {protein['name']} ({acc})")
 
@@ -521,7 +591,7 @@ def _diagram(states: list[dict], transitions: list[dict]) -> str:
 
 
 def _matrix(rows: list[dict], techniques: list[str], taxonomy: dict, root: str = "") -> str:
-    """Proteins x techniques, shaded by evidence count (log scale)."""
+    """Molecules x techniques, shaded by evidence count (log scale). Rows carry a type badge and data-type."""
     import math
     top = max([n for r in rows for n in r["tech_counts"].values()] or [1])
     head = "".join(f'<th class="tech" title="{esc(taxonomy[tid]["name"])}"><a href="{root}technique/{esc(tid)}/index.html">{esc(tid)}</a></th>'
@@ -537,11 +607,14 @@ def _matrix(rows: list[dict], techniques: list[str], taxonomy: dict, root: str =
             pct = round(18 + 72 * math.log10(n + 1) / math.log10(top + 1))
             cells.append(f'<td class="m" style="background:color-mix(in srgb, var(--accent) {pct}%, transparent)" '
                          f'title="{esc(r["name"])}: {n} {esc(tid)}"><a href="{root}protein/{esc(r["acc"])}/index.html">{n}</a></td>')
-        body.append(f'<tr><td><a href="{root}protein/{esc(r["acc"])}/index.html">{esc(r["name"])}</a></td>{"".join(cells)}</tr>')
+        text = esc((r["name"] + " " + r["acc"] + " " + r["organism"]).lower())
+        body.append(f'<tr data-type="{esc(r["type"])}" data-text="{text}"><td><a href="{root}protein/{esc(r["acc"])}/index.html">'
+                    f'{esc(r["name"])}</a> {type_badge(r["type"])}</td>{"".join(cells)}</tr>')
     return ('<h2>Technique coverage</h2>'
-            '<p class="sub">Evidence items per protein and technique. Darker cells hold more evidence (log scale); '
-            'proteins probed by the most techniques come first. Click a cell to open the protein.</p>'
-            f'<div class="scroll" style="max-height:80vh"><table class="matrix"><thead><tr><th>Protein</th>{head}</tr></thead>'
+            '<p class="sub">Evidence items per molecule and technique. Darker cells hold more evidence (log scale); '
+            'molecules probed by the most techniques come first. Click a cell to open the molecule.</p>'
+            '<p class="muted" id="m-table-count"></p>'
+            f'<div class="scroll" style="max-height:80vh"><table class="matrix" id="m-table"><thead><tr><th>Molecule</th>{head}</tr></thead>'
             f'<tbody>{"".join(body)}</tbody></table></div>')
 
 
@@ -561,11 +634,15 @@ def _home_page(summaries: list[dict], techniques: list[str]) -> str:
     for s in summaries:
         for name in s["source_list"]:
             by_source[name] = by_source.get(name, 0) + 1
-    sources = "".join(f'<li><b>{esc(name)}</b> <span class="muted">· {n} proteins</span></li>'
+    sources = "".join(f'<li><b>{esc(name)}</b> <span class="muted">· {n} molecules</span></li>'
                       for name, n in sorted(by_source.items(), key=lambda kv: -kv[1]))
+    by_type = {t: [s for s in summaries if s["type"] == t] for t in ("protein", "rna", "dna")}
     tiles = "".join(f'<div class="stat"><b>{v:,}</b>{esc(k)}</div>' for k, v in (
-        ("proteins", len(summaries)), ("evidence entries", n_ev), ("techniques", len(techniques)),
+        ("molecules", len(summaries)), ("proteins", len(by_type["protein"])), ("RNAs", len(by_type["rna"])),
+        ("DNAs", len(by_type["dna"])), ("evidence entries", n_ev), ("techniques", len(techniques)),
         ("sources", len(by_source)), ("curated states", n_states)))
+    split = " · ".join(f'{TYPE_LABEL[t]}: {sum(s["evidence"] for s in v):,} entries, {sum(len(s["state_list"]) for s in v)} states'
+                       for t, v in by_type.items() if v)
     featured = sorted(summaries, key=lambda s: (-len(s["tech_counts"]), -s["evidence"]))[:6]
     cards = "".join(
         f'<div class="card"><h3><a href="protein/{esc(s["acc"])}/index.html">{esc(s["name"])}</a></h3>'
@@ -574,25 +651,26 @@ def _home_page(summaries: list[dict], techniques: list[str]) -> str:
         f'{_states_label(len(s["state_list"]))}</div></div>' for s in featured)
     body = f"""
 <h1 style="font-size:2.1rem">Conformome</h1>
-<p class="sub" style="font-size:1.15rem;max-width:46rem">A database of experimental entries that probe protein conformation, each in its own way.</p>
-<p style="max-width:46rem">Every technique sees a protein's shape differently. Crystallography resolves atoms in a lattice. Cryo-EM sees
+<p class="sub" style="font-size:1.15rem;max-width:46rem">A database of experimental entries that probe the conformation of proteins, RNA and DNA, each in its own way.</p>
+<p style="max-width:46rem">Every technique sees a molecule's shape differently. Crystallography resolves atoms in a lattice. Cryo-EM sees
 particles frozen in ice. NMR reports how each residue moves. Small-angle scattering measures overall size in solution. Force
-spectroscopy pulls a single molecule apart and records how it gives way. Simulations and predictions say what a model expects.
-Conformome gathers these entries for each protein, keeps them side by side with their conditions and provenance, and maps them
+spectroscopy pulls a single molecule apart and records how it gives way. Chemical probing reads which nucleotides are paired.
+Simulations and predictions say what a model expects. Conformome gathers these entries for each molecule, keeps them side by side with their conditions and provenance, and maps them
 onto shared conformational states, so you can see which techniques support which state, and where they disagree.</p>
 <form class="searchbar" action="search/index.html" method="get" role="search" style="max-width:46rem">
-<input name="q" type="search" placeholder="Search proteins, states, PDB or BMRB IDs, ligands, titles" aria-label="Search Conformome">
+<input name="q" type="search" placeholder="Search molecules, states, PDB, BMRB or RMDB IDs, ligands, titles" aria-label="Search Conformome">
 <button type="submit">Search</button></form>
 <div class="stats">{tiles}</div>
-<p><a href="proteins/index.html">Browse all proteins and the technique coverage matrix</a> · <a href="search/index.html">Search</a> ·
+<p class="muted">{esc(split)}</p>
+<p><a href="molecules/index.html">Browse all molecules and the technique coverage matrix</a> · <a href="search/index.html">Search</a> ·
 <a href="about/index.html">How it works</a> · <a href="downloads/index.html">Downloads</a></p>
 
 <h2>How to read an entry</h2>
 <div class="cards">
 <div class="card"><h3>Evidence entries</h3><p>One experiment or deposit: a crystal structure, an NMR data set, a SAXS curve,
 a force-spectroscopy result. Each keeps its technique, construct, conditions (temperature, pH, ligands, force) and source.</p></div>
-<div class="card"><h3>Conformational states</h3><p>Named shapes a protein adopts, such as open and closed, apo and bound, folded and
-unfolded. Curators map each entry to a state and say who decided, how confident they are, and why.</p></div>
+<div class="card"><h3>Conformational states</h3><p>Named shapes a molecule adopts, such as open and closed, apo and bound, folded and
+unfolded, or a G-quadruplex topology. Curators map each entry to a state and say who decided, how confident they are, and why.</p></div>
 <div class="card"><h3>Observed or inferred</h3><p>A state is <span class="badge badge-observed">observed</span> when a structure
 resolves it directly, and <span class="badge badge-inferred">inferred</span> when it is fitted to indirect measurements; inferred
 states list their assumptions.</p></div>
@@ -600,7 +678,7 @@ states list their assumptions.</p></div>
 page flags the conflict instead of averaging it away.</p></div>
 </div>
 
-<h2>Most-probed proteins</h2>
+<h2>Most-probed molecules</h2>
 <div class="cards">{cards}</div>
 
 <h2>Where the entries come from</h2>
@@ -611,18 +689,18 @@ page flags the conflict instead of averaging it away.</p></div>
 <p class="muted">Single Molecule Analysis and Spectroscopy Hub</p>
 <p>SMASH-BIO indexes single-molecule force spectroscopy studies (optical and magnetic tweezers, AFM and more) with their
 instruments, conditions and results. Conformome takes its force-spectroscopy entries from the SMASH-BIO release, so the
-mechanical view of a protein sits next to its structures, NMR and scattering data.
+mechanical view of a molecule sits next to its structures, NMR and scattering data.
 <a href="{SMASH_BIO_URL}">Visit smash-bio.org</a>.</p></div>
 
-<div class="banner" style="margin-top:24px"><b>Pilot.</b> {len(summaries)} proteins; {n_curated} have draft curation that no curator
+<div class="banner" style="margin-top:24px"><b>Pilot.</b> {len(summaries)} molecules; {n_curated} have draft curation that no curator
 has reviewed yet, and the rest list their evidence without states. Corrections and curation are welcome: see
 <a href="{REPO_URL}/blob/HEAD/docs/CONTRIBUTING.md">CONTRIBUTING</a>.</div>
 """
     return page("Home", body, "", description="Conformome: a database of experimental entries that probe "
-                "protein conformation, each in its own way, mapped onto shared conformational states.")
+                "the conformation of proteins, RNA and DNA, each in its own way, mapped onto shared conformational states.")
 
 
-def _proteins_page(rows: list[dict], source_names: list[str], techniques: list[str], taxonomy: dict) -> str:
+def _molecules_page(rows: list[dict], source_names: list[str], techniques: list[str], taxonomy: dict) -> str:
     root = "../"
     def curation_cell(status: str) -> str:
         if status == "uncurated":
@@ -633,30 +711,35 @@ def _proteins_page(rows: list[dict], source_names: list[str], techniques: list[s
     for r in rows:
         search = esc((r["name"] + " " + r["acc"] + " " + r["organism"]).lower())
         body_lines.append(
-            f'<tr data-text="{search}">'
+            f'<tr data-text="{search}" data-type="{esc(r["type"])}">'
             f'<td><a href="{root}protein/{esc(r["acc"])}/index.html">{esc(r["name"])}</a></td>'
-            f'<td>{esc(r["acc"])}</td><td>{esc(r["organism"])}</td>'
+            f'<td>{type_badge(r["type"])}</td><td>{esc(r["acc"])}</td><td>{esc(r["organism"])}</td>'
             f'<td class="num">{r["techniques"]}</td><td class="num">{r["states"]}</td>'
             f'<td class="num">{r["sources"]}</td><td class="num">{r["evidence"]}</td><td class="num">{r["mapped"]}</td>'
             f'<td>{curation_cell(r["status"])}</td></tr>')
     rows_html = "".join(body_lines)
-    body = ('<h1>Proteins</h1>'
-            '<p class="sub">Every protein in Conformome, with the techniques that have probed it.</p>'
-            f'<div class="banner"><b>Pilot.</b> {len(rows)} proteins. Evidence from {esc(", ".join(source_names))}. '
-            'Curation is a draft that no curator has reviewed yet, and some proteins have no states yet; literature extraction, PED and PDB-IHM restraints are not yet included.</div>'
+    counts = {t: sum(1 for r in rows if r["type"] == t) for t in TYPE_LABEL}
+    type_options = "".join(f'<option value="{t}">{esc(TYPE_LABEL[t])} ({n})</option>' for t, n in counts.items() if n)
+    body = ('<h1>Molecules</h1>'
+            '<p class="sub">Every molecule in Conformome (proteins, RNA and DNA), with the techniques that have probed it.</p>'
+            f'<div class="banner"><b>Pilot.</b> {len(rows)} molecules. Evidence from {esc(", ".join(source_names))}. '
+            'Curation is a draft that no curator has reviewed yet, and some molecules have no states yet; literature extraction, PED and PDB-IHM restraints are not yet included.</div>'
             '<form class="searchbar" action="../search/index.html" method="get" role="search">'
-            '<input name="q" type="search" placeholder="Search proteins, states, PDB or BMRB IDs, ligands, titles" '
+            '<input name="q" type="search" placeholder="Search molecules, states, PDB, BMRB or RMDB IDs, ligands, titles" '
             'aria-label="Search everything"><button type="submit">Search</button></form>'
+            '<div class="controls"><select id="m-type" data-attr="data-type" aria-label="Molecule type">'
+            f'<option value="">All molecule types</option>{type_options}</select>'
+            '<input id="p-text" type="search" placeholder="Filter by name, identifier or organism" '
+            'aria-label="Filter molecules"></div>'
             f'{_matrix(rows, techniques, taxonomy, root)}'
-            '<h2>All proteins</h2>'
-            '<div class="controls"><input id="p-text" type="search" placeholder="Filter this table by name, UniProt or organism" '
-            'aria-label="Filter proteins"></div><p class="muted" id="p-table-count"></p>'
-            '<div class="scroll"><table id="p-table"><thead><tr><th>Protein</th><th>UniProt</th><th>Organism</th>'
+            '<h2>All molecules</h2><p class="muted" id="p-table-count"></p>'
+            '<div class="scroll"><table id="p-table"><thead><tr><th>Molecule</th><th>Type</th><th>Identifier</th><th>Organism</th>'
             '<th class="num">Techniques</th><th class="num">States</th><th class="num">Sources</th><th class="num">Evidence</th>'
             '<th class="num">Mapped</th><th>Curation</th></tr></thead>'
             f'<tbody>{rows_html}</tbody></table></div>')
-    scripts = f'<script>{SCRIPT_FILTER}conformomeFilter("p-table",[],"p-text");</script>'
-    return page("Proteins", body, root, scripts=scripts)
+    scripts = (f'<script>{SCRIPT_FILTER}conformomeFilter("p-table",["m-type"],"p-text");'
+               'conformomeFilter("m-table",["m-type"],"p-text");</script>')
+    return page("Molecules", body, root, scripts=scripts)
 
 
 def _technique_page(tid: str, tech: dict, covered: list[dict]) -> str:
@@ -670,12 +753,30 @@ def _technique_page(tid: str, tech: dict, covered: list[dict]) -> str:
             f'resolution class: {esc(tech["resolution_class"])}</span></p>'
             f'<p>{esc(tech["description"])}</p>'
             '<h2>Observables</h2><ul>' + "".join(f'<li><code>{esc(o)}</code></li>' for o in tech["observables"]) + '</ul>'
-            '<h2>Proteins covered</h2><div class="scroll"><table><thead><tr><th>Protein</th>'
+            '<h2>Molecules covered</h2><div class="scroll"><table><thead><tr><th>Molecule</th>'
             f'<th class="num">Evidence items</th></tr></thead><tbody>{rows}</tbody></table></div>')
     return page(tech["name"], body, root, description=tech["description"])
 
 
 DATA_LEVEL_LABEL = {"raw": "raw", "processed": "proc", "reported": "rep"}
+
+
+def _public_records(records: list[dict], kept_ids: set[str]) -> list[dict]:
+    """Drop evidence ids that are not in the redistributable bundle. Pages keep the full build."""
+    out = []
+    for record in records:
+        record = json.loads(json.dumps(record))
+        pop = record.get("population")
+        if isinstance(pop, dict) and "evidence_ids" in pop:
+            ids = [eid for eid in pop["evidence_ids"] if eid in kept_ids]
+            if ids:
+                pop["evidence_ids"] = ids
+            else:
+                record["population"] = None
+        if isinstance(record.get("evidence_ids"), list):
+            record["evidence_ids"] = [eid for eid in record["evidence_ids"] if eid in kept_ids]
+        out.append(record)
+    return out
 
 
 def build_site(paths: Paths, accessions: list[str]) -> None:
@@ -684,10 +785,17 @@ def build_site(paths: Paths, accessions: list[str]) -> None:
         shutil.rmtree(site)
     site.mkdir(parents=True)
     taxonomy = load_taxonomy(paths.taxonomy / "techniques.yaml")
-    sources = sources_table(paths)
-    redistributable = {mod.NAME: sources.get(key, {}).get("redistribute", "no").lower() != "no"
-                       for key, mod in REGISTRY.items()}
-    redistributable.setdefault("Conformome curation", True)
+    from conformome.validate import _redistribution, allowed_source_names, licence_redistributable
+    allowed = allowed_source_names(paths)
+    policy = _redistribution(paths)
+    allowed_licences = set(policy["allow"])
+    deny_phrases = policy["deny_if_contains"]
+    deny_sources = policy["deny_sources"]
+
+    def _keep(ev: dict) -> bool:
+        prov = ev["provenance"]
+        return (prov["source"] in allowed and prov["source"] not in deny_sources
+                and licence_redistributable(prov.get("licence"), allowed_licences, deny_phrases))
 
     summaries, bundles, all_lines, search_rows = [], {}, [], []
     technique_acc: dict[str, list[dict]] = {}
@@ -696,6 +804,7 @@ def build_site(paths: Paths, accessions: list[str]) -> None:
         draft = mapped["curation"]["status"] != "reviewed"
         summaries.append({
             "acc": acc, "name": protein["name"], "organism": organism_name(protein),
+            "type": protein.get("molecule_type", "protein"),
             "techniques": len(mapped["coverage"]["techniques"]), "states": len(mapped["states"]),
             "evidence": len(mapped["evidence"]), "mapped": sum(1 for e in mapped["evidence"] if e["mappings"]),
             "sources": len({e["provenance"]["source"] for e in mapped["evidence"]}),
@@ -710,6 +819,8 @@ def build_site(paths: Paths, accessions: list[str]) -> None:
         })
         state_names = {s["state_id"]: s["name"] for s in mapped["states"]}
         for e in mapped["evidence"]:
+            if not _keep(e):
+                continue
             search_rows.append([
                 e["evidence_id"], acc, e["technique"], e["provenance"]["source"], e["provenance"]["deposit_id"] or "",
                 (e.get("title") or "")[:200], e["construct"]["description"][:160], " ".join(e["conditions"]["ligands"])[:160],
@@ -718,20 +829,30 @@ def build_site(paths: Paths, accessions: list[str]) -> None:
         for t in mapped["coverage"]["techniques"]:
             count = sum(1 for e in mapped["evidence"] if e["technique"] == t)
             technique_acc.setdefault(t, []).append({"acc": acc, "name": protein["name"], "count": count})
-        evidence_out = [e for e in mapped["evidence"] if redistributable.get(e["provenance"]["source"], True)]
+        evidence_out = [e for e in mapped["evidence"] if _keep(e)]
+        kept_ids = {e["evidence_id"] for e in evidence_out}
+        conflicts_out = [c for c in mapped["conflicts"] if all(eid in kept_ids for eid in c["evidence_ids"])]
         bundle = {
             "molecule_id": acc,
             "molecule": protein,
             "curation": mapped["curation"],
-            "states": mapped["states"],
-            "transitions": mapped["transitions"],
+            "states": _public_records(mapped["states"], kept_ids),
+            "transitions": _public_records(mapped["transitions"], kept_ids),
             "evidence": evidence_out,
-            "conflicts": mapped["conflicts"],
+            "conflicts": conflicts_out,
             "coverage": mapped["coverage"],
             "models": models,
         }
         bundles[acc] = bundle
-        write_json(site / "downloads" / "proteins" / f"{acc}.json", bundle)
+        write_json(site / "downloads" / "molecules" / f"{acc}.json", bundle)
+        if bundle["molecule"].get("molecule_type", "protein") == "protein":
+            # Kept for one release so that links to the old protein bundles still work.
+            write_json(site / "downloads" / "proteins" / f"{acc}.json", bundle)
+        for e in evidence_out:
+            if e.get("profile"):
+                write_json(site / "downloads" / "profiles" / f"{e['evidence_id']}.json",
+                           {"evidence_id": e["evidence_id"], "molecule_id": acc, "technique": e["technique"],
+                            "profile": e["profile"], "conditions": e["conditions"], "provenance": e["provenance"]})
         all_lines += [{"record_type": "molecule", **protein}]
         all_lines += [{"record_type": "state", **s} for s in mapped["states"]]
         all_lines += [{"record_type": "transition", **t} for t in mapped["transitions"]]
@@ -756,9 +877,15 @@ def build_site(paths: Paths, accessions: list[str]) -> None:
         (page_dir / "index.html").write_text(_technique_page(t_id, tech, covered), encoding="utf-8")
 
     technique_order = [tid for tid in taxonomy if any(tid in s["tech_counts"] for s in summaries)]
+    (site / "molecules").mkdir(parents=True, exist_ok=True)
+    (site / "molecules" / "index.html").write_text(
+        _molecules_page(summaries, [m.NAME for m in IMPLEMENTED], technique_order, taxonomy), encoding="utf-8")
     (site / "proteins").mkdir(parents=True, exist_ok=True)
     (site / "proteins" / "index.html").write_text(
-        _proteins_page(summaries, [m.NAME for m in IMPLEMENTED], technique_order, taxonomy), encoding="utf-8")
+        '<!doctype html><meta charset="utf-8"><title>Molecules · Conformome</title>'
+        '<meta http-equiv="refresh" content="0; url=../molecules/index.html">'
+        '<link rel="canonical" href="../molecules/index.html"><p><a href="../molecules/index.html">Molecules</a></p>',
+        encoding="utf-8")
     (site / "index.html").write_text(_home_page(summaries, technique_order), encoding="utf-8")
     _write_search(site, summaries, search_rows, technique_order, taxonomy)
     _write_about(paths, site)
@@ -796,7 +923,9 @@ def _write_downloads(paths: Paths, site: Path, accessions: list[str]) -> None:
             '<p class="sub">Every file is generated from the pipeline. Records carry provenance and conditions.</p>'
             '<ul>'
             '<li><a href="all-records.jsonl">All records, one JSON object per line</a> (record_type: molecule, state, transition, evidence, model)</li>'
-            + "".join(f'<li><a href="proteins/{esc(acc)}.json">{esc(acc)}: protein bundle (JSON)</a></li>' for acc in accessions)
+            + "".join(f'<li><a href="molecules/{esc(acc)}.json">{esc(acc)}: molecule bundle (JSON)</a></li>' for acc in accessions)
+            + '<li>Reactivity profiles, one file per evidence item: <code>profiles/&lt;evidence_id&gt;.json</code>, linked from each molecule page. '
+            'Protein bundles are also kept under <code>proteins/&lt;accession&gt;.json</code> for this release.</li>'
             + '<li><a href="schema/molecule.schema.json">JSON Schemas</a> for molecule, state, evidence, transition, model, mutational effect and state vocabulary, '
             'plus <a href="schema/common.schema.json">shared definitions</a></li>'
             '<li><a href="taxonomy/techniques.yaml">Technique taxonomy</a> and '
@@ -805,7 +934,7 @@ def _write_downloads(paths: Paths, site: Path, accessions: list[str]) -> None:
             + ' state vocabularies</li>'
             '<li><a href="manifest.json">Download manifest</a>: source URLs, retrieval dates and SHA-256 of every raw input</li>'
             '</ul>'
-            '<p class="muted">State models are linked from each protein page. Evidence from sources whose licence forbids '
+            '<p class="muted">State models are linked from each molecule page. Evidence from sources whose licence forbids '
             'redistribution is left out of these files; the site links to the source instead.</p>')
     (dl / "index.html").write_text(page("Downloads", body, "../"), encoding="utf-8")
 
@@ -815,13 +944,14 @@ SEARCH_JS = r"""
   var P=[], E=null, byAcc={};
   var $=function(id){return document.getElementById(id)};
   var q=$('s-q'), out=$('s-results'), evOut=$('s-evidence'), info=$('s-info');
-  var facets=['technique','source','organism','curation','basis'];
+  var facets=['type','technique','source','organism','curation','basis'];
   function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
   function tokens(){return q.value.toLowerCase().split(/\s+/).filter(Boolean)}
   function hit(text,toks){text=text.toLowerCase();for(var i=0;i<toks.length;i++){if(text.indexOf(toks[i])<0)return false}return true}
   function mark(s,toks){var h=esc(s);toks.forEach(function(t){if(t.length<2)return;var re=new RegExp('('+t.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig');h=h.replace(re,'<mark>$1</mark>')});return h}
   function val(f){return $('f-'+f).value}
   function protOk(p){
+    if(val('type')&&p.type!==val('type'))return false;
     if(val('technique')&&!(val('technique') in p.tech_counts))return false;
     if(val('source')&&p.source_list.indexOf(val('source'))<0)return false;
     if(val('organism')&&p.organism!==val('organism'))return false;
@@ -842,7 +972,7 @@ SEARCH_JS = r"""
     var cur=p.status==='uncurated'?'<span class="muted">states not yet curated</span>':(p.status==='draft'?'<span class="badge badge-draft">draft curation</span>':'reviewed');
     var hits=n?'<div style="margin-top:6px"><a href="#s-evidence" data-acc="'+esc(p.acc)+'" class="ev-jump">'+n+' matching evidence item'+(n===1?'':'s')+'</a></div>':'';
     return '<div class="card"><h3><a href="../protein/'+esc(p.acc)+'/index.html">'+mark(p.name,toks)+'</a></h3>'+
-      '<div class="muted">'+mark(p.acc,toks)+(p.gene?' · '+mark(p.gene,toks):'')+' · '+mark(p.organism,toks)+'</div>'+
+      '<div class="muted"><span class="chip">'+esc({protein:'protein',rna:'RNA',dna:'DNA'}[p.type]||p.type)+'</span> '+mark(p.acc,toks)+(p.gene?' · '+mark(p.gene,toks):'')+' · '+mark(p.organism,toks)+'</div>'+
       '<div class="chips">'+chips+'</div><div>'+(states||'')+'</div>'+
       '<div class="muted" style="margin-top:6px">'+p.evidence+' evidence · '+p.mapped+' mapped · '+p.source_list.length+' sources · '+cur+'</div>'+hits+'</div>';
   }
@@ -868,33 +998,33 @@ SEARCH_JS = r"""
       fetch('evidence.json').then(function(r){return r.json()}).then(function(d){E=d;render()})
         .catch(function(){evOut.innerHTML='<p class="muted">The evidence index could not be loaded.</p>'});ev=null}
     var per=(ev&&ev.perAcc)||{};
-    // A protein is listed when its own text matches, or when any of its evidence matches.
+    // A molecule is listed when its own text matches, or when any of its evidence matches.
     var ps=P.filter(function(p){return protOk(p)&&(hit(ptext(p),toks)||per[p.acc])});
     ps.sort(function(a,b){var ma=hit(ptext(a),toks)?1:0, mb=hit(ptext(b),toks)?1:0;
       return (mb-ma)||((per[b.acc]||0)-(per[a.acc]||0))||(b.evidence-a.evidence)});
-    out.innerHTML=ps.length?ps.map(function(p){return card(p,toks,per[p.acc])}).join(''):'<p class="muted">No proteins match.</p>';
-    info.textContent=ps.length+' of '+P.length+' proteins';
+    out.innerHTML=ps.length?ps.map(function(p){return card(p,toks,per[p.acc])}).join(''):'<p class="muted">No molecules match.</p>';
+    info.textContent=ps.length+' of '+P.length+' molecules';
     if(!ev){
       if(!toks.length&&!val('technique')&&!val('source'))
-        evOut.innerHTML='<p class="muted">Type a query to search individual evidence items (PDB, BMRB and SASBDB IDs, titles, ligands, mapped states).</p>';
+        evOut.innerHTML='<p class="muted">Type a query to search individual evidence items (PDB, BMRB, SASBDB and RMDB IDs, titles, ligands, mapped states).</p>';
       return;  // otherwise the evidence index is loading and render() runs again when it arrives
     }
     evOut.innerHTML='<p class="muted">'+ev.total+' evidence items'+(ev.total>200?'; first 200 shown':'')+'</p>'+
-      (ev.rows.length?'<div class="scroll"><table><thead><tr><th>Evidence</th><th>Protein</th><th>Technique</th><th>Title and construct</th><th>Mapped to</th></tr></thead><tbody>'+
+      (ev.rows.length?'<div class="scroll"><table><thead><tr><th>Evidence</th><th>Molecule</th><th>Technique</th><th>Title and construct</th><th>Mapped to</th></tr></thead><tbody>'+
       ev.rows.map(function(r){var e=r[0],p=r[1];return '<tr><td><a href="../protein/'+esc(e[1])+'/index.html#'+esc(e[0])+'">'+mark(e[0],toks)+'</a><br><span class="muted">'+esc(e[3])+'</span></td>'+
         '<td>'+esc(p.name)+'</td><td>'+esc(e[2])+'</td><td>'+mark(e[5],toks)+'<br><span class="muted">'+mark(e[6],toks)+(e[7]?' · '+mark(e[7],toks):'')+'</span></td>'+
         '<td>'+(e[8]?mark(e[8],toks):'<span class="muted">unmapped</span>')+'</td></tr>'}).join('')+'</tbody></table></div>':'');
   }
   fetch('proteins.json').then(function(r){return r.json()}).then(function(d){
     P=d; P.forEach(function(p){byAcc[p.acc]=p});
-    var opts={technique:{},source:{},organism:{},curation:{},basis:{observed:1,inferred:1}};
+    var opts={type:{},technique:{},source:{},organism:{},curation:{},basis:{observed:1,inferred:1}};
     P.forEach(function(p){Object.keys(p.tech_counts).forEach(function(t){opts.technique[t]=1});
-      p.source_list.forEach(function(s){opts.source[s]=1});opts.organism[p.organism]=1;opts.curation[p.status]=1});
+      p.source_list.forEach(function(s){opts.source[s]=1});opts.organism[p.organism]=1;opts.curation[p.status]=1;opts.type[p.type]=1});
     facets.forEach(function(f){var sel=$('f-'+f);Object.keys(opts[f]).sort().forEach(function(v){var o=document.createElement('option');o.value=v;o.textContent=v;sel.appendChild(o)})});
     var u=new URLSearchParams(location.search); q.value=u.get('q')||'';
     facets.forEach(function(f){if(u.get(f))$('f-'+f).value=u.get(f)});
     render();
-  }).catch(function(){out.innerHTML='<p class="muted">The protein index could not be loaded.</p>'});
+  }).catch(function(){out.innerHTML='<p class="muted">The molecule index could not be loaded.</p>'});
   var timer; q.addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(render,150)});
   facets.forEach(function(f){$('f-'+f).addEventListener('change',render)});
   $('s-form').addEventListener('submit',function(ev){ev.preventDefault();render()});
@@ -905,23 +1035,23 @@ SEARCH_JS = r"""
 def _write_search(site: Path, summaries: list[dict], search_rows: list[list], techniques: list[str], taxonomy: dict) -> None:
     out = site / "search"
     out.mkdir(parents=True, exist_ok=True)
-    proteins = [{k: s[k] for k in ("acc", "name", "gene", "organism", "length", "status", "evidence", "mapped",
+    proteins = [{k: s[k] for k in ("acc", "type", "name", "gene", "organism", "length", "status", "evidence", "mapped",
                                    "tech_counts", "source_list", "state_list")} for s in summaries]
     (out / "proteins.json").write_text(json.dumps(proteins, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     (out / "evidence.json").write_text(json.dumps(search_rows, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
     selects = "".join(f'<select id="f-{f}" aria-label="{label}"><option value="">{label}: any</option></select>'
-                      for f, label in (("technique", "Technique"), ("source", "Source"), ("organism", "Organism"),
+                      for f, label in (("type", "Molecule type"), ("technique", "Technique"), ("source", "Source"), ("organism", "Organism"),
                                        ("curation", "Curation"), ("basis", "State basis")))
     body = ('<h1>Search</h1>'
-            '<p class="sub">Search proteins, states and individual evidence items. Every word must match. '
-            'Filters narrow both proteins and evidence; the address bar keeps the search, so it can be shared.</p>'
+            '<p class="sub">Search molecules, states and individual evidence items. Every word must match. '
+            'Filters narrow both molecules and evidence; the address bar keeps the search, so it can be shared.</p>'
             '<form id="s-form" class="searchbar" role="search"><input id="s-q" type="search" '
             'placeholder="for example: maltose closed, 1UBQ, fibril cryoem, unfolding_force" aria-label="Search" autofocus>'
             '<button type="submit">Search</button></form>'
             f'<div class="controls">{selects}</div>'
             '<p class="muted" id="s-info" aria-live="polite"></p>'
-            '<h2>Proteins</h2><div id="s-results" class="cards"></div>'
+            '<h2>Molecules</h2><div id="s-results" class="cards"></div>'
             '<h2>Evidence</h2><div id="s-evidence"></div>'
-            '<noscript><p>Search needs JavaScript. The <a href="../index.html">protein list</a> works without it.</p></noscript>')
+            '<noscript><p>Search needs JavaScript. The <a href="../molecules/index.html">molecule list</a> works without it.</p></noscript>')
     (out / "index.html").write_text(page("Search", body, "../", scripts=f"<script>{SEARCH_JS}</script>",
-                                         description="Search Conformome proteins, states and evidence"), encoding="utf-8")
+                                         description="Search Conformome molecules, states and evidence"), encoding="utf-8")

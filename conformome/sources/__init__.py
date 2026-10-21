@@ -1,7 +1,7 @@
 """One module per source. Import the module you need; see base.py for the contract."""
 
 from conformome.sources import (
-    alphafold, atlas, bmrb, disprot, literature, mddb, nakb, pdb, pdbihm, ped, rfam, sasbdb, smashbio,
+    alphafold, atlas, bmrb, disprot, literature, mddb, nakb, pdb, pdbihm, ped, rfam, rmdb, sasbdb, smashbio,
 )
 
 REGISTRY = {
@@ -14,6 +14,7 @@ REGISTRY = {
     "smashbio": smashbio,
     "nakb": nakb,
     "rfam": rfam,
+    "rmdb": rmdb,
     "ped": ped,
     "pdbihm": pdbihm,
     "atlas": atlas,

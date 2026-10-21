@@ -6,7 +6,7 @@
 PYTHON ?= python3
 ACC ?=
 
-.PHONY: download ingest map models site validate test clean
+.PHONY: download ingest map models site validate test report clean paper
 
 download:
 	$(PYTHON) -m conformome download $(ACC)
@@ -26,8 +26,14 @@ site: models
 test:
 	$(PYTHON) -m pytest -q
 
+report:
+	$(PYTHON) scripts/report_counts.py
+
 validate: site test
 	$(PYTHON) -m conformome validate $(ACC)
 
 clean:
 	rm -rf build site/dist
+
+paper:
+	bash paper/build_formatted.sh

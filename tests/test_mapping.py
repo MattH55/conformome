@@ -1,7 +1,7 @@
 import numpy as np
 import pytest
 
-from conformome.mapping.conflicts import condition_signature, find_conflicts, not_compared
+from conformome.mapping.conflicts import CONFLICT_SIGMA, comparable, find_conflicts, not_compared
 from conformome.mapping.curation import load_curation
 from conformome.mapping.rules import anchor_rmsd, curator_assignment, rmsd_ca
 
@@ -43,12 +43,18 @@ def test_rmsd_rejects_too_few_atoms():
         rmsd_ca(np.zeros((2, 3)), np.zeros((2, 3)))
 
 
-def ev(eid, value, unc, temp=25.0, ph=7.0, ligands=(), state="S", unit="fraction"):
+def ev(eid, value, unc, temp=25.0, ph=7.0, ligands=(), state="S", unit="fraction",
+       buffer="HEPES", salt=150.0, ions=None, technique="smfret"):
     return {
         "evidence_id": eid,
-        "technique": "smfret",
+        "technique": technique,
         "observable": {"type": "population", "value": value, "unit": unit, "uncertainty": unc},
-        "conditions": {"environment": "in_vitro", "temperature_c": temp, "ph": ph, "ligands": list(ligands)},
+        "conditions": {
+            "environment": "in_vitro", "temperature_c": temp, "ph": ph, "buffer": buffer,
+            "salt_mM": salt, "ions": [{"ion": "Na+", "concentration_mM": 150.0}] if ions is None else ions,
+            "ligands": list(ligands),
+        },
+        "construct": {"description": "", "labels": []},
         "mappings": [{"state_id": state}],
     }
 
@@ -58,6 +64,8 @@ def test_disagreeing_populations_are_flagged_not_averaged():
     assert len(conflicts) == 1
     assert conflicts[0]["evidence_ids"] == ["EV-A", "EV-B"]
     assert conflicts[0]["state_id"] == "S"
+    assert conflicts[0]["threshold_sigma"] == CONFLICT_SIGMA
+    assert conflicts[0]["z"] > CONFLICT_SIGMA
 
 
 def test_agreeing_values_within_combined_uncertainty_are_not_flagged():
@@ -67,13 +75,14 @@ def test_agreeing_values_within_combined_uncertainty_are_not_flagged():
 def test_items_under_different_conditions_are_not_compared():
     items = [ev("EV-A", 0.30, 0.01, temp=25.0), ev("EV-B", 0.60, 0.01, temp=37.0)]
     assert find_conflicts(items) == []
-    assert condition_signature(items[0]["conditions"]) != condition_signature(items[1]["conditions"])
+    assert not comparable(items[0], items[1])
 
 
 def test_items_without_uncertainty_are_not_compared_and_are_counted():
     items = [ev("EV-A", 0.30, None), ev("EV-B", 0.50, 0.02)]
     assert find_conflicts(items) == []
-    assert not_compared(items) == 1  # EV-B is comparable but has no partner to compare with
+    # Both items are mapped and neither entered a comparable pair.
+    assert not_compared(items) == 2
 
 
 def test_curation_loader_rejects_unknown_state(tmp_path):
@@ -100,3 +109,19 @@ def test_different_constructs_are_not_compared():
     assert find_conflicts([a, b]) == []
     b["construct"] = {"description": "wild type"}
     assert len(find_conflicts([a, b])) == 1
+
+
+def test_k_and_na_items_are_never_compared():
+    k = ev("EV-K", 0.30, 0.01, ions=[{"ion": "K+", "concentration_mM": 100.0}])
+    na = ev("EV-NA", 0.90, 0.01, ions=[{"ion": "Na+", "concentration_mM": 100.0}])
+    assert not comparable(k, na)
+    assert find_conflicts([k, na]) == []
+
+
+def test_mg_more_than_a_factor_of_two_apart_is_not_compared():
+    low = ev("EV-LO", 0.30, 0.01, ions=[{"ion": "Mg2+", "concentration_mM": 1.0}])
+    high = ev("EV-HI", 0.90, 0.01, ions=[{"ion": "Mg2+", "concentration_mM": 10.0}])
+    near = ev("EV-NEAR", 0.90, 0.01, ions=[{"ion": "Mg2+", "concentration_mM": 1.5}])
+    assert not comparable(low, high)
+    assert comparable(low, near)
+    assert len(find_conflicts([low, high, near])) == 1

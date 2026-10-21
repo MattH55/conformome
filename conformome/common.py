@@ -63,7 +63,7 @@ def read_json(path: Path):
 
 def write_json(path: Path, obj) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(obj, indent=2, ensure_ascii=False, sort_keys=True) + "\n", encoding="utf-8")
+    path.write_text(json.dumps(obj, indent=2, ensure_ascii=False, sort_keys=True, allow_nan=False) + "\n", encoding="utf-8")
 
 
 def load_yaml(path: Path):
@@ -75,6 +75,7 @@ def fetch_url(url: str, *, body: bytes | None = None, headers: dict | None = Non
     """GET (or POST when body is given) with on-disk caching, throttling and backoff."""
     key = sha256_bytes((url + "\n").encode() + (body or b""))
     cached = cache_dir / f"{key}.bin" if cache_dir else None
+    meta = cache_dir / f"{key}.retrieved" if cache_dir else None
     if cached and cached.exists():
         return cached.read_bytes()
 
@@ -88,13 +89,13 @@ def fetch_url(url: str, *, body: bytes | None = None, headers: dict | None = Non
         _last_request[0] = time.monotonic()
         try:
             req = urllib.request.Request(url, data=body, headers=req_headers)
-            with urllib.request.urlopen(req, timeout=120) as resp:
+            with urllib.request.urlopen(req, timeout=180) as resp:
                 data = resp.read()
             break
         except urllib.error.HTTPError as err:
             if err.code < 500 and err.code != 429 or attempt == retries:
                 raise
-        except urllib.error.URLError:
+        except (urllib.error.URLError, TimeoutError):
             if attempt == retries:
                 raise
         time.sleep(delay)
@@ -102,13 +103,34 @@ def fetch_url(url: str, *, body: bytes | None = None, headers: dict | None = Non
     if cached:
         cached.parent.mkdir(parents=True, exist_ok=True)
         cached.write_bytes(data)
+        if meta is not None and not meta.exists():
+            meta.write_text(today() + "\n", encoding="utf-8")
     return data
 
 
-def record_download(paths: Paths, rel: str, urls: list[str], data: bytes) -> None:
-    """Write-through manifest: every raw file is listed with its URLs, date and SHA-256."""
+def cache_retrieved(cache_dir: Path, url: str, body: bytes | None = None) -> str | None:
+    """The date a cached response was first stored. None when this URL has not been fetched."""
+    key = sha256_bytes((url + "\n").encode() + (body or b""))
+    meta = cache_dir / f"{key}.retrieved"
+    if not meta.exists():
+        return None
+    return meta.read_text(encoding="utf-8").strip() or None
+
+
+def record_download(paths: Paths, rel: str, urls: list[str], data: bytes, *, retrieved: str | None = None,
+                    content_sha: str | None = None, request_body_sha256: list[str] | None = None) -> None:
+    """Write-through manifest: every raw file is listed with its URLs, date and SHA-256.
+
+    content_sha, when given, is the hash of the upstream payload without the retrieval date,
+    so a later run does not change the hash just because the date moved.
+    request_body_sha256 lists POST bodies (PDB GraphQL) without storing the bodies themselves.
+    """
     manifest = read_json(paths.manifest) if paths.manifest.exists() else {}
-    manifest[rel] = {"urls": urls, "retrieved": today(), "sha256": sha256_bytes(data), "bytes": len(data)}
+    row = {"urls": urls, "retrieved": retrieved or today(),
+           "sha256": content_sha or sha256_bytes(data), "bytes": len(data)}
+    if request_body_sha256:
+        row["request_body_sha256"] = request_body_sha256
+    manifest[rel] = row
     write_json(paths.manifest, manifest)
 
 

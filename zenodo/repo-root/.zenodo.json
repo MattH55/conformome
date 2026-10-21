@@ -1,0 +1,41 @@
+{
+  "upload_type": "software",
+  "title": "Conformome: pipeline and website for an index of conformational-state evidence on proteins and nucleic acids",
+  "description": "<p>Source code for Conformome (https://conformome.org): the ingest, mapping, model-export and site-generation pipeline, JSON Schemas, technique taxonomy and per-molecule curation files for proteins, RNA and DNA. This version is the release described in the Open Research Europe Software Tool Article.</p>",
+  "creators": [
+    {
+      "name": "Halma, Matthew T. J.",
+      "affiliation": "Open Source Medicine, Tallinn, Estonia",
+      "orcid": "0000-0000-0000-0000"
+    }
+  ],
+  "license": "mit",
+  "keywords": [
+    "protein conformation",
+    "RNA structure",
+    "nucleic acids",
+    "conformational ensembles",
+    "structural biology",
+    "FAIR data",
+    "database",
+    "integrative structural biology"
+  ],
+  "grants": [
+    {
+      "id": "10.13039/501100000780::859853"
+    }
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://conformome.org",
+      "relation": "isDocumentedBy",
+      "resource_type": "other"
+    },
+    {
+      "identifier": "https://github.com/matth55/conformome",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    }
+  ],
+  "language": "eng"
+}

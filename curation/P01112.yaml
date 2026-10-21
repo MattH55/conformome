@@ -23,7 +23,7 @@ rules:
     state: Ras-GDP
     confidence: high
     justification: "GDP bound and no GTP analogue present."
-    match: {ligands_any: [GDP], ligands_none: [GNP, GCP, GSP, GTP]}
+    match: {ligands_any: [GDP], ligands_none: [GNP, GCP, GSP, GTP, ALF, AF3, BEF]}
   - id: ras-gtp-analogue
     state: Ras-GTP
     confidence: high

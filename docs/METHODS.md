@@ -34,10 +34,10 @@ These are in the schema; no source fills them yet.
 One evidence item per experiment or deposit:
 
 - RCSB PDB: one item per polymer entity whose UniProt mapping includes the accession.
-- NAKB (RNA and DNA): one item per nucleic-acid entity with exactly the molecule's sequence, or, for RNA, in the same Rfam family and organism (another construct of the same RNA; the item says which).
+- NAKB (RNA and DNA): one item per nucleic-acid entity with exactly the molecule's sequence, a similar sequence (RCSB sequence search, 90% identity over 90% of the molecule) or, for RNA, the same Rfam family and organism. Other constructs must be 0.8-1.25 times the molecule's length; the item says which rule matched.
 - Rfam (RNA): one item per family hit, with the fraction of the sequence the covariance model covers. Labelled as a prediction.
 - BMRB: one item per entry in BMRB's UniProt mapping.
-- SASBDB: one item per entry whose sample lists a molecule with this UniProt code (radius of gyration with its error).
+- SASBDB: one item per entry whose sample lists a molecule with this UniProt code (radius of gyration with its error). Salts, ionic species and construct variants are read from the deposit's free-text sample, buffer and molecule fields, with the raw strings kept in `conditions.notes`.
 - DisProt: one item per curated region with a structural-state or structural-transition term; the ECO evidence code names the technique.
 - AlphaFold DB: one item per predicted model (mean pLDDT).
 - MDDB: one item per simulation project that references the accession (trajectory length).
@@ -45,15 +45,15 @@ One evidence item per experiment or deposit:
 
 Items a source returns but that cannot become evidence (an unmapped method, a non-structural term, a sample without the protein) are listed with the reason in `build/<UniProt>/ingest.json`. Each item records the technique, the construct, the conditions (environment, temperature, pH, ligands, applied force), the observable with its value, uncertainty and unit, the provenance (source, DOI, deposit ID, retrieval date, licence) and a link to the data.
 
-Conditions are always present. An unknown value is recorded as null, not omitted. Temperatures from mmCIF fields (defined in kelvin) are converted to degrees Celsius. pH and temperature are null when an entry does not carry them in its machine-readable fields.
+Conditions are always present. An unknown value is recorded as null, not omitted. For crystal structures the sample temperature is the crystal-growth temperature, not the data-collection temperature. A value above 200 is treated as kelvin. NMR sample temperatures with no unit and a value above 200 are kelvin; other missing units are degrees Celsius. A result outside −50 to 150 °C is dropped. SASBDB radius of gyration is the Guinier value only, in nm; a Guinier value above 30 and at most 300 is treated as ångström and divided by 10. pH and temperature are null when an entry does not carry them.
 
 ## Mapping
 
 Each link from an evidence item to a state is a **mapping record**: who made it, a confidence (high, medium or low), and a one-line justification. The mapping is always shown on the page next to the evidence.
 
 - **Curator assignment** (`who: curator:<name>`): the curator names the evidence and the state in `curation/<UniProt>.yaml`.
-- **Curated rule** (`who: rule:<rule id>`): the curator writes criteria in the same file: techniques, sources, observable types, environment, ligands present or absent, and words in the title. Every criterion given must hold. Each rule carries its own confidence and justification, which every mapping it makes repeats.
-- A curator assignment always wins: rules are not applied to evidence the curator has assigned.
+- **Curated rule** (`who: rule:<rule id>`): the curator writes criteria in the same file. Every criterion given must hold. `title_*` matches whole words in the deposit title only (`bound` does not match `unbound`). `construct_*` matches whole words in the construct description only. Ligand codes are compared case-insensitively. When several rules point at the same state, the mapping keeps the highest confidence (high, then medium, then low).
+- A curator assignment always wins: rules are not applied to evidence the curator has assigned. Assigning one evidence item to two different states is an error.
 - When rules for two different states match the same item, the item stays unmapped and is listed as ambiguous on the page.
 - **Anchor RMSD** (`who: rule:anchor_rmsd`): a structure clusters with an anchor when its C-alpha RMSD, after superposition on shared residues, is within a cut-off. The superposition is implemented and tested. It is not yet run on the pilot, because it needs coordinates for every candidate entry.
 
@@ -61,15 +61,17 @@ Ambiguous evidence stays unmapped. Unmapped evidence is listed on the page and c
 
 ## Conflicts
 
-Two evidence items conflict when they are mapped to the same state, report the same observable type and unit, have comparable conditions (environment, temperature within 5 °C, pH within 0.5, the same ligands), both carry an uncertainty, and their values differ by more than the combined uncertainty. Conflicts are shown on the page. Values are never averaged across a conflict.
+Two mapped evidence items conflict when they report the same observable type and unit, neither technique is a prediction, both values and both uncertainties are finite, both uncertainties are positive, the conditions are comparable, and the absolute difference is more than three times the combined uncertainty (quadrature). The threshold is `CONFLICT_SIGMA` in `conformome/mapping/conflicts.py`. Each conflict stores `z` (the difference divided by the combined uncertainty, rounded to three decimals) and `threshold_sigma`. Values are never averaged across a conflict.
 
-Force observables (unfolding, rupture and similar forces) are not compared: they depend on loading rate, which the conditions schema does not record, so values from different pulling protocols are not comparable.
+Comparable means the same environment, the same buffer text, the same construct description and label set, and the same ligand set (case-insensitive); temperature within 5 °C; pH within 0.5; `salt_mM` within a factor of two; and the same ion species, each concentration within a factor of two. A missing temperature, pH, salt, buffer or ion list is not comparable, including when both items are missing it. Unknown does not match unknown. The ion requirement is what makes only a few pairs comparable: see the WP1 note in `docs/HANDOFF.md` for why, and for the count of records that reach each gate.
 
-Evidence without an uncertainty is not compared. The page says how many items could not be compared, and that absence of a conflict is not agreement.
+Force observables (unfolding, rupture and similar forces) are not compared: they depend on loading rate, which the conditions schema does not record.
+
+The page always says how many mapped items never entered a pairwise comparison, including when conflicts are listed. Absence of a conflict is not agreement. Zero, negative and non-finite uncertainties are treated as missing.
 
 ## Coverage grid
 
-For each protein, the grid counts mapped evidence per state and technique. A state whose mapped evidence comes from exactly one technique is shaded and labelled "one method", so a state that rests on a single technique is visible at a glance.
+For each molecule, the grid counts mapped evidence per state and technique. Prediction techniques (AlphaFold, molecular dynamics, and the other `prediction: true` rows) are shown in the grid and are left out of the one-method count. A state with mapped experimental evidence from exactly one technique is labelled "one method". A state with no experimental technique is labelled "no evidence". NMR chemical shifts and NMR dynamics stay separate techniques.
 
 ## Models
 
@@ -85,11 +87,13 @@ The search page matches every word of a query against proteins (name, gene, acce
 
 ## Reproducibility
 
-Every number on the site is produced by `make site` from `build/`, which is produced by `make ingest`, `make map` and `make models` from the raw downloads in `data/raw/`. The download manifest, `data/MANIFEST.json`, records the URLs, retrieval dates and SHA-256 hashes of each raw input. Raw downloads are not committed.
+Every number on the site is produced by `make site` from `build/`, which is produced by `make ingest`, `make map` and `make models` from the raw downloads in `data/raw/`. `data/MANIFEST.json` records each raw file's URLs, the date that file was first cached, and a SHA-256 of the stored JSON with the `retrieved` field removed (coordinate files are hashed as stored). POST bodies are recorded as SHA-256 values, not as the body text. `build/BUILD.json`, rewritten on each ingest and not committed, records the git commit, the Python version, the installed package versions and hashes of `curation/`, `taxonomy/` and `targets.yaml`. Evidence is sorted by `evidence_id` before it is written. Raw downloads are not committed. The committed manifest is updated by `make download`; it is not edited by hand.
 
 ## Known limits of the pilot
 
-- Only the canonical isoform of each protein is recorded.
+- DisProt regions are kept on the page whose accession matches the DisProt entry exactly. An isoform page does not inherit the canonical entry, and the canonical page does not mix isoform residue numbers into the canonical sequence.
+- A DNA page is keyed on the first DNA entity of its NAKB anchor, in NAKB's order. A second strand is not part of the identifier. The existing id `DNA-6f16b68e4fba` is that hash and is not recomputed from a sorted strand set.
+- Ions are recorded on each evidence item and are part of the conflict comparison. NAKB fills them from the ions modelled in the entry (no concentrations); SASBDB fills them from the salts the deposit names in its free text, with concentrations where the deposit gives them. The other sources leave the list empty, and an empty list is not comparable, so their items are not compared and each page reports that in `not_compared`. `salt_mM` is the summed concentration of the recognised salts, not an ionic-strength calculation.
 - Literature extraction, PED and PDB-IHM restraint tables are not yet ingested. ATLAS is not ingested; MD comes from MDDB.
 - Entries annotated to a sibling accession with an identical sequence (for example CALM2 and CALM3 for calmodulin) are not grouped with the pilot accession. See the pilot report.
 - Curation is a draft and is labelled as such on every page until a curator reviews it.

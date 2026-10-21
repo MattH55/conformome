@@ -1,0 +1,17 @@
+{
+  "title": "Conformome",
+  "description": "Per-molecule index of conformational-state evidence for proteins and nucleic acids.",
+  "upload_type": "software",
+  "license": "MIT",
+  "version": "0.1.0",
+  "publication_date": "2026-10-19",
+  "creators": [
+    {
+      "name": "Halma, Matthew T. J.",
+      "affiliation": "Open Source Medicine, Tallinn, Estonia",
+      "orcid": "0000-0000-0000-0000"
+    }
+  ],
+  "keywords": ["protein conformation", "nucleic acids", "FAIR data"],
+  "access_right": "open"
+}

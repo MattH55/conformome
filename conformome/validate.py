@@ -135,8 +135,33 @@ def build_errors(paths: Paths, accessions: list[str]) -> list[str]:
         mapped = read_json(out / "mapped.json")
         states = {s["state_id"]: s for s in mapped["states"]}
         evidence_ids = {ev["evidence_id"] for ev in mapped["evidence"]}
+        curated_states = {s["id"]: s for s in cur.states}
+        evidence_by_deposit: dict[str, list[dict]] = {}
+        for ev in mapped["evidence"]:
+            evidence_by_deposit.setdefault(str(ev["provenance"].get("deposit_id") or ""), []).append(ev)
         for s in mapped["states"]:
             errors += [f"{acc} state {s['state_id']}: {e}" for e in check(validators["state"], s)]
+            raw_state = curated_states.get(s["state_id"], {})
+            for assumption in raw_state.get("assumptions") or []:
+                if not str(assumption).strip():
+                    errors.append(f"{acc} state {s['state_id']}: assumption is empty")
+            if s["basis"] == "observed":
+                rep = str(raw_state.get("representative_pdb") or "")
+                if not rep:
+                    errors.append(f"{acc} state {s['state_id']}: an observed state must cite representative_pdb")
+                else:
+                    reps = evidence_by_deposit.get(rep, [])
+                    if not reps:
+                        errors.append(f"{acc} state {s['state_id']}: representative {rep} has no evidence in this build")
+                    for ev in reps:
+                        basis = (taxonomy.get(ev["technique"]) or {}).get("basis")
+                        if basis != "observed":
+                            errors.append(f"{acc} state {s['state_id']}: representative {rep} is {ev['technique']}, basis {basis}")
+                observed_support = [ev for ev in mapped["evidence"]
+                                    if any(m["state_id"] == s["state_id"] for m in ev["mappings"])
+                                    and (taxonomy.get(ev["technique"]) or {}).get("basis") == "observed"]
+                if not observed_support:
+                    errors.append(f"{acc} state {s['state_id']}: observed state has no evidence from an observed technique")
             if s["parent_state"] and s["parent_state"] not in states:
                 errors.append(f"{acc} state {s['state_id']}: unknown parent {s['parent_state']}")
             errors += [f"{acc} state {s['state_id']}: {e}" for e in state_content_errors(s, molecule, vocabularies)]
@@ -147,8 +172,11 @@ def build_errors(paths: Paths, accessions: list[str]) -> list[str]:
                     errors.append(f"{acc} {ev['evidence_id']}: mapping names unknown state {m['state_id']}")
                 if m["who"].startswith("rule:") and m["who"][5:] not in rule_ids:
                     errors.append(f"{acc} {ev['evidence_id']}: mapping cites rule {m['who'][5:]}, not in {cur_path.name}")
-            if len({m["state_id"] for m in ev["mappings"]}) != len(ev["mappings"]):
+            states_for_item = {m["state_id"] for m in ev["mappings"]}
+            if len(states_for_item) != len(ev["mappings"]):
                 errors.append(f"{acc} {ev['evidence_id']}: mapped twice to the same state")
+            if len(states_for_item) > 1:
+                errors.append(f"{acc} {ev['evidence_id']}: mapped to more than one state ({', '.join(sorted(states_for_item))})")
         for amb in mapped.get("ambiguous", []):
             if amb["evidence_id"] not in evidence_ids:
                 errors.append(f"{acc} ambiguous item {amb['evidence_id']}: unknown evidence")
@@ -180,22 +208,98 @@ def build_errors(paths: Paths, accessions: list[str]) -> list[str]:
     return errors
 
 
-def downloads_redistribution_errors(paths: Paths) -> list[str]:
-    """Evidence from a source whose licence forbids redistribution must not appear in any download."""
+def _redistribution(paths: Paths) -> dict:
+    path = paths.docs.parent / "zenodo" / "redistribution.yaml"
+    if not path.exists():
+        return {"allow": [], "deny_if_contains": [], "deny_sources": []}
+    data = load_yaml(path) or {}
+    return {
+        "allow": list(data.get("allow") or []),
+        "deny_if_contains": [str(p).lower() for p in (data.get("deny_if_contains") or [])],
+        "deny_sources": set(data.get("deny_sources") or []),
+    }
+
+
+def licence_redistributable(licence: str | None, allowed: set[str], deny_phrases: tuple[str, ...] | list[str]) -> bool:
+    """Keep a record only when its stored licence string is on the allow-list and not restrictive."""
+    text = (licence or "").strip()
+    if not text or text not in allowed:
+        return False
+    low = text.lower()
+    return not any(phrase in low for phrase in deny_phrases)
+
+
+def allowed_source_names(paths: Paths) -> set[str]:
+    """Fail closed: only a SOURCES.md row with redistribute yes, plus Conformome's own curation."""
     table = sources_table(paths)
-    forbidden = {REGISTRY[k].NAME for k, row in table.items()
-                 if k in REGISTRY and row.get("redistribute", "").lower() == "no"}
-    downloads = paths.site / "downloads"
+    names = {REGISTRY[key].NAME for key, row in table.items()
+             if key in REGISTRY and row.get("redistribute", "").lower() == "yes"}
+    names.add("Conformome curation")
+    return names
+
+
+def _forbidden_source(record: dict, allowed_sources: set[str], allowed_licences: set[str],
+                      deny_phrases: list[str], deny_sources: set[str]) -> str | None:
+    prov = record.get("provenance") or {}
+    source = prov.get("source")
+    if not source:
+        return None
+    if (source not in allowed_sources or source in deny_sources
+            or not licence_redistributable(prov.get("licence"), allowed_licences, deny_phrases)):
+        return source
+    return None
+
+
+def downloads_redistribution_errors(paths: Paths) -> list[str]:
+    """No non-redistributable evidence may appear under downloads/ or in search/evidence.json."""
+    allowed = allowed_source_names(paths)
+    policy = _redistribution(paths)
+    allowed_licences = set(policy["allow"])
+    deny_phrases = policy["deny_if_contains"]
+    deny_sources = policy["deny_sources"]
     errors = []
-    for bundle_file in sorted((downloads / "proteins").glob("*.json")) if downloads.exists() else []:
-        for ev in read_json(bundle_file)["evidence"]:
-            if ev["provenance"]["source"] in forbidden:
-                errors.append(f"{bundle_file.name}: evidence {ev['evidence_id']} is from a source that may not be redistributed")
-    lines = (downloads / "all-records.jsonl").read_text(encoding="utf-8").splitlines() if downloads.exists() and (downloads / "all-records.jsonl").exists() else []
-    for line in lines:
-        rec = json.loads(line)
-        if rec.get("record_type") == "evidence" and rec["provenance"]["source"] in forbidden:
-            errors.append(f"all-records.jsonl: evidence {rec['evidence_id']} is from a source that may not be redistributed")
+
+    def reject(where: str, record: dict) -> None:
+        source = _forbidden_source(record, allowed, allowed_licences, deny_phrases, deny_sources)
+        if source:
+            errors.append(f"{where}: evidence {record.get('evidence_id', '')} from {source} is not redistributable")
+
+    downloads = paths.site / "downloads"
+    if downloads.exists():
+        jsonl = downloads / "all-records.jsonl"
+        if jsonl.exists():
+            for line in jsonl.read_text(encoding="utf-8").splitlines():
+                if not line.strip():
+                    continue
+                record = json.loads(line)
+                if record.get("record_type") == "evidence":
+                    reject("all-records.jsonl", record)
+        for bundle_file in sorted(downloads.rglob("*.json")):
+            bundle = read_json(bundle_file)
+            if not isinstance(bundle, dict) or "evidence" not in bundle:
+                continue
+            for ev in bundle["evidence"]:
+                reject(bundle_file.name, ev)
+            kept = {ev["evidence_id"] for ev in bundle["evidence"]}
+            for conflict in bundle.get("conflicts") or []:
+                leaked = [eid for eid in conflict.get("evidence_ids") or [] if eid not in kept]
+                if leaked:
+                    errors.append(f"{bundle_file.name}: conflict {conflict.get('conflict_id')} cites excluded evidence {leaked[0]}")
+            for state in bundle.get("states") or []:
+                pop = state.get("population") if isinstance(state.get("population"), dict) else None
+                leaked = [eid for eid in (pop or {}).get("evidence_ids") or [] if eid not in kept]
+                if leaked:
+                    errors.append(f"{bundle_file.name}: state {state.get('state_id')} population cites excluded evidence {leaked[0]}")
+            for transition in bundle.get("transitions") or []:
+                leaked = [eid for eid in transition.get("evidence_ids") or [] if eid not in kept]
+                if leaked:
+                    errors.append(f"{bundle_file.name}: transition {transition.get('transition_id')} cites excluded evidence {leaked[0]}")
+    search = paths.site / "search" / "evidence.json"
+    if search.exists():
+        for row in read_json(search):
+            source = row[3] if isinstance(row, list) and len(row) > 3 else None
+            if source and (source not in allowed):
+                errors.append(f"search/evidence.json: {row[0]} from {source} is not redistributable")
     return errors
 
 

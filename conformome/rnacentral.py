@@ -9,7 +9,8 @@ from __future__ import annotations
 
 import json
 
-from conformome.common import fetch_url, read_json, record_download, write_json
+from conformome.common import fetch_url, read_json
+from conformome.sources.base import commit_json
 
 NAME = "RNAcentral"
 LICENCE = "CC0 1.0 (verify)"
@@ -33,10 +34,7 @@ def fetch(paths, molecule_id: str, retrieved: str) -> dict:
     entry = json.loads(fetch_url(entry_url, cache_dir=paths.raw / "_cache"))
     hits = json.loads(fetch_url(hits_url, cache_dir=paths.raw / "_cache")).get("results") or []
     raw = {"retrieved": retrieved, "url": entry_url, "entry": entry, "rfam_hits": hits}
-    rel = f"rnacentral/{molecule_id}.json"
-    write_json(paths.raw / rel, raw)
-    record_download(paths, f"raw/{rel}", [entry_url, hits_url], (paths.raw / rel).read_bytes())
-    return raw
+    return commit_json(paths, f"rnacentral/{molecule_id}.json", raw, [entry_url, hits_url])
 
 
 def rfam_hits(raw: dict) -> list[dict]:

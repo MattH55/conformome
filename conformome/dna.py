@@ -9,7 +9,8 @@ Raw file: data/raw/dna/<molecule_id>.json
 
 from __future__ import annotations
 
-from conformome.common import read_json, record_download, write_json
+from conformome.common import read_json
+from conformome.sources.base import commit_json
 from conformome.molecule import dna_id
 from conformome.sources import nakb
 
@@ -32,10 +33,7 @@ def fetch(paths, molecule_id: str, retrieved: str, target: dict) -> dict:
         raise ValueError(f"{molecule_id}: anchor {anchor} DNA sequence {sequence} has ID {dna_id(sequence)}")
     raw = {"retrieved": retrieved, "url": url, "target": target, "anchor": docs[0], "sequence": sequence,
            "taxid": dna[0]["taxid"]}
-    rel = f"dna/{molecule_id}.json"
-    write_json(paths.raw / rel, raw)
-    record_download(paths, f"raw/{rel}", [url], (paths.raw / rel).read_bytes())
-    return raw
+    return commit_json(paths, f"dna/{molecule_id}.json", raw, [url])
 
 
 def parse(raw: dict, molecule_id: str) -> dict:

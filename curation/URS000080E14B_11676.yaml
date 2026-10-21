@@ -1,0 +1,64 @@
+# HIV-1 TAR RNA, apical 29-nt element. Draft: curator to review.
+# Every NAKB structure and BMRB entry here is this exact 29-nt sequence. Ligand-bound structures carry
+# argininamide, Tat-derived peptides, designed small molecules or engineered RRM proteins; they are
+# pooled as "bound" because their bulge and loop conformations differ by partner.
+# The excited states come from NMR relaxation dispersion and RDC-restrained ensembles (Al-Hashimi
+# laboratory); the ensembles deposited as NMR "structures" are fitted models, so the excited state is
+# inferred, not observed.
+molecule_id: URS000080E14B_11676
+name: HIV-1 TAR RNA
+curator: draft (unreviewed)
+status: draft
+as_of: 2026-10-20
+states:
+  - id: TAR-ground
+    name: ground state (free)
+    basis: observed
+    representative_pdb: "1ANR"
+    description: >-
+      Free TAR: the lower and upper helices joined by the trinucleotide bulge, with the apical loop, as
+      in 1ANR (solution NMR, 20 structures, no ligand).
+  - id: TAR-bound
+    name: partner-bound
+    basis: observed
+    representative_pdb: "1ARJ"
+    description: >-
+      TAR with a partner in the bulge or loop, as in 1ARJ (argininamide-bound, solution NMR). The two
+      helices coaxially stack when the bulge is occupied. Different partners (Tat peptides, small
+      molecules, RRM proteins) are pooled here.
+  - id: TAR-excited
+    name: excited states (low population)
+    basis: inferred
+    representative_pdb: null
+    description: >-
+      Low-population states in exchange with the ground state, detected by NMR relaxation dispersion,
+      in which bulge and apical-loop base pairs reshuffle.
+    assumptions:
+      - Populations and lifetimes come from relaxation-dispersion fits to two- or three-state exchange models.
+      - Deposited excited-state ensembles (RDC-restrained replica-averaged metadynamics, FARFAR-MD-NMR) are models fitted to NMR data, not resolved structures.
+      - Several excited states (ES1, ES2) are pooled here; no model is exported.
+assignments:
+  - {pdb: "1ANR", state: TAR-ground, confidence: high, justification: "Title: HIV-1 TAR, NMR, 20 structures; free RNA."}
+  - {pdb: "1ARJ", state: TAR-bound, confidence: high, justification: "Title: arginine-bound TAR RNA; ARG modelled."}
+  - {pdb: "5J0M", state: TAR-ground, confidence: medium, justification: "Title: ground state sampled during RDC-restrained replica-averaged metadynamics; a fitted ensemble of the ground state."}
+  - {pdb: "5J1O", state: TAR-excited, confidence: medium, justification: "Title: excited state (bound-like) sampled during RDC-restrained replica-averaged metadynamics."}
+  - {evidence_id: "EV-BMRB-30046", state: TAR-ground, confidence: medium, justification: "Shifts deposited with the ground-state ensemble 5J0M."}
+  - {evidence_id: "EV-BMRB-30049", state: TAR-excited, confidence: medium, justification: "Shifts deposited with the excited-state ensemble 5J1O."}
+  - {evidence_id: "EV-BMRB-31106", state: TAR-excited, confidence: medium, justification: "Title: FARFAR-MD-NMR ensemble of an HIV-1 TAR excited state."}
+rules:
+  - id: tar-partner-bound
+    state: TAR-bound
+    confidence: medium
+    justification: "Structure or NMR entry titled as bound to, in complex with, or recognised by a partner; or with a ligand modelled."
+    match:
+      techniques: [xray, cryoem, nmr_structure, nmr_shifts]
+      title_any: ["bound", "complex", "recognition", "co-crystal", "binding"]
+      title_none: ["excited", "ground state", "intermediate"]
+  - id: tar-ligand-modelled
+    state: TAR-bound
+    confidence: medium
+    justification: "Structure with a small molecule or amino acid modelled in the bulge or loop."
+    match:
+      techniques: [xray, cryoem, nmr_structure]
+      ligands_any: [ARG, P12, P13, P14, L8H, LQQ]
+transitions: []

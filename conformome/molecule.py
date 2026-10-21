@@ -23,14 +23,16 @@ CLOSERS = {v: k for k, v in BRACKETS.items()}
 
 
 def molecule_type(molecule_id: str) -> str:
-    """The molecule type implied by an ID's scheme."""
-    if molecule_id.startswith("URS"):
+    """The molecule type implied by an ID's scheme. An unrecognised ID is not a protein."""
+    if UNIPROT.fullmatch(molecule_id):
+        return "protein"
+    if re.fullmatch(r"URS[0-9A-F]{10}_[0-9]+", molecule_id):
         return "rna"
-    if molecule_id.startswith("DNA-"):
+    if re.fullmatch(r"DNA-[0-9a-f]{12}", molecule_id):
         return "dna"
-    if molecule_id.startswith("CPX-"):
+    if molecule_id.startswith("CPX-") and len(molecule_id) > 4:
         return "complex"
-    return "protein"
+    raise ValueError(f"unrecognised molecule id {molecule_id!r}")
 
 
 def dna_id(sequence: str) -> str:
@@ -81,6 +83,21 @@ def secondary_structure_errors(ss: dict, sequence: str | None) -> list[str]:
         if ch == "+" and seq[i] != "G":
             errors.append(f"dot-bracket marks {seq[i]}{start + i} as a tetrad guanine")
     return errors
+
+
+def nucleic_acid_info(paths, molecule_id: str) -> dict:
+    """Sequence, Rfam families and taxon of an RNA or DNA page, from the identity file download wrote."""
+    from conformome import dna, rnacentral  # identity modules import sources, which import this module
+    if molecule_type(molecule_id) == "rna":
+        raw = rnacentral.load_raw(paths, molecule_id)
+        if raw is None:
+            raise FileNotFoundError(f"{molecule_id}: download the RNAcentral entry first")
+        return {"type": "rna", "sequence": raw["entry"]["sequence"].upper(),
+                "rfam": sorted({h["rfam"] for h in rnacentral.rfam_hits(raw)}), "taxid": rnacentral.split(molecule_id)[1]}
+    raw = dna.load_raw(paths, molecule_id)
+    if raw is None:
+        raise FileNotFoundError(f"{molecule_id}: download the DNA anchor entry first")
+    return {"type": "dna", "sequence": raw["sequence"], "rfam": [], "taxid": None}
 
 
 def load_vocabularies(directory: Path) -> dict[str, dict]:
