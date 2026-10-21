@@ -1,0 +1,129 @@
+........F..F............................................................ [ 64%]
+........................................                                 [100%]
+=================================== FAILURES ===================================
+______________________ test_stats_on_a_synthetic_fixture _______________________
+
+tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_stats_on_a_synthetic_fixt0')
+
+    def test_stats_on_a_synthetic_fixture(tmp_path: Path):
+        a_items, a_responses = [], []
+        # Two equal strata, so weighted and unweighted precision match: 3/4 and 3/4.
+        flags = {RULE_SECRET: [STATE_A, STATE_A, STATE_A, "none"], "RULE-BAD": ["none", "none", "none", "none"]}
+        for rule, answers in flags.items():
+            state = STATE_A if rule == RULE_SECRET else STATE_B
+            for index, answer in enumerate(answers):
+                item, response = _item(
+                    f"EV-{rule}-{index}", "evidence",
+                    {"part": "A", "stratum": "A1", "population": 20, "assigned_state": state, "rule_id": rule,
+                     "technique": "xray", "source": "RCSB PDB", "accession": "P37840", "curator_confidence": None},
+                    answer, coverage="partial" if answer == state else "yes",
+                )
+                a_items.append(item)
+                a_responses.append(response)
+        item, response = _item(
+            "EV-miss", "evidence",
+            {"part": "A", "stratum": "A2", "population": 40, "assigned_state": None, "rule_id": None,
+             "technique": "xray", "source": "RCSB PDB", "accession": "P37840"},
+            STATE_A,
+        )
+        a_items.append(item)
+        a_responses.append(response)
+        item, response = _item(
+            "EV-amb", "evidence",
+            {"part": "A", "stratum": "A3", "population": 4, "assigned_state": None, "rule_id": None,
+             "technique": "xray", "source": "RCSB PDB", "accession": "P37840"},
+            "cannot tell",
+        )
+        a_items.append(item)
+        a_responses.append(response)
+    
+        labels = [("A", "A"), ("A", "A"), ("A", "B"), ("B", "B"), ("B", "B"), ("B", "A"), ("C", "C"), ("C", "C"), ("C", "A"), ("A", "C")]
+        b_items, b_responses = [], []
+        for index, (reference, answer) in enumerate(labels):
+            item, response = _item(
+                f"EV-B-{index}", "evidence",
+                {"part": "B", "stratum": "B-mapped", "population": 10, "assigned_state": reference, "rule_id": None,
+                 "technique": "xray", "source": "RCSB PDB", "accession": "P37840", "curator_confidence": "high"},
+                answer, note="reviewer note" if reference != answer else "",
+            )
+            b_items.append(item)
+            b_responses.append(response)
+        item, response = _item("states:P37840", "states", None, "yes")
+        b_items.append(item)
+        b_responses.append(response)
+    
+        c_spec = [
+            ("CF-1", True, "real"),
+            ("CF-2", True, "cannot tell"),
+            ("CF-3", False, "real"),
+            ("CF-4", False, "construct"),
+        ]
+        c_items, c_responses = [], []
+        for item_id, focus, verdict in c_spec:
+            item, response = _item(
+                item_id, "conflict",
+                {"part": "C", "stratum": "C-P37840" if focus else "C-rest", "population": 2, "p37840": focus,
+                 "assigned_state": None, "rule_id": None, "accession": "P37840" if focus else "P0CG48"},
+                "", verdict=verdict,
+            )
+            c_items.append(item)
+            c_responses.append(response)
+    
+        rounds = [
+            _round("A", a_items, a_responses, seed=11),
+            _round("B", b_items, b_responses, seed=12),
+            _round("C", c_items, c_responses, seed=13),
+        ]
+        result = stats.evaluate(rounds)
+        precision = result["audit"]["rules"]["precision"]["estimate"]
+        assert precision == pytest.approx(0.375)  # strata of equal size: 3/4 and 0/4
+        assert result["audit"]["rules"]["cannot_tell"] == 0
+        assert any(row["id"] == "RULE-BAD" for row in result["audit"]["revision_candidates"])
+        assert result["audit"]["unmapped"]["miss_rate"]["k"] == 1
+        assert result["audit"]["unmapped"]["missed_mappings"]["population"] == 40
+        assert result["audit"]["agreement"]["overall"]["kappa"]["estimate"] == pytest.approx(0.26 / 0.66)
+        assert result["audit"]["states_defined_differently"]["n_yes"] == 1
+        assert result["audit"]["disagreements"]
+        assert result["audit"]["conflicts"]["real_share"]["k"] == 2
+        assert result["audit"]["conflicts"]["real_share"]["n"] == 3
+        out = tmp_path / "out"
+        figs = tmp_path / "figs"
+>       stats.write_outputs(result, out, figs)
+
+tests/test_audit.py:369: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+scripts/audit_stats.py:634: in write_outputs
+    write_figure(stats, figure_dir)
+scripts/audit_stats.py:558: in write_figure
+    figstyle = _import_figstyle()
+               ^^^^^^^^^^^^^^^^^^
+scripts/audit_stats.py:553: in _import_figstyle
+    import figstyle
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    """Shared figure style and export. Full width 170 mm, single column 85 mm, text >= 7 pt."""
+    from __future__ import annotations
+    
+    import io
+    import json
+    from pathlib import Path
+    
+>   import matplotlib
+E   ModuleNotFoundError: No module named 'matplotlib'
+
+paper/scripts/figstyle.py:8: ModuleNotFoundError
+_____________ test_playwright_answers_three_items_and_exports_csv ______________
+
+tmp_path = PosixPath('/tmp/pytest-of-runner/pytest-0/test_playwright_answers_three_0')
+
+    def test_playwright_answers_three_items_and_exports_csv(tmp_path: Path):
+        browser_path = _browser()
+        if browser_path is None:
+>           pytest.fail("Chrome or Edge is required to check the review sheet")
+E           Failed: Chrome or Edge is required to check the review sheet
+
+tests/test_audit.py:439: Failed
+=========================== short test summary info ============================
+FAILED tests/test_audit.py::test_stats_on_a_synthetic_fixture - ModuleNotFoundError: No module named 'matplotlib'
+FAILED tests/test_audit.py::test_playwright_answers_three_items_and_exports_csv - Failed: Chrome or Edge is required to check the review sheet
+2 failed, 110 passed in 3.76s
