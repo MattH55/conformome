@@ -1,0 +1,526 @@
+python3 -m conformome ingest 
+ingest DNA-6f16b68e4fba: 14 evidence items (NAKB 14)
+ingest O00571: 38 evidence items (RCSB PDB 18, BMRB 11, SASBDB 6, DisProt 1, AlphaFold DB 1, MDDB 0, SMASH-BIO 1)
+ingest O60610: 12 evidence items (RCSB PDB 2, BMRB 1, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 8)
+ingest O95347: 14 evidence items (RCSB PDB 5, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 8)
+ingest P00441: 191 evidence items (RCSB PDB 163, BMRB 12, SASBDB 0, DisProt 6, AlphaFold DB 1, MDDB 1, SMASH-BIO 8)
+ingest P00519: 124 evidence items (RCSB PDB 85, BMRB 35, SASBDB 0, DisProt 2, AlphaFold DB 1, MDDB 1, SMASH-BIO 0)
+ingest P00644: 335 evidence items (RCSB PDB 298, BMRB 34, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 2)
+ingest P00648: 71 evidence items (RCSB PDB 53, BMRB 10, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 2, SMASH-BIO 5)
+ingest P00698: 1484 evidence items (RCSB PDB 1386, BMRB 39, SASBDB 33, DisProt 0, AlphaFold DB 1, MDDB 5, SMASH-BIO 20)
+ingest P00720: 793 evidence items (RCSB PDB 781, BMRB 3, SASBDB 0, DisProt 0, AlphaFold DB 0, MDDB 1, SMASH-BIO 8)
+ingest P00974: 169 evidence items (RCSB PDB 128, BMRB 23, SASBDB 10, DisProt 0, AlphaFold DB 1, MDDB 7, SMASH-BIO 0)
+ingest P01053: 37 evidence items (RCSB PDB 26, BMRB 5, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 5, SMASH-BIO 0)
+ingest P01112: 295 evidence items (RCSB PDB 285, BMRB 7, SASBDB 0, DisProt 1, AlphaFold DB 1, MDDB 1, SMASH-BIO 0)
+ingest P01848: 180 evidence items (RCSB PDB 123, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 56)
+ingest P02185: 397 evidence items (RCSB PDB 356, BMRB 40, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 0)
+ingest P02452: 147 evidence items (RCSB PDB 20, BMRB 1, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 125)
+ingest P02545: 51 evidence items (RCSB PDB 29, BMRB 1, SASBDB 0, DisProt 1, AlphaFold DB 1, MDDB 1, SMASH-BIO 18)
+ingest P02549: 52 evidence items (RCSB PDB 3, BMRB 1, SASBDB 0, DisProt 1, AlphaFold DB 1, MDDB 1, SMASH-BIO 45)
+ingest P02671: 143 evidence items (RCSB PDB 44, BMRB 0, SASBDB 0, DisProt 1, AlphaFold DB 1, MDDB 0, SMASH-BIO 97)
+ingest P02701: 66 evidence items (RCSB PDB 37, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 2, MDDB 0, SMASH-BIO 27)
+ingest P02751: 216 evidence items (RCSB PDB 71, BMRB 5, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 1, SMASH-BIO 138)
+ingest P02829: 56 evidence items (RCSB PDB 50, BMRB 2, SASBDB 0, DisProt 1, AlphaFold DB 1, MDDB 2, SMASH-BIO 0)
+ingest P02920: 24 evidence items (RCSB PDB 15, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 8)
+ingest P02925: 18 evidence items (RCSB PDB 7, BMRB 0, SASBDB 9, DisProt 0, AlphaFold DB 1, MDDB 1, SMASH-BIO 0)
+ingest P02945: 240 evidence items (RCSB PDB 182, BMRB 4, SASBDB 2, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 51)
+ingest P03018: 18 evidence items (RCSB PDB 7, BMRB 1, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 9)
+ingest P03023: 49 evidence items (RCSB PDB 25, BMRB 14, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 9)
+ingest P03069: 212 evidence items (RCSB PDB 177, BMRB 22, SASBDB 0, DisProt 3, AlphaFold DB 1, MDDB 2, SMASH-BIO 7)
+ingest P04050: 316 evidence items (RCSB PDB 288, BMRB 3, SASBDB 1, DisProt 5, AlphaFold DB 1, MDDB 0, SMASH-BIO 18)
+ingest P04156: 121 evidence items (RCSB PDB 72, BMRB 25, SASBDB 4, DisProt 2, AlphaFold DB 1, MDDB 0, SMASH-BIO 17)
+ingest P04275: 127 evidence items (RCSB PDB 57, BMRB 2, SASBDB 11, DisProt 1, AlphaFold DB 0, MDDB 0, SMASH-BIO 56)
+ingest P04439: 312 evidence items (RCSB PDB 275, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 36)
+ingest P04637: 388 evidence items (RCSB PDB 325, BMRB 14, SASBDB 6, DisProt 27, AlphaFold DB 1, MDDB 1, SMASH-BIO 14)
+ingest P04925: 52 evidence items (RCSB PDB 31, BMRB 14, SASBDB 3, DisProt 1, AlphaFold DB 1, MDDB 1, SMASH-BIO 1)
+ingest P05067: 380 evidence items (RCSB PDB 271, BMRB 52, SASBDB 7, DisProt 5, AlphaFold DB 1, MDDB 6, SMASH-BIO 38)
+ingest P05455: 27 evidence items (RCSB PDB 11, BMRB 6, SASBDB 0, DisProt 1, AlphaFold DB 1, MDDB 0, SMASH-BIO 8)
+ingest P05556: 265 evidence items (RCSB PDB 22, BMRB 2, SASBDB 0, DisProt 2, AlphaFold DB 1, MDDB 0, SMASH-BIO 238)
+ingest P05787: 17 evidence items (RCSB PDB 3, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 13)
+ingest P06654: 86 evidence items (RCSB PDB 54, BMRB 6, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 5, SMASH-BIO 20)
+ingest P07271: 15 evidence items (RCSB PDB 5, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 9)
+ingest P07359: 49 evidence items (RCSB PDB 21, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 27)
+ingest P07437: 381 evidence items (RCSB PDB 21, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 359)
+ingest P07550: 157 evidence items (RCSB PDB 149, BMRB 1, SASBDB 0, DisProt 3, AlphaFold DB 1, MDDB 0, SMASH-BIO 3)
+ingest P07751: 77 evidence items (RCSB PDB 64, BMRB 7, SASBDB 1, DisProt 0, AlphaFold DB 1, MDDB 4, SMASH-BIO 0)
+ingest P07900: 474 evidence items (RCSB PDB 450, BMRB 11, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 2, SMASH-BIO 10)
+ingest P08191: 102 evidence items (RCSB PDB 83, BMRB 3, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 15)
+ingest P08394: 33 evidence items (RCSB PDB 18, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 14)
+ingest P08670: 81 evidence items (RCSB PDB 27, BMRB 0, SASBDB 0, DisProt 3, AlphaFold DB 1, MDDB 0, SMASH-BIO 50)
+ingest P09055: 15 evidence items (RCSB PDB 3, BMRB 1, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 10)
+ingest P09493: 42 evidence items (RCSB PDB 16, BMRB 3, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 22)
+ingest P0A334: 96 evidence items (RCSB PDB 89, BMRB 6, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 0)
+ingest P0A6H1: 45 evidence items (RCSB PDB 27, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 17)
+ingest P0A6Y8: 93 evidence items (RCSB PDB 68, BMRB 2, SASBDB 1, DisProt 1, AlphaFold DB 1, MDDB 1, SMASH-BIO 19)
+ingest P0A7G6: 59 evidence items (RCSB PDB 24, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 1, SMASH-BIO 33)
+ingest P0A8V2: 490 evidence items (RCSB PDB 383, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 106)
+ingest P0ABB0: 43 evidence items (RCSB PDB 24, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 18)
+ingest P0ABQ4: 192 evidence items (RCSB PDB 165, BMRB 5, SASBDB 0, DisProt 12, AlphaFold DB 1, MDDB 0, SMASH-BIO 9)
+ingest P0ABZ1: 19 evidence items (RCSB PDB 0, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 18)
+ingest P0ACF0: 21 evidence items (RCSB PDB 11, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 9)
+ingest P0ACF8: 19 evidence items (RCSB PDB 5, BMRB 3, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 1, SMASH-BIO 9)
+ingest P0AE67: 69 evidence items (RCSB PDB 61, BMRB 6, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 1, SMASH-BIO 0)
+ingest P0AEX9: 566 evidence items (RCSB PDB 538, BMRB 8, SASBDB 5, DisProt 0, AlphaFold DB 1, MDDB 1, SMASH-BIO 13)
+ingest P0AGE0: 38 evidence items (RCSB PDB 14, BMRB 1, SASBDB 0, DisProt 1, AlphaFold DB 1, MDDB 0, SMASH-BIO 21)
+ingest P0CG48: 505 evidence items (RCSB PDB 380, BMRB 39, SASBDB 15, DisProt 0, AlphaFold DB 1, MDDB 2, SMASH-BIO 68)
+ingest P0DP23: 400 evidence items (RCSB PDB 345, BMRB 21, SASBDB 8, DisProt 2, AlphaFold DB 1, MDDB 3, SMASH-BIO 20)
+ingest P0DTC2: 2468 evidence items (RCSB PDB 2294, BMRB 6, SASBDB 6, DisProt 25, AlphaFold DB 1, MDDB 100, SMASH-BIO 36)
+ingest P10408: 23 evidence items (RCSB PDB 10, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 12)
+ingest P10636: 369 evidence items (RCSB PDB 315, BMRB 10, SASBDB 8, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 35)
+ingest P11276: 12 evidence items (RCSB PDB 2, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 1, SMASH-BIO 8)
+ingest P12023: 16 evidence items (RCSB PDB 6, BMRB 8, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 1)
+ingest P12830: 99 evidence items (RCSB PDB 22, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 76)
+ingest P12882: 37 evidence items (RCSB PDB 0, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 36)
+ingest P12883: 88 evidence items (RCSB PDB 47, BMRB 1, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 39)
+ingest P13738: 30 evidence items (RCSB PDB 21, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 8)
+ingest P14151: 14 evidence items (RCSB PDB 3, BMRB 1, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 9)
+ingest P15043: 17 evidence items (RCSB PDB 3, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 13)
+ingest P15502: 16 evidence items (RCSB PDB 0, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 15)
+ingest P15941: 57 evidence items (RCSB PDB 24, BMRB 0, SASBDB 0, DisProt 1, AlphaFold DB 1, MDDB 0, SMASH-BIO 31)
+ingest P16109: 38 evidence items (RCSB PDB 5, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 1, SMASH-BIO 31)
+ingest P16157: 37 evidence items (RCSB PDB 21, BMRB 1, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 14)
+ingest P16581: 30 evidence items (RCSB PDB 17, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 12)
+ingest P18206: 92 evidence items (RCSB PDB 38, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 1, SMASH-BIO 52)
+ingest P21333: 62 evidence items (RCSB PDB 26, BMRB 2, SASBDB 13, DisProt 1, AlphaFold DB 1, MDDB 0, SMASH-BIO 19)
+ingest P21579: 35 evidence items (RCSB PDB 24, BMRB 1, SASBDB 0, DisProt 1, AlphaFold DB 1, MDDB 0, SMASH-BIO 8)
+ingest P22629: 424 evidence items (RCSB PDB 321, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 102)
+ingest P24821: 37 evidence items (RCSB PDB 21, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 1, SMASH-BIO 14)
+ingest P26039: 81 evidence items (RCSB PDB 55, BMRB 19, SASBDB 0, DisProt 3, AlphaFold DB 1, MDDB 0, SMASH-BIO 3)
+ingest P27694: 88 evidence items (RCSB PDB 48, BMRB 1, SASBDB 4, DisProt 2, AlphaFold DB 1, MDDB 0, SMASH-BIO 32)
+ingest P29751: 21 evidence items (RCSB PDB 0, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 20)
+ingest P33176: 260 evidence items (RCSB PDB 33, BMRB 1, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 1, SMASH-BIO 224)
+ingest P35221: 39 evidence items (RCSB PDB 10, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 28)
+ingest P35222: 76 evidence items (RCSB PDB 52, BMRB 0, SASBDB 0, DisProt 6, AlphaFold DB 1, MDDB 0, SMASH-BIO 17)
+ingest P35579: 365 evidence items (RCSB PDB 8, BMRB 3, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 353)
+ingest P37840: 346 evidence items (RCSB PDB 253, BMRB 47, SASBDB 11, DisProt 15, AlphaFold DB 1, MDDB 0, SMASH-BIO 19)
+ingest P39476: 25 evidence items (RCSB PDB 22, BMRB 1, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 1)
+ingest P40460: 31 evidence items (RCSB PDB 9, BMRB 1, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 20)
+ingest P42212: 722 evidence items (RCSB PDB 657, BMRB 2, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 62)
+ingest P42858: 78 evidence items (RCSB PDB 30, BMRB 3, SASBDB 2, DisProt 35, AlphaFold DB 0, MDDB 0, SMASH-BIO 8)
+ingest P49934: 26 evidence items (RCSB PDB 1, BMRB 2, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 22)
+ingest P52732: 87 evidence items (RCSB PDB 62, BMRB 0, SASBDB 0, DisProt 7, AlphaFold DB 1, MDDB 0, SMASH-BIO 17)
+ingest P54132: 34 evidence items (RCSB PDB 17, BMRB 3, SASBDB 0, DisProt 5, AlphaFold DB 1, MDDB 0, SMASH-BIO 8)
+ingest P60709: 652 evidence items (RCSB PDB 88, BMRB 0, SASBDB 0, DisProt 1, AlphaFold DB 1, MDDB 0, SMASH-BIO 562)
+ingest P60710: 32 evidence items (RCSB PDB 1, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 30)
+ingest P60711: 11 evidence items (RCSB PDB 1, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 9)
+ingest P61764: 10 evidence items (RCSB PDB 1, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 8)
+ingest P62894: 34 evidence items (RCSB PDB 5, BMRB 26, SASBDB 1, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 1)
+ingest P62937: 215 evidence items (RCSB PDB 205, BMRB 8, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 1, SMASH-BIO 0)
+ingest P68431: 708 evidence items (RCSB PDB 586, BMRB 11, SASBDB 2, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 108)
+ingest P69441: 31 evidence items (RCSB PDB 29, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 1)
+ingest P99999: 32 evidence items (RCSB PDB 13, BMRB 7, SASBDB 1, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 10)
+ingest Q05397: 57 evidence items (RCSB PDB 41, BMRB 1, SASBDB 0, DisProt 1, AlphaFold DB 1, MDDB 0, SMASH-BIO 13)
+ingest Q06609: 127 evidence items (RCSB PDB 55, BMRB 2, SASBDB 38, DisProt 6, AlphaFold DB 1, MDDB 0, SMASH-BIO 25)
+ingest Q12756: 35 evidence items (RCSB PDB 21, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 13)
+ingest Q13148: 69 evidence items (RCSB PDB 46, BMRB 13, SASBDB 2, DisProt 6, AlphaFold DB 1, MDDB 0, SMASH-BIO 1)
+ingest Q13526: 222 evidence items (RCSB PDB 194, BMRB 25, SASBDB 0, DisProt 1, AlphaFold DB 1, MDDB 1, SMASH-BIO 0)
+ingest Q14204: 210 evidence items (RCSB PDB 98, BMRB 1, SASBDB 0, DisProt 0, AlphaFold DB 0, MDDB 0, SMASH-BIO 111)
+ingest Q14242: 20 evidence items (RCSB PDB 1, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 18)
+ingest Q14683: 48 evidence items (RCSB PDB 18, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 29)
+ingest Q16623: 43 evidence items (RCSB PDB 0, BMRB 3, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 39)
+ingest Q51918: 39 evidence items (RCSB PDB 12, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 26)
+ingest Q64727: 14 evidence items (RCSB PDB 2, BMRB 1, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 10)
+ingest Q76LX8: 14 evidence items (RCSB PDB 5, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 8)
+ingest Q8VDD5: 15 evidence items (RCSB PDB 0, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 14)
+ingest Q8WZ42: 279 evidence items (RCSB PDB 66, BMRB 2, SASBDB 8, DisProt 1, AlphaFold DB 0, MDDB 2, SMASH-BIO 200)
+ingest Q99ZW2: 161 evidence items (RCSB PDB 141, BMRB 1, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 18)
+ingest Q9BYF1: 497 evidence items (RCSB PDB 359, BMRB 1, SASBDB 3, DisProt 1, AlphaFold DB 1, MDDB 100, SMASH-BIO 32)
+ingest Q9UM54: 27 evidence items (RCSB PDB 8, BMRB 6, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 12)
+ingest Q9Y490: 74 evidence items (RCSB PDB 4, BMRB 16, SASBDB 3, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 50)
+ingest Q9Y4I1: 49 evidence items (RCSB PDB 7, BMRB 0, SASBDB 0, DisProt 0, AlphaFold DB 1, MDDB 0, SMASH-BIO 41)
+ingest URS000080DF85_672: 13 evidence items (NAKB 12, Rfam 1)
+python3 -m conformome map 
+map DNA-6f16b68e4fba: 0 states, 14 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map O00571: 0 states, 38 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map O60610: 0 states, 12 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map O95347: 0 states, 14 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P00441: 0 states, 191 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P00519: 4 states, 124 evidence (12 mapped, 8 by rule, 1 ambiguous), 0 conflicts, 0 transitions
+map P00644: 3 states, 335 evidence (301 mapped, 299 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P00648: 2 states, 71 evidence (64 mapped, 63 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P00698: 3 states, 1484 evidence (1454 mapped, 1453 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P00720: 3 states, 793 evidence (9 mapped, 6 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P00974: 2 states, 169 evidence (160 mapped, 159 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P01053: 2 states, 37 evidence (37 mapped, 36 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P01112: 2 states, 295 evidence (251 mapped, 249 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P01848: 0 states, 180 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P02185: 4 states, 397 evidence (112 mapped, 108 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P02452: 0 states, 147 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P02545: 0 states, 51 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P02549: 0 states, 52 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P02671: 0 states, 143 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P02701: 0 states, 66 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P02751: 0 states, 216 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P02829: 2 states, 56 evidence (2 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P02920: 0 states, 24 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P02925: 2 states, 18 evidence (6 mapped, 4 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P02945: 0 states, 240 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P03018: 0 states, 18 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P03023: 2 states, 49 evidence (15 mapped, 13 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P03069: 0 states, 212 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P04050: 0 states, 316 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P04156: 0 states, 121 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P04275: 0 states, 127 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P04439: 0 states, 312 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P04637: 0 states, 388 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P04925: 0 states, 52 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P05067: 0 states, 380 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P05455: 0 states, 27 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P05556: 0 states, 265 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P05787: 0 states, 17 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P06654: 1 states, 86 evidence (30 mapped, 29 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P07271: 0 states, 15 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P07359: 0 states, 49 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P07437: 0 states, 381 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P07550: 2 states, 157 evidence (18 mapped, 15 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P07751: 2 states, 77 evidence (48 mapped, 47 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P07900: 0 states, 474 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P08191: 0 states, 102 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P08394: 0 states, 33 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P08670: 0 states, 81 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P09055: 0 states, 15 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P09493: 0 states, 42 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P0A334: 3 states, 96 evidence (21 mapped, 18 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P0A6H1: 0 states, 45 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P0A6Y8: 2 states, 93 evidence (2 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P0A7G6: 0 states, 59 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P0A8V2: 0 states, 490 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P0ABB0: 0 states, 43 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P0ABQ4: 2 states, 192 evidence (80 mapped, 78 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P0ABZ1: 0 states, 19 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P0ACF0: 0 states, 21 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P0ACF8: 0 states, 19 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P0AE67: 2 states, 69 evidence (61 mapped, 59 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P0AEX9: 2 states, 566 evidence (526 mapped, 524 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P0AGE0: 0 states, 38 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P0CG48: 1 states, 505 evidence (420 mapped, 419 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P0DP23: 2 states, 400 evidence (2 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P0DTC2: 0 states, 2468 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P10408: 0 states, 23 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P10636: 3 states, 369 evidence (144 mapped, 142 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P11276: 0 states, 12 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P12023: 0 states, 16 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P12830: 0 states, 99 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P12882: 0 states, 37 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P12883: 0 states, 88 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P13738: 0 states, 30 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P14151: 0 states, 14 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P15043: 0 states, 17 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P15502: 0 states, 16 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P15941: 0 states, 57 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P16109: 0 states, 38 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P16157: 0 states, 37 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P16581: 0 states, 30 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P18206: 0 states, 92 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P21333: 0 states, 62 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P21579: 0 states, 35 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P22629: 0 states, 424 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P24821: 0 states, 37 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P26039: 0 states, 81 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P27694: 0 states, 88 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P29751: 0 states, 21 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P33176: 0 states, 260 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P35221: 0 states, 39 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P35222: 0 states, 76 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P35579: 0 states, 365 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P37840: 3 states, 346 evidence (222 mapped, 220 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P39476: 0 states, 25 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P40460: 0 states, 31 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P42212: 2 states, 722 evidence (660 mapped, 659 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P42858: 0 states, 78 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P49934: 0 states, 26 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P52732: 0 states, 87 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P54132: 0 states, 34 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P60709: 0 states, 652 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P60710: 0 states, 32 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P60711: 0 states, 11 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P61764: 0 states, 10 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P62894: 0 states, 34 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P62937: 2 states, 215 evidence (204 mapped, 203 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P68431: 0 states, 708 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P69441: 2 states, 31 evidence (19 mapped, 17 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map P99999: 0 states, 32 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map Q05397: 0 states, 57 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map Q06609: 0 states, 127 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map Q12756: 0 states, 35 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map Q13148: 0 states, 69 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map Q13526: 2 states, 222 evidence (222 mapped, 221 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map Q14204: 0 states, 210 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map Q14242: 0 states, 20 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map Q14683: 0 states, 48 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map Q16623: 0 states, 43 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map Q51918: 0 states, 39 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map Q64727: 0 states, 14 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map Q76LX8: 0 states, 14 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map Q8VDD5: 0 states, 15 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map Q8WZ42: 2 states, 279 evidence (19 mapped, 18 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map Q99ZW2: 0 states, 161 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map Q9BYF1: 0 states, 497 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map Q9UM54: 0 states, 27 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map Q9Y490: 2 states, 74 evidence (3 mapped, 2 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map Q9Y4I1: 0 states, 49 evidence (0 mapped, 0 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+map URS000080DF85_672: 3 states, 13 evidence (10 mapped, 3 by rule, 0 ambiguous), 0 conflicts, 0 transitions
+python3 -m conformome models 
+models DNA-6f16b68e4fba: 0 model files
+models O00571: 0 model files
+models O60610: 0 model files
+models O95347: 0 model files
+models P00441: 0 model files
+models P00519: 8 model files
+models P00644: 4 model files
+models P00648: 2 model files
+models P00698: 4 model files
+models P00720: 6 model files
+models P00974: 2 model files
+models P01053: 2 model files
+models P01112: 4 model files
+models P01848: 0 model files
+models P02185: 8 model files
+models P02452: 0 model files
+models P02545: 0 model files
+models P02549: 0 model files
+models P02671: 0 model files
+models P02701: 0 model files
+models P02751: 0 model files
+models P02829: 4 model files
+models P02920: 0 model files
+models P02925: 4 model files
+models P02945: 0 model files
+models P03018: 0 model files
+models P03023: 4 model files
+models P03069: 0 model files
+models P04050: 0 model files
+models P04156: 0 model files
+models P04275: 0 model files
+models P04439: 0 model files
+models P04637: 0 model files
+models P04925: 0 model files
+models P05067: 0 model files
+models P05455: 0 model files
+models P05556: 0 model files
+models P05787: 0 model files
+models P06654: 2 model files
+models P07271: 0 model files
+models P07359: 0 model files
+models P07437: 0 model files
+models P07550: 4 model files
+models P07751: 2 model files
+models P07900: 0 model files
+models P08191: 0 model files
+models P08394: 0 model files
+models P08670: 0 model files
+models P09055: 0 model files
+models P09493: 0 model files
+models P0A334: 6 model files
+models P0A6H1: 0 model files
+models P0A6Y8: 4 model files
+models P0A7G6: 0 model files
+models P0A8V2: 0 model files
+models P0ABB0: 0 model files
+models P0ABQ4: 4 model files
+models P0ABZ1: 0 model files
+models P0ACF0: 0 model files
+models P0ACF8: 0 model files
+models P0AE67: 4 model files
+models P0AEX9: 4 model files
+models P0AGE0: 0 model files
+models P0CG48: 2 model files
+models P0DP23: 4 model files
+models P0DTC2: 0 model files
+models P10408: 0 model files
+models P10636: 4 model files
+models P11276: 0 model files
+models P12023: 0 model files
+models P12830: 0 model files
+models P12882: 0 model files
+models P12883: 0 model files
+models P13738: 0 model files
+models P14151: 0 model files
+models P15043: 0 model files
+models P15502: 0 model files
+models P15941: 0 model files
+models P16109: 0 model files
+models P16157: 0 model files
+models P16581: 0 model files
+models P18206: 0 model files
+models P21333: 0 model files
+models P21579: 0 model files
+models P22629: 0 model files
+models P24821: 0 model files
+models P26039: 0 model files
+models P27694: 0 model files
+models P29751: 0 model files
+models P33176: 0 model files
+models P35221: 0 model files
+models P35222: 0 model files
+models P35579: 0 model files
+models P37840: 4 model files
+models P39476: 0 model files
+models P40460: 0 model files
+models P42212: 2 model files
+models P42858: 0 model files
+models P49934: 0 model files
+models P52732: 0 model files
+models P54132: 0 model files
+models P60709: 0 model files
+models P60710: 0 model files
+models P60711: 0 model files
+models P61764: 0 model files
+models P62894: 0 model files
+models P62937: 2 model files
+models P68431: 0 model files
+models P69441: 4 model files
+models P99999: 0 model files
+models Q05397: 0 model files
+models Q06609: 0 model files
+models Q12756: 0 model files
+models Q13148: 0 model files
+models Q13526: 2 model files
+models Q14204: 0 model files
+models Q14242: 0 model files
+models Q14683: 0 model files
+models Q16623: 0 model files
+models Q51918: 0 model files
+models Q64727: 0 model files
+models Q76LX8: 0 model files
+models Q8VDD5: 0 model files
+models Q8WZ42: 2 model files
+models Q99ZW2: 0 model files
+models Q9BYF1: 0 model files
+models Q9UM54: 0 model files
+models Q9Y490: 2 model files
+models Q9Y4I1: 0 model files
+models URS000080DF85_672: 6 model files
+python3 -m conformome conformations 
+conformations DNA-6f16b68e4fba: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations O00571: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations O60610: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations O95347: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P00441: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P00519: 4 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P00644: 2 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P00648: 1 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P00698: 2 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P00720: 3 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P00974: 1 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P01053: 1 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P01112: 2 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P01848: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P02185: 4 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P02452: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P02545: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P02549: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P02671: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P02701: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P02751: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P02829: 2 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P02920: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P02925: 2 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P02945: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P03018: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P03023: 2 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P03069: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P04050: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P04156: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P04275: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P04439: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P04637: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P04925: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P05067: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P05455: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P05556: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P05787: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P06654: 1 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P07271: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P07359: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P07437: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P07550: 2 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P07751: 1 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P07900: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P08191: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P08394: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P08670: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P09055: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P09493: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P0A334: 3 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P0A6H1: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P0A6Y8: 2 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P0A7G6: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P0A8V2: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P0ABB0: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P0ABQ4: 2 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P0ABZ1: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P0ACF0: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P0ACF8: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P0AE67: 2 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P0AEX9: 2 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P0AGE0: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P0CG48: 1 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P0DP23: 2 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P0DTC2: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P10408: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P10636: 2 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P11276: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P12023: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P12830: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P12882: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P12883: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P13738: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P14151: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P15043: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P15502: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P15941: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P16109: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P16157: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P16581: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P18206: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P21333: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P21579: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P22629: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P24821: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P26039: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P27694: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P29751: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P33176: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P35221: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P35222: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P35579: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P37840: 2 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P39476: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P40460: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P42212: 1 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P42858: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P49934: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P52732: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P54132: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P60709: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P60710: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P60711: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P61764: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P62894: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P62937: 1 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P68431: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P69441: 2 conformations, 0 force segments, 0 segments with an accepted best match
+conformations P99999: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations Q05397: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations Q06609: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations Q12756: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations Q13148: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations Q13526: 1 conformations, 0 force segments, 0 segments with an accepted best match
+conformations Q14204: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations Q14242: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations Q14683: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations Q16623: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations Q51918: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations Q64727: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations Q76LX8: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations Q8VDD5: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations Q8WZ42: 1 conformations, 0 force segments, 0 segments with an accepted best match
+conformations Q99ZW2: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations Q9BYF1: 0 conformations, 2 force segments, 0 segments with an accepted best match
+conformations Q9UM54: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations Q9Y490: 1 conformations, 0 force segments, 0 segments with an accepted best match
+conformations Q9Y4I1: 0 conformations, 0 force segments, 0 segments with an accepted best match
+conformations URS000080DF85_672: 4 conformations, 0 force segments, 0 segments with an accepted best match
+predict URS000080DF85_672: 7 predicted conformations, 566 structures; best base-pair F1 vs curated 0.978
+python3 -m conformome site 

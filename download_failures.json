@@ -1,0 +1,177 @@
+[
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "O00571",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P00698",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P00974",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P02925",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P02945",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P04050",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P04156",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P04275",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P04637",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P04925",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P05067",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P07751",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P0A6Y8",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P0ACF0",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P0AEX9",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P0CG48",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P0DP23",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P0DTC2",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P10408",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P10636",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P15502",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P21333",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P27694",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P37840",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P42858",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P60709",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P62894",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P68431",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "P99999",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "Q06609",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "Q13148",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "Q76LX8",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "Q8WZ42",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "Q9BYF1",
+    "source": "SASBDB"
+  },
+  {
+    "error": "HTTPError: HTTP Error 404: Not Found",
+    "molecule_id": "Q9Y490",
+    "source": "SASBDB"
+  }
+]
