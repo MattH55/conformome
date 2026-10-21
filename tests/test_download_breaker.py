@@ -63,3 +63,11 @@ def test_a_success_resets_the_count(monkeypatch, tmp_path):
     accs = list(pattern)
     _run(monkeypatch, tmp_path, [flaky], accs)
     assert flaky.calls == accs
+
+
+def test_pdb_search_with_no_hits_returns_no_ids(monkeypatch, tmp_path):
+    """RCSB Search returns an empty body (HTTP 204) for an accession with no PDB entries."""
+    from conformome.sources import pdb
+    monkeypatch.setattr(pdb, "fetch_url", lambda url, cache_dir=None: b"")
+    ids, url = pdb.search_entry_ids("P0ABZ1", tmp_path)
+    assert ids == [] and url.startswith(pdb.SEARCH_URL)

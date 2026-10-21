@@ -90,7 +90,9 @@ def search_entry_ids(accession: str, cache_dir) -> tuple[list[str], str]:
         "return_type": "polymer_entity",
     }
     url = SEARCH_URL + "?json=" + urllib.parse.quote(json.dumps(query))
-    hits = json.loads(fetch_url(url, cache_dir=cache_dir)).get("result_set") or []
+    body = fetch_url(url, cache_dir=cache_dir)
+    # RCSB Search answers 204 No Content (an empty body) when nothing matches.
+    hits = json.loads(body).get("result_set") or [] if body.strip() else []
     return sorted({hit["identifier"].split("_")[0] for hit in hits}), url
 
 
