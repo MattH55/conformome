@@ -37,7 +37,7 @@ One evidence item per experiment or deposit:
 - NAKB (RNA and DNA): one item per nucleic-acid entity with exactly the molecule's sequence, a similar sequence (RCSB sequence search, 90% identity over 90% of the molecule) or, for RNA, the same Rfam family and organism. Other constructs must be 0.8-1.25 times the molecule's length; the item says which rule matched.
 - Rfam (RNA): one item per family hit, with the fraction of the sequence the covariance model covers. Labelled as a prediction.
 - BMRB: one item per entry in BMRB's UniProt mapping.
-- SASBDB: one item per entry whose sample lists a molecule with this UniProt code (radius of gyration with its error).
+- SASBDB: one item per entry whose sample lists a molecule with this UniProt code (radius of gyration with its error). Salts, ionic species and construct variants are read from the deposit's free-text sample, buffer and molecule fields, with the raw strings kept in `conditions.notes`.
 - DisProt: one item per curated region with a structural-state or structural-transition term; the ECO evidence code names the technique.
 - AlphaFold DB: one item per predicted model (mean pLDDT).
 - MDDB: one item per simulation project that references the accession (trajectory length).
@@ -63,7 +63,7 @@ Ambiguous evidence stays unmapped. Unmapped evidence is listed on the page and c
 
 Two mapped evidence items conflict when they report the same observable type and unit, neither technique is a prediction, both values and both uncertainties are finite, both uncertainties are positive, the conditions are comparable, and the absolute difference is more than three times the combined uncertainty (quadrature). The threshold is `CONFLICT_SIGMA` in `conformome/mapping/conflicts.py`. Each conflict stores `z` (the difference divided by the combined uncertainty, rounded to three decimals) and `threshold_sigma`. Values are never averaged across a conflict.
 
-Comparable means the same environment, the same buffer text, the same construct description and label set, and the same ligand set (case-insensitive); temperature within 5 °C; pH within 0.5; `salt_mM` within a factor of two; and the same ion species, each concentration within a factor of two. A missing temperature, pH, salt, buffer or ion list is not comparable, including when both items are missing it. Unknown does not match unknown.
+Comparable means the same environment, the same buffer text, the same construct description and label set, and the same ligand set (case-insensitive); temperature within 5 °C; pH within 0.5; `salt_mM` within a factor of two; and the same ion species, each concentration within a factor of two. A missing temperature, pH, salt, buffer or ion list is not comparable, including when both items are missing it. Unknown does not match unknown. The ion requirement is what makes only a few pairs comparable: see the WP1 note in `docs/HANDOFF.md` for why, and for the count of records that reach each gate.
 
 Force observables (unfolding, rupture and similar forces) are not compared: they depend on loading rate, which the conditions schema does not record.
 
@@ -93,7 +93,7 @@ Every number on the site is produced by `make site` from `build/`, which is prod
 
 - DisProt regions are kept on the page whose accession matches the DisProt entry exactly. An isoform page does not inherit the canonical entry, and the canonical page does not mix isoform residue numbers into the canonical sequence.
 - A DNA page is keyed on the first DNA entity of its NAKB anchor, in NAKB's order. A second strand is not part of the identifier. The existing id `DNA-6f16b68e4fba` is that hash and is not recomputed from a sorted strand set.
-- Ions are recorded on each evidence item and are part of the conflict comparison. Only NAKB fills them today; other sources leave the list empty, and an empty list is not comparable.
+- Ions are recorded on each evidence item and are part of the conflict comparison. NAKB fills them from the ions modelled in the entry (no concentrations); SASBDB fills them from the salts the deposit names in its free text, with concentrations where the deposit gives them. The other sources leave the list empty, and an empty list is not comparable, so their items are not compared and each page reports that in `not_compared`. `salt_mM` is the summed concentration of the recognised salts, not an ionic-strength calculation.
 - Literature extraction, PED and PDB-IHM restraint tables are not yet ingested. ATLAS is not ingested; MD comes from MDDB.
 - Entries annotated to a sibling accession with an identical sequence (for example CALM2 and CALM3 for calmodulin) are not grouped with the pilot accession. See the pilot report.
 - Curation is a draft and is labelled as such on every page until a curator reviews it.

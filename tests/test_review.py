@@ -11,7 +11,7 @@ from conformome.mapping.conflicts import comparable, find_conflicts, not_compare
 from conformome.pipeline import coverage_grid
 from conformome.sources.base import save_raw
 from conformome.sources.pdb import _celsius
-from conformome.sources.sasbdb import _rg_nm, _salt_mM
+from conformome.sources.sasbdb import _rg_nm, construct_labels, normalize_text, salt_ions, total_salt_mM
 from conformome.validate import downloads_redistribution_errors, licence_redistributable
 from tests.test_mapping import ev
 
@@ -94,13 +94,111 @@ def test_pdb_temperature_units_and_range():
     assert _celsius(500) is None  # 500 K is above 150 °C and is dropped
 
 
-def test_sasbdb_uses_guinier_only_and_reads_salt():
+def test_sasbdb_uses_guinier_only():
     assert _rg_nm({"guinier_rg": 2.0, "guinier_rg_error": 0.15, "pddf_rg": 9}) == (2.0, 0.15)
     assert _rg_nm({"guinier_rg": None, "pddf_rg": 2.1}) == (None, None)
     assert _rg_nm({"guinier_rg": 40, "guinier_rg_error": 1}) == (4.0, 0.1)
     assert _rg_nm({"guinier_rg": 400}) == (None, None)
-    assert _salt_mM({"name": "50 mM NaCl"}) == 50
-    assert _salt_mM({"name": "Tris"}) is None
+
+
+def test_sasbdb_normalizes_deposited_text():
+    assert normalize_text("K₂HPO₄/KH₂PO₄") == "K2HPO4/KH2PO4"
+    assert normalize_text("50\u2009mM potassium phosphate") == "50 mM potassium phosphate"
+    assert normalize_text("Fe(III)-TMPyP, pH ∼ 10.7") == "Fe(III)-TMPyP, pH ∼ 10.7"
+    assert normalize_text("peptides – 1 mM") == "peptides - 1 mM"
+    assert normalize_text(None) == ""
+
+
+def test_sasbdb_reads_salt_from_the_field_that_names_it():
+    # The alpha-synuclein series writes its salt only in the sample name.
+    assert salt_ions(["α-Synuclein WT 1.16mg/ml 100 mM NaCl", "20mM HEPES"]) == [
+        {"ion": "Na+", "concentration_mM": 100.0}]
+    assert salt_ions(["20 mM HEPES, 150 mM NaCl"]) == [{"ion": "Na+", "concentration_mM": 150.0}]
+    assert salt_ions(["NaCl 150 mM"]) == [{"ion": "Na+", "concentration_mM": 150.0}]
+    assert salt_ions(["20 mM TRIS, 40 mM KCl, 20 mM CaCl2"]) == [
+        {"ion": "Ca2+", "concentration_mM": 20.0}, {"ion": "K+", "concentration_mM": 40.0}]
+    # Unicode subscripts and molar units.
+    assert salt_ions(["50 mM sodium phosphate, 300 mM KCl"]) == [{"ion": "K+", "concentration_mM": 300.0}]
+    assert salt_ions(["0.2 M glycine-HCl, 80 mM NaCl"]) == [{"ion": "Na+", "concentration_mM": 80.0}]
+    assert salt_ions(["10 mM CaCl₂"]) == [{"ion": "Ca2+", "concentration_mM": 10.0}]
+    assert salt_ions(["20 mM HEPES 200 mM NaCl 0.01 mM ZnSO4"]) == [
+        {"ion": "Na+", "concentration_mM": 200.0}, {"ion": "Zn2+", "concentration_mM": 0.01}]
+
+
+def test_buffers_are_not_salts():
+    # Reading the buffering agent as the salt made every alpha-synuclein deposit look alike.
+    for buffer in ("20mM HEPES", "40 mM Sodium Acetate", "20 mM Sodium Acetate/HEPES",
+                   "phosphate buffered saline", "PBS", "20 mM MES pH 6.0", "10 mM citric acid",
+                   "50 mM sodium phosphate", "20 mM K₂HPO₄/KH₂PO₄", "0.2 M glycine-HCl",
+                   "50 mM Tris-HCl", "1 mol% ethylammonium nitrate"):
+        assert salt_ions([buffer]) == [], buffer
+    assert salt_ions(["50 mM Tris, 50 mM NaCl, 10% glycerol"]) == [
+        {"ion": "Na+", "concentration_mM": 50.0}]
+    # A percentage, a reducing agent or a mass ratio is not a salt concentration.
+    assert salt_ions(["20 mM Tris, 10% (v/v) glycerol, 1 mM TCEP"]) == []
+    assert salt_ions(["1 mM DTT, 2 mM β-mercaptoethanol"]) == []
+    assert salt_ions(["5 mg/mL lysozyme in 150 mM NaCl"]) == [{"ion": "Na+", "concentration_mM": 150.0}]
+
+
+
+def test_sasbdb_ions_without_a_number_stay_unknown():
+    assert salt_ions(["PBS, 150 mM NaCl, 1 mM CaCl2"]) == [
+        {"ion": "Ca2+", "concentration_mM": 1.0}, {"ion": "Na+", "concentration_mM": 150.0}]
+    assert salt_ions(["guanidinium chloride"]) == [{"ion": "Gdm+", "concentration_mM": None}]
+    assert total_salt_mM(salt_ions(["guanidinium chloride"])) is None
+    assert total_salt_mM(salt_ions(["20 mM KCl, 100 mM NaCl"])) == 120.0
+    assert total_salt_mM(salt_ions(["Tris"])) is None
+
+
+def test_sasbdb_does_not_borrow_the_next_components_number():
+    # "100 mM NaCl, 50 mM Tris": the 50 belongs to Tris, not to the salt.
+    assert salt_ions(["100 mM NaCl, 50 mM Tris-HCl"]) == [{"ion": "Na+", "concentration_mM": 100.0}]
+    # The fields quote each other; a salt named twice is one salt, not two.
+    assert salt_ions(["40 mM NaOAc pH 3.8, 150 mM NaCl", "40 mM NaOAc pH 3.8, 150 mM NaCl"]) == [
+        {"ion": "Na+", "concentration_mM": 150.0}]
+
+
+def test_sasbdb_construct_labels_come_from_the_deposit_text():
+    labels = construct_labels(["Isoform Tau-F of Microtubule-associated protein tau (C291A, K311C, K317C, C322A)"])
+    assert labels == ["c291a", "k311c", "k317c", "c322a", "isoform-tau-f"]
+    assert construct_labels(["α-Synuclein WT in 0 mM NaCl"]) == ["wild-type"]
+    assert construct_labels(["SEC-SAXS of tau dGAE fragment (2N4R residues 297-391)"]) == [
+        "297-391", "fragment", "2n4r"]
+    assert construct_labels(["von Willebrand factor C6-CK G2705R"]) == ["g2705r"]
+    assert construct_labels(["His-Tagged Monomeric RAD51 [F86E, A89E]"]) == ["f86e", "a89e", "his-tagged"]
+    # Chemical formulas in a buffer are not mutations.
+    assert construct_labels(["20 mM K₂HPO₄/KH₂PO₄, 100 mM NaCl"]) == []
+    assert construct_labels([None, ""]) == []
+
+
+def test_different_salt_is_no_longer_comparable():
+    def item(salt, ions, labels=(), rg=3.4):
+        return {
+            "evidence_id": f"EV-{salt}",
+            "technique": "saxs_sans",
+            "observable": {"type": "radius_of_gyration", "value": rg, "unit": "nm", "uncertainty": 0.03},
+            "conditions": {"environment": "in_vitro", "temperature_c": 20.0, "ph": 7.2,
+                           "buffer": "20mM HEPES", "salt_mM": salt,
+                           "ions": [{"ion": "Na+", "concentration_mM": v} for v in ions],
+                           "ligands": []},
+            "construct": {"description": "Alpha-synuclein", "labels": list(labels)},
+            "mappings": [{"state_id": "S"}],
+        }
+
+    # The α-synuclein series: same buffer, same construct, different salt.
+    assert comparable(item(100.0, [100.0]), item(150.0, [150.0]))
+    assert not comparable(item(50.0, [50.0]), item(150.0, [150.0]))
+    assert not comparable(item(0.0, [0.0]), item(100.0, [100.0]))
+    assert not comparable(item(100.0, [100.0]), item(100.0, [100.0], labels=["wild-type"]))
+    assert not comparable(item(100.0, [100.0]), item(100.0, [100.0, 20.0]))
+    assert find_conflicts([item(50.0, [50.0]), item(150.0, [150.0])]) == []
+
+
+def test_missing_ion_data_is_reported_not_guessed():
+    assert salt_ions([]) == []
+    assert salt_ions([None, None]) == []
+    assert total_salt_mM([]) is None
+
 
 
 def test_manifest_hash_ignores_the_retrieval_date(tmp_path, repo_paths):

@@ -150,8 +150,12 @@ def fmt_conditions(c: dict) -> str:
         parts.append(f"{c['temperature_c']:g} °C")
     if c.get("ph") is not None:
         parts.append(f"pH {c['ph']:g}")
+    if c.get("buffer"):
+        parts.append(f"buffer {c['buffer']}")
     if c.get("ions"):
-        parts.append(fmt_ions(c["ions"]))
+        parts.append("ions " + fmt_ions(c["ions"]))
+    elif c.get("salt_mM") is not None:
+        parts.append(f"salt {c['salt_mM']:g} mM")
     if c.get("ligands"):
         parts.append("ligands " + ", ".join(c["ligands"]))
     if c.get("applied_force_pn") is not None:
@@ -458,6 +462,7 @@ def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: l
     erows = []
     for ev in evidence:
         mapped_flag = "yes" if ev["mappings"] else "no"
+        labels = ", ".join(ev["construct"].get("labels") or [])
         mappings = "<br>".join(
             f'{esc(state_name.get(m["state_id"], m["state_id"]))} · {esc(m["who"])} · {esc(m["confidence"])}'
             + (f' · <span title="{esc(m["agreement"]["method"])}">AUC {m["agreement"]["score"]:.2f}</span>' if m.get("agreement") else "")
@@ -477,7 +482,8 @@ def _protein_page(paths: Paths, acc: str, protein: dict, mapped: dict, models: l
             f'<td><a href="{root}technique/{esc(ev["technique"])}/index.html">{esc(ev["technique"])}</a></td>'
             f'<td>{fmt_obs(ev["observable"])}{partial}</td><td>{fmt_conditions(ev["conditions"])}'
             f'<br><span class="muted">{esc(ev.get("title") or "")}{" · " if ev.get("title") else ""}'
-            f'{esc(ev["construct"]["description"])}</span></td><td>{mappings}</td></tr>')
+            f'{esc(ev["construct"]["description"])}'
+            f'{(" · " + esc(labels)) if labels else ""}</span></td><td>{mappings}</td></tr>')
     evidence_html = (
         '<h2>Evidence</h2>'
         '<p class="sub">One row per deposit or experiment. Filter by technique, environment or text. Unmapped evidence is listed too.</p>'

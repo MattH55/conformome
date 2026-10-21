@@ -178,6 +178,7 @@ def compute() -> dict:
     tech_proteins: Counter[str] = Counter()
     tech_evidence_protein: Counter[str] = Counter()
     single_method: list[dict] = []
+    conflict_items: list[dict] = []
     source_evidence: Counter[str] = Counter()
     source_molecules: Counter[str] = Counter()
     source_proteins: Counter[str] = Counter()
@@ -232,6 +233,15 @@ def compute() -> dict:
                 single_method.append({"molecule_id": acc, "molecule": mol_name, "type": mtype, "state_id": sid,
                                       "state": state["name"], "techniques": used, "n_evidence": sum(row.values())})
             removed_by_ion_rule[kind] += _ion_blind_conflicts(evidence) - len(mapped["conflicts"])
+            by_ev = {ev["evidence_id"]: ev for ev in evidence}
+            for c in mapped["conflicts"]:
+                conflict_items.append({
+                    "molecule_id": acc, "state_id": c["state_id"], "observable": c["observable_type"],
+                    "unit": c["unit"], "z": c["z"],
+                    "deposit_ids": [by_ev[e]["provenance"]["deposit_id"] for e in c["evidence_ids"]],
+                    "values": [round(v, 2) for v in c["values"]],
+                    "uncertainties": [round(u, 3) for u in c["uncertainties"]],
+                })
             for ev in evidence:
                 if ev["mappings"]:
                     n["mapped"] += 1
@@ -338,7 +348,11 @@ def compute() -> dict:
         "sources": {},
         "techniques": {},
         "conflicts": {"removed_by_ion_rule": {"protein": removed_by_ion_rule["protein"],
-                                              "na": removed_by_ion_rule["na"]}},
+                                              "na": removed_by_ion_rule["na"]},
+                      # Flat keys (c1, c2, ...) so that the manuscript can tag a conflict's deposits and values.
+                      "items": {f"c{i}": {**c, "deposit_a": c["deposit_ids"][0], "deposit_b": c["deposit_ids"][1],
+                                          "value_a": c["values"][0], "value_b": c["values"][1]}
+                                for i, c in enumerate(conflict_items, 1)}},
         "p37840": p37840,
         "na": na,
         "g4": g4,

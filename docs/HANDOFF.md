@@ -15,8 +15,8 @@ Sister project: SMASH-BIO (https://smash-bio.org, repository `MattH55/smash-bio`
 | Live site | http://conformome.org, deployed by GitHub Pages from GitHub Actions. All pages, search and downloads are served. |
 | HTTPS | Not yet. GitHub issues the certificate after the DNS change; then tick **Enforce HTTPS** under Settings → Pages. |
 | Proteins | 81 (`targets.yaml`): 30 with draft curation (states, mappings), 51 evidence-only ("states not yet curated") |
-| Evidence entries | 17,522 from 7 sources |
-| Tests | 51 passing (`make test`); `make validate` passes with 0 errors |
+| Evidence entries | 17,541 from 7 sources (81 proteins, 1 RNA, 1 DNA) |
+| Tests | 117 collected (`make test`); `make validate` passes with 0 errors. `tests/test_audit.py::test_untagged_head_is_refused` passes only when pytest runs from the project venv: it re-invokes `sys.executable -I`, and a global interpreter with PyYAML in user-site fails that check. |
 | Last deploy | Run #6 (commit `fc699a6`), success |
 | Repository | `MattH55/conformome`, public. Default and only branch: `ccr-ebb336f7-3qzi9h` (there is no `main`) |
 | Running jobs | None |
@@ -86,13 +86,53 @@ Licences, and which sources may be redistributed, are in `docs/SOURCES.md`; the 
 
 ## Known issues
 
-1. **False conflicts**: 33 of the 52 flagged conflicts (alpha-synuclein, SASBDB) compare K-to-R mutants at different salt. SASBDB summaries record neither the mutation nor the salt separately.
-2. **Paralogs**: CALM2 and CALM3 entries (identical sequence to CALM1) are not on the calmodulin page.
-3. **Empty inferred states**: 5 inferred states have no evidence (unfolded BPTI, CI2, spectrin SH3, Pin1; cyclophilin A minor state).
-4. ~~Unmapped fibrils~~ Fixed: hen lysozyme now has an observed `HEWL-fibril` state (representative 9J0L; polymorphs 9J0L/9J0M/8QV8 pooled, rule `hewl-fibril-structures`, medium confidence). Draft, unreviewed; whether polymorphs deserve separate states is a curator call.
-5. **Skipped entries**: 14 powder-diffraction entries are skipped (could count as `xray`).
-6. **RMSD rule**: implemented and tested, not run (it needs coordinates for about 17,000 entities).
-7. **Missing content**: no transitions, no fitted models for inferred states, isoforms only partly handled.
+1. ~~**False conflicts**~~ Fixed (WP1, 2026-10-20). The old note claimed 33 of the 52 flagged
+   conflicts compared alpha-synuclein **K-to-R mutants** at different salt. That diagnosis was
+   wrong: no SASBDB alpha-synuclein deposit is a mutant - every sample name reads `WT`, and the
+   construct carries no mutation. The disagreement was **salt**. SASBDB records the salt
+   concentration in `experiment.sample.name` ("alpha-Synuclein WT 1.16mg/ml 100 mM NaCl"), while
+   the parser read only `experiment.buffer.name` ("20mM HEPES") and took its leading number as
+   the salt, so all eight salt levels looked like `salt_mM = 20` and every pair was comparable.
+   `conformome/sources/sasbdb.py` now reads salts, ionic species and construct variants from every
+   free-text field of the deposit (see WP1 below), with the raw strings kept in `conditions.notes`.
+   A full-corpus rerun on identical inputs takes the 52 release conflicts to **32 removed and 20
+   still comparable**, and of those 20 only one clears 3 sigma (hen lysozyme fibrils SASDMJ4 vs
+   SASDMY3). The removed pairs, with codes and reasons, are listed under **WP1** below.
+2. **Conflict detection is narrow, not broken.** Comparable means every one of environment, buffer
+   text, temperature, pH, salt, ion list, ligand set and construct matches; `b5427f3` also made a
+   missing ion list incomparable. Only SASBDB records enough conditions to clear all of those gates,
+   and only NAKB (proteins: none) filled `ions` before WP1. On the pre-WP1 build, 5,096 of the 5,134
+   mapped records failed before the ion check (no buffer, temperature, pH or salt), and the 38 that
+   reached it were all SASBDB and all failed for having no ion list - so exactly one source could be
+   compared and it was the one source with no ion data. The reported `not_compared` was 5,131 of
+   5,134: the corpus showed **0 conflicts because nothing was ever compared**, not because the data
+   agree. WP1 fills `ions` and a correct `salt_mM` for SASBDB; the pairs whose deposit states no salt
+   are still not compared, and each page's `not_compared` count is where that stays visible. Filling
+   buffer, salt and ion data for BMRB, PDB and DisProt is open work, not a parser bug.
+
+3. **Paralogs**: CALM2 and CALM3 entries (identical sequence to CALM1) are not on the calmodulin page.
+4. **Empty inferred states**: 5 inferred states have no evidence (unfolded BPTI, CI2, spectrin SH3, Pin1; cyclophilin A minor state).
+5. ~~Unmapped fibrils~~ Fixed: hen lysozyme now has an observed `HEWL-fibril` state (representative 9J0L; polymorphs 9J0L/9J0M/8QV8 pooled, rule `hewl-fibril-structures`, medium confidence). Draft, unreviewed; whether polymorphs deserve separate states is a curator call.
+6. **Skipped entries**: 14 powder-diffraction entries are skipped (could count as `xray`).
+7. **RMSD rule**: implemented and tested, not run (it needs coordinates for about 17,000 entities).
+8. **Missing content**: no transitions, no fitted models for inferred states, isoforms only partly handled.
+9. **Tau has no DisProt evidence on the canonical page** (deferred; WP1 "Isoform numbering").
+   `curation/P10636.yaml` defines `tau-disordered` for exactly the disorder evidence DisProt holds,
+   and its rule (`title_any: ["disorder, residues"]`) does match 8 of the 16 tau region titles. The
+   evidence never reaches the page because DisProt curates tau on the isoform entries `P10636-8`
+   (15 structural regions) and `P10636-2` (1), never on `P10636`, while `sources/disprot.py` keeps an
+   entry on its own accession only. `ingest P10636` therefore reports `DisProt: 0 evidence_items,
+   not_ingested: []`: the silence is the isoform rule working as designed, not a mapping failure.
+   The fix is the WP1 Isoform numbering line - map isoform regions onto canonical numbering by
+   aligning the UniProt isoform sequence and keep the original range - which is a mapping and schema
+   change and is left to its own pull request. Related open DisProt gaps: 8 of the 56 ECO method
+   names in the corpus are structural but unmapped (`gel-filtration`, the hyphenated
+   `hydrogen-deuterium exchange`, HSQC, temperature-induced unfolding, cleavage assay, atomic force
+   microscopy, and the catch-alls `spectrometry` and `experimental evidence`). The WP1 "DisProt
+   methods" line says to map such names only when a technique id fits exactly, so the catch-alls
+   should stay in `not_ingested` with their reason.
+
+
 
 ## Decisions waiting on the owner
 
@@ -132,10 +172,81 @@ Licences, and which sources may be redistributed, are in `docs/SOURCES.md`; the 
 - Draft curation `curation/DNA-6f16b68e4fba.yaml` (human telomeric G-quadruplex 22AG): parallel (1KF1), antiparallel (143D) and hybrid (2E4I) states, labelled with the G-quadruplex vocabulary. Every structure's topology was computed from its coordinates with `conformome/g4.py` (G-tract directions on the stacking axis): 10 K+ crystals parallel, 3 NMR structures antiparallel, 1 hybrid. BMRB shift entries are mapped by title words or by Na+-without-K+ at low or medium confidence. 24 of 39 items mapped; BMRB 34714 (ligand-induced hybrid-to-antiparallel change) is ambiguous, which is right: it is transition evidence with no rate yet. Hybrid-1 and hybrid-2, and basket and chair, are not separated into substates.
 - Pages for RNA and DNA still live under `protein/<id>/`; the header line is worded per molecule type.
 
+## WP1: SASBDB salt, ions and construct variants (2026-10-20)
+
+`conformome/sources/sasbdb.py` now reads what the deposit writes in free text and turns it into
+structured conditions. SASBDB has no salt field, so the information is spread over
+`experiment.sample.name`, `experiment.sample.buffer.name`, `.additive`, `.comment` and the molecule
+long/short names and descriptions.
+
+- `normalize_text()` folds Unicode subscripts and superscripts (K₂HPO₄ → K2HPO4), the micro sign,
+  thin/ideographic/non-breaking spaces and en/em/minus dashes into plain, single-spaced text. Every
+  pattern runs on that form.
+- `salt_ions()` returns `conditions.ions` (`{ion, concentration_mM}`) for salts of a metal or
+  ammonium cation with a halide or sulfate. Buffering agents (HEPES, Tris, MES, acetate, citrate,
+  phosphate, glycine) are **not** salts and their concentration is never taken as one. A salt named
+  without a number comes back at `null`, not a guess. A buffer string is split on commas and
+  semicolons and read component by component, so "100 mM NaCl, 50 mM Tris" gives Na+ = 100, and the
+  figure written **before** a name wins over one after it. Fields quote each other, so each is read
+  alone and the highest figure per ion wins (a buffer written twice is not counted twice).
+- `conditions.salt_mM` is the sum of the quantified salt ions, or `null` if any ion's amount is
+  unknown. The old code took the leading number of the buffer name, so "20mM HEPES" became a 20 mM
+  salt for every alpha-synuclein deposit.
+- `construct_labels()` fills `construct.labels` from mutation strings (C291A, K317C…), isoform
+  tags (2N3R/2N4R, Isoform Tau-F), His/GST/… tags, sequence ranges and "WT". Chemical formulas in a
+  buffer are kept out by lookarounds, so MgCl2/NaH2PO4/D2O are never read as mutations. Only tokens
+  the deposit writes down; nothing is inferred from sequence.
+- `conditions.notes` keeps the raw buffer and sample strings and states the salts found, or that the
+  deposit states no salt.
+- **Deliberately not used as a gate**: the structured `uniprot_range_first`/`uniprot_range_last` on
+  the molecule (present on 189 of 224 records). It is a construct attribute, but it is filled in
+  unevenly, so putting it in `construct.labels` would make comparability depend on how carefully a
+  depositor filled a form. The lysozyme fibril pair SASDMJ4 (range 19-147) and SASDMY3 (range blank)
+  is the same sample from the same paper at the same conditions; a range gate would drop the one real
+  conflict this release has. Only a range the deposit *writes in text* ("residues 297-391") becomes a
+  label. If ranges are ever used, they need a "blank does not contradict a value" rule, which the
+  current "unknown does not match unknown" comparability does not have.
+
+### Effect on conflicts (measured on identical build inputs)
+
+Re-running the SASBDB parse over every molecule with both parsers on the **same** mappings (only the
+conditions differ), and recomputing conflicts: mapped evidence **5,134 → 5,134** (the parser emits
+the same 224 SASBDB records, only with richer conditions), conflicts **0 → 1**. The single surviving
+conflict is real: hen lysozyme amyloid fibrils SASDMJ4 vs SASDMY3 (Rg 3.02 vs 3.84 nm, z = 53).
+`not_compared` falls as SASBDB pairs become comparable: P37840 222 → 211, P00698 1454 → 1443.
+A full `make site` + `make validate` over all 83 molecules reports **0 errors**.
+
+Against the tagged release `v0.1.0` (52 conflicts, all SASBDB Rg), the parser **removes 32 and leaves
+20 comparable (1 of which still trips 3σ)**. The removed α-synuclein pairs and their codes:
+
+| Removed α-synuclein conflicts (state `aS-disordered`) | SASBDB codes |
+| --- | --- |
+| salt 0 vs 50 mM NaCl (6) | SASD2J3/2K3/2L3 × SASD2M3/2N3 |
+| salt 0 vs 100 mM (9) | SASD2J3/2K3/2L3 × SASD2P3/2Q3/2R3 |
+| salt 0 vs 150 mM (9) | SASD2J3/2K3/2L3 × SASD2S3/2T3/2U3 |
+| salt 50 vs 150 mM (3) | SASD2N3 × SASD2S3/2T3/2U3 |
+
+Lysozyme: SASDPT4/PV4/PZ4/UE4 drop out because the deposit states **no sample temperature** (the
+older rule compared them anyway). Tau: SASDV56 vs SASDV66 drop out on construct labels (ubiquitin
+linked at C317 vs C353). **The K→R note in the previous handoff was wrong**; these deposits are the
+WT arm of a salt series, and the salt is now what separates them.
+
+### Scope decisions (this PR does only the SASBDB line of WP1)
+
+- **Tau / DisProt isoform numbering: deferred.** The zero DisProt evidence on P10636 is the isoform
+  rule working as designed (see Known issue 9), not a salt/ion bug. Mapping isoform regions onto
+  canonical numbering is a separate mapping-and-schema change.
+- **DisProt hyphenated ECO names (`gel-filtration`, `hydrogen-deuterium exchange`): not touched.**
+  WP1 says map an unmapped method only when a technique id fits exactly; these are 1–2 corpus
+  regions and are a different source's mapping, not SASBDB evidence. Left as a follow-up.
+- The corpus-wide `no_evidence_states` and total-evidence numbers move with the data refresh in
+  commit `4c3bdb8`, **not** with this parser; the same-input comparison above isolates this change.
+
 ## Good next steps
 
 
 - Write curation files for the 51 evidence-only proteins, starting with those with the most techniques (spike, p53, APP, Hsp90-alpha, histone H3.1).
-- Recover salt and mutations from SASBDB entry descriptions.
+- ~~Recover salt and mutations from SASBDB entry descriptions.~~ Done in WP1 (see above): salts, ionic species and construct variants now come from the deposit's free text.
+- Fill `ions`, salt and sample temperature for BMRB, RCSB PDB and DisProt so their measurements can enter conflict detection (today only SASBDB clears the comparability gates; see Known issue 2).
 - Add literature extraction behind human review, for denaturation, relaxation dispersion, smFRET and HDX.
 - Parse PDB-IHM restraint tables.

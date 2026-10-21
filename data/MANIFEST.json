@@ -3864,6 +3864,22 @@
       "https://files.rcsb.org/download/6XRZ.pdb"
     ]
   },
+  "raw/pdb-files/9J0L.cif": {
+    "bytes": 147593,
+    "retrieved": "2026-10-19",
+    "sha256": "e3c6f99a77a3f770ac317bc1bb34b8f4d324bb6a4b22acb3eb39c7d85a86f5b3",
+    "urls": [
+      "https://files.rcsb.org/download/9J0L.cif"
+    ]
+  },
+  "raw/pdb-files/9J0L.pdb": {
+    "bytes": 102303,
+    "retrieved": "2026-10-19",
+    "sha256": "342458e74a731952edbb16fb98388fec43ea67b0410cd4535d09f2d304bc5182",
+    "urls": [
+      "https://files.rcsb.org/download/9J0L.pdb"
+    ]
+  },
   "raw/pdb/O00571.json": {
     "bytes": 30212,
     "retrieved": "2026-10-19",
