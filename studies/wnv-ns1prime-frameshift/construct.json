@@ -1,0 +1,56 @@
+{
+  "construct_id": "CN-WNV-NS1prime-FSS",
+  "molecule_id": null,
+  "molecule_reference": {
+    "database": "RefSeq",
+    "accession": "NC_009942",
+    "start": null,
+    "end": null
+  },
+  "name": "West Nile virus NS1' frameshift stimulatory structure",
+  "molecule_type": "rna",
+  "sequence": null,
+  "variant": {
+    "kind": "wild_type",
+    "changes": []
+  },
+  "handles": [
+    {
+      "side": "unknown",
+      "kind": "unknown",
+      "length": null
+    },
+    {
+      "side": "unknown",
+      "kind": "unknown",
+      "length": null
+    }
+  ],
+  "attachments": [
+    {
+      "side": "unknown",
+      "chemistry": "biotin–avidin (300 nm radius beads)"
+    },
+    {
+      "side": "unknown",
+      "chemistry": "digoxigenin–anti-digoxigenin (410 nm radius beads)"
+    }
+  ],
+  "curation": {
+    "status": "incomplete",
+    "missing": [
+      "construct sequence and its position in NC_009942",
+      "handle type, length and which end carries which attachment"
+    ],
+    "curator": "draft (unreviewed)",
+    "as_of": "2026-10-21"
+  },
+  "provenance": {
+    "source": "Halma 2019, MSc thesis, University of Alberta",
+    "doi": null,
+    "deposit_id": null,
+    "retrieved": "2026-10-21",
+    "url": "https://era.library.ualberta.ca/items/c6d1dd6c-b86e-4175-83fe-4677c72b7782",
+    "licence": "Values cited from the publication; text not redistributed"
+  }
+}

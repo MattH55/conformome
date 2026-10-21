@@ -1,0 +1,241 @@
+{
+  "network_id": "SN-WNV-NS1prime",
+  "molecule_id": null,
+  "construct_id": "CN-WNV-NS1prime-FSS",
+  "protocol_ids": [
+    "PT-WNV-ramp",
+    "PT-WNV-ramp-oligo1",
+    "PT-WNV-ramp-oligo2"
+  ],
+  "states": [
+    {
+      "key": "PKS",
+      "state_id": null,
+      "label": "short pseudoknot (PKS)",
+      "structure": {
+        "conformation_id": null,
+        "dot_bracket": null,
+        "description": "61-nt H-type pseudoknot predicted by Atkins and Firth; abolished by oligo 1"
+      },
+      "status": "observed",
+      "delta_lc_from_unfolded": null,
+      "predicted_delta_lc": {
+        "value_nm": 35.99,
+        "method": "conformome.conformations.geometry.contour_length_released (61 nt, 0.59 nm/nt)",
+        "assumptions": [
+          "End-to-end distance of the structured region unknown; taken as 0, so the value is an upper bound.",
+          "Length in nucleotides as stated for the predicted structure; computed here, not reported by the source."
+        ]
+      },
+      "assignment_evidence": [
+        "contour_length_match",
+        "perturbation",
+        "bioinformatic_prediction"
+      ]
+    },
+    {
+      "key": "S1",
+      "state_id": null,
+      "label": "S1",
+      "structure": {
+        "conformation_id": null,
+        "dot_bracket": null,
+        "description": "Named in the thesis as retained when oligo 1 abolishes PKS; structural definition to be curated"
+      },
+      "status": "observed",
+      "delta_lc_from_unfolded": null,
+      "predicted_delta_lc": null,
+      "assignment_evidence": [
+        "perturbation"
+      ]
+    },
+    {
+      "key": "HP3",
+      "state_id": null,
+      "label": "3' hairpin of PKS",
+      "structure": {
+        "conformation_id": null,
+        "dot_bracket": null,
+        "description": "Short hairpin at the 3' end of PKS, supported by additional evidence (thesis §6.2.2)"
+      },
+      "status": "proposed",
+      "delta_lc_from_unfolded": null,
+      "predicted_delta_lc": null,
+      "assignment_evidence": [
+        "contour_length_match"
+      ]
+    },
+    {
+      "key": "HP38",
+      "state_id": null,
+      "label": "38-nt hairpin",
+      "structure": {
+        "conformation_id": null,
+        "dot_bracket": null,
+        "description": "First hairpin of the double-hairpin (stem-loop) fold"
+      },
+      "status": "proposed",
+      "delta_lc_from_unfolded": null,
+      "predicted_delta_lc": {
+        "value_nm": 22.42,
+        "method": "conformome.conformations.geometry.contour_length_released (38 nt, 0.59 nm/nt)",
+        "assumptions": [
+          "End-to-end distance of the structured region unknown; taken as 0, so the value is an upper bound.",
+          "Length in nucleotides as stated for the predicted structure; computed here, not reported by the source."
+        ]
+      },
+      "assignment_evidence": [
+        "bioinformatic_prediction"
+      ]
+    },
+    {
+      "key": "HP71",
+      "state_id": null,
+      "label": "71-nt hairpin",
+      "structure": {
+        "conformation_id": null,
+        "dot_bracket": null,
+        "description": "Second hairpin of the double-hairpin (stem-loop) fold"
+      },
+      "status": "proposed",
+      "delta_lc_from_unfolded": null,
+      "predicted_delta_lc": {
+        "value_nm": 41.89,
+        "method": "conformome.conformations.geometry.contour_length_released (71 nt, 0.59 nm/nt)",
+        "assumptions": [
+          "End-to-end distance of the structured region unknown; taken as 0, so the value is an upper bound.",
+          "Length in nucleotides as stated for the predicted structure; computed here, not reported by the source."
+        ]
+      },
+      "assignment_evidence": [
+        "bioinformatic_prediction"
+      ]
+    },
+    {
+      "key": "PKL",
+      "state_id": null,
+      "label": "long pseudoknot (PKL)",
+      "structure": {
+        "conformation_id": null,
+        "dot_bracket": null,
+        "description": "109-nt pseudoknot (thesis §6.2.4)"
+      },
+      "status": "proposed",
+      "delta_lc_from_unfolded": null,
+      "predicted_delta_lc": {
+        "value_nm": 64.31,
+        "method": "conformome.conformations.geometry.contour_length_released (109 nt, 0.59 nm/nt)",
+        "assumptions": [
+          "End-to-end distance of the structured region unknown; taken as 0, so the value is an upper bound.",
+          "Length in nucleotides as stated for the predicted structure; computed here, not reported by the source."
+        ]
+      },
+      "assignment_evidence": [
+        "contour_length_match",
+        "bioinformatic_prediction"
+      ]
+    }
+  ],
+  "transitions": [],
+  "pathways": [
+    {
+      "key": "path-PKS",
+      "name": "short-pseudoknot pathway",
+      "states": [
+        "PKS",
+        "U"
+      ],
+      "description": "Intermediates to be curated from the transition map."
+    },
+    {
+      "key": "path-SLL",
+      "name": "stem-loop (double-hairpin) pathway",
+      "states": [
+        "HP38",
+        "HP71",
+        "U"
+      ],
+      "description": "Order of hairpin unfolding to be curated."
+    },
+    {
+      "key": "path-PKL",
+      "name": "long-pseudoknot pathway",
+      "states": [
+        "PKL",
+        "U"
+      ],
+      "description": "Intermediates to be curated from the transition map."
+    }
+  ],
+  "perturbation_effects": [
+    {
+      "perturbation": "oligo1",
+      "protocol_id": "PT-WNV-ramp-oligo1",
+      "abolishes": [
+        "PKS"
+      ],
+      "creates": [],
+      "stabilizes": [],
+      "retains": [
+        "S1"
+      ],
+      "note": "Novel structures also form in the presence of oligo 1 (thesis Fig. 45); not yet defined as states."
+    },
+    {
+      "perturbation": "oligo2",
+      "protocol_id": "PT-WNV-ramp-oligo2",
+      "abolishes": [],
+      "creates": [],
+      "stabilizes": [],
+      "retains": [],
+      "note": "Effect to be curated."
+    }
+  ],
+  "functional_readouts": [
+    {
+      "quantity": "frameshift_efficiency",
+      "assay": null,
+      "measured": {
+        "value": 0.7,
+        "unit": "fraction",
+        "uncertainty": null
+      },
+      "doi": null
+    }
+  ],
+  "derived": [
+    {
+      "quantity": "conformational_plasticity",
+      "value": null,
+      "unit": "bits",
+      "force_window_pn": {
+        "min": 11,
+        "max": 15
+      },
+      "method": "Force-dependent entropy of state occupancies (thesis ch. 7); correlates with frameshift efficiency across ten pseudoknots"
+    }
+  ],
+  "curation": {
+    "status": "incomplete",
+    "missing": [
+      "contour-length changes (thesis Table 2 / PNAS)",
+      "unfolding forces (thesis Table 3)",
+      "transition map and intermediates (thesis Fig. 43, PNAS)",
+      "state occupancies (thesis Fig. 55, PNAS)",
+      "definition of S1",
+      "oligo 2 effect",
+      "plasticity value for WNV",
+      "dot-bracket structures for each state"
+    ],
+    "curator": "draft (unreviewed)",
+    "as_of": "2026-10-21"
+  },
+  "provenance": {
+    "source": "Halma 2019, MSc thesis, University of Alberta",
+    "doi": null,
+    "deposit_id": null,
+    "retrieved": "2026-10-21",
+    "url": "https://era.library.ualberta.ca/items/c6d1dd6c-b86e-4175-83fe-4677c72b7782",
+    "licence": "Values cited from the publication; text not redistributed"
+  }
+}

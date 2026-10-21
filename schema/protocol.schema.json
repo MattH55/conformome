@@ -1,0 +1,456 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://conformome.org/schema/protocol.schema.json",
+  "title": "Protocol",
+  "description": "How a set of single-molecule (or ensemble) measurements was made: instrument, mode, loading, the history of the molecule before each measurement, perturbations (antisense oligos, ligands, ions), solution conditions, the elastic model used to convert extension to contour length, and the state-assignment method. Field groups follow the FAIR reporting standard for optical tweezers experiments (hardware, assay, solution, analysis).",
+  "type": "object",
+  "required": [
+    "protocol_id",
+    "construct_id",
+    "technique",
+    "instrument",
+    "mode",
+    "loading",
+    "preparation",
+    "perturbations",
+    "conditions",
+    "elasticity_model",
+    "analysis",
+    "n_molecules",
+    "n_curves",
+    "curation",
+    "provenance"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "protocol_id": {
+      "type": "string",
+      "pattern": "^PT-[A-Za-z0-9_.-]+$"
+    },
+    "construct_id": {
+      "type": "string",
+      "pattern": "^CN-[A-Za-z0-9_.-]+$"
+    },
+    "technique": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+$",
+      "description": "Technique id from taxonomy/techniques.yaml."
+    },
+    "instrument": {
+      "type": "object",
+      "required": [
+        "kind",
+        "trap_stiffness_pn_nm",
+        "bead_radii_nm",
+        "detail"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "optical_tweezers_dual_trap",
+            "optical_tweezers_single_trap",
+            "optical_tweezers",
+            "magnetic_tweezers",
+            "afm",
+            "acoustic_force",
+            "nanopore",
+            "other"
+          ]
+        },
+        "trap_stiffness_pn_nm": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "bead_radii_nm": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "detail": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "mode": {
+      "enum": [
+        "force_ramp",
+        "constant_force",
+        "constant_trap_position",
+        "force_jump",
+        "constant_velocity",
+        "equilibrium_ensemble"
+      ]
+    },
+    "loading": {
+      "type": "object",
+      "required": [
+        "pulling_speed_nm_s",
+        "loading_rate_pn_s",
+        "force_range_pn",
+        "constant_force_pn"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "pulling_speed_nm_s": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "loading_rate_pn_s": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "force_range_pn": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "required": [
+                "min",
+                "max"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "min": {
+                  "type": "number"
+                },
+                "max": {
+                  "type": "number"
+                }
+              }
+            }
+          ]
+        },
+        "constant_force_pn": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "preparation": {
+      "type": "object",
+      "description": "What happened to the molecule before each measured cycle. Occupancies that depend on this are history-dependent, not equilibrium values.",
+      "required": [
+        "kind",
+        "low_force_pn",
+        "wait_s",
+        "detail"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "annealed",
+            "refolded_under_tension",
+            "held_at_low_force",
+            "cotranscriptional",
+            "chaperone_assisted",
+            "first_pull",
+            "unknown"
+          ]
+        },
+        "low_force_pn": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "wait_s": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "detail": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "perturbations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "key",
+          "kind",
+          "name",
+          "sequence",
+          "target",
+          "concentration_um"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "key": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.+'-]*$",
+            "description": "Local key, unique within the record. U is the fully unfolded state."
+          },
+          "kind": {
+            "enum": [
+              "none",
+              "antisense_oligo",
+              "ligand",
+              "mutation",
+              "ion_change",
+              "chaperone",
+              "crowding",
+              "other"
+            ]
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sequence": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "target": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "start",
+                  "end",
+                  "numbering"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "start": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "end": {
+                    "type": "integer",
+                    "minimum": 1
+                  },
+                  "numbering": {
+                    "enum": [
+                      "construct",
+                      "molecule"
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "concentration_um": {
+            "type": [
+              "number",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "conditions": {
+      "$ref": "common.schema.json#/$defs/conditions"
+    },
+    "elasticity_model": {
+      "type": "object",
+      "required": [
+        "handles",
+        "unfolded"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "handles": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "required": [
+                "model",
+                "persistence_nm",
+                "stretch_modulus_pn",
+                "contour_nm"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "model": {
+                  "enum": [
+                    "WLC",
+                    "eWLC",
+                    "FJC",
+                    "eFJC"
+                  ]
+                },
+                "persistence_nm": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "stretch_modulus_pn": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "contour_nm": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        "unfolded": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "required": [
+                "model",
+                "persistence_nm",
+                "stretch_modulus_pn",
+                "nm_per_residue"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "model": {
+                  "enum": [
+                    "WLC",
+                    "eWLC",
+                    "FJC",
+                    "eFJC"
+                  ]
+                },
+                "persistence_nm": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "stretch_modulus_pn": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "nm_per_residue": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "analysis": {
+      "type": "object",
+      "required": [
+        "state_assignment",
+        "software"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "state_assignment": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "rip_detection",
+              "moving_window_contour_length",
+              "whole_trajectory_classification",
+              "hidden_markov_model",
+              "change_point",
+              "manual",
+              "clustering",
+              "other"
+            ]
+          }
+        },
+        "software": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "n_molecules": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "n_curves": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "curation": {
+      "type": "object",
+      "required": [
+        "status",
+        "missing",
+        "curator",
+        "as_of"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "complete",
+            "incomplete",
+            "draft",
+            "reviewed"
+          ]
+        },
+        "missing": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Values the curator could not read from the source; each is null in the record. A record with missing values is incomplete, never filled by estimation."
+        },
+        "curator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "as_of": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "provenance": {
+      "$ref": "common.schema.json#/$defs/provenance"
+    }
+  }
+}

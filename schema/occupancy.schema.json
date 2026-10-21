@@ -1,0 +1,241 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://conformome.org/schema/occupancy.schema.json",
+  "title": "Occupancy",
+  "description": "How often each state or pathway is seen, under one protocol, as counts out of a total. Counts (not only percentages) are required where the source gives them, so that uncertainty and comparison with predictions are honest. A comparison with an equilibrium or kinetic prediction, and the divergence between them, can be attached.",
+  "type": "object",
+  "required": [
+    "occupancy_id",
+    "network_id",
+    "protocol_id",
+    "basis",
+    "direction",
+    "force_window_pn",
+    "entries",
+    "total",
+    "comparisons",
+    "curation",
+    "provenance"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "occupancy_id": {
+      "type": "string",
+      "pattern": "^OC-[A-Za-z0-9_.-]+$"
+    },
+    "network_id": {
+      "type": "string",
+      "pattern": "^SN-[A-Za-z0-9_.-]+$"
+    },
+    "protocol_id": {
+      "type": "string",
+      "pattern": "^PT-[A-Za-z0-9_.-]+$"
+    },
+    "basis": {
+      "enum": [
+        "pathway_per_trajectory",
+        "state_at_force",
+        "dwell_time_fraction",
+        "first_state_per_trajectory",
+        "ensemble_deconvolution",
+        "particle_classification"
+      ]
+    },
+    "direction": {
+      "enum": [
+        "unfold",
+        "refold",
+        "equilibrium"
+      ]
+    },
+    "force_window_pn": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "required": [
+            "min",
+            "max"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "min": {
+              "type": "number"
+            },
+            "max": {
+              "type": "number"
+            }
+          }
+        }
+      ]
+    },
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "key",
+          "count",
+          "fraction",
+          "ci95"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "key": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.+'-]*$",
+            "description": "Local key, unique within the record. U is the fully unfolded state."
+          },
+          "count": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "fraction": {
+            "type": [
+              "number",
+              "null"
+            ],
+            "minimum": 0,
+            "maximum": 1
+          },
+          "ci95": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "prefixItems": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ],
+                "minItems": 2,
+                "maxItems": 2
+              }
+            ]
+          }
+        }
+      }
+    },
+    "total": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "comparisons": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "prediction_run_id",
+          "model",
+          "predicted",
+          "divergence_bits",
+          "note"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "prediction_run_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "model": {
+            "enum": [
+              "equilibrium",
+              "kinetic",
+              "other"
+            ]
+          },
+          "predicted": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": [
+                "key",
+                "fraction"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "pattern": "^[A-Za-z0-9][A-Za-z0-9_.+'-]*$",
+                  "description": "Local key, unique within the record. U is the fully unfolded state."
+                },
+                "fraction": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              }
+            }
+          },
+          "divergence_bits": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "curation": {
+      "type": "object",
+      "required": [
+        "status",
+        "missing",
+        "curator",
+        "as_of"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "complete",
+            "incomplete",
+            "draft",
+            "reviewed"
+          ]
+        },
+        "missing": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Values the curator could not read from the source; each is null in the record. A record with missing values is incomplete, never filled by estimation."
+        },
+        "curator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "as_of": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "provenance": {
+      "$ref": "common.schema.json#/$defs/provenance"
+    }
+  }
+}

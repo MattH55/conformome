@@ -1,0 +1,48 @@
+[
+  {
+    "occupancy_id": "OC-WNV-pathways",
+    "network_id": "SN-WNV-NS1prime",
+    "protocol_id": "PT-WNV-ramp",
+    "basis": "pathway_per_trajectory",
+    "direction": "unfold",
+    "force_window_pn": null,
+    "entries": [
+      {
+        "key": "path-PKS",
+        "count": null,
+        "fraction": null,
+        "ci95": null
+      },
+      {
+        "key": "path-SLL",
+        "count": null,
+        "fraction": null,
+        "ci95": null
+      },
+      {
+        "key": "path-PKL",
+        "count": null,
+        "fraction": null,
+        "ci95": null
+      }
+    ],
+    "total": null,
+    "comparisons": [],
+    "curation": {
+      "status": "incomplete",
+      "missing": [
+        "number of trajectories following each pathway and the total"
+      ],
+      "curator": "draft (unreviewed)",
+      "as_of": "2026-10-21"
+    },
+    "provenance": {
+      "source": "Halma et al. 2019, PNAS 116:19500",
+      "doi": "10.1073/pnas.1905258116",
+      "deposit_id": null,
+      "retrieved": "2026-10-21",
+      "url": "https://doi.org/10.1073/pnas.1905258116",
+      "licence": "Values cited from the publication; text not redistributed"
+    }
+  }
+]

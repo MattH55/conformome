@@ -1,0 +1,271 @@
+[
+  {
+    "protocol_id": "PT-WNV-ramp",
+    "construct_id": "CN-WNV-NS1prime-FSS",
+    "technique": "force_spectroscopy",
+    "instrument": {
+      "kind": "optical_tweezers_dual_trap",
+      "trap_stiffness_pn_nm": [],
+      "bead_radii_nm": [
+        300,
+        410
+      ],
+      "detail": "1064 nm trapping laser"
+    },
+    "mode": "force_ramp",
+    "loading": {
+      "pulling_speed_nm_s": null,
+      "loading_rate_pn_s": null,
+      "force_range_pn": null,
+      "constant_force_pn": []
+    },
+    "preparation": {
+      "kind": "unknown",
+      "low_force_pn": null,
+      "wait_s": null,
+      "detail": "Repeated unfolding–refolding cycles; waiting force and time to be curated."
+    },
+    "perturbations": [],
+    "conditions": {
+      "environment": "in_vitro",
+      "temperature_c": null,
+      "ph": 7.0,
+      "buffer": "50 mM MOPS pH 7.0, 130 mM KCl, 4 mM MgCl2, oxygen scavenger (glucose oxidase, glucose, catalase), RNase inhibitor",
+      "salt_mM": 130.0,
+      "ions": [
+        {
+          "ion": "K+",
+          "concentration_mM": 130.0
+        },
+        {
+          "ion": "Mg2+",
+          "concentration_mM": 4.0
+        }
+      ],
+      "ligands": [],
+      "applied_force_pn": null,
+      "notes": null
+    },
+    "elasticity_model": {
+      "handles": null,
+      "unfolded": null
+    },
+    "analysis": {
+      "state_assignment": [
+        "rip_detection",
+        "moving_window_contour_length",
+        "whole_trajectory_classification"
+      ],
+      "software": null
+    },
+    "n_molecules": null,
+    "n_curves": null,
+    "curation": {
+      "status": "incomplete",
+      "missing": [
+        "temperature",
+        "pulling speed or loading rate",
+        "trap stiffness",
+        "refolding (waiting) force and time between cycles",
+        "elastic model parameters (handles and unfolded RNA)",
+        "numbers of molecules and curves"
+      ],
+      "curator": "draft (unreviewed)",
+      "as_of": "2026-10-21"
+    },
+    "provenance": {
+      "source": "Halma et al. 2019, PNAS 116:19500",
+      "doi": "10.1073/pnas.1905258116",
+      "deposit_id": null,
+      "retrieved": "2026-10-21",
+      "url": "https://doi.org/10.1073/pnas.1905258116",
+      "licence": "Values cited from the publication; text not redistributed"
+    }
+  },
+  {
+    "protocol_id": "PT-WNV-ramp-oligo1",
+    "construct_id": "CN-WNV-NS1prime-FSS",
+    "technique": "force_spectroscopy",
+    "instrument": {
+      "kind": "optical_tweezers_dual_trap",
+      "trap_stiffness_pn_nm": [],
+      "bead_radii_nm": [
+        300,
+        410
+      ],
+      "detail": "1064 nm trapping laser"
+    },
+    "mode": "force_ramp",
+    "loading": {
+      "pulling_speed_nm_s": null,
+      "loading_rate_pn_s": null,
+      "force_range_pn": null,
+      "constant_force_pn": []
+    },
+    "preparation": {
+      "kind": "unknown",
+      "low_force_pn": null,
+      "wait_s": null,
+      "detail": "Repeated unfolding–refolding cycles; waiting force and time to be curated."
+    },
+    "perturbations": [
+      {
+        "key": "oligo1",
+        "kind": "antisense_oligo",
+        "name": "oligo 1",
+        "sequence": null,
+        "target": null,
+        "concentration_um": null
+      }
+    ],
+    "conditions": {
+      "environment": "in_vitro",
+      "temperature_c": null,
+      "ph": 7.0,
+      "buffer": "50 mM MOPS pH 7.0, 130 mM KCl, 4 mM MgCl2, oxygen scavenger (glucose oxidase, glucose, catalase), RNase inhibitor",
+      "salt_mM": 130.0,
+      "ions": [
+        {
+          "ion": "K+",
+          "concentration_mM": 130.0
+        },
+        {
+          "ion": "Mg2+",
+          "concentration_mM": 4.0
+        }
+      ],
+      "ligands": [],
+      "applied_force_pn": null,
+      "notes": null
+    },
+    "elasticity_model": {
+      "handles": null,
+      "unfolded": null
+    },
+    "analysis": {
+      "state_assignment": [
+        "rip_detection",
+        "moving_window_contour_length",
+        "whole_trajectory_classification"
+      ],
+      "software": null
+    },
+    "n_molecules": null,
+    "n_curves": null,
+    "curation": {
+      "status": "incomplete",
+      "missing": [
+        "temperature",
+        "pulling speed or loading rate",
+        "trap stiffness",
+        "refolding (waiting) force and time between cycles",
+        "elastic model parameters (handles and unfolded RNA)",
+        "numbers of molecules and curves",
+        "oligo 1 sequence, target and concentration"
+      ],
+      "curator": "draft (unreviewed)",
+      "as_of": "2026-10-21"
+    },
+    "provenance": {
+      "source": "Halma et al. 2019, PNAS 116:19500",
+      "doi": "10.1073/pnas.1905258116",
+      "deposit_id": null,
+      "retrieved": "2026-10-21",
+      "url": "https://doi.org/10.1073/pnas.1905258116",
+      "licence": "Values cited from the publication; text not redistributed"
+    }
+  },
+  {
+    "protocol_id": "PT-WNV-ramp-oligo2",
+    "construct_id": "CN-WNV-NS1prime-FSS",
+    "technique": "force_spectroscopy",
+    "instrument": {
+      "kind": "optical_tweezers_dual_trap",
+      "trap_stiffness_pn_nm": [],
+      "bead_radii_nm": [
+        300,
+        410
+      ],
+      "detail": "1064 nm trapping laser"
+    },
+    "mode": "force_ramp",
+    "loading": {
+      "pulling_speed_nm_s": null,
+      "loading_rate_pn_s": null,
+      "force_range_pn": null,
+      "constant_force_pn": []
+    },
+    "preparation": {
+      "kind": "unknown",
+      "low_force_pn": null,
+      "wait_s": null,
+      "detail": "Repeated unfolding–refolding cycles; waiting force and time to be curated."
+    },
+    "perturbations": [
+      {
+        "key": "oligo2",
+        "kind": "antisense_oligo",
+        "name": "oligo 2",
+        "sequence": null,
+        "target": null,
+        "concentration_um": null
+      }
+    ],
+    "conditions": {
+      "environment": "in_vitro",
+      "temperature_c": null,
+      "ph": 7.0,
+      "buffer": "50 mM MOPS pH 7.0, 130 mM KCl, 4 mM MgCl2, oxygen scavenger (glucose oxidase, glucose, catalase), RNase inhibitor",
+      "salt_mM": 130.0,
+      "ions": [
+        {
+          "ion": "K+",
+          "concentration_mM": 130.0
+        },
+        {
+          "ion": "Mg2+",
+          "concentration_mM": 4.0
+        }
+      ],
+      "ligands": [],
+      "applied_force_pn": null,
+      "notes": null
+    },
+    "elasticity_model": {
+      "handles": null,
+      "unfolded": null
+    },
+    "analysis": {
+      "state_assignment": [
+        "rip_detection",
+        "moving_window_contour_length",
+        "whole_trajectory_classification"
+      ],
+      "software": null
+    },
+    "n_molecules": null,
+    "n_curves": null,
+    "curation": {
+      "status": "incomplete",
+      "missing": [
+        "temperature",
+        "pulling speed or loading rate",
+        "trap stiffness",
+        "refolding (waiting) force and time between cycles",
+        "elastic model parameters (handles and unfolded RNA)",
+        "numbers of molecules and curves",
+        "oligo 2 sequence, target and concentration"
+      ],
+      "curator": "draft (unreviewed)",
+      "as_of": "2026-10-21"
+    },
+    "provenance": {
+      "source": "Halma et al. 2019, PNAS 116:19500",
+      "doi": "10.1073/pnas.1905258116",
+      "deposit_id": null,
+      "retrieved": "2026-10-21",
+      "url": "https://doi.org/10.1073/pnas.1905258116",
+      "licence": "Values cited from the publication; text not redistributed"
+    }
+  }
+]

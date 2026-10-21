@@ -1,0 +1,573 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://conformome.org/schema/state_network.schema.json",
+  "title": "State network",
+  "description": "The states a molecule visits in one study, the transitions observed between them, the pathways (ordered sequences of states) that trajectories follow, and how perturbations change them. This is the record that answers which conformations exist, how they interconvert, and by which routes; occupancy records give how often each is seen.",
+  "type": "object",
+  "required": [
+    "network_id",
+    "molecule_id",
+    "construct_id",
+    "protocol_ids",
+    "states",
+    "transitions",
+    "pathways",
+    "perturbation_effects",
+    "functional_readouts",
+    "derived",
+    "curation",
+    "provenance"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "network_id": {
+      "type": "string",
+      "pattern": "^SN-[A-Za-z0-9_.-]+$"
+    },
+    "molecule_id": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "common.schema.json#/$defs/molecule_id"
+        }
+      ]
+    },
+    "construct_id": {
+      "type": "string",
+      "pattern": "^CN-[A-Za-z0-9_.-]+$"
+    },
+    "protocol_ids": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^PT-[A-Za-z0-9_.-]+$"
+      }
+    },
+    "states": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "key",
+          "state_id",
+          "label",
+          "structure",
+          "status",
+          "delta_lc_from_unfolded",
+          "predicted_delta_lc",
+          "assignment_evidence"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "key": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.+'-]*$",
+            "description": "Local key, unique within the record. U is the fully unfolded state."
+          },
+          "state_id": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "common.schema.json#/$defs/state_id"
+              }
+            ]
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1
+          },
+          "structure": {
+            "type": "object",
+            "required": [
+              "conformation_id",
+              "dot_bracket",
+              "description"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "conformation_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "dot_bracket": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "description": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            }
+          },
+          "status": {
+            "enum": [
+              "observed",
+              "proposed",
+              "unfolded"
+            ],
+            "description": "observed: resolved as a distinct branch in the data; proposed: an interpretation the authors put forward but did not resolve directly."
+          },
+          "delta_lc_from_unfolded": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "common.schema.json#/$defs/measured"
+              }
+            ]
+          },
+          "predicted_delta_lc": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "value_nm",
+                  "method",
+                  "assumptions"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "value_nm": {
+                    "type": "number"
+                  },
+                  "method": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "assumptions": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "assignment_evidence": {
+            "type": "array",
+            "items": {
+              "enum": [
+                "contour_length_match",
+                "force_consistent_with_stability",
+                "transition_map_coherence",
+                "perturbation",
+                "mutation",
+                "chemical_probing",
+                "bioinformatic_prediction",
+                "structure"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "transitions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "from",
+          "to",
+          "direction",
+          "protocol_id",
+          "n_events",
+          "delta_lc",
+          "force",
+          "rate_s",
+          "distance_to_ts_nm",
+          "barrier_kt"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "from": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.+'-]*$",
+            "description": "Local key, unique within the record. U is the fully unfolded state."
+          },
+          "to": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.+'-]*$",
+            "description": "Local key, unique within the record. U is the fully unfolded state."
+          },
+          "direction": {
+            "enum": [
+              "unfold",
+              "refold",
+              "hop"
+            ]
+          },
+          "protocol_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "n_events": {
+            "type": [
+              "integer",
+              "null"
+            ],
+            "minimum": 0
+          },
+          "delta_lc": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "common.schema.json#/$defs/measured"
+              }
+            ]
+          },
+          "force": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "description": "Summary of a distribution of measured values.",
+                "required": [
+                  "n",
+                  "mean",
+                  "sd",
+                  "median",
+                  "unit"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "n": {
+                    "type": [
+                      "integer",
+                      "null"
+                    ],
+                    "minimum": 0
+                  },
+                  "mean": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "sd": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "median": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  },
+                  "unit": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "sem": {
+                    "type": [
+                      "number",
+                      "null"
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "rate_s": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "common.schema.json#/$defs/measured"
+              }
+            ]
+          },
+          "distance_to_ts_nm": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "common.schema.json#/$defs/measured"
+              }
+            ]
+          },
+          "barrier_kt": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "common.schema.json#/$defs/measured"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "pathways": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "key",
+          "name",
+          "states",
+          "description"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "key": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.+'-]*$",
+            "description": "Local key, unique within the record. U is the fully unfolded state."
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "states": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.+'-]*$",
+              "description": "Local key, unique within the record. U is the fully unfolded state."
+            }
+          },
+          "description": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "perturbation_effects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "perturbation",
+          "protocol_id",
+          "abolishes",
+          "creates",
+          "stabilizes",
+          "retains",
+          "note"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "perturbation": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.+'-]*$",
+            "description": "Local key, unique within the record. U is the fully unfolded state."
+          },
+          "protocol_id": {
+            "type": "string",
+            "pattern": "^PT-[A-Za-z0-9_.-]+$"
+          },
+          "abolishes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.+'-]*$",
+              "description": "Local key, unique within the record. U is the fully unfolded state."
+            }
+          },
+          "creates": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.+'-]*$",
+              "description": "Local key, unique within the record. U is the fully unfolded state."
+            }
+          },
+          "stabilizes": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.+'-]*$",
+              "description": "Local key, unique within the record. U is the fully unfolded state."
+            }
+          },
+          "retains": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.+'-]*$",
+              "description": "Local key, unique within the record. U is the fully unfolded state."
+            }
+          },
+          "note": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "functional_readouts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "quantity",
+          "assay",
+          "measured",
+          "doi"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "quantity": {
+            "type": "string",
+            "minLength": 1
+          },
+          "assay": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "measured": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "common.schema.json#/$defs/measured"
+              }
+            ]
+          },
+          "doi": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "derived": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "quantity",
+          "value",
+          "unit",
+          "force_window_pn",
+          "method"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "quantity": {
+            "type": "string",
+            "minLength": 1
+          },
+          "value": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "unit": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "force_window_pn": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "min",
+                  "max"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "min": {
+                    "type": "number"
+                  },
+                  "max": {
+                    "type": "number"
+                  }
+                }
+              }
+            ]
+          },
+          "method": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "curation": {
+      "type": "object",
+      "required": [
+        "status",
+        "missing",
+        "curator",
+        "as_of"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "complete",
+            "incomplete",
+            "draft",
+            "reviewed"
+          ]
+        },
+        "missing": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Values the curator could not read from the source; each is null in the record. A record with missing values is incomplete, never filled by estimation."
+        },
+        "curator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "as_of": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "provenance": {
+      "$ref": "common.schema.json#/$defs/provenance"
+    }
+  }
+}

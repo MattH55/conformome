@@ -379,9 +379,23 @@ def targets_errors(paths: Paths) -> list[str]:
     return errors
 
 
+def study_errors(paths: Paths) -> list[str]:
+    """Every studies/<name>/ directory: schemas, and the cross-references the schemas cannot check."""
+    from conformome.conformations import studies
+
+    root = paths.curation.parent / "studies"
+    errors = []
+    for d in sorted(p for p in root.glob("*") if p.is_dir()) if root.exists() else []:
+        study = studies.load(d)
+        errors += [f"studies/{d.name}: {e}" for e in studies.schema_errors(study, paths.schema)]
+        errors += [f"studies/{d.name}: {e}" for e in studies.integrity_errors(study)]
+    return errors
+
+
 def run(paths: Paths, accessions: list[str] | None = None, site: bool = True) -> list[str]:
     accessions = accessions or target_accessions(paths)
     errors = schema_errors(paths) + taxonomy_errors(paths) + vocabulary_errors(paths) + sources_errors(paths) + targets_errors(paths)
+    errors += study_errors(paths)
     errors += build_errors(paths, accessions)
     if site:
         errors += site_errors(paths, accessions)

@@ -1,0 +1,253 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://conformome.org/schema/construct.schema.json",
+  "title": "Construct",
+  "description": "The molecule actually studied in an experiment: the region of a reference sequence, its variant, and how it is held (handles, attachment chemistry). Many experiments share one construct.",
+  "type": "object",
+  "required": [
+    "construct_id",
+    "molecule_id",
+    "molecule_reference",
+    "name",
+    "molecule_type",
+    "sequence",
+    "variant",
+    "handles",
+    "attachments",
+    "curation",
+    "provenance"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "construct_id": {
+      "type": "string",
+      "pattern": "^CN-[A-Za-z0-9_.-]+$"
+    },
+    "molecule_id": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "common.schema.json#/$defs/molecule_id"
+        }
+      ]
+    },
+    "molecule_reference": {
+      "type": "object",
+      "required": [
+        "database",
+        "accession",
+        "start",
+        "end"
+      ],
+      "additionalProperties": false,
+      "description": "Where the construct's sequence comes from, when it has no Conformome page yet.",
+      "properties": {
+        "database": {
+          "enum": [
+            "UniProt",
+            "RNAcentral",
+            "GenBank",
+            "RefSeq",
+            "PDB",
+            "none"
+          ]
+        },
+        "accession": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "start": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "end": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        }
+      }
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "molecule_type": {
+      "enum": [
+        "rna",
+        "dna",
+        "protein",
+        "complex"
+      ]
+    },
+    "sequence": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^[ACGUTNacgutnA-Za-z]+$",
+      "description": "The studied sequence, 5'→3' (or N→C), without handles."
+    },
+    "variant": {
+      "type": "object",
+      "required": [
+        "kind",
+        "changes"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "wild_type",
+            "mutant",
+            "truncation",
+            "designed",
+            "unknown"
+          ]
+        },
+        "changes": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "handles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "side",
+          "kind",
+          "length"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "side": {
+            "enum": [
+              "5prime",
+              "3prime",
+              "N",
+              "C",
+              "unknown"
+            ]
+          },
+          "kind": {
+            "enum": [
+              "dsDNA",
+              "RNA_DNA_hybrid",
+              "dsRNA",
+              "ssDNA",
+              "protein_linker",
+              "polyprotein",
+              "unknown"
+            ]
+          },
+          "length": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "value",
+                  "unit"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "value": {
+                    "type": "number"
+                  },
+                  "unit": {
+                    "enum": [
+                      "bp",
+                      "nt",
+                      "aa",
+                      "nm"
+                    ]
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "attachments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "side",
+          "chemistry"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "side": {
+            "enum": [
+              "5prime",
+              "3prime",
+              "N",
+              "C",
+              "unknown"
+            ]
+          },
+          "chemistry": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "curation": {
+      "type": "object",
+      "required": [
+        "status",
+        "missing",
+        "curator",
+        "as_of"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "status": {
+          "enum": [
+            "complete",
+            "incomplete",
+            "draft",
+            "reviewed"
+          ]
+        },
+        "missing": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "description": "Values the curator could not read from the source; each is null in the record. A record with missing values is incomplete, never filled by estimation."
+        },
+        "curator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "as_of": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "provenance": {
+      "$ref": "common.schema.json#/$defs/provenance"
+    }
+  }
+}
