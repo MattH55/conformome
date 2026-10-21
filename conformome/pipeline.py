@@ -87,23 +87,45 @@ def _representatives(paths: Paths, accessions: list[str]) -> list[str]:
     return sorted(set(reps))
 
 
+UNREACHABLE_AFTER = 2
+
+
+def _connection_error(err: Exception) -> bool:
+    """True for failures to reach the host (timeouts, refused or reset connections), not for HTTP error codes."""
+    if isinstance(err, urllib.error.HTTPError):
+        return False
+    return isinstance(err, (urllib.error.URLError, TimeoutError, ConnectionError, OSError))
+
+
 def download(paths: Paths, accessions: list[str]) -> None:
     """Fetch UniProt and every implemented source. A failing optional source is logged, not fatal."""
     retrieved = today()
     failures = []
+    unreachable: dict[str, int] = {}  # source NAME -> consecutive connection-level failures in this run
     for acc in accessions:
         mtype = molecule_type(acc)
         print(f"download {acc}: {IDENTITY_NAME[mtype]} entry")
         fetch_identity(paths, acc, retrieved)
         for module in sources_for(mtype):
+            if module is not PRIMARY[mtype] and unreachable.get(module.NAME, 0) >= UNREACHABLE_AFTER:
+                # Circuit breaker: a host that times out costs minutes per request with retries; once it has
+                # failed this way UNREACHABLE_AFTER times in a row, skip it for the rest of the run. Raw files
+                # already on disk from an earlier run are left in place and are still ingested.
+                failures.append({"molecule_id": acc, "source": module.NAME,
+                                 "error": "skipped: source unreachable earlier in this run"})
+                print(f"download {acc}: {module.NAME} SKIPPED (unreachable earlier in this run)")
+                continue
             try:
                 module.fetch(paths, acc, retrieved)
             except Exception as err:  # network or API failure: record it and carry on
                 if module is PRIMARY[mtype]:
                     raise
+                if _connection_error(err):
+                    unreachable[module.NAME] = unreachable.get(module.NAME, 0) + 1
                 failures.append({"molecule_id": acc, "source": module.NAME, "error": f"{type(err).__name__}: {err}"})
                 print(f"download {acc}: {module.NAME} FAILED ({err})")
                 continue
+            unreachable[module.NAME] = 0
             print(f"download {acc}: {module.NAME} ok")
     for pdb_id in _representatives(paths, accessions):
         for ext in ("cif", "pdb"):

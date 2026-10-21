@@ -31,15 +31,25 @@ jobs:
       # Same weekly cache as deploy.yml; caches saved on a branch are visible only to that branch.
       - id: week
         run: echo "week=$(date -u +%G-%V)" >> "$GITHUB_OUTPUT"
-      - uses: actions/cache@v4
+      # Restore and save are separate so that the download is saved even when a later step fails or the
+      # download step times out (the combined actions/cache post-step is skipped on cancellation).
+      - id: cache
+        uses: actions/cache/restore@v4
         with:
           path: data/raw
           key: raw-${{ steps.week.outputs.week }}-${{ hashFiles('targets.yaml', 'curation/*.yaml') }}
           restore-keys: raw-${{ steps.week.outputs.week }}-
       - name: Download raw inputs
+        timeout-minutes: 240
         run: |
           set -o pipefail
           make download 2>&1 | tee download.log
+      - name: Save raw-data cache
+        if: always()
+        uses: actions/cache/save@v4
+        with:
+          path: data/raw
+          key: raw-${{ steps.week.outputs.week }}-${{ hashFiles('targets.yaml', 'curation/*.yaml') }}-${{ github.run_id }}
       - name: Report download failure
         if: failure()
         run: |
