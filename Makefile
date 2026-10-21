@@ -6,7 +6,7 @@
 PYTHON ?= python3
 ACC ?=
 
-.PHONY: download ingest map models site validate test report clean paper
+.PHONY: download ingest map models conformations site validate test report clean paper
 
 download:
 	$(PYTHON) -m conformome download $(ACC)
@@ -20,7 +20,10 @@ map: ingest
 models: map
 	$(PYTHON) -m conformome models $(ACC)
 
-site: models
+conformations: models
+	$(PYTHON) -m conformome conformations $(ACC)
+
+site: conformations
 	$(PYTHON) -m conformome site $(ACC)
 
 test:

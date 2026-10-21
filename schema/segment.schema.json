@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://conformome.org/schema/segment.schema.json",
+  "title": "Segment",
+  "description": "One resolved level in a single-molecule measurement: a branch of a force-extension curve (a stretch of constant contour length), a transition between branches, a FRET level or a dwell state. Segments are what an experiment shows before anyone says which conformation they are. A segment is taken from one evidence record, either from a single trajectory or as a summary over many.",
+  "type": "object",
+  "required": [
+    "segment_id",
+    "molecule_id",
+    "evidence_id",
+    "kind",
+    "aggregation",
+    "trajectory_id",
+    "index",
+    "previous_segment",
+    "next_segment",
+    "observables",
+    "force_range_pn",
+    "conditions",
+    "provenance"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "segment_id": {
+      "type": "string",
+      "pattern": "^SG-[A-Za-z0-9_.-]+$"
+    },
+    "molecule_id": {
+      "$ref": "common.schema.json#/$defs/molecule_id"
+    },
+    "evidence_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "enum": [
+        "force_branch",
+        "force_transition",
+        "fret_level",
+        "dwell_state"
+      ]
+    },
+    "aggregation": {
+      "enum": [
+        "single_trajectory",
+        "ensemble_summary"
+      ],
+      "description": "ensemble_summary: a value reported over many curves (mean or fitted), as in most published results."
+    },
+    "trajectory_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "index": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 0
+    },
+    "previous_segment": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "next_segment": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "observables": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "quantity",
+          "measured",
+          "statistic"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "quantity": {
+            "type": "string",
+            "minLength": 1
+          },
+          "measured": {
+            "$ref": "common.schema.json#/$defs/measured"
+          },
+          "statistic": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    },
+    "force_range_pn": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "required": [
+            "min",
+            "max"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "min": {
+              "type": "number"
+            },
+            "max": {
+              "type": "number"
+            }
+          }
+        }
+      ]
+    },
+    "conditions": {
+      "$ref": "common.schema.json#/$defs/conditions"
+    },
+    "provenance": {
+      "$ref": "common.schema.json#/$defs/provenance"
+    }
+  }
+}

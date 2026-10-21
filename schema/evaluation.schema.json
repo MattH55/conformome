@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://conformome.org/schema/evaluation.schema.json",
+  "title": "Evaluation",
+  "description": "A score of a prediction run against one curated reference: an observed state's conformation, or a measured quantity. held_out says whether the reference was deposited after the method's training-data cutoff.",
+  "type": "object",
+  "required": [
+    "evaluation_id",
+    "run_id",
+    "molecule_id",
+    "reference",
+    "metric",
+    "value",
+    "best_of_n",
+    "held_out",
+    "provenance"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "evaluation_id": {
+      "type": "string",
+      "pattern": "^EVL-[A-Za-z0-9_.-]+$"
+    },
+    "run_id": {
+      "type": "string",
+      "pattern": "^PR-[A-Za-z0-9_.-]+$"
+    },
+    "molecule_id": {
+      "$ref": "common.schema.json#/$defs/molecule_id"
+    },
+    "reference": {
+      "type": "object",
+      "required": [
+        "state_id",
+        "conformation_id",
+        "deposited"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "state_id": {
+          "$ref": "common.schema.json#/$defs/state_id"
+        },
+        "conformation_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "deposited": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        }
+      }
+    },
+    "metric": {
+      "enum": [
+        "rmsd_ca_nm",
+        "tm_score",
+        "lddt",
+        "gdt_ts",
+        "contour_length_released_error_nm",
+        "radius_of_gyration_error_nm",
+        "state_recovered",
+        "base_pair_f1",
+        "midpoint_force_error_pn"
+      ]
+    },
+    "value": {
+      "type": [
+        "number",
+        "boolean"
+      ]
+    },
+    "best_of_n": {
+      "type": [
+        "integer",
+        "null"
+      ],
+      "minimum": 1
+    },
+    "held_out": {
+      "type": [
+        "boolean",
+        "null"
+      ]
+    },
+    "provenance": {
+      "$ref": "common.schema.json#/$defs/provenance"
+    }
+  }
+}

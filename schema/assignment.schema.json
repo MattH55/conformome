@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://conformome.org/schema/assignment.schema.json",
+  "title": "Assignment",
+  "description": "A scored hypothesis that a segment corresponds to a conformation, a state, or a transition between two states. Every candidate is kept with its score and rank, so a reader can see the alternatives a method weighed, not only its choice.",
+  "type": "object",
+  "required": [
+    "assignment_id",
+    "molecule_id",
+    "segment_id",
+    "target",
+    "score",
+    "rank",
+    "accepted",
+    "method",
+    "status",
+    "provenance"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "assignment_id": {
+      "type": "string",
+      "pattern": "^AS-[A-Za-z0-9_.-]+$"
+    },
+    "molecule_id": {
+      "$ref": "common.schema.json#/$defs/molecule_id"
+    },
+    "segment_id": {
+      "type": "string",
+      "pattern": "^SG-[A-Za-z0-9_.-]+$"
+    },
+    "target": {
+      "type": "object",
+      "required": [
+        "conformation_id",
+        "state_id",
+        "transition"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "conformation_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "state_id": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "common.schema.json#/$defs/state_id"
+            }
+          ]
+        },
+        "transition": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "required": [
+                "from_state",
+                "to_state"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "from_state": {
+                  "$ref": "common.schema.json#/$defs/state_id"
+                },
+                "to_state": {
+                  "$ref": "common.schema.json#/$defs/state_id"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "score": {
+      "type": "object",
+      "required": [
+        "kind",
+        "value",
+        "n_candidates"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "z_score",
+            "residual_nm",
+            "likelihood",
+            "posterior"
+          ]
+        },
+        "value": {
+          "type": "number"
+        },
+        "n_candidates": {
+          "type": "integer",
+          "minimum": 1
+        }
+      }
+    },
+    "rank": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "accepted": {
+      "type": "boolean",
+      "description": "True when the score passes the method's stated threshold."
+    },
+    "method": {
+      "type": "object",
+      "description": "How the record was produced: software or algorithm, its version and parameters.",
+      "required": [
+        "name",
+        "version",
+        "parameters"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "parameters": {
+          "type": "object"
+        },
+        "training_data_cutoff": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date",
+          "description": "For learned models: the latest deposition date in the training data. Used to tell held-out references from training structures."
+        }
+      }
+    },
+    "status": {
+      "enum": [
+        "computed",
+        "curated",
+        "rejected"
+      ]
+    },
+    "provenance": {
+      "$ref": "common.schema.json#/$defs/provenance"
+    }
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://conformome.org/schema/prediction_run.schema.json",
+  "title": "Prediction run",
+  "description": "One run of a predictive method (AlphaFold, an ensemble generator, an MD protocol) on one molecule, and the conformations it produced. The training-data cutoff is what lets an evaluation separate structures the model could have memorised from held-out ones.",
+  "type": "object",
+  "required": [
+    "run_id",
+    "molecule_id",
+    "method",
+    "inputs",
+    "conformation_ids",
+    "provenance"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "pattern": "^PR-[A-Za-z0-9_.-]+$"
+    },
+    "molecule_id": {
+      "$ref": "common.schema.json#/$defs/molecule_id"
+    },
+    "method": {
+      "type": "object",
+      "description": "How the record was produced: software or algorithm, its version and parameters.",
+      "required": [
+        "name",
+        "version",
+        "parameters"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "parameters": {
+          "type": "object"
+        },
+        "training_data_cutoff": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date",
+          "description": "For learned models: the latest deposition date in the training data. Used to tell held-out references from training structures."
+        }
+      }
+    },
+    "inputs": {
+      "type": "object",
+      "required": [
+        "sequence_sha256",
+        "msa",
+        "templates",
+        "seeds"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "sequence_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "msa": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "How the alignment was built or subsampled, or null."
+        },
+        "templates": {
+          "type": [
+            "boolean",
+            "null"
+          ]
+        },
+        "seeds": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "conformation_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^CF-[A-Za-z0-9_.-]+$"
+      }
+    },
+    "provenance": {
+      "$ref": "common.schema.json#/$defs/provenance"
+    }
+  }
+}

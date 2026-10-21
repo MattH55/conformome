@@ -27,7 +27,7 @@ jobs:
           python-version: "3.12"
           cache: pip
           cache-dependency-path: pyproject.toml
-      - run: pip install -e ".[test]"
+      - run: pip install -e ".[test,conformations]"
       # Same weekly cache as deploy.yml; caches saved on a branch are visible only to that branch.
       - id: week
         run: echo "week=$(date -u +%G-%V)" >> "$GITHUB_OUTPUT"

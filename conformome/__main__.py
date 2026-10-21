@@ -1,6 +1,6 @@
 """Command line: python -m conformome <step> [UniProt accession ...]
 
-Steps mirror the Makefile: download, ingest, map, models, site, validate.
+Steps mirror the Makefile: download, ingest, map, models, conformations, site, validate.
 With no accessions, every curation/<accession>.yaml is processed.
 """
 
@@ -15,7 +15,7 @@ from conformome.common import default_paths
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(prog="conformome")
-    parser.add_argument("step", choices=["download", "ingest", "map", "models", "site", "validate"])
+    parser.add_argument("step", choices=["download", "ingest", "map", "models", "conformations", "site", "validate"])
     parser.add_argument("accessions", nargs="*")
     args = parser.parse_args(argv)
     paths = default_paths()
@@ -31,6 +31,15 @@ def main(argv: list[str] | None = None) -> int:
     elif args.step == "models":
         for acc in accessions:
             pipeline.models(paths, acc)
+    elif args.step == "conformations":
+        from conformome.conformations import build as conf_build
+        for acc in accessions:
+            conf_build.build(paths, acc)
+            from conformome.conformations import predict
+            try:
+                predict.predict(paths, acc)
+            except ImportError as err:  # ViennaRNA not installed (pip install -e ".[conformations]")
+                print(f"conformations {acc}: predictions skipped ({err})")
     elif args.step == "site":
         from conformome.site.build import build_site
         build_site(paths, accessions)
