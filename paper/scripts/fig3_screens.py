@@ -83,8 +83,11 @@ def capture() -> None:
                     raise SystemExit(f"fig3: no section titled {title!r}")
                 return box
 
-            page.screenshot(path=str(SCREENS / "states.png"), clip=section_clip("States and transitions"))
-            page.screenshot(path=str(SCREENS / "coverage.png"), clip=section_clip("Coverage grid"))
+            # The sections sit below the first viewport, so the clip needs the full-page image.
+            page.screenshot(path=str(SCREENS / "states.png"), full_page=True,
+                            clip=section_clip("States and transitions"))
+            page.screenshot(path=str(SCREENS / "coverage.png"), full_page=True,
+                            clip=section_clip("Coverage grid"))
 
             # The fibril is not always the first model. Select it, then wait for the Mol* canvas.
             options = page.locator("#model-select option")
