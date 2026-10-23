@@ -6,7 +6,8 @@ from pathlib import Path
 PAPER = Path(__file__).resolve().parents[1]
 text = (PAPER / "manuscript.md").read_text(encoding="utf-8")
 legends = text.partition("\n## Figure legends\n")[2].partition("\n## References")[0]
-names = {1: "fig1_model", 2: "fig2_coverage", 3: "fig3_screens", 4: "fig4_pipeline"}
+# Legend numbers (manuscript.md) -> script output names. The scripts predate the renumbering.
+names = {1: "fig1_model", 2: "fig4_pipeline", 3: "fig2_coverage", 4: "fig3_screens"}
 blocks = []
 for m in re.finditer(r"\*\*Figure (\d)\. .*?(?=\n\n\*\*Figure|\Z)", legends.strip(), re.S):
     n = int(m.group(1))

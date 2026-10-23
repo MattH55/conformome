@@ -1,37 +1,38 @@
 # Open Research Europe submission notes
 
+Updated 2026-10-23. The field-by-field answers for the form are in `paper/submission/form_answers.md`; this file keeps the author's decisions that the form answers are built from.
+
 ## Article
 
 - **Article type:** Software Tool Article
 - **Subject:** Biological sciences › Structural biology / Biophysics
-- **Title:** Conformome: a per-protein index of experimental evidence on conformational states, mapped across techniques
-- **Author:** Matthew T. J. Halma, Open Source Medicine, Tallinn, Estonia
-- **Keywords:** protein conformation; conformational ensembles; structural biology; FAIR data; database; integrative structural biology; single-molecule biophysics; data integration
+- **Title:** Conformome: an index of experimental evidence on the conformational states of proteins and nucleic acids, mapped across techniques
+- **Author:** Matthew T. J. Halma, Open Source Medicine, Tallinn, Estonia. ORCID: \[to be filled\]
+- **Keywords (8):** protein conformation; conformational ensembles; structural biology; FAIR data; database; integrative structural biology; single-molecule biophysics; RNA structure
 
 ## Eligibility
 
 Horizon 2020 MSCA ITN AntiHelix, grant agreement 859853 (project ended; ORE accepts results of completed H2020 projects). Conformome extends the conformational-ensemble and FAIR-data work of that fellowship; it ingests SMASH-BIO and builds on the Table 3 standard, both outputs of the same project.
 
-*Confirm with ore@f1000.com if in doubt.*
+*Confirm with ORE if in doubt.*
 
 ## Competing interests
 
-M.T.J.H. is a former employee of LUMICKS B.V., an optical tweezers manufacturer. M.T.J.H. also develops SMASH-BIO, one of the sources Conformome ingests.
+M.T.J.H. is a former employee of LUMICKS B.V., a manufacturer of optical tweezers instruments, and develops SMASH-BIO, one of the sources ingested by Conformome. No other competing interests were disclosed.
 
 ## AI-use disclosure
 
-Paste this into the submission form, verbatim from the Acknowledgements:
+Paste this into the submission form, verbatim from the Acknowledgements (fill the model version first, in both places):
 
-> The author used Claude (Anthropic) to draft and edit the manuscript text and to write parts of the pipeline, site-generation and figure code. All content, numbers and interpretations were checked by the author, who takes full responsibility for them; the AI tool is not an author.
+> The author used Claude (Anthropic; \[to be filled: model version\]) to help draft and edit the manuscript text and to write parts of the pipeline, website and figure code, in order to speed up writing and software development. The author checked all content, numbers and interpretations and takes full responsibility for them. No generative AI was used to create or alter figures.
 
 ## Upload set
 
-- `paper/out/manuscript.docx`
-- `paper/figures/fig1_model.tiff`
-- `paper/figures/fig2_coverage.tiff`
-- `paper/figures/fig3_screens.tiff`
-- `paper/figures/fig4_pipeline.tiff`
-- Data availability DOI and software availability DOI, once the GitHub–Zenodo integration has archived the `v0.1.0-paper` tag. Do not mint a DOI another way. See the pull request for the steps if the integration is not enabled.
+Everything is in `paper/submission/`:
+
+- `Conformome_ORE_manuscript.docx` (the file ORE takes; the `.pdf` is a reading copy)
+- `figures/Figure1.tiff` … `figures/Figure4.tiff` (PNG copies alongside)
+- Data availability DOI and software availability DOI, once the `v0.1.0` GitHub release has been archived by the GitHub–Zenodo integration and the data archive has been published. Do not mint a DOI another way. Steps: `release_meta/DEPOSIT.md`.
 
 ## Suggested reviewers
 
