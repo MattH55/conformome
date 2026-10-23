@@ -30,7 +30,7 @@ Field-by-field answers for https://open-research-europe.ec.europa.eu → Submit 
 | Name | Matthew T. J. Halma |
 | Affiliation | Open Source Medicine, Pärnu mnt. 139c, 11317 Tallinn, Estonia |
 | Email | mhalma@opensourcemed.info |
-| ORCID | **[author]** (optional on ORE, but used in `.zenodo.json`, `CITATION.cff` and the manuscript byline; fill all four places with the same iD) |
+| ORCID | https://orcid.org/0000-0003-2487-0636 (also in `.zenodo.json`, `CITATION.cff`, the dataset metadata and the manuscript byline) |
 | CRediT roles | Conceptualization; Data curation; Methodology; Software; Validation; Visualization; Writing – original draft; Writing – review & editing (single author) |
 | Corresponding author | yes |
 
@@ -55,15 +55,15 @@ ORE asks for "the tool, version where known, purpose, and the human checks appli
 
 ## Data availability statement (as in the manuscript, with the DOI filled)
 
-Zenodo: Conformome pilot release 0.1.0. https://doi.org/10.5281/zenodo.**[author: data DOI]**
+Zenodo: Conformome pilot release 0.1.0: conformational-state evidence records for proteins and nucleic acids. https://doi.org/10.5281/zenodo.23536810
 
 This project contains the following underlying data: `all-records.jsonl` (every molecule, state, transition, evidence and model record); one JSON bundle per molecule; per-nucleotide reactivity profiles for chemical-probing entries; the JSON Schemas for all record types; `techniques.yaml` (technique taxonomy); the per-molecule curation files; the manifest of raw inputs (URL, retrieval date and SHA-256 checksum).
 
 The same files can be downloaded from https://conformome.org/downloads/. Evidence from sources whose licence does not allow redistribution is not included in the archive and is linked at source.
 
-Data are available under the terms of the **[author: licence; the archive carries CC BY 4.0]** (ORE accepts CC0 or CC BY 4.0; CC0 preferred).
+Data are available under the terms of the Creative Commons Attribution 4.0 International license (CC-BY 4.0).
 
-ORE requires the repository name, a description of each dataset and the licence statement; all three are present once the DOI and licence are filled. Zenodo is on ORE's trusted-repository list.
+ORE requires the repository name, a description of each dataset and the licence statement; all three are present. Zenodo is on ORE's trusted-repository list. The record (published 2026-10-23) holds `conformome-zenodo-package-0.1.0.zip`, which bundles the deposit files with the metadata folder; its version field is empty. Both can be changed on Zenodo (*Edit* for the version; *New version* to replace the file) without changing the concept DOI 10.5281/zenodo.23482662, but a new version gets a new version DOI, which would then replace 23536810 here.
 
 ## Software availability statement (as in the manuscript, with the DOI filled)
 

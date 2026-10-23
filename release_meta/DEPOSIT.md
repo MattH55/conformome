@@ -18,6 +18,12 @@ Counts in the deposit: 87 molecules (81 proteins, 5 RNA, 1 DNA); 17,677 evidence
 
 `make zenodo-prep` rebuilds `release/` and the zip from `build/` and then runs `scripts/check_release_metadata.py`. Two runs give byte-identical files. The checker fails on any mismatch between the build, the README, the metadata, the licences and the checksums; ORCID and DOI placeholders are warnings only.
 
+## Status (2026-10-24)
+
+- **Data record: published.** https://doi.org/10.5281/zenodo.23536810 (concept DOI 10.5281/zenodo.23482662), Dataset, CC BY 4.0, ORCID attached. The uploaded file is `conformome-zenodo-package-0.1.0.zip` (the bundle) and the version field is empty; both are editable on Zenodo. The `isCompiledBy` link to the software DOI is still to be added once that DOI exists.
+- **Software record: not yet made.** No `v0.1.0` tag or GitHub release exists. Section 1 below is what remains.
+- ORCID filled in `.zenodo.json`, `CITATION.cff`, `release_meta/zenodo_data_metadata.json` and the manuscript.
+
 ## Before you start (10 min)
 
 1. **ORCID.** Replace `0000-0000-0000-0000` in `.zenodo.json`, `CITATION.cff` and `release_meta/zenodo_data_metadata.json`. The upload script refuses to run while the placeholder remains.

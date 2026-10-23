@@ -10,7 +10,7 @@ Conformome (https://conformome.org) collects experimental and computational entr
 
 The work is eligible for Open Research Europe through the Horizon 2020 Marie Skłodowska-Curie Innovative Training Network AntiHelix (grant agreement No 859853), of which it continues the conformational-ensemble and FAIR-data work; it ingests SMASH-BIO, an output of the same project.
 
-The source code at the time of publication is archived on Zenodo (DOI: \[to be filled: software DOI\]), and the data release is archived separately on Zenodo under CC BY 4.0 (DOI: \[to be filled: data DOI\]). Both DOIs appear in the Data availability and Software availability statements.
+The source code at the time of publication is archived on Zenodo (DOI: \[to be filled: software DOI\]), and the data release is archived separately on Zenodo under CC BY 4.0 (DOI: 10.5281/zenodo.23536810). Both DOIs appear in the Data availability and Software availability statements.
 
 Competing interests, as stated in the manuscript: I am a former employee of LUMICKS B.V., a manufacturer of optical tweezers instruments, and I develop SMASH-BIO, one of the sources Conformome ingests.
 

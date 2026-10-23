@@ -4,13 +4,13 @@ Prepared 2026-10-23 from the `paper/ore` branch. **Not ready to submit** while a
 
 ## What only the author can do (in this order)
 
-1. Supply the ORCID iD (`manuscript.md` line 6, `.zenodo.json`, `CITATION.cff`, `release_meta/zenodo_data_metadata.json`), and confirm the source licences marked "to be confirmed" in Table 1 and "verify" in `zenodo/redistribution.yaml` (BMRB, SASBDB, RMDB, MDDB, SMASH-BIO, NAKB, Rfam, RNAcentral). Re-run `make zenodo-prep` after any change to `redistribution.yaml`.
-2. Choose the Conformome data licence (`manuscript.md` Data availability; the archive carries CC BY 4.0 until then).
+1. ~~Supply the ORCID iD~~ Done 2026-10-24 (0000-0003-2487-0636, in all four places). Still open: confirm the source licences marked "to be confirmed" in Table 1 and "verify" in `zenodo/redistribution.yaml` (BMRB, SASBDB, RMDB, MDDB, SMASH-BIO, NAKB, Rfam, RNAcentral). Re-run `make zenodo-prep` after any change to `redistribution.yaml`.
+2. ~~Choose the Conformome data licence~~ Done: CC BY 4.0, as published on the Zenodo data record.
 3. Supply the AI model version for the Acknowledgements (`manuscript.md` line 171) and the matching line in `form_answers.md` and `cover_letter.md`.
 4. Decide the second-curator note at the end of the Discussion: report agreement, or delete the note.
 5. Turn on the GitHub–Zenodo integration, tag `v0.1.0` on the frozen commit, publish the draft GitHub release (`release_meta/DEPOSIT.md` §1). That mints the software DOI.
-6. Put the software DOI into `release_meta/zenodo_data_metadata.json`, upload and publish the data archive (`release_meta/DEPOSIT.md` §2), and note the data DOI.
-7. Fill the two Zenodo DOI placeholders in `manuscript.md` (lines 136 and 156), then rebuild: `bash paper/build_formatted.sh`, and refresh `paper/submission/` (copy the new `.docx`/`.pdf`, update `form_answers.md`).
+6. ~~Upload and publish the data archive~~ Done 2026-10-23: https://doi.org/10.5281/zenodo.23536810. Still open: once the software DOI exists, add it to the data record as a related work ("Is compiled by"; *Edit*, no new version).
+7. ~~Data DOI in `manuscript.md`~~ Done. Still open: the software DOI (`manuscript.md` Software availability), then rebuild: `bash paper/build_formatted.sh`, and refresh `paper/submission/` (copy the new `.docx`/`.pdf`, update `form_answers.md` and `cover_letter.md`).
 8. Check `CITATION.cff` `date-released`.
 9. Log in at https://open-research-europe.ec.europa.eu, start a Software Tool Article submission, enter the answers from `form_answers.md`, upload the files in `paper/submission/`, accept the declarations, and submit.
 

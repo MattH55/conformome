@@ -3,7 +3,7 @@ title: "Conformome: an index of experimental evidence on the conformational stat
 ---
 
 ::: {custom-style="Author"}
-Matthew T. J. Halma^1^ \[to be filled: ORCID iD\]
+Matthew T. J. Halma^1^ (https://orcid.org/0000-0003-2487-0636)
 
 ^1^ Open Source Medicine, Pärnu mnt. 139c, 11317 Tallinn, Estonia
 
@@ -133,7 +133,7 @@ To our knowledge, Conformome is the first resource to index the evidence on the 
 
 **Underlying data**
 
-Zenodo: Conformome pilot release 0.1.0<!--t:release.version-->. \[to be filled: Zenodo DOI\]
+Zenodo: Conformome pilot release 0.1.0<!--t:release.version-->: conformational-state evidence records for proteins and nucleic acids. https://doi.org/10.5281/zenodo.23536810
 
 This project contains the following underlying data:
 
@@ -147,7 +147,7 @@ This project contains the following underlying data:
 
 The same files can be downloaded from https://conformome.org/downloads/. Evidence from sources whose licence does not allow redistribution is not included in the archive and is linked at source.
 
-Data are available under the terms of the \[to be filled: licence, e.g. Creative Commons Attribution 4.0 International license (CC-BY 4.0)\].
+Data are available under the terms of the Creative Commons Attribution 4.0 International license (CC-BY 4.0).
 
 ## Software availability
 
