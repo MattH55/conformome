@@ -8,10 +8,11 @@
   "creators": [
     {
       "name": "Halma, Matthew T. J.",
-      "affiliation": "Open Source Medicine, Tallinn, Estonia",
-      "orcid": "0000-0000-0000-0000"
+      "affiliation": "Department of Physics and Astronomy, Vrije Universiteit Amsterdam, De Boelelaan 1081, 1081 HV Amsterdam, the Netherlands; Open Source Medicine, Pärnu mnt. 139c, 11317 Tallinn, Estonia",
+      "orcid": "0000-0003-2487-0636"
     }
   ],
   "keywords": ["protein conformation", "nucleic acids", "FAIR data"],
-  "access_right": "open"
+  "access_right": "open",
+  "grants": [{"id": "10.13039/501100000780::859853"}]
 }
