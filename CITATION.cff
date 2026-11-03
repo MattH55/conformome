@@ -5,12 +5,13 @@ type: software
 authors:
   - family-names: Halma
     given-names: Matthew T. J.
-    affiliation: "Open Source Medicine, Tallinn, Estonia"
-    orcid: "https://orcid.org/0000-0000-0000-0000"
+    affiliation: "Department of Physics and Astronomy, Vrije Universiteit Amsterdam, De Boelelaan 1081, 1081 HV Amsterdam, the Netherlands; Open Source Medicine, Pärnu mnt. 139c, 11317 Tallinn, Estonia"
+    orcid: "https://orcid.org/0000-0003-2487-0636"
 repository-code: "https://github.com/MattH55/conformome"
 url: "https://conformome.org"
 license: MIT
 version: "0.1.0"
+doi: 10.5281/zenodo.23536810
 date-released: "2026-10-19"
 keywords:
   - protein conformation
