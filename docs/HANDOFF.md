@@ -12,8 +12,8 @@ Sister project: SMASH-BIO (https://smash-bio.org, repository `MattH55/smash-bio`
 
 | | |
 |---|---|
-| Live site | http://conformome.org, deployed by GitHub Pages from GitHub Actions. All pages, search and downloads are served. |
-| HTTPS | Not yet. GitHub issues the certificate after the DNS change; then tick **Enforce HTTPS** under Settings → Pages. |
+| Live site | https://conformome.org, deployed by GitHub Pages from GitHub Actions. All pages, search and downloads are served. |
+| HTTPS | Enforced (checked 3 Nov 2026): Settings → Pages shows DNS check successful and **Enforce HTTPS** ticked; http://conformome.org/ and http://www.conformome.org/ redirect to https://conformome.org/; SSL Labs grade B. |
 | Proteins | 81 (`targets.yaml`): 30 with draft curation (states, mappings), 51 evidence-only ("states not yet curated") |
 | Evidence entries | 17,541 from 7 sources (81 proteins, 1 RNA, 1 DNA) |
 | Tests | 117 collected (`make test`); `make validate` passes with 0 errors. `tests/test_audit.py::test_untagged_head_is_refused` passes only when pytest runs from the project venv: it re-invokes `sys.executable -I`, and a global interpreter with PyYAML in user-site fails that check. |
